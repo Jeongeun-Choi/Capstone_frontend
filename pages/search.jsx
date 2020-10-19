@@ -8,7 +8,6 @@ const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: red; */
 
   .information {
     font-size: 9px;
