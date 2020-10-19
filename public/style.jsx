@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 /**
+ * 
+ 회: #868686
  흰: #F8FAFF
  보: #AAABD3
  핑: #CBA6C3 
@@ -31,6 +33,11 @@ export const basicTeamStyle = css`
   border-radius: 3px;
 `;
 
+export const modalFooter = css`
+  width: 100%;
+  min-height: 50px;
+`;
+
 export const Modal = styled.div`
   display: block;
   position: fixed;
@@ -43,30 +50,30 @@ export const Modal = styled.div`
   background-color: #ffffff;
 `;
 
-export const ModalFooter = styled.button`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 10vh;
-  max-height: 50px;
-`;
-
 export const ModalHeader = styled.header`
   width: 100%;
   height: 75px;
+  border-bottom: 1px solid #a2a2a2;
+  line-height: 75px;
 
   .anticon-left {
     position: absolute;
     top: 15px;
-    left: 10px;
+    left: 20px;
     font-size: 20px;
   }
+
   h3 {
     position: absolute;
-    top: 15px;
     left: 50%;
     transform: translate(-50%, 0);
     font-weight: bold;
+  }
+  .anticon-close {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    font-size: 20px;
   }
 `;
 
