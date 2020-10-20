@@ -21,17 +21,23 @@ const ItemBox = styled.div`
   }
 `;
 
-const Item = ({ name, locations, setLocations }) => {
+const Item = ({ type, name, array, setArray }) => {
   const deleteItem = useCallback(
     e => {
       e.preventDefault();
-      const index = locations.findIndex(location => location === name);
-      setLocations([
-        ...locations.slice(0, index),
-        ...locations.slice(index + 1, locations.length)
+      let index = [];
+      if (type === 'location') {
+        index = array.findIndex(element => element.bname === name);
+      } else {
+        index = array.findIndex(element => element.subclass === name);
+      }
+
+      setArray([
+        ...array.slice(0, index),
+        ...array.slice(index + 1, array.length)
       ]);
     },
-    [locations]
+    [array]
   );
 
   return (
