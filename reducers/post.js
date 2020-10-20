@@ -96,7 +96,7 @@ const reducer = (state = initialState, action) => {
       case LOAD_POSTS_SUCCESS: {
         draft.postsLoading = false;
         draft.postsDone = true;
-        draft.me = dummyPosts;
+        draft.posts = dummyPosts;
         break;
       }
       case LOAD_POSTS_FAILURE: {
