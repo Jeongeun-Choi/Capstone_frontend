@@ -21,14 +21,14 @@ const SearchInput = styled(Search)`
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
-  const pathname = router.pathname;
+  const pathName = router.pathname;
 
   return (
     <AppContainer>
       <Header />
-      {pathname.includes('search') ? <SearchInput /> : null}
+      {pathName.includes('search') ? <SearchInput /> : null}
       {children}
-      <Footer />
+      <Footer pathName={pathName} />
     </AppContainer>
   );
 };
