@@ -72,7 +72,7 @@ const FieldsContainer = styled.div`
   }
 `;
 
-const Fields = ({ fields, setFields, setFieldsObj }) => {
+const Fields = ({ tempFields, setTempFields }) => {
   const [middleCategory, setMiddleCategory] = useState('');
   const [showingSubclass, setShowingSubclass] = useState(false);
 
@@ -87,9 +87,10 @@ const Fields = ({ fields, setFields, setFieldsObj }) => {
   const clickSubclass = useCallback(
     subclass => () => {
       const field = { middleCategory, subclass };
-      setFields([field, ...fields]);
+      const newfields = [field, ...tempFields].reverse();
+      setTempFields(newfields);
     },
-    [middleCategory, fields]
+    [middleCategory, tempFields]
   );
 
   return (

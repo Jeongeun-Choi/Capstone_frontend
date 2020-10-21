@@ -73,20 +73,36 @@ const ModalFooter = styled.footer`
 
 const FieldSetting = ({ setShowingFieldModal, fields, setFields }) => {
   const [fieldsObj, setFieldsObj] = useState({});
+  const [tempFields, setTempFields] = useState(fields);
 
   useEffect(() => {
     const newObj = {};
-    fields.forEach(field =>
+    tempFields.forEach(field =>
       newObj[field.middleCategory]
         ? newObj[field.middleCategory].push(field.subclass)
         : (newObj[field.middleCategory] = [field.subclass])
     );
     setFieldsObj(newObj);
-  }, [fields]);
+  }, [tempFields]);
 
   const closeFieldModal = useCallback(() => {
     setShowingFieldModal(prev => !prev);
+    setTempFields(fields);
   }, []);
+
+  const submitResult = useCallback(
+    e => {
+      e.preventDefault();
+      if (tempFields.length === 0) {
+        return alert('한 개 이상의 관심 분야를 선택해야합니다.');
+      }
+      setFields(tempFields);
+      setTempFields([]);
+      setShowingFieldModal(prev => !prev);
+    },
+    [tempFields]
+  );
+
   return (
     <Modal zIndex={2}>
       <FieldForm>
@@ -94,16 +110,12 @@ const FieldSetting = ({ setShowingFieldModal, fields, setFields }) => {
           <h3>지역 설정</h3>
           <CloseOutlined onClick={closeFieldModal} />
         </ModalHeader>
-        <Fields
-          fields={fields}
-          setFields={setFields}
-          setFieldsObj={setFieldsObj}
-        />
+        <Fields tempFields={tempFields} setTempFields={setTempFields} />
         <ModalFooter>
           <section className="choice">
             <div>선택한 분야</div>
             {Object.keys(fieldsObj).map(middleCategory => (
-              <div className="choice-board">
+              <div key={middleCategory} className="choice-board">
                 <div>{middleCategory} / 중분류</div>
                 <div className="choice-board-list">
                   {fieldsObj[middleCategory].map(subclass => (
@@ -111,8 +123,8 @@ const FieldSetting = ({ setShowingFieldModal, fields, setFields }) => {
                       key={subclass}
                       type="field"
                       name={subclass}
-                      array={fields}
-                      setArray={setFields}
+                      array={tempFields}
+                      setArray={setTempFields}
                     />
                   ))}
                 </div>
@@ -126,7 +138,9 @@ const FieldSetting = ({ setShowingFieldModal, fields, setFields }) => {
                 초기화
               </button>
               {/* TODO: onSubmit함수, action 보내기 */}
-              <button className="submit">적용하기</button>
+              <button className="submit" onClick={submitResult}>
+                적용하기
+              </button>
             </div>
           </section>
         </ModalFooter>
