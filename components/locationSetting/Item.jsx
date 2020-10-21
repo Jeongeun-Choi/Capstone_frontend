@@ -3,13 +3,14 @@ import styled from '@emotion/styled';
 import { CloseOutlined } from '@ant-design/icons';
 
 const ItemBox = styled.div`
-  width: 100px;
+  width: 170px;
   display: flex;
   justify-content: center;
   border-radius: 17.5px;
-  border: 1px solid #ffffff;
+  border: 1px solid ${props => (props.color ? props.color : '#ffffff')};
   background-color: rgba(255, 255, 255, 0);
-  color: white;
+  color: ${props => (props.color ? props.color : '#ffffff')};
+  margin-right: 5px;
   > div {
     width: 92%;
     display: flex;
@@ -21,7 +22,7 @@ const ItemBox = styled.div`
   }
 `;
 
-const Item = ({ type, name, array, setArray }) => {
+const Item = ({ type, name, array, setArray, color }) => {
   const deleteItem = useCallback(
     e => {
       e.preventDefault();
@@ -41,7 +42,7 @@ const Item = ({ type, name, array, setArray }) => {
   );
 
   return (
-    <ItemBox>
+    <ItemBox color={color}>
       <div>
         {name}
         <button className="item-delete" onClick={deleteItem}>
