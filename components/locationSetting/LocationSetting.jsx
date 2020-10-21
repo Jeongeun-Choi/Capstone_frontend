@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Modal, ModalHeader, modalFooter } from '../../public/style';
 import { CloseOutlined, ReloadOutlined } from '@ant-design/icons';
 import Address from './FindingAddress';
@@ -66,15 +66,38 @@ const ModalFooter = styled.footer`
   }
 `;
 
-const LocationSetting = () => {
-  const [locations, setLocations] = useState([]);
+const LocationSetting = ({
+  setShowingLocationModal,
+  locations,
+  setLocations
+}) => {
+  const [tempLocations, setTempLocations] = useState(locations);
+
+  const closeLocationModal = useCallback(() => {
+    setShowingLocationModal(prev => !prev);
+    setTempLocations(locations);
+  }, [locations]);
+
+  const submitResult = useCallback(
+    e => {
+      e.preventDefault();
+      if (tempLocations.length === 0) {
+        return alert('한 개 이상의 지역을 설정해야합니다.');
+      }
+
+      setLocations(tempLocations);
+      setTempLocations([]);
+      setShowingLocationModal(prev => !prev);
+    },
+    [tempLocations]
+  );
 
   return (
-    <Modal>
+    <Modal zIndex={2}>
       <LocationForm>
         <ModalHeader>
           <h3>지역 설정</h3>
-          <CloseOutlined />
+          <CloseOutlined onClick={closeLocationModal} />
         </ModalHeader>
         <div className="form-content">
           <div>
@@ -82,19 +105,23 @@ const LocationSetting = () => {
               선택지역<span>({locations.length}/3)</span>
             </div>
             <div>"찾으시려는 지역의 명칭을 정확하게 입력해주세요."</div>
-            <Address locations={locations} setLocations={setLocations} />
+            <Address
+              locations={tempLocations}
+              setLocations={setTempLocations}
+            />
           </div>
         </div>
         <ModalFooter>
           <section className="choice-location">
             <div>선택한 지역</div>
             <div className="choice-location-board">
-              {locations.map(location => (
+              {tempLocations.map(location => (
                 <Item
-                  key={location}
-                  name={location}
-                  locations={locations}
-                  setLocations={setLocations}
+                  key={location.bname}
+                  type="location"
+                  name={location.bname}
+                  array={tempLocations}
+                  setArray={setTempLocations}
                 />
               ))}
             </div>
@@ -106,7 +133,9 @@ const LocationSetting = () => {
                 초기화
               </button>
               {/* TODO: onSubmit함수, action 보내기 */}
-              <button className="submit">적용하기</button>
+              <button type="submit" className="submit" onClick={submitResult}>
+                적용하기
+              </button>
             </div>
           </section>
         </ModalFooter>

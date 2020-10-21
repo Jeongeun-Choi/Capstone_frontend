@@ -31,7 +31,8 @@ const FindingAddress = ({ locations, setLocations }) => {
       sigungu = data.sigungu;
       bname = data.bname;
 
-      setLocations([...locations, bname]);
+      const location = { sido, sigungu, bname };
+      setLocations([...locations, location]);
       setShowingScreen(prev => !prev);
     },
     [locations]
