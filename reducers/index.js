@@ -16,10 +16,10 @@ const rootReducer = combineReducers({
       default:
         return state;
     }
-  }
-  // user,
-  // post,
-  // category
+  },
+  user,
+  post,
+  category
 });
 
 export default rootReducer;
