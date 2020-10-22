@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Menubar } from '../../public/style';
+import styled from '@emotion/styled';
 import Link from 'next/link';
 import {
   HomeOutlined,
@@ -9,6 +9,39 @@ import {
   EllipsisOutlined
 } from '@ant-design/icons';
 
+const Menubar = styled.nav`
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  bottom: 0;
+  min-width: 320px;
+
+  & ul{
+    width: 100%;
+    min-width: 320px;
+    height: 50px;
+    display: flex;
+    list-style: none;
+    background-color: #f6f6f6;
+    font-size: 20px;
+
+    & li{
+      width: 20%;
+      min-width: 64px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+    }
+
+    & a{
+      color: #c4c4c4;
+    }
+  }
+  
+  a[name~=${props => props.selected}] {
+    color: #000000;
+  }
+`;
 const Footer = ({ pathName }) => {
   const menuRef = useRef();
 
