@@ -35,7 +35,7 @@ const index = () => {
     <SearchContainer>
       <div className="filter">
         {teams.map(team => (
-          <Team data={team} />
+          <Team key={team.name} data={team} />
         ))}
       </div>
     </SearchContainer>
