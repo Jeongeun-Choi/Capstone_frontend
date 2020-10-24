@@ -67,16 +67,19 @@ const Selection = () => {
     setShowingFieldModal(prev => !prev);
   });
 
-  const submitResult = useCallback(e => {
-    e.preventDefault();
-    dispatch(addLocationsAction(locations));
-    dispatch(addFieldsAction(fields));
-  }, []);
+  const submitResult = useCallback(
+    e => {
+      e.preventDefault();
+      dispatch(addLocationsAction(locations));
+      dispatch(addFieldsAction(fields));
+    },
+    [locations, fields]
+  );
 
   return (
     <>
       <Modal>
-        <SelectionForm>
+        <SelectionForm onSubmit={submitResult}>
           <ModalHeader>
             <LeftOutlined />
             <h3>지역 및 관심분야 설정</h3>
@@ -125,9 +128,7 @@ const Selection = () => {
               ))}
             </div>
           </section>
-          <Footer type="submit" onClick={submitResult}>
-            설정하기
-          </Footer>
+          <Footer htmlType="submit">설정하기</Footer>
         </SelectionForm>
       </Modal>
       {showingLocationModal ? (
