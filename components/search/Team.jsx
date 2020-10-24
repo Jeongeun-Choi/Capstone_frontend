@@ -28,7 +28,7 @@ const Team = ({ data }) => {
   return (
     <>
       <TeamBox onClick={clickTeam}>
-        <img src={`/public/images/teamimg`} />
+        <img src={`/images/teamimg.jpg`} />
         <div className="team-info">
           <div className="team-info-category">{category}</div>
           <div className="team-info-name">{name}</div>
