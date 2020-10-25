@@ -73,7 +73,9 @@ const EmptyTeams = ({ pageTab }) => {
           setMakingTeam={setShowingMakingTeamModal}
         />
       ) : null}
-      {showingMakingTeamModal ? <MakingTeam /> : null}
+      {showingMakingTeamModal ? (
+        <MakingTeam setCloseModal={setShowingMakingTeamModal} />
+      ) : null}
     </>
   );
 };

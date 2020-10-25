@@ -1,6 +1,7 @@
 import React, { useRef, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { CloseOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import customAxios from '../../utils/baseAxios';
 
 const UploadImage = styled.div`
   & .upload-image-container {
@@ -47,30 +48,37 @@ const Upload = ({ images, setImages }) => {
   const imageInput = useRef();
 
   //이미지 삭제
-  //   const deleteImage = useCallback(
-  //     (url, i) => () => {
-  //       const imageFormData = new FormData();
-  //       imageFormData.append('url', url);
-  //       try {
-  //         customAxios.post('/pic/delete', imageFormData, {
-  //           headers: { Authorization: `Bearer ${getCookie()}` }
-  //         });
-  //         setImages(images.filter(image => image != url));
-  //       } catch (e) {
-  //         console.error(e);
-  //       }
-  //     },
-  //     [images]
-  //   );
+  const deleteImage = useCallback(
+    url => () => {
+      const imageFormData = new FormData();
+      imageFormData.append('url', url);
+      try {
+        // customAxios.post('/pic/delete', imageFormData, {
+        //   headers: { Authorization: `Bearer ${getCookie()}` }
+        // });
+        setImages(images.filter(image => image != url));
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [images]
+  );
 
   const onChangeImages = useCallback(async e => {
     const imageFormData = new FormData();
-    imageFormData.append('pic', e.target.files[0]);
+    const description = e.target.files[0].name;
+    imageFormData.append('images', e.target.files[0]);
     try {
-      const result = await customAxios.post('/pic/upload/help', imageFormData, {
-        headers: { Authorization: `Bearer ${getCookie()}` }
-      });
-      setImages(prev => [...prev, result.data.data]);
+      //TODO: 쿠키 보내줘야할 때 주석 해제하고 쓸 것.
+      // const result = await customAxios.post('/images', imageFormData, {
+      //   headers: { Authorization: `Bearer ${getCookie()}` }
+      // });
+      const result = await customAxios.post('/images', imageFormData);
+      const urls = result.data.urls.reduce((acc, url) => {
+        return acc.push({ URL: url, description });
+      }, []);
+
+      setImages(prev => [...prev, ...urls]);
     } catch (e) {
       console.error(e);
     }
@@ -92,8 +100,7 @@ const Upload = ({ images, setImages }) => {
           {images.map((url, i) => {
             return (
               <div key={url} className="img-border">
-                {/* <div className="delete-icon" onClick={deleteImage(url, i)}> */}
-                <div className="delete-icon">
+                <div className="delete-icon" onClick={deleteImage(url)}>
                   <CloseOutlined />
                 </div>
                 <img src={url} alt={url} width="90" height="90" />

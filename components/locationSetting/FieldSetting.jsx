@@ -79,8 +79,8 @@ const FieldSetting = ({ setShowingFieldModal, fields, setFields }) => {
     const newObj = {};
     tempFields.forEach(field =>
       newObj[field.middleCategory]
-        ? newObj[field.middleCategory].push(field.subclass)
-        : (newObj[field.middleCategory] = [field.subclass])
+        ? newObj[field.middleCategory].push({ id: field.id, name: field.name })
+        : (newObj[field.middleCategory] = [{ id: field.id, name: field.name }])
     );
     setFieldsObj(newObj);
   }, [tempFields]);
@@ -104,7 +104,7 @@ const FieldSetting = ({ setShowingFieldModal, fields, setFields }) => {
   );
 
   return (
-    <Modal zIndex={2}>
+    <Modal zIndex={3}>
       <FieldForm>
         <ModalHeader>
           <h3>지역 설정</h3>
@@ -120,9 +120,9 @@ const FieldSetting = ({ setShowingFieldModal, fields, setFields }) => {
                 <div className="choice-board-list">
                   {fieldsObj[middleCategory].map(subclass => (
                     <Item
-                      key={subclass}
+                      key={subclass.name}
                       type="field"
-                      name={subclass}
+                      name={subclass.name}
                       array={tempFields}
                       setArray={setTempFields}
                     />

@@ -21,7 +21,8 @@ export const basicStyle = css`
 
 export const basicBoxStyle = css`
   width: 45%;
-  height: 90px;
+  height: 100%;
+  min-height: 90px;
   min-width: 130px;
   border: 1px solid #a2a2a2;
 `;
@@ -36,17 +37,20 @@ export const basicTeamStyle = css`
 export const modalFooter = css`
   width: 100%;
   min-height: 50px;
+  z-index: 4;
+  position: sticky;
+  bottom: 0;
 `;
 
 export const Modal = styled.div`
   display: block;
   position: fixed;
-  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
+  z-index: ${props => (props.zIndex ? props.zIndex : 1)};
   background-color: #ffffff;
 `;
 
@@ -55,10 +59,13 @@ export const ModalHeader = styled.header`
   height: 75px;
   border-bottom: 1px solid #a2a2a2;
   line-height: 75px;
+  z-index: 3;
+  position: sticky;
+  top: 0;
 
   .anticon-left {
     position: absolute;
-    top: 15px;
+    top: 25px;
     left: 20px;
     font-size: 20px;
   }
@@ -75,24 +82,6 @@ export const ModalHeader = styled.header`
     right: 20px;
     font-size: 20px;
   }
-`;
-
-export const Menubar = styled.footer`
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  min-width: 320px;
-  height: 5vh;
-  max-height: 50px;
-  display: flex;
-`;
-
-export const Menu = styled.a`
-  width: 20%;
-  min-width: 64px;
-  height: 5vh;
-  max-height: 50px;
-  text-align: center;
 `;
 
 export const BasicInput = styled.input`

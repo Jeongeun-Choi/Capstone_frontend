@@ -13,6 +13,7 @@ export const initialState = {
   signUpError: null,
 
   me: {
+    memberId: undefined,
     userName: undefined,
     email: undefined,
     phoneNumber: undefined,
@@ -21,8 +22,9 @@ export const initialState = {
     locations: [], //활동지역
     fields: [], //관심분야
 
-    applicationTeams: [], //내가 지원한 모임
-    myTeams: {
+    preferGroups: [],
+    applyGroups: [], //내가 지원한 모임
+    joinGroups: {
       activeTeams: [],
       inactiveTeams: []
     } //나의 모임
@@ -77,7 +79,7 @@ const reducer = (state = initialState, action) => {
       case LOG_IN_SUCCESS: {
         draft.logInLoading = false;
         draft.logInDone = true;
-        draft.me = dummyUser(action.data);
+        draft.me = action.data.info;
         break;
       }
       case LOG_IN_FAILURE: {

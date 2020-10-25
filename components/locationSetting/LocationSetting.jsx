@@ -93,7 +93,7 @@ const LocationSetting = ({
   );
 
   return (
-    <Modal zIndex={2}>
+    <Modal zIndex={3}>
       <LocationForm>
         <ModalHeader>
           <h3>지역 설정</h3>

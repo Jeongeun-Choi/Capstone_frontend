@@ -97,18 +97,19 @@ const MakingTeamFooter = styled.button`
   font-weight: bold;
 `;
 
-const MakingTeam = () => {
+const MakingTeam = ({ setCloseModal }) => {
   //TODO: categoryId로 바꾸기
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState([]);
   const [groupName, setGroupName] = inputChangeHook('');
   const [groupIntro, setGroupIntro] = inputChangeHook('');
   const [location, setLocation] = useState('');
   const [personnel, setPersonnel] = useState(0);
+  const [activeTimes, setActiveTimes] = useState([]);
   const [activeDays, setActiveDays] = useState([]);
   const [startTime, setStartTime] = timePickerHook('');
   const [endTime, setEndTime] = timePickerHook('');
   const [skills, setSkills] = inputChangeHook('');
-  const [images, setImages] = useState([]);
+  const [groupImages, setGroupImages] = useState([]);
 
   const changeSlider = useCallback(value => {
     setPersonnel(value);
@@ -136,7 +137,7 @@ const MakingTeam = () => {
 
   const splitSkills = useCallback(() => {
     const skillArray = skills.split(',').reduce((acc, skill) => {
-      return acc.push({ name: skill });
+      return acc.push({ name: skill.trim() });
     }, []);
 
     setSkills(skillArray);
@@ -150,113 +151,120 @@ const MakingTeam = () => {
         endTime: endTime
       });
     }, []);
+    setActiveTimes(activeTimes);
   }, []);
 
   const submitResult = useCallback(() => {
     splitSkills();
+    makeActiveTimes();
 
-    const data = { category, groupName, groupIntro };
+    const data = {
+      category,
+      groupName,
+      groupIntro,
+      location,
+      skills,
+      maxMember,
+      activeTimes
+    };
   }, []);
 
-  const changeTime = useCallback((time, timeString) => {
-    setActiveTime(timeString);
+  const closeModal = useCallback(() => {
+    setCloseModal(prev => !prev);
   }, []);
 
   return (
-    <>
-      <Modal>
-        <MakingTeamContainer
-          onSubmit={submitResult}
-          encType="multipart/form-data"
-        >
-          <MakingTeamHeader>
-            <h3>모임 개설</h3>
-            <LeftOutlined />
-          </MakingTeamHeader>
-          <main>
-            <div className="team-name">
+    <Modal>
+      <MakingTeamContainer
+        onSubmit={submitResult}
+        encType="multipart/form-data"
+      >
+        <MakingTeamHeader>
+          <h3>모임 개설</h3>
+          <LeftOutlined onClick={closeModal} />
+        </MakingTeamHeader>
+        <main>
+          <div className="team-name">
+            <div className="category-title">
               <div className="subtitle">카테고리</div>
-              <Select defaultValue="카테고리" onChange={changeCategory}>
-                {dummyCategorys.map(category => (
-                  <Option value={category.type}>{category.type}</Option>
-                ))}
-              </Select>
-              <div>
-                <div className="subtitle">모임명</div>
-                <input
-                  onChange={setGroupName}
-                  className="team-input"
-                  placeholder="모임명"
-                />
-              </div>
+              <div className="category-choice">선택</div>
             </div>
-            <div className="team-info">
-              <div className="subtitle">모임소개</div>
-              <textarea
-                className="team-info-textarea"
-                onChange={setGroupIntro}
-                rows="5"
-                cols="33"
-              >
-                블라블라머시기어쩌고
-              </textarea>
-            </div>
-            <div className="team-active-day">
-              <div className="subtitle">활동 요일</div>
-              <div className="team-active-day-content">
-                {Object.keys(days).map(day => (
-                  <div
-                    key={day}
-                    name={day}
-                    className="team-active-day-content-item"
-                    onClick={changeDayState}
-                  >
-                    {day}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="team-active-time">
-              <div className="subtitle">활동 시간</div>
-              <div className="team-active-time-content">
-                <TimePicker format={format} onChange={setStartTime} />
-                <TimePicker format={format} onChange={setEndTime} />
-              </div>
-            </div>
-            <div className="team-personnel">
-              <div className="subtitle">최대 인원</div>
-              <Slider
-                defaultValue={0}
-                max={10}
-                tipFormatter={formatter}
-                onChange={changeSlider}
-              />
-            </div>
-            <div className="team-skill">
-              <div className="subtitle">활동을 위해 필요한 스킬</div>
+            {<div></div>}
+            <div>
+              <div className="subtitle">모임명</div>
               <input
+                onChange={setGroupName}
                 className="team-input"
-                placeholder=",로 구분하여 적으세요."
-                onChange={setSkills}
+                placeholder="모임명"
               />
             </div>
-            <div className="team-location">
-              <div className="team-location-title">
-                <div className="subtitle">모임 지역</div>
-                {location.length !== 0 ? <div>{location}</div> : null}
-              </div>
-              <FindingAddress locations={location} setLocations={setLocation} />
-              {location.length !== 0 ? <KakaoMap location={location} /> : null}
+          </div>
+          <div className="team-info">
+            <div className="subtitle">모임소개</div>
+            <textarea
+              className="team-info-textarea"
+              onChange={setGroupIntro}
+              rows="5"
+              cols="33"
+            >
+              블라블라머시기어쩌고
+            </textarea>
+          </div>
+          <div className="team-active-day">
+            <div className="subtitle">활동 요일</div>
+            <div className="team-active-day-content">
+              {Object.keys(days).map(day => (
+                <div
+                  key={day}
+                  name={day}
+                  className="team-active-day-content-item"
+                  onClick={changeDayState}
+                >
+                  {day}
+                </div>
+              ))}
             </div>
-            <div className="main-image">
-              <div className="subtitle">이미지 추가</div>
-              <Upload images={images} setImages={setImages} />
+          </div>
+          <div className="team-active-time">
+            <div className="subtitle">활동 시간</div>
+            <div className="team-active-time-content">
+              <TimePicker format={format} onChange={setStartTime} />
+              <TimePicker format={format} onChange={setEndTime} />
             </div>
-          </main>
-          <MakingTeamFooter htmlType="submit">모임 개설하기</MakingTeamFooter>
-        </MakingTeamContainer>
-      </Modal>
-    </>
+          </div>
+          <div className="team-personnel">
+            <div className="subtitle">최대 인원</div>
+            <Slider
+              defaultValue={0}
+              max={10}
+              tipFormatter={formatter}
+              onChange={changeSlider}
+            />
+          </div>
+          <div className="team-skill">
+            <div className="subtitle">활동을 위해 필요한 스킬</div>
+            <input
+              className="team-input"
+              placeholder=",로 구분하여 적으세요."
+              onChange={setSkills}
+            />
+          </div>
+          <div className="team-location">
+            <div className="team-location-title">
+              <div className="subtitle">모임 지역</div>
+              {location.length !== 0 ? <div>{location}</div> : null}
+            </div>
+            <FindingAddress locations={location} setLocations={setLocation} />
+            {location.length !== 0 ? <KakaoMap location={location} /> : null}
+          </div>
+          <div className="main-image">
+            <div className="subtitle">이미지 추가</div>
+            <Upload images={groupImages} setImages={setGroupImages} />
+          </div>
+        </main>
+        <MakingTeamFooter htmlType="submit">모임 개설하기</MakingTeamFooter>
+      </MakingTeamContainer>
+    </Modal>
   );
 };
 

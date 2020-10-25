@@ -41,7 +41,7 @@ const Footer = styled.button`
   font-weight: bold;
 `;
 
-const Selection = () => {
+const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
   const dispatch = useDispatch();
   const [locations, setLocations] = useState([]);
   const [fields, setFields] = useState([]);
@@ -53,8 +53,8 @@ const Selection = () => {
     const newObj = {};
     fields.forEach(field =>
       newObj[field.middleCategory]
-        ? newObj[field.middleCategory].push(field.subclass)
-        : (newObj[field.middleCategory] = [field.subclass])
+        ? newObj[field.middleCategory].push({ id: field.id, name: field.name })
+        : (newObj[field.middleCategory] = [{ id: field.id, name: field.name }])
     );
     setFieldsObj(newObj);
   }, [fields]);
@@ -72,16 +72,22 @@ const Selection = () => {
       e.preventDefault();
       dispatch(addLocationsAction(locations));
       dispatch(addFieldsAction(fields));
+      setShowingLocation(prev => !prev);
     },
     [locations, fields]
   );
 
+  const closeModal = useCallback(() => {
+    setShowingSelection(prev => !prev);
+    // setLocations([])
+  }, []);
+
   return (
     <>
-      <Modal>
+      <Modal zIndex={2}>
         <SelectionForm onSubmit={submitResult}>
           <ModalHeader>
-            <LeftOutlined />
+            <LeftOutlined onClick={closeModal} />
             <h3>지역 및 관심분야 설정</h3>
           </ModalHeader>
           <section className="setting">
@@ -115,9 +121,9 @@ const Selection = () => {
                   <div className="choice-board-list">
                     {fieldsObj[middleCategory].map(subclass => (
                       <Item
-                        key={subclass}
+                        key={subclass.name}
                         type="field"
-                        name={subclass}
+                        name={subclass.name}
                         array={fields}
                         setArray={setFields}
                         color="#CBA6C3"

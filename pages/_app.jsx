@@ -6,6 +6,7 @@ import wrapper from '../store/configureStore';
 import AppLayout from '../components/AppLayout';
 import 'antd/dist/antd.css';
 import '../public/global.css';
+import { MAP_API } from '../api';
 
 const App = ({ Component, pageProps }) => {
   return (
@@ -14,6 +15,10 @@ const App = ({ Component, pageProps }) => {
       <Head>
         <meta charSet="utf-8" />
         <title>App</title>
+        <script
+          type="text/javascript"
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${MAP_API}`}
+        ></script>
       </Head>
       <AppLayout>
         <Component {...pageProps} />

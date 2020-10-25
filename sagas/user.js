@@ -1,4 +1,4 @@
-import { all, fork, takeLatest, put, delay } from 'redux-saga/effects';
+import { all, fork, takeLatest, put, delay, call } from 'redux-saga/effects';
 import axios from 'axios';
 
 import {
@@ -12,14 +12,13 @@ import {
   LOG_OUT_REQUEST
 } from '../reducers/user';
 
-function logInAPI() {
-  return axios.post('/member/login');
+function logInAPI(data) {
+  return axios.post('/member/login', data);
 }
 function* logIn(action) {
   try {
-    yield delay(1000);
-    const { email, password } = action.data;
-    yield put(loginSuccessAction({ email, password }));
+    const response = yield call(logInAPI, action.data);
+    yield put(loginSuccessAction(response.data));
   } catch (err) {
     yield put(loginFailureAction(err));
   }
@@ -28,12 +27,12 @@ function* watchLogIn() {
   yield takeLatest(LOG_IN_REQUEST, logIn);
 }
 
-function signupAPI() {
-  return axios.post('/member/join');
+function signupAPI(data) {
+  return axios.post('/member/join', data);
 }
 function* signup(action) {
   try {
-    yield delay(1000);
+    yield call(signupAPI, action.data);
     yield put(signupSuccessAction());
   } catch (err) {
     yield put(signupFailureAction(err));

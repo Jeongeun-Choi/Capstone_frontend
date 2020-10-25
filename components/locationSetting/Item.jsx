@@ -30,7 +30,7 @@ const Item = ({ type, name, array, setArray, color }) => {
       if (type === 'location') {
         index = array.findIndex(element => element.bname === name);
       } else {
-        index = array.findIndex(element => element.subclass === name);
+        index = array.findIndex(element => element.name === name);
       }
 
       setArray([

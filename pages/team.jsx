@@ -2,6 +2,8 @@ import React from 'react';
 import { Tabs } from 'antd';
 import styled from '@emotion/styled';
 import Teams from '../components/team/Teams';
+import EmptyTeams from '../components/team/EmptyTeams';
+
 // #AAABD3
 const TeamContainer = styled.div`
   width: 100%;
@@ -39,7 +41,7 @@ const team = () => {
           <Teams tab={applyTeams} />
         </TabPane>
         <TabPane tab={myTeams} key="2">
-          <Teams tab={myTeams} />
+          <EmptyTeams pageTab={myTeams} />
         </TabPane>
       </Tabs>
     </TeamContainer>
