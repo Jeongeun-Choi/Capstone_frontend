@@ -23,11 +23,11 @@ export const initialState = {
     fields: [], //관심분야
 
     preferGroups: [],
-    applyGroups: [] //내가 지원한 모임
-    // joinGroups: {
-    //   activeTeams: [],
-    //   inactiveTeams: []
-    // } //나의 모임
+    applyGroups: [], //내가 지원한 모임
+    joinGroups: {
+      activeTeams: [],
+      inactiveTeams: []
+    } //나의 모임
   }
 };
 
@@ -36,10 +36,6 @@ const dummyUser = data => ({
   userName: '정은',
   email: 'jeong@test.com'
 });
-
-export const LOAD_JOINGROUPS_REQUEST = 'LOAD_JOINGROUPS_REQUEST';
-export const LOAD_JOINGROUPS_SUCCESS = 'LOAD_JOINGROUPS_SUCCESS';
-export const LOAD_JOINGROUPS_FAILURE = 'LOAD_JOINGROUPS_FAILURE';
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
@@ -55,16 +51,6 @@ export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 
 export const ADD_LOCATIONS = 'ADD_LOCATIONS';
 export const ADD_FIELDS = 'ADD_FIELDS';
-
-export const loadJoingroupsRequestAction = createAction(
-  LOAD_JOINGROUPS_REQUEST
-);
-export const loadJoingroupsSuccessAction = createAction(
-  LOAD_JOINGROUPS_SUCCESS
-);
-export const loadJoingroupsFailureAction = createAction(
-  LOAD_JOINGROUPS_FAILURE
-);
 
 export const loginRequestAction = createAction(LOG_IN_REQUEST);
 export const loginSuccessAction = createAction(LOG_IN_SUCCESS);
@@ -84,16 +70,6 @@ export const addFieldsAction = createAction(ADD_FIELDS);
 const reducer = (state = initialState, action) => {
   return produce(state, draft => {
     switch (action.type) {
-      case LOAD_JOINGROUPS_REQUEST: {
-        break;
-      }
-      case LOAD_JOINGROUPS_SUCCESS: {
-        draft.me.joinGroups = action.data.groups;
-        break;
-      }
-      case LOAD_JOINGROUPS_FAILURE: {
-        break;
-      }
       case LOG_IN_REQUEST: {
         draft.logInLoading = true;
         draft.logInError = null;

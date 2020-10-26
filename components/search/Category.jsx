@@ -3,12 +3,21 @@ import { basicBoxStyle } from '../../public/style';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 
-const CategoryBox = styled.li`
+const CategoryBox = styled.div`
   ${basicBoxStyle}
-  max-height: 180px;
-  max-width: 500px;
-  margin-right: 15px;
-  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #868686;
+  opacity: 0.75;
+  border-radius: 3px;
+
+  color: white;
+  font-family: Roboto;
+  font-weight: bold;
+  font-size: 18px;
 `;
 
 const Category = ({ category, name }) => {

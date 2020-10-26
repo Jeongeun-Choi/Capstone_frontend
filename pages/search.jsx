@@ -15,11 +15,17 @@ const categoryNames = {
 
 const SearchContainer = styled.div`
   width: 100%;
-  height: 80vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+
+  .information {
+    font-family: Roboto;
+    font-size: 9px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
 
   & .category-list {
     width: 95%;
@@ -28,11 +34,6 @@ const SearchContainer = styled.div`
     flex-wrap: wrap;
     justify-content: center;
     list-style: none;
-  }
-
-  & .information {
-    font-size: 9px;
-    margin-bottom: 30px;
   }
 `;
 
@@ -46,7 +47,7 @@ const search = () => {
   return (
     <SearchContainer>
       <div className="information">
-        "모임명을 입력하거나, 아래의 카테고리를 선택하여 모임을 찾아보세요!"
+        "<b>모임명을 입력</b>하거나, 아래의 <b>카테고리를 선택</b>하여 모임을 찾아보세요!"
       </div>
       <ul className="category-list">
         {Object.keys(categoryNames).map(category => (

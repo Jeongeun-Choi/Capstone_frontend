@@ -29,8 +29,58 @@ const MyTeam = styled.div`
     min-width: 247.44px;
     display: flex;
     flex-direction: column;
-    font-size: 11px;
+    vertical-algin: middle;
+    //font-size: 11px;
   }
+
+  .info-category{
+    height: 100%;
+    width: 60%;
+    min-width: 247.44px;
+    display: flex;
+    margin-left: 5px;
+    flex-direction: column;
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 20px;
+    color: #000000;
+  }
+
+  .info-name{
+    height: 100%;
+    width: 60%;
+    min-width: 247.44px;
+    display: flex;
+    margin-left: 5px;
+    flex-direction: column;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 10px;
+    color: #000000;
+  }
+
+  .info-location{ 
+    height: 100%;
+    width: 60%;
+    min-width: 247.44px;
+    display: flex;
+    margin-left: 5px;
+    flex-direction: column;
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 10px;
+    color: #000000;
+  }
+
 `;
 
 const Teams = ({ tab }) => {
@@ -42,9 +92,9 @@ const Teams = ({ tab }) => {
           <div>대충 이미지</div>
         </section>
         <section className="team-info">
-          <div>카테고리</div>
-          <div>모임명</div>
-          <div>시/구</div>
+          <div className = "info-category">카테고리</div>
+          <div className = "info-name">모임명</div>
+          <div className = "info-location">시/구</div>
         </section>
       </MyTeam>
       <MyTeam>
@@ -52,9 +102,9 @@ const Teams = ({ tab }) => {
           <div>대충 이미지</div>
         </section>
         <section className="team-info">
-          <div>카테고리</div>
-          <div>모임명</div>
-          <div>시/구</div>
+          <div className = "info-category">카테고리</div>
+          <div className = "info-name">모임명</div>
+          <div className = "info-location">시/구</div>
         </section>
       </MyTeam>
     </TeamsContainer>
