@@ -6,7 +6,7 @@ import {
   TeamOutlined,
   HeartOutlined,
   SearchOutlined,
-  EllipsisOutlined
+  EllipsisOutlined,
 } from '@ant-design/icons';
 
 const Menubar = styled.nav`
@@ -16,7 +16,7 @@ const Menubar = styled.nav`
   bottom: 0;
   min-width: 320px;
 
-  & ul{
+  & ul {
     width: 100%;
     min-width: 320px;
     height: 50px;
@@ -25,7 +25,7 @@ const Menubar = styled.nav`
     background-color: #f6f6f6;
     font-size: 20px;
 
-    & li{
+    & li {
       width: 20%;
       min-width: 64px;
       height: 50px;
@@ -33,12 +33,12 @@ const Menubar = styled.nav`
       line-height: 50px;
     }
 
-    & a{
+    & a {
       color: #c4c4c4;
     }
   }
-  
-  a[name~=${props => props.selected}] {
+
+  a[name~=${(props) => props.selected}] {
     color: #000000;
   }
 `;
@@ -60,35 +60,37 @@ const Footer = ({ pathName }) => {
     <Menubar selected={selected} ref={menuRef}>
       <ul>
         <li>
-          <Link href="/">
-            <a name="main">
+          <Link href='/'>
+            <a name='main'>
               <HomeOutlined />
             </a>
           </Link>
         </li>
         <li>
-          <Link href="/search">
-            <a name="search">
+          <Link href='/search'>
+            <a name='search'>
               <SearchOutlined />
             </a>
           </Link>
         </li>
         <li>
-          <a name="like">
+          <a name='like'>
             <HeartOutlined />
           </a>
         </li>
         <li>
-          <Link href="/team">
-            <a name="team">
+          <Link href='/team'>
+            <a name='team'>
               <TeamOutlined />
             </a>
           </Link>
         </li>
         <li>
-          <a name="mypage">
-            <EllipsisOutlined />
-          </a>
+          <Link href='/mypage'>
+            <a name='mypage'>
+              <EllipsisOutlined />
+            </a>
+          </Link>
         </li>
       </ul>
     </Menubar>

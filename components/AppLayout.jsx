@@ -19,13 +19,27 @@ const SearchInput = styled(Search)`
   width: 90%;
 `;
 
+const color = {
+  purple: { backgroundColor: '#AABD3', color: 'white' },
+  white: { backgroundColor: 'white', color: 'black' },
+};
+
+const pathnameMap = {
+  team: {
+    ...color.purple,
+    backbutton: true,
+    declareButton: true,
+    title: '모임명',
+    subtitle: '아무거나',
+  },
+};
 const AppLayout = ({ children }) => {
   const router = useRouter();
   const pathName = router.pathname;
 
   return (
     <AppContainer>
-      <Header />
+      <Header {...pathnameMap[pathName]} />
       {pathName.includes('search') ? <SearchInput /> : null}
       {children}
       <Footer pathName={pathName} />
