@@ -48,11 +48,10 @@ const Footer = ({ pathName }) => {
   const [selected, setSelected] = useState('main');
 
   useEffect(() => {
-    const path = pathName.split('/')[1];
-    if (path === '') {
+    if (pathName === '') {
       setSelected('main');
     } else {
-      setSelected(path);
+      setSelected(pathName);
     }
   }, [pathName]);
 

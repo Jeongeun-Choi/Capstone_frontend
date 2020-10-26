@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { LeftOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import {
+  LeftOutlined,
+  InfoCircleOutlined,
+  CloseOutlined,
+} from '@ant-design/icons';
 
 const CustomHeader = styled.header`
   width: 100%;
@@ -12,20 +16,23 @@ const CustomHeader = styled.header`
   background: ${(props) => props.backgroundColor};
 
   & .out_button {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin-left: 2rem;
+    cursor: pointer;
   }
 
   & .header_title {
     text-align: center;
     & h1 {
       margin: 0;
+      color: ${(props) => props.color};
     }
   }
 
-  & .declare_button {
-    font-size: 1.5rem;
+  & .second_button {
+    font-size: 1.8rem;
     margin-right: 2rem;
+    cursor: pointer;
   }
 `;
 
@@ -36,6 +43,7 @@ const Header = ({
   title,
   backButton = false,
   declareButton = false,
+  closeButton = false,
 }) => {
   return (
     <CustomHeader backgroundColor={backgroundColor} color={color}>
@@ -44,8 +52,9 @@ const Header = ({
         {subTitle && <div>{subTitle}</div>}
         <h1>{title}</h1>
       </div>
-      <div className='declare_button'>
+      <div className='second_button'>
         {declareButton && <InfoCircleOutlined />}
+        {closeButton && <CloseOutlined />}
       </div>
     </CustomHeader>
   );

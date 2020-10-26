@@ -19,27 +19,33 @@ const SearchInput = styled(Search)`
   width: 90%;
 `;
 
-const color = {
-  purple: { backgroundColor: '#AABD3', color: 'white' },
+const type = {
+  purple: { backgroundColor: '#AAABD3', color: 'white' },
   white: { backgroundColor: 'white', color: 'black' },
 };
 
-const pathnameMap = {
+const pathNameMap = {
   team: {
-    ...color.purple,
-    backbutton: true,
+    ...type.purple,
+    backButton: true,
     declareButton: true,
+    closeButton: false,
     title: '모임명',
-    subtitle: '아무거나',
+    subTitle: '아무거나',
+  },
+  mypage: {
+    ...type.white,
+    backButton: true,
+    title: '마이페이지',
   },
 };
+
 const AppLayout = ({ children }) => {
   const router = useRouter();
-  const pathName = router.pathname;
-
+  const [, pathName] = router.pathname.split('/');
   return (
     <AppContainer>
-      <Header {...pathnameMap[pathName]} />
+      <Header {...pathNameMap[pathName]} />
       {pathName.includes('search') ? <SearchInput /> : null}
       {children}
       <Footer pathName={pathName} />
