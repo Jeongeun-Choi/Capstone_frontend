@@ -3,6 +3,7 @@ import { Tabs } from 'antd';
 import styled from '@emotion/styled';
 import Teams from '../components/team/Teams';
 import EmptyTeams from '../components/team/EmptyTeams';
+import { useSelector } from 'react-redux';
 
 // #AAABD3
 const TeamContainer = styled.div`
@@ -30,6 +31,7 @@ const TeamContainer = styled.div`
   }
 `;
 const team = () => {
+  const { joinGroups } = useSelector(state => state.user.me);
   const { TabPane } = Tabs;
   const applyTeams = '내가 지원한 모임';
   const myTeams = '나의 모임';
@@ -38,10 +40,14 @@ const team = () => {
     <TeamContainer>
       <Tabs defaultActiveKey="1">
         <TabPane tab={applyTeams} key="1">
-          <Teams tab={applyTeams} />
+          <EmptyTeams pageTab={applyTeams} />
         </TabPane>
         <TabPane tab={myTeams} key="2">
-          <EmptyTeams pageTab={myTeams} />
+          {joinGroups ? (
+            <Teams tab={myTeams} />
+          ) : (
+            <EmptyTeams pageTab={myTeams} />
+          )}
         </TabPane>
       </Tabs>
     </TeamContainer>

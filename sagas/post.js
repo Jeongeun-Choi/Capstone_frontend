@@ -22,10 +22,8 @@ function loadPostsAPI(data) {
 
 function* loadPosts(action) {
   try {
-    yield delay(1000);
-    yield put(loadPostsSuccessAction());
-    // const postsData = yield call(loadPostsAPI,action.data);
-    // yield put(loadPostsSuccessAction(postsData.recruits));
+    const postsData = yield call(loadPostsAPI, action.data);
+    yield put(loadPostsSuccessAction(postsData.recruits));
   } catch (err) {
     yield loadPostsFailureAction(err);
   }

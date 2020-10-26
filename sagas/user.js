@@ -9,8 +9,26 @@ import {
   signupFailureAction,
   logoutFailureAction,
   logoutSuccessAction,
-  LOG_OUT_REQUEST
+  LOG_OUT_REQUEST,
+  loadJoingroupsFailureAction,
+  loadJoingroupsSuccessAction,
+  LOAD_JOINGROUPS_REQUEST
 } from '../reducers/user';
+
+function loadJoinGroupsAPI(data) {
+  return axios.get(`/member/${data}`);
+}
+function* loadJoinGroups(action) {
+  try {
+    const response = yield call(loadJoinGroupsAPI, action.data);
+    yield put(loadJoingroupsSuccessAction(response.data));
+  } catch (err) {
+    yield put(loadJoingroupsFailureAction(err));
+  }
+}
+function* watchLoadJoinGroups() {
+  yield takeLatest(LOAD_JOINGROUPS_REQUEST, loadJoinGroups);
+}
 
 function logInAPI(data) {
   return axios.post('/member/login', data);
@@ -59,5 +77,10 @@ function* watchLogOut() {
 }
 
 export default function* userSaga() {
-  yield all([fork(watchLogIn), fork(watchSignup), fork(watchLogOut)]);
+  yield all([
+    fork(watchLoadJoinGroups),
+    fork(watchLogIn),
+    fork(watchSignup),
+    fork(watchLogOut)
+  ]);
 }
