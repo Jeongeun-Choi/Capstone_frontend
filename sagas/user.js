@@ -97,13 +97,13 @@ function* watchLogOut() {
 function addLocationAPI(data) {
   const { memberId, locations } = data;
 
-  console.log(data);
-  const newLocations = locations.reduce((acc, location) => {
+  const locationAddresses = locations.reduce((acc, location) => {
     const { sido, sigungu, bname } = location;
-    return acc.push(`${sido} ${sigungu} ${bname}`);
+    acc.push(`${sido} ${sigungu} ${bname}`);
+    return acc;
   }, []);
 
-  const requestData = { memberId, newLocations };
+  const requestData = { memberId, locationAddresses };
 
   return axios.put('/member/location', requestData);
 }
@@ -163,9 +163,9 @@ function* watchDeleteLocation() {
 function addCategoryAPI(data) {
   const { memberId, fields } = data;
 
-  console.log(data);
   const newCategorys = fields.reduce((acc, field) => {
-    return acc.push(field.id);
+    acc.push(field.id);
+    return acc;
   }, []);
 
   const requestData = { memberId, newCategorys };

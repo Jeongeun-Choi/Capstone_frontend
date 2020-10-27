@@ -75,10 +75,14 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
     e => {
       e.preventDefault();
       const memberId = me.id;
-      dispatch(addLocationRequestAction({ memberId, locations }));
-      dispatch(addCategoryRequestAction({ memberId, fields }));
-      // setShowingInitialLocation(prev => !prev);
-      // setShowingSelection(prev => !prev);
+      try {
+        dispatch(addLocationRequestAction({ memberId, locations }));
+        dispatch(addCategoryRequestAction({ memberId, fields }));
+        setShowingInitialLocation(prev => !prev);
+        setShowingSelection(prev => !prev);
+      } catch (err) {
+        console.log(err);
+      }
     },
     [locations, fields]
   );

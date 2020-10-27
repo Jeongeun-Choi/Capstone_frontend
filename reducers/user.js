@@ -20,7 +20,7 @@ export const initialState = {
     birthDate: undefined,
 
     locations: [], //활동지역
-    fields: [], //관심분야
+    categories: [], //관심분야
 
     preferGroups: [],
     applyGroups: [], //내가 지원한 모임
