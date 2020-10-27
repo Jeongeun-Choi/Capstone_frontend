@@ -43,7 +43,7 @@ const team = () => {
           <EmptyTeams pageTab={applyTeams} />
         </TabPane>
         <TabPane tab={myTeams} key="2">
-          {joinGroups ? (
+          {joinGroups && true ? (
             <Teams tab={myTeams} />
           ) : (
             <EmptyTeams pageTab={myTeams} />

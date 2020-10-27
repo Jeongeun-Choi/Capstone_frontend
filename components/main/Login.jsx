@@ -5,6 +5,7 @@ import { BasicInput, Button, SNSLogin, Modal } from '../../public/style';
 import { useDispatch } from 'react-redux';
 import { loginRequestAction } from '../../reducers/user';
 import inputChangeHook from '../../hooks/inputChangeHook';
+import { message } from 'antd';
 
 const LoginContainer = styled.div`
   width: 100%;
@@ -73,6 +74,9 @@ const Login = ({
   const submitForm = useCallback(
     e => {
       e.preventDefault();
+      if (!email.trim() && !password.trim()) {
+        return message.error('이메일이나 비밀번호를 입력해주세요.');
+      }
       try {
         dispatch(loginRequestAction({ email, password }));
         setShowingLogin(prev => !prev);

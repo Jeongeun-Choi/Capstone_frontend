@@ -23,11 +23,11 @@ export const initialState = {
     categories: [], //관심분야
 
     preferGroups: [],
-    applyGroups: [], //내가 지원한 모임
-    joinGroups: {
-      activeTeams: [],
-      inactiveTeams: []
-    } //나의 모임
+    applyGroups: [] //내가 지원한 모임
+    // joinGroups: {
+    //   activeTeams: [],
+    //   inactiveTeams: []
+    // } //나의 모임
   }
 };
 

@@ -94,7 +94,7 @@ const Fields = ({ tempFields, setTempFields }) => {
             </li>
           ))}
         </ul>
-        {showingSubclass ? (
+        {showingSubclass && (
           <ul className="field-subclass">
             {categories[middleCategory].map(subclass => (
               <li key={subclass.name} onClick={clickSubclass(subclass)}>
@@ -102,7 +102,7 @@ const Fields = ({ tempFields, setTempFields }) => {
               </li>
             ))}
           </ul>
-        ) : null}
+        )}
       </div>
     </FieldsContainer>
   );

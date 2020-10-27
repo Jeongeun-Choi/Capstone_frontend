@@ -1,14 +1,15 @@
 import React, { useState, useCallback } from 'react';
+import { Slider, Select, TimePicker } from 'antd';
 import {
   Modal,
   ModalHeader,
   modalFooter,
   basicStyle
 } from '../../public/style';
+import { useSelector } from 'react-redux';
 import FindingAddress from '../locationSetting/FindingAddress';
 import KakaoMap from '../map/KakaoMap';
 import styled from '@emotion/styled';
-import { Slider, Select, TimePicker } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import inputChangeHook from '../../hooks/inputChangeHook';
 import timePickerHook from '../../hooks/timePickerHook';
@@ -16,16 +17,6 @@ import Upload from '../uploadImg/Upload';
 
 const format = 'HH:mm';
 const { Option } = Select;
-
-const dummyCategorys = [
-  { id: 1, type: '스포츠' },
-  { id: 2, type: '음악' },
-  { id: 3, type: '게임' },
-  { id: 4, type: '프로그래밍' },
-  { id: 5, type: '공모전' },
-  { id: 6, type: '스터디' },
-  { id: 7, type: '기타' }
-];
 
 const days = {
   월: 'mon',
@@ -43,10 +34,21 @@ const formatter = value => {
 
 const MakingTeamContainer = styled.form`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+  & .team-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    & .team-item {
+      width: 90%;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
   & .team-input {
     ${basicStyle};
     width: 60%;
@@ -95,11 +97,11 @@ const MakingTeamFooter = styled.button`
   background-color: #aaabd3;
   color: #ffffff;
   font-weight: bold;
-  position: fixed;
-  bottom: 0;
 `;
 
 const MakingTeam = ({ setCloseModal }) => {
+  const { categories } = useSelector(state => state.category);
+
   //TODO: categoryId로 바꾸기
   const [category, setCategory] = useState([]);
   const [groupName, setGroupName] = inputChangeHook('');
@@ -112,13 +114,20 @@ const MakingTeam = ({ setCloseModal }) => {
   const [endTime, setEndTime] = timePickerHook('');
   const [skills, setSkills] = inputChangeHook('');
   const [groupImages, setGroupImages] = useState([]);
+  const [middleCategory, setMiddleCategory] = useState('');
+  const [showDetailCategory, setShowDetailCategory] = useState(false);
 
   const changeSlider = useCallback(value => {
     setPersonnel(value);
   }, []);
 
-  const changeCategory = useCallback(value => {
-    setCategory(value);
+  const changeMiddleCategory = useCallback(value => {
+    setMiddleCategory(value);
+    setShowDetailCategory(prev => !prev);
+  }, []);
+
+  const changeDetailCategory = useCallback(value => {
+    setCategory([value]);
   }, []);
 
   const changeDayState = useCallback(e => {
@@ -185,23 +194,37 @@ const MakingTeam = ({ setCloseModal }) => {
           <h3>모임 개설</h3>
           <LeftOutlined onClick={closeModal} />
         </MakingTeamHeader>
-        <main>
-          <div className="team-name">
+        <main className="team-content">
+          <div className="team-item">
             <div className="category-title">
               <div className="subtitle">카테고리</div>
-              <div className="category-choice">선택</div>
-            </div>
-            {<div></div>}
-            <div>
-              <div className="subtitle">모임명</div>
-              <input
-                onChange={setGroupName}
-                className="team-input"
-                placeholder="모임명"
-              />
+              <Select onChange={changeMiddleCategory} style={{ width: 100 }}>
+                {Object.keys(categories).map(category => (
+                  <Option key={category} value={category}>
+                    {category}
+                  </Option>
+                ))}
+              </Select>
+              {showDetailCategory && (
+                <Select onChange={changeDetailCategory} style={{ width: 100 }}>
+                  {categories[middleCategory].map(category => (
+                    <Option key={category.id} value={category.id}>
+                      {category.name}
+                    </Option>
+                  ))}
+                </Select>
+              )}
             </div>
           </div>
-          <div className="team-info">
+          <div className="team-item">
+            <div className="subtitle">모임명</div>
+            <input
+              onChange={setGroupName}
+              className="team-input"
+              placeholder="모임명"
+            />
+          </div>
+          <div className="team-item">
             <div className="subtitle">모임소개</div>
             <textarea
               className="team-info-textarea"
@@ -212,7 +235,7 @@ const MakingTeam = ({ setCloseModal }) => {
               블라블라머시기어쩌고
             </textarea>
           </div>
-          <div className="team-active-day">
+          <div className="team-item">
             <div className="subtitle">활동 요일</div>
             <div className="team-active-day-content">
               {Object.keys(days).map(day => (
@@ -227,14 +250,14 @@ const MakingTeam = ({ setCloseModal }) => {
               ))}
             </div>
           </div>
-          <div className="team-active-time">
+          <div className="team-item">
             <div className="subtitle">활동 시간</div>
             <div className="team-active-time-content">
               <TimePicker format={format} onChange={setStartTime} />
               <TimePicker format={format} onChange={setEndTime} />
             </div>
           </div>
-          <div className="team-personnel">
+          <div className="team-item">
             <div className="subtitle">최대 인원</div>
             <Slider
               defaultValue={0}
@@ -243,7 +266,7 @@ const MakingTeam = ({ setCloseModal }) => {
               onChange={changeSlider}
             />
           </div>
-          <div className="team-skill">
+          <div className="team-item">
             <div className="subtitle">활동을 위해 필요한 스킬</div>
             <input
               className="team-input"
@@ -251,7 +274,7 @@ const MakingTeam = ({ setCloseModal }) => {
               onChange={setSkills}
             />
           </div>
-          <div className="team-location">
+          <div className="team-item">
             <div className="team-location-title">
               <div className="subtitle">모임 지역</div>
               {location.length !== 0 ? <div>{location}</div> : null}
@@ -259,7 +282,7 @@ const MakingTeam = ({ setCloseModal }) => {
             <FindingAddress locations={location} setLocations={setLocation} />
             {location.length !== 0 ? <KakaoMap location={location} /> : null}
           </div>
-          <div className="main-image">
+          <div className="team-item">
             <div className="subtitle">이미지 추가</div>
             <Upload images={groupImages} setImages={setGroupImages} />
           </div>
