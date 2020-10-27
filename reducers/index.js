@@ -3,6 +3,7 @@ import { HYDRATE } from 'next-redux-wrapper'; //redux SSR
 import user from './user';
 import post from './post';
 import category from './category';
+import group from './group';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   },
   user,
   post,
-  category
+  category,
+  group
 });
 
 export default rootReducer;

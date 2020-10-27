@@ -12,7 +12,25 @@ import {
   LOG_OUT_REQUEST,
   loadJoingroupsFailureAction,
   loadJoingroupsSuccessAction,
-  LOAD_JOINGROUPS_REQUEST
+  LOAD_JOINGROUPS_REQUEST,
+  addCategoryFailureAction,
+  addCategorySuccessAction,
+  ADD_CATEGORY_REQUEST,
+  addLocationSuccessAction,
+  addLocationFailureAction,
+  deleteLocationSuccessAction,
+  deleteLocationFailureAction,
+  DELETE_LOCATION_REQUEST,
+  UPDATE_CATEGORY_REQUEST,
+  updateCategoryFailureAction,
+  updateCategorySuccessAction,
+  UPDATE_LOCATION_REQUEST,
+  updateLocationFailureAction,
+  updateLocationSuccessAction,
+  ADD_LOCATION_REQUEST,
+  deleteCategorySuccessAction,
+  deleteCategoryFailureAction,
+  DELETE_CATEGORY_REQUEST
 } from '../reducers/user';
 
 function loadJoinGroupsAPI(data) {
@@ -76,11 +94,158 @@ function* watchLogOut() {
   yield takeLatest(LOG_OUT_REQUEST, logOut);
 }
 
+function addLocationAPI(data) {
+  const { memberId, locations } = data;
+
+  console.log(data);
+  const newLocations = locations.reduce((acc, location) => {
+    const { sido, sigungu, bname } = location;
+    return acc.push(`${sido} ${sigungu} ${bname}`);
+  }, []);
+
+  const requestData = { memberId, newLocations };
+
+  return axios.put('/member/location', requestData);
+}
+function* addLocation(action) {
+  try {
+    yield call(addLocationAPI, action.data);
+    const data = action.data.locations;
+    yield put(addLocationSuccessAction(data));
+  } catch (err) {
+    yield put(addLocationFailureAction(err));
+  }
+}
+function* watchAddLocation() {
+  yield takeLatest(ADD_LOCATION_REQUEST, addLocation);
+}
+
+function updateLocationAPI(data) {
+  const { memberId, locationAddress, deleteLocations } = data;
+
+  const requestData = { memberId, locationAddress, deleteLocations };
+
+  return axios.put('/member/location', requestData);
+}
+function* updateLocation(action) {
+  try {
+    yield call(updateLocationAPI, action.data);
+    const data = action.data.fields;
+    yield put(updateLocationSuccessAction(data));
+  } catch (err) {
+    yield put(updateLocationFailureAction(err));
+  }
+}
+function* watchUpdateLocation() {
+  yield takeLatest(UPDATE_LOCATION_REQUEST, updateLocation);
+}
+
+function deleteLocationAPI(data) {
+  const { memberId, locationAddress, deleteLocations } = data;
+
+  const requestData = { memberId, locationAddress, deleteLocations };
+
+  return axios.put('/member/location', requestData);
+}
+function* deleteLocation(action) {
+  try {
+    yield call(deleteLocationAPI, action.data);
+    const data = action.data.fields;
+    yield put(deleteLocationSuccessAction(data));
+  } catch (err) {
+    yield put(deleteLocationFailureAction(err));
+  }
+}
+function* watchDeleteLocation() {
+  yield takeLatest(DELETE_LOCATION_REQUEST, deleteLocation);
+}
+
+function addCategoryAPI(data) {
+  const { memberId, fields } = data;
+
+  console.log(data);
+  const newCategorys = fields.reduce((acc, field) => {
+    return acc.push(field.id);
+  }, []);
+
+  const requestData = { memberId, newCategorys };
+
+  return axios.put('/member/category', requestData);
+}
+
+function* addCategory(action) {
+  try {
+    yield call(addCategoryAPI, action.data);
+    const data = action.data.fields;
+    yield put(addCategorySuccessAction(data));
+  } catch (err) {
+    yield put(addCategoryFailureAction(err));
+  }
+}
+function* watchAddCategory() {
+  yield takeLatest(ADD_CATEGORY_REQUEST, addCategory);
+}
+
+function updateCategoryAPI(data) {
+  const { memberId, categorys, deleteCategory } = data;
+
+  const newCategorys = categorys.reduce((acc, category) => {
+    return acc.push(category.id);
+  }, []);
+
+  const requestData = { memberId, newCategorys, deleteCategory };
+
+  return axios.put('/member/category', requestData);
+}
+
+function* updateCategory(action) {
+  try {
+    yield call(updateCategoryAPI, action.data);
+    const data = action.data.categorys;
+    yield put(updateCategorySuccessAction(data));
+  } catch (err) {
+    yield put(updateCategoryFailureAction(err));
+  }
+}
+function* watchUpdateCategory() {
+  yield takeLatest(UPDATE_CATEGORY_REQUEST, updateCategory);
+}
+
+function deleteCategoryAPI(data) {
+  const { memberId, fields } = data;
+
+  const newCategorys = fields.reduce((acc, field) => {
+    return acc.push(field.id);
+  }, []);
+
+  const requestData = { memberId, newCategorys };
+
+  return axios.put('/member/category', requestData);
+}
+
+function* deleteCategory(action) {
+  try {
+    yield call(deleteCategoryAPI, action.data);
+    const data = action.data.fields;
+    yield put(deleteCategorySuccessAction(data));
+  } catch (err) {
+    yield put(deleteCategoryFailureAction(err));
+  }
+}
+function* watchDeleteCategory() {
+  yield takeLatest(DELETE_CATEGORY_REQUEST, deleteCategory);
+}
 export default function* userSaga() {
   yield all([
     fork(watchLoadJoinGroups),
     fork(watchLogIn),
     fork(watchSignup),
-    fork(watchLogOut)
+    fork(watchLogOut),
+    fork(watchAddLocation),
+    fork(watchUpdateLocation),
+    fork(watchDeleteLocation),
+    fork(watchAddCategory),
+    fork(watchUpdateCategory),
+    fork(watchDeleteCategory)
   ]);
 }

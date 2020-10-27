@@ -102,7 +102,7 @@ const LocationSetting = ({
         <div className="form-content">
           <div>
             <div className="choice-location">
-              선택지역<span>({locations.length}/3)</span>
+              선택지역<span>({tempLocations.length}/3)</span>
             </div>
             <div>"찾으시려는 지역의 명칭을 정확하게 입력해주세요."</div>
             <Address
@@ -132,8 +132,7 @@ const LocationSetting = ({
                 <ReloadOutlined />
                 초기화
               </button>
-              {/* TODO: onSubmit함수, action 보내기 */}
-              <button type="submit" className="submit" onClick={submitResult}>
+              <button className="submit" onClick={submitResult}>
                 적용하기
               </button>
             </div>

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-export default (initialValue = null) => {
+const timePickerHook = (initialValue = null) => {
   const [value, setValue] = useState(initialValue);
 
   const handler = useCallback((time, timeString) => {
@@ -9,3 +9,5 @@ export default (initialValue = null) => {
 
   return [value, handler];
 };
+
+export default timePickerHook;
