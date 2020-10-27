@@ -95,6 +95,8 @@ const MakingTeamFooter = styled.button`
   background-color: #aaabd3;
   color: #ffffff;
   font-weight: bold;
+  position: fixed;
+  bottom: 0;
 `;
 
 const MakingTeam = ({ setCloseModal }) => {

@@ -12,6 +12,10 @@ const InitialLocationContainer = styled.div`
   align-items: center;
   text-align: center;
 
+  img {
+    width: 90px;
+    height: 85px;
+  }
   h2 {
     font-weight: bold;
   }
@@ -42,11 +46,16 @@ const InitialLocation = ({ setShowingInitialLocation }) => {
     setShowingSelection(prev => !prev);
   }, []);
 
+  const closeSelectionModal = useCallback(e => {
+    e.preventDefault();
+    setShowingInitialLocation(prev => !prev);
+  }, []);
+
   return (
     <>
       <Modal>
         <InitialLocationContainer>
-          <div>로고 이미지</div>
+          <img src={`/images/logo.png`} alt="로고 이미지" />
           <h2>
             모두의 모임을
             <br />더 쉽게 이용하는 방법
@@ -59,7 +68,7 @@ const InitialLocation = ({ setShowingInitialLocation }) => {
           <Button onClick={openSelectionModal}>
             활동 선호 지역과 관심 분야 설정하기
           </Button>
-          <SkipButton>다음에 할래요</SkipButton>
+          <SkipButton onClick={closeSelectionModal}>다음에 할래요</SkipButton>
         </InitialLocationContainer>
       </Modal>
 
