@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { CloseOutlined } from '@ant-design/icons';
-import { BasicInput, Button, SNSLogin } from '../public/style';
+import { BasicInput, Button, SNSLogin } from '../../public/style';
 import { useDispatch } from 'react-redux';
-import { loginRequestAction } from '../reducers/user';
-import inputChangeHook from '../hooks/inputChangeHook';
+import { loginRequestAction } from '../../reducers/user';
+import inputChangeHook from '../../hooks/inputChangeHook';
 
 const LoginContainer = styled.div`
   width: 100%;
@@ -38,7 +38,6 @@ const LoginContainer = styled.div`
     
   }
 
-  //div-login 추가
   .login{
     width: 90%;
     height: 5%;

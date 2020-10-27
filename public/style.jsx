@@ -87,7 +87,11 @@ export const ModalHeader = styled.header`
 export const BasicInput = styled.input`
   ${basicStyle}
   box-sizing: border-box;
-  border: 1px solid #a2a2a2;
+  border: 1px solid #e5e5e5;
+  background-color: #e5e5e5;
+  opacity: 0.5;
+
+  font-family: Roboto;
 `;
 
 export const ShortInput = styled(BasicInput)`
@@ -98,13 +102,19 @@ export const ShortInput = styled(BasicInput)`
 
 export const Button = styled.button`
   ${basicStyle}
-  color: #f8faff;
+  color: white;
+  font-family: Roboto;
+  font-weight: bold;
   border: 1px solid #aaabd3;
   background-color: #aaabd3;
 `;
 
 export const SNSLogin = styled.div`
   ${basicStyle}
-  border: 1px solid black;
+  color: #868686;
+  font-family: Roboto;
+  font-weight: normal;
+  text-align: center;
+  border: 1px solid #868686;
   line-height: 35px;
 `;
