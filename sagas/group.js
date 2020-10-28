@@ -14,6 +14,8 @@ import {
   DELETE_GROUP_REQUEST,
   deleteGroupSuccessAction
 } from '../reducers/group';
+import { splitSkills } from '../utils/splitSkills';
+import { makeActiveTimes } from '../utils/makeActiveTimes';
 
 function loadGroupsAPI() {
   return axios.get(`/groups`);
@@ -33,15 +35,44 @@ function* watchLoadGroups() {
 }
 
 function addGroupAPI(data) {
-  return axios.post(`/groups`, data);
+  const {
+    memberId,
+    groupName,
+    groupIntro,
+    activeDays,
+    startTime,
+    endTime,
+    skills,
+    location,
+    maxMember,
+    groupImages,
+    category
+  } = data;
+
+  const newSkills = splitSkills(skills);
+  const activeTimes = makeActiveTimes(activeDays, startTime, endTime);
+
+  const requestData = {
+    memberId,
+    groupName,
+    groupIntro,
+    activeTimes,
+    skills: newSkills,
+    location,
+    maxMember,
+    groupImages,
+    detailCategoryId: category
+  };
+  axios.post(`/groups`, requestData);
+  return requestData;
 }
 
 function* addGroup(action) {
   try {
-    yield call(addGroupAPI, action.data);
-    yield put(addGroupSuccessAction(action.data));
+    const addData = yield call(addGroupAPI, action.data);
+    yield put(addGroupSuccessAction(addData));
   } catch (err) {
-    yield addGroupFailureAction(err);
+    yield put(addGroupFailureAction(err));
   }
 }
 
@@ -56,7 +87,7 @@ function* updateGroup(action) {
     yield call(updateGroupAPI, action.data);
     yield put(updateGroupSuccessAction(action.data));
   } catch (err) {
-    yield updateGroupFailureAction(err);
+    yield put(updateGroupFailureAction(err));
   }
 }
 
@@ -71,7 +102,7 @@ function* deleteGroup(action) {
     yield delay(1000);
     yield put(deleteGroupSuccessAction());
   } catch (err) {
-    yield deleteGroupFailureAction(err);
+    yield put(deleteGroupFailureAction(err));
   }
 }
 
@@ -79,7 +110,7 @@ function* watchDeleteGroup() {
   yield takeLatest(DELETE_GROUP_REQUEST, deleteGroup);
 }
 
-export default function* postSaga() {
+export default function* groupSaga() {
   yield all([
     fork(watchLoadGroups),
     fork(watchAddGroup),

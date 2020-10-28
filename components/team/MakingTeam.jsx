@@ -6,7 +6,7 @@ import {
   modalFooter,
   basicStyle
 } from '../../public/style';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import FindingAddress from '../locationSetting/FindingAddress';
 import KakaoMap from '../map/KakaoMap';
 import styled from '@emotion/styled';
@@ -14,6 +14,7 @@ import { LeftOutlined } from '@ant-design/icons';
 import inputChangeHook from '../../hooks/inputChangeHook';
 import timePickerHook from '../../hooks/timePickerHook';
 import Upload from '../uploadImg/Upload';
+import { addGroupRequestAction } from '../../reducers/group';
 
 const format = 'HH:mm';
 const { Option } = Select;
@@ -101,25 +102,29 @@ const MakingTeamFooter = styled.button`
 
 const MakingTeam = ({ setCloseModal }) => {
   const { categories } = useSelector(state => state.category);
-
+  const { me } = useSelector(state => state.user);
+  const dispatch = useDispatch();
   //TODO: categoryId로 바꾸기
   const [category, setCategory] = useState([]);
-  const [groupName, setGroupName] = inputChangeHook('');
-  const [groupIntro, setGroupIntro] = inputChangeHook('');
+  const [groupName, changeGroupName] = inputChangeHook('');
+  const [groupIntro, changeGroupIntro] = inputChangeHook('');
   const [location, setLocation] = useState('');
-  const [personnel, setPersonnel] = useState(0);
-  const [activeTimes, setActiveTimes] = useState([]);
+  const [maxMember, setMaxMember] = useState(0);
   const [activeDays, setActiveDays] = useState([]);
   const [startTime, setStartTime] = timePickerHook('');
   const [endTime, setEndTime] = timePickerHook('');
-  const [skills, setSkills] = inputChangeHook('');
+  const [skills, setSkills] = useState('');
   const [groupImages, setGroupImages] = useState([]);
   const [middleCategory, setMiddleCategory] = useState('');
   const [showDetailCategory, setShowDetailCategory] = useState(false);
 
   const changeSlider = useCallback(value => {
-    setPersonnel(value);
+    setMaxMember(value);
   }, []);
+
+  const changeSkills = useCallback(e => {
+    setSkills(e.target.value);
+  });
 
   const changeMiddleCategory = useCallback(value => {
     setMiddleCategory(value);
@@ -130,55 +135,60 @@ const MakingTeam = ({ setCloseModal }) => {
     setCategory([value]);
   }, []);
 
-  const changeDayState = useCallback(e => {
-    const { target } = e;
-    const className = 'team-active-day-content-item-active';
-    if (target.classList.contains(className)) {
-      target.classList.remove(className);
-      const index = activeDays.findIndex(day => day === target.name);
-      setActiveDays([
-        ...activeDays.slice(0, index),
-        ...activeDays.slice(index + 1, activeDays.length)
-      ]);
-    } else {
-      target.classList.add(className);
-      setActiveDays([...activeDays, target.name]);
-    }
-  });
+  const changeDayState = useCallback(
+    e => {
+      const { target } = e;
+      const className = 'team-active-day-content-item-active';
+      const targetText = target.innerText;
 
-  const splitSkills = useCallback(() => {
-    const skillArray = skills.split(',').reduce((acc, skill) => {
-      return acc.push({ name: skill.trim() });
-    }, []);
+      if (target.classList.contains(className)) {
+        target.classList.remove(className);
+        const index = activeDays.findIndex(day => day === targetText);
+        setActiveDays([
+          ...activeDays.slice(0, index),
+          ...activeDays.slice(index + 1, activeDays.length)
+        ]);
+      } else {
+        target.classList.add(className);
+        setActiveDays([...activeDays, targetText]);
+      }
+    },
+    [activeDays]
+  );
 
-    setSkills(skillArray);
-  }, []);
+  const submitResult = useCallback(
+    e => {
+      e.preventDefault();
 
-  const makeActiveTimes = useCallback(() => {
-    const activeTimes = activeDays.reduce((acc, day) => {
-      return acc.push({
-        activeDay: day,
-        startTime: startTime,
-        endTime: endTime
-      });
-    }, []);
-    setActiveTimes(activeTimes);
-  }, []);
+      const data = {
+        category,
+        groupName,
+        groupIntro,
+        location,
+        skills,
+        maxMember,
+        activeDays,
+        startTime,
+        endTime,
+        groupImages,
+        memberId: me.id
+      };
 
-  const submitResult = useCallback(() => {
-    splitSkills();
-    makeActiveTimes();
-
-    const data = {
+      dispatch(addGroupRequestAction(data));
+    },
+    [
+      activeDays,
+      startTime,
+      endTime,
       category,
       groupName,
       groupIntro,
       location,
       skills,
       maxMember,
-      activeTimes
-    };
-  }, []);
+      groupImages
+    ]
+  );
 
   const closeModal = useCallback(() => {
     setCloseModal(prev => !prev);
@@ -186,10 +196,7 @@ const MakingTeam = ({ setCloseModal }) => {
 
   return (
     <Modal>
-      <MakingTeamContainer
-        onSubmit={submitResult}
-        encType="multipart/form-data"
-      >
+      <MakingTeamContainer encType="multipart/form-data">
         <MakingTeamHeader>
           <h3>모임 개설</h3>
           <LeftOutlined onClick={closeModal} />
@@ -219,7 +226,7 @@ const MakingTeam = ({ setCloseModal }) => {
           <div className="team-item">
             <div className="subtitle">모임명</div>
             <input
-              onChange={setGroupName}
+              onChange={changeGroupName}
               className="team-input"
               placeholder="모임명"
             />
@@ -228,7 +235,7 @@ const MakingTeam = ({ setCloseModal }) => {
             <div className="subtitle">모임소개</div>
             <textarea
               className="team-info-textarea"
-              onChange={setGroupIntro}
+              onChange={changeGroupIntro}
               rows="5"
               cols="33"
             >
@@ -241,7 +248,7 @@ const MakingTeam = ({ setCloseModal }) => {
               {Object.keys(days).map(day => (
                 <div
                   key={day}
-                  name={day}
+                  id={day}
                   className="team-active-day-content-item"
                   onClick={changeDayState}
                 >
@@ -271,7 +278,7 @@ const MakingTeam = ({ setCloseModal }) => {
             <input
               className="team-input"
               placeholder=",로 구분하여 적으세요."
-              onChange={setSkills}
+              onChange={changeSkills}
             />
           </div>
           <div className="team-item">
@@ -287,7 +294,9 @@ const MakingTeam = ({ setCloseModal }) => {
             <Upload images={groupImages} setImages={setGroupImages} />
           </div>
         </main>
-        <MakingTeamFooter htmlType="submit">모임 개설하기</MakingTeamFooter>
+        <MakingTeamFooter type="submit" onClick={submitResult}>
+          모임 개설하기
+        </MakingTeamFooter>
       </MakingTeamContainer>
     </Modal>
   );

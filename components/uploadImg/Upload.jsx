@@ -75,7 +75,8 @@ const Upload = ({ images, setImages }) => {
       // });
       const result = await customAxios.post('/images', imageFormData);
       const urls = result.data.urls.reduce((acc, url) => {
-        return acc.push({ URL: url, description });
+        acc.push({ URL: url, description });
+        return acc;
       }, []);
 
       setImages(prev => [...prev, ...urls]);
@@ -97,13 +98,18 @@ const Upload = ({ images, setImages }) => {
           <div style={{ fontSize: 23 }}>UPLOAD</div>
         </div>
         <div className="preview-image">
-          {images.map((url, i) => {
+          {images.map((image, i) => {
             return (
-              <div key={url} className="img-border">
-                <div className="delete-icon" onClick={deleteImage(url)}>
+              <div key={image.URL} className="img-border">
+                <div className="delete-icon" onClick={deleteImage(image.URL)}>
                   <CloseOutlined />
                 </div>
-                <img src={url} alt={url} width="90" height="90" />
+                <img
+                  src={image.URL}
+                  alt={image.description}
+                  width="90"
+                  height="90"
+                />
               </div>
             );
           })}
