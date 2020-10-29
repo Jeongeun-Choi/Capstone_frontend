@@ -23,6 +23,7 @@ const MyTeam = styled.div`
     width: 20%;
     min-width: 74.74px;
   }
+  
   .team-info {
     ${basicTeamStyle}
     width: 60%;

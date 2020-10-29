@@ -19,12 +19,18 @@ const EmptyTeamsContainer = styled.main`
   align-items: center;
 
   & p {
+    font-family: Roboto;
+    font-size: 15px;
     text-align: center;
   }
   & button {
-    width: 10%;
+    width: 30%;
+    height: 6.5%;
     min-width: 120px;
-    border: 1px solid #e2e2e2;
+    background-color: #AAABD3;
+    border: 1px solid #AAABD3;
+    border-radius: 17.5px;
+    color: white;
     text-align: center;
   }
 `;

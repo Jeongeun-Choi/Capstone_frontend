@@ -30,7 +30,8 @@ export const basicBoxStyle = css`
 export const basicTeamStyle = css`
   width: 100%;
   height: 52px;
-  border: 1px solid #a2a2a2;
+  background-color: #f6f6f6;
+  border: 1px solid #f6f6f6;
   border-radius: 3px;
 `;
 
