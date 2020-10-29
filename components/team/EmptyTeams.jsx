@@ -25,11 +25,13 @@ const EmptyTeamsContainer = styled.main`
   }
   & button {
     width: 30%;
-    height: 6.5%;
+    height: 6%;
     min-width: 120px;
     background-color: #AAABD3;
     border: 1px solid #AAABD3;
     border-radius: 17.5px;
+    font-family: Roboto;
+    font-weight: bold;
     color: white;
     text-align: center;
   }

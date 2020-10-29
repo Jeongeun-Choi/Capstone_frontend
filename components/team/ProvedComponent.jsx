@@ -18,14 +18,48 @@ const ProvedContainer = styled.form`
 
   & main {
     & p {
+      margin-top: 15%;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 14px;
       text-align: center;
     }
-    & .form-item {
-      width: 90%;
+    & span {
+      //color: #FBD14B;
+      color: #AAABD3;
     }
-
+    & .input-item {
+      text-family: Roboto;
+      font-weight: normal;
+      font-size: 12px;
+      color: #868686;
+    }
+    & .form-item {
+      margin-bottom: 5%;
+      width: 75%;
+    }
     & .form-item-phone {
       display: flex;
+    }
+    & button{
+      width: 133%;
+      margin-top: 3%;
+      background-color: white;
+      border: 1px solid #e5e5e5;
+      border-radius: 2px;
+      text-family: Roboto;
+      font-size: 13px;
+      color: #AAABD3;
+    }
+    & .try-again{
+      margin-top: 20%;
+      color: #868686;
+      text-family: Roboto;
+      font-size: 12px;
+      font-weight: normal;
+      text-align: center;
     }
   }
 `;
@@ -67,14 +101,14 @@ const ProvedComponent = ({ setCloseModal, setMakingTeam }) => {
           </p>
           <div className="form-content">
             <div className="form-item">
-              <div>
-                이름<span>*</span>
+              <div className="input-item">
+                이름<span> *</span>
               </div>
               <BasicInput />
             </div>
             <div className="form-item">
-              <div>
-                통신사<span>*</span>
+              <div className="input-item"> 
+                통신사<span> *</span>
               </div>
               <Select defaultValue="SKT" onChange={moblieChange}>
                 <Select.Option value="SKT">SKT</Select.Option>
@@ -82,21 +116,27 @@ const ProvedComponent = ({ setCloseModal, setMakingTeam }) => {
                 <Select.Option value="LG">LG</Select.Option>
               </Select>
             </div>
-            <div className="form-item form-item-phone">
-              <div>
-                휴대전화번호<span>*</span>
+            {/*<div className="form-item form-item-phone"> 기존코드*/}
+            <div className="form-item">
+              <div className="input-item">
+                휴대전화번호<span> *</span>
               </div>
-              <ShortInput />
-              <button>전송</button>
+              {/*<ShortInput />*/}
+              <BasicInput />
+              
+              <div className="get-provedNum">
+                <button>인증번호 전송</button>
+              </div>
+
             </div>
             <div className="form-item">
-              <div>
-                인증번호<span>*</span>
+              <div className="input-item">
+                인증번호<span> *</span>
               </div>
               <BasicInput />
             </div>
           </div>
-          <div>인증번호가 도착하지 않는다면? 재전송</div>
+          <div className="try-again">인증번호가 도착하지 않는다면? <b>재전송</b></div>
         </main>
         <ModalFooter onClick={proveUser}>완료</ModalFooter>
       </ProvedContainer>

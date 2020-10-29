@@ -90,8 +90,9 @@ export const BasicInput = styled.input`
   box-sizing: border-box;
   border: 1px solid #e5e5e5;
   background-color: #e5e5e5;
+  // border: 1px solid #C4C4C4;
+  // background-color: white;
   opacity: 0.5;
-
   font-family: Roboto;
 `;
 
