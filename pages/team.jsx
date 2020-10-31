@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Tabs } from 'antd';
 import styled from '@emotion/styled';
 import Teams from '../components/team/Teams';
 import EmptyTeams from '../components/team/EmptyTeams';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  loadJoingroupsRequestAction,
+  loadApplyGroupsRequestAction
+} from '../reducers/user';
 
 // #AAABD3
 const TeamContainer = styled.div`
@@ -27,24 +31,36 @@ const TeamContainer = styled.div`
     }
   }
   .ant-tabs-ink-bar {
-    border-bottom: 4px solid #aaabd3;
+    /* border-bottom: 4px solid #aaabd3; */
+    background-color: #aaabd3;
   }
 `;
 const team = () => {
-  const { joinGroups } = useSelector(state => state.user.me);
+  const { me } = useSelector(state => state.user);
+  const dispatch = useDispatch();
   const { TabPane } = Tabs;
   const applyTeams = '내가 지원한 모임';
   const myTeams = '나의 모임';
+
+  useEffect(() => {
+    me.id &&
+      dispatch(loadJoingroupsRequestAction(me.id)) &&
+      dispatch(loadApplyGroupsRequestAction(me.id));
+  }, []);
 
   return (
     <TeamContainer>
       <Tabs defaultActiveKey="1">
         <TabPane tab={applyTeams} key="1">
-          <EmptyTeams pageTab={applyTeams} />
+          {me.applyGroups ? (
+            <Teams tab={myTeams} groups={me.applyGroups} />
+          ) : (
+            <EmptyTeams pageTab={applyTeams} />
+          )}
         </TabPane>
         <TabPane tab={myTeams} key="2">
-          {joinGroups && true ? (
-            <Teams tab={myTeams} />
+          {me.joinGroups ? (
+            <Teams tab={myTeams} groups={me.joinGroups} />
           ) : (
             <EmptyTeams pageTab={myTeams} />
           )}
