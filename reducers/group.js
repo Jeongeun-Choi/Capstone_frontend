@@ -58,6 +58,7 @@ const reducer = (state = initialState, action) => {
       case LOAD_GROUPS_SUCCESS: {
         draft.groupsLoading = false;
         draft.groupsDone = true;
+        draft.groups = action.data.groups;
         break;
       }
       case LOAD_GROUPS_FAILURE: {

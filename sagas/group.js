@@ -26,7 +26,7 @@ function* loadGroups() {
     const response = yield call(loadGroupsAPI);
     yield put(loadGroupsSuccessAction(response.data));
   } catch (err) {
-    yield loadGroupsFailureAction(err);
+    yield put(loadGroupsFailureAction(err));
   }
 }
 
