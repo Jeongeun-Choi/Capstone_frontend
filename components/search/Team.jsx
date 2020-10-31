@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { basicBoxStyle } from '../../public/style';
-import PostDetail from '../post/PostDetail';
+import GroupDetail from '../post/GroupDetail';
 
 const TeamBox = styled.div`
   ${basicBoxStyle}
@@ -19,10 +19,10 @@ const TeamBox = styled.div`
 
 const Team = ({ data }) => {
   const { category, name, location } = data;
-  const [showingPost, setShowingPost] = useState(false);
+  const [isShowing, setIsShowing] = useState(false);
 
   const clickTeam = useCallback(() => {
-    setShowingPost(prev => !prev);
+    setIsShowing(prev => !prev);
   }, []);
 
   return (
@@ -35,9 +35,7 @@ const Team = ({ data }) => {
           <div className="team-info-location">{location}</div>
         </div>
       </TeamBox>
-      {showingPost ? (
-        <PostDetail data={data} setShowingPost={setShowingPost} />
-      ) : null}
+      {isShowing && <GroupDetail data={data} setIsShowing={setIsShowing} />}
     </>
   );
 };
