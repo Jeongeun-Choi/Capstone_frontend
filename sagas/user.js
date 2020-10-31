@@ -30,11 +30,14 @@ import {
   ADD_LOCATION_REQUEST,
   deleteCategorySuccessAction,
   deleteCategoryFailureAction,
-  DELETE_CATEGORY_REQUEST
+  DELETE_CATEGORY_REQUEST,
+  LOAD_APPLYGROUPS_REQUEST,
+  loadApplyGroupsFailureAction,
+  loadApplyGroupsSuccessAction
 } from '../reducers/user';
 
 function loadJoinGroupsAPI(data) {
-  return axios.get(`/member/${data}`);
+  return axios.get(`/join-group/${data}`);
 }
 function* loadJoinGroups(action) {
   try {
@@ -46,6 +49,21 @@ function* loadJoinGroups(action) {
 }
 function* watchLoadJoinGroups() {
   yield takeLatest(LOAD_JOINGROUPS_REQUEST, loadJoinGroups);
+}
+
+function loadApplyGroupsAPI(data) {
+  return axios.get(`/apply-group/${data}`);
+}
+function* loadApplyGroups(action) {
+  try {
+    const response = yield call(loadApplyGroupsAPI, action.data);
+    yield put(loadApplyGroupsSuccessAction(response.data));
+  } catch (err) {
+    yield put(loadApplyGroupsFailureAction(err));
+  }
+}
+function* watchLoadApplyGroups() {
+  yield takeLatest(LOAD_APPLYGROUPS_REQUEST, loadApplyGroups);
 }
 
 function logInAPI(data) {
@@ -246,6 +264,7 @@ export default function* userSaga() {
     fork(watchDeleteLocation),
     fork(watchAddCategory),
     fork(watchUpdateCategory),
-    fork(watchDeleteCategory)
+    fork(watchDeleteCategory),
+    fork(watchLoadApplyGroups)
   ]);
 }
