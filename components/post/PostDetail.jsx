@@ -94,8 +94,10 @@ const PostContainer = styled.div`
 
 const PostHeader = styled(ModalHeader)`
   background-color: #aaabd3;
-  color: #ffffff;
 
+  h3 {
+    color: #ffffff;
+  }
   & .anticon-exclamation-circle {
     position: absolute;
     top: 25px;
@@ -112,7 +114,6 @@ const Footer = styled.button`
   font-weight: bold;
 `;
 const PostDetail = ({ data, setIsShowing }) => {
-  console.log(data);
   const { id, title, contents, deadline, expectMemberCount, JoinGroup } = data;
   const { Group } = JoinGroup;
   const [showingJoinModal, setShowingJoinModal] = useState(false);
