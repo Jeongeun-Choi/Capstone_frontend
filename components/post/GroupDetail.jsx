@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import styled from '@emotion/styled';
-import { ModalHeader, modalFooter, Modal } from '../../public/style';
+import { ModalHeader, Modal } from '../../public/style';
 import {
   LeftOutlined,
   ExclamationCircleTwoTone,

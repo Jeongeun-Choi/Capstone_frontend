@@ -1,7 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { basicStyle, Modal } from '../../public/style';
 import Selection from './Selection';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  loadJoingroupsRequestAction,
+  loadApplyGroupsRequestAction
+} from '../../reducers/user';
 
 const InitialLocationContainer = styled.div`
   width: 100%;
@@ -39,7 +44,15 @@ const SkipButton = styled.button`
 `;
 
 const InitialLocation = ({ setShowingInitialLocation }) => {
+  const { me } = useSelector(state => state.user);
+  const dispatch = useDispatch();
   const [showingSelection, setShowingSelection] = useState(false);
+
+  useEffect(() => {
+    !me.joinGroups &&
+      dispatch(loadJoingroupsRequestAction(me.id)) &&
+      dispatch(loadApplyGroupsRequestAction(me.id));
+  }, [me.id && me]);
 
   const openSelectionModal = useCallback(e => {
     e.preventDefault();

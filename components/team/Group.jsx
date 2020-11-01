@@ -1,102 +1,66 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
-import { Modal, ModalHeader, moadalfooter } from '../../public/style';
-import { LeftOutlined } from '@ant-design/icons';
+import { basicTeamStyle } from '../../public/style';
+import customAxios from '../../utils/baseAxios';
+import GroupDetail from '../post/GroupDetail';
+import WritingPost from '../writing/WritingPost';
 
-const GroupContainer = styled.div`
-  width: 100%;
+const positions = {
+  L: '모임장',
+  n: '팀원'
+};
 
-  & .group-info {
-    height: 70px;
+const MyGroup = styled.li`
+  width: 95%;
+  height: 52px;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 11px;
+
+  .group-image {
+    ${basicTeamStyle}
+    width: 20%;
+    min-width: 74.74px;
+  }
+  .group-info {
+    ${basicTeamStyle}
+    width: 60%;
+    min-width: 247.44px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  & .group-category {
-    font-size: 14px;
-  }
-  & .group-name {
-    font-size: 16px;
-    font-weight: bold;
-  }
-
-  & .group-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-
-    & .big-img {
-      margin-top: 20px;
-      width: 100%;
-      height: 30vh;
-    }
-
-    & .group-content-header {
-      width: 90%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-
-      & .like {
-        display: flex;
-        width: 30px;
-        height: 30px;
-        border-radius: 15px;
-        background-color: #f6f6f6;
-
-        & .anticon-heart {
-          margin: auto;
-          font-size: 16px;
-          color: #eb5757;
-        }
-      }
-    }
+    font-size: 11px;
   }
 `;
 
-const GroupHeader = styled(ModalHeader)`
-  line-height: 25px;
-  color: #ffffff;
-  background-color: #aaabd3;
+const Group = ({ groupId, groupName, position, type, data }) => {
+  const [groupData, setGroupData] = useState(null);
+  const [isShowing, setIsShowing] = useState(false);
 
-  & .anticon-exclamation-circle {
-    position: absolute;
-    top: 25px;
-    right: 20px;
-    font-size: 25px;
-  }
-`;
+  const openGroup = useCallback(async () => {
+    const response = await customAxios.get(`/groups/${groupId}`);
+    setGroupData(response.data.group);
+    setIsShowing(prev => !prev);
+  }, [groupId]);
 
-const GroupFooter = styled.button`
-  ${modalFooter}
-  color: #ffffff;
-  background-color: #aaabd3;
-  border: 1px solid #aaabd3;
-  font-weight: bold;
-`;
-
-const Group = ({data}) => {
-    const {id, name, memberCount, groupIntro, Skills, ActiveTimes, GroupImages, ActiveCategories}
   return (
-    <Modal>
-      <GroupContainer>
-        <GroupHeader>
-          <LeftOutlined />
-          <div className="group-info">
-            <div className="group-category">{}</div>
-            <div className="group-name">
-              {name} | {location}
-            </div>
-          </div>
-        </GroupHeader>
-      </GroupContainer>
-    </Modal>
+    <>
+      <MyGroup onClick={openGroup}>
+        <section className="group-image">
+          <div>대충 이미지</div>
+        </section>
+        <section className="group-info">
+          <div>{groupName}</div>
+          {position && <div>{positions[position]}</div>}
+        </section>
+      </MyGroup>
+      {type === 'post'
+        ? groupData &&
+          isShowing && <WritingPost data={data} setIsShowing={setIsShowing} />
+        : groupData &&
+          isShowing && (
+            <GroupDetail data={groupData} setIsShowing={setIsShowing} />
+          )}
+    </>
   );
 };
 

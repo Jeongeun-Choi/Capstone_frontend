@@ -1,37 +1,31 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
+import { basicStyle } from '../../public/style';
 import { Modal } from 'antd';
-import ProvedComponent from './ProvedComponent';
-import MakingGroup from './MakingGroup';
 import { useSelector } from 'react-redux';
+import ProvedComponent from '../team/ProvedComponent';
+import MakingGroup from '../team/MakingGroup';
 
-const content = {
-  '나의 모임': [`원하는 모임이 없다면?\n만들어보세요!`, '모임 만들기'],
-  '내가 지원한 모임': [`회원님과 잘 맞는 모임에 참여해보세요.`, '모임 참여하기']
-};
-
-const EmptyTeamsContainer = styled.main`
+const EmptyGroupsContainer = styled.main`
   width: 100%;
-  height: 70vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  & p {
-    text-align: center;
-  }
-  & button {
-    width: 10%;
-    min-width: 120px;
-    border: 1px solid #e2e2e2;
-    text-align: center;
+  & .emptygroups-button {
+    ${basicStyle};
+    width: 90%;
+    color: #f8faff;
+    border: 1px solid #cba6c3;
+    border-radius: 17.5px;
+    background-color: #cba6c3;
   }
 `;
 
-const EmptyTeams = ({ pageTab }) => {
+const EmptyGroups = () => {
   const { me } = useSelector(state => state.user);
-  const [pText, aText] = content[pageTab];
   const [isAlertModal, setIsAlertModal] = useState(false);
   const [isProvedModal, setIsProvedModal] = useState(false);
   const [showingMakingTeamModal, setShowingMakingTeamModal] = useState(false);
@@ -45,24 +39,23 @@ const EmptyTeams = ({ pageTab }) => {
     setIsAlertModal(prev => !prev);
   }, [me]);
 
-  const openAlertModal = useCallback(() => {
+  const setAlertModal = useCallback(() => {
     setIsAlertModal(prev => !prev);
   }, []);
 
   return (
     <>
-      <EmptyTeamsContainer>
-        <p>
-          {pText.split('\n').map(text => (
-            <span key={text}>
-              {text}
-              <br />
-            </span>
-          ))}
-        </p>
-        <button onClick={openAlertModal}>{aText}</button>
-      </EmptyTeamsContainer>
-      <Modal visible={isAlertModal} onOk={openScreen} onClose={openAlertModal}>
+      <EmptyGroupsContainer>
+        <div>"모집글을 작성할 수 있는 모임이 없어요!"</div>
+        <button
+          className="emptygroups-button"
+          type="button"
+          onClick={setAlertModal}
+        >
+          모임 등록하러 가기
+        </button>
+      </EmptyGroupsContainer>
+      <Modal visible={isAlertModal} onOk={openScreen} onCancel={setAlertModal}>
         <h4>모임 개설</h4>
         <div>새로운 모임을 개설하시겠습니까?</div>
       </Modal>
@@ -79,4 +72,4 @@ const EmptyTeams = ({ pageTab }) => {
   );
 };
 
-export default EmptyTeams;
+export default EmptyGroups;

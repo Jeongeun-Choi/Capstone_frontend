@@ -52,11 +52,15 @@ const ProvedComponent = ({ setCloseModal, setMakingTeam }) => {
     setMakingTeam(prev => !prev);
   }, []);
 
+  const closeModal = useCallback(() => {
+    setCloseModal(prev => !prev);
+  }, []);
+
   return (
     <Modal>
       <ProvedContainer>
         <ModalHeader>
-          <LeftOutlined />
+          <LeftOutlined onClick={closeModal} />
           <h3>실명인증</h3>
         </ModalHeader>
         <main>

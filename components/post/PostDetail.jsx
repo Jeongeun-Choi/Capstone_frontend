@@ -1,43 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { ModalHeader, modalFooter, Modal } from '../../public/style';
-import {
-  LeftOutlined,
-  ExclamationCircleTwoTone,
-  HeartOutlined,
-  HeartFilled
-} from '@ant-design/icons';
-import { categoryNames } from '../../utils/categoryNames';
-import KakaoMap from '../map/KakaoMap';
-import { Divider } from 'antd';
+import { LeftOutlined, ExclamationCircleTwoTone } from '@ant-design/icons';
 import JoinTeam from './JoinTeam';
+import { Divider } from 'antd';
 
 const PostContainer = styled.div`
   width: 100%;
-
-  & .post-info {
-    height: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  & .team-category {
-    font-size: 14px;
-  }
-  & .team-name {
-    font-size: 16px;
-    font-weight: bold;
-  }
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   & .post-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
+    width: 90%;
 
     & .big-img {
       margin-top: 20px;
@@ -87,7 +65,8 @@ const PostContainer = styled.div`
       font-size: 15px;
       margin-right: 10px;
     }
-    & .team-page {
+
+    & .group-page {
       display: flex;
       width: 90%;
       margin-top: 25px;
@@ -99,7 +78,7 @@ const PostContainer = styled.div`
         height: 90px;
       }
 
-      & .team-page-info {
+      & .group-page-info {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -114,9 +93,8 @@ const PostContainer = styled.div`
 `;
 
 const PostHeader = styled(ModalHeader)`
-  line-height: 25px;
-  color: #ffffff;
   background-color: #aaabd3;
+  color: #ffffff;
 
   & .anticon-exclamation-circle {
     position: absolute;
@@ -133,19 +111,21 @@ const Footer = styled.button`
   border: 1px solid #aaabd3;
   font-weight: bold;
 `;
-
-const PostDetail = ({ data }) => {
-  const { category, name, location } = data;
-  //TODO: 좋아요한 모집글인지 받아와서 초기값으로 선언하기
-  const [filledHeart, setFilledHeart] = useState(false);
+const PostDetail = ({ data, setIsShowing }) => {
+  console.log(data);
+  const { id, title, contents, deadline, expectMemberCount, JoinGroup } = data;
+  const { Group } = JoinGroup;
   const [showingJoinModal, setShowingJoinModal] = useState(false);
+  const [showingGroupDetail, setShowingGroupDetail] = useState(false);
 
-  const clickHeart = useCallback(() => {
-    setFilledHeart(prev => !prev);
+  const clickJoinButton = useCallback(() => {}, []);
+
+  const clickGroupDetail = useCallback(() => {
+    setShowingGroupDetail(prev => !prev);
   }, []);
 
-  const clickJoinButton = useCallback(() => {
-    setShowingJoinModal(prev => !prev);
+  const closeModal = useCallback(() => {
+    setIsShowing(prev => !prev);
   }, []);
 
   return (
@@ -153,78 +133,52 @@ const PostDetail = ({ data }) => {
       <Modal>
         <PostContainer>
           <PostHeader>
-            <LeftOutlined />
-            <div className="post-info">
-              <div className="team-category">{categoryNames[category]}</div>
-              <div className="team-name">
-                {name} | {location}
-              </div>
-            </div>
+            <LeftOutlined onClick={closeModal} />
+            <h3>{title}</h3>
             <ExclamationCircleTwoTone twoToneColor="#DFDFEC" />
           </PostHeader>
-          <section className="post-content">
-            <img
-              className="big-img"
-              src={'/images/teamimg.jpg'}
-              alt="팀 사진"
-            />
-            <div className="post-content-header">
-              <div>
-                <div className="team-category">{categoryNames[category]}</div>
-                <div className="team-name">
-                  {name} | {location}
-                </div>
-              </div>
-              <div className="like" onClick={clickHeart}>
-                {filledHeart ? <HeartFilled /> : <HeartOutlined />}
-              </div>
+          <main className="post-content">
+            <div className="post-item">
+              <div className="subtitle">내용</div>
+              <div>{contents}</div>
             </div>
-            <div className="team-info">
-              <div className="subtitle">모임소개</div>
-              <div className="team-info-textarea">블라블라머시기어쩌고</div>
+            <div className="post-item">
+              <div className="subtitle">마감 시간</div>
+              <div>{deadline}</div>
             </div>
-            <div className="post-deadline">
-              <div className="subtitle">마감일</div>
-              <div>yyyy.mm.dd</div>
+            <div className="post-item">
+              <div className="subtitle">예상 인원</div>
+              {expectMemberCount}명
             </div>
-            <div className="team-location">
-              <div className="subtitle">모임 지역</div>
-              <div>{location}</div>
-            </div>
-            <KakaoMap location={location} />
-            <div className="team-page">
+            <Divider />
+            <div className="group-page" onClick={clickGroupDetail}>
               <img
                 className="small-img"
-                src={'/images/teamimg.jpg'}
-                alt="팀 사진"
+                src={Group.GroupImages[0].URL}
+                alt={Group.GroupImages[0].description}
               />
-              <div className="team-page-info">
-                <div>{categoryNames[category]}</div>
-                <div>{name}</div>
+              <div className="group-page-info">
+                <div>{Group.ActiveCategories[0].DetailCategory.name}</div>
+                <div>{Group.name}</div>
                 <div>since 2019</div>
               </div>
             </div>
-            <Divider />
-            <div className="team-review">
-              <div className="subtitle">모임 리뷰</div>
-              <div>리뷰 컴포넌트 ~,~</div>
-            </div>
-            <Divider />
-            <div className="team-qna">
-              <div className="subtitle">모임 Q&amp;A</div>
-              <div>QnA 컴포넌트 ~,~</div>
-            </div>
-          </section>
-          <Footer onClick={clickJoinButton}>이 모임에 참여하기</Footer>
+          </main>
         </PostContainer>
+        <Footer type="button" onClick={clickJoinButton}>
+          이 모임에 참여하기
+        </Footer>
       </Modal>
-      {showingJoinModal ? (
+      {showingJoinModal && (
         <JoinTeam
-          category={categoryNames[category]}
+          category={ActiveCategories[0].DetailCategory.name}
           userName="최정은"
-          teamName={name}
+          teamName={JoinGroup.Group.name}
         />
-      ) : null}
+      )}
+      {showingGroupDetail && (
+        <GroupDetail data={Group} setIsShowing={setShowingGroupDetail} />
+      )}
     </>
   );
 };

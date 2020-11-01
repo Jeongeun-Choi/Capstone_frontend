@@ -5,7 +5,6 @@ import Home from '../components/main/Home';
 import Login from '../components/main/Login';
 import Signup from '../components/main/Signup';
 import InitialLocation from '../components/locationSetting/InitialLocation';
-import { loadGroupsRequestAction } from '../reducers/group';
 
 const index = () => {
   const dispatch = useDispatch();
@@ -15,7 +14,6 @@ const index = () => {
 
   useEffect(() => {
     dispatch(loadCategorysRequestAction());
-    dispatch(loadGroupsRequestAction());
   }, []);
 
   return (
