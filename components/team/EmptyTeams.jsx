@@ -30,9 +30,9 @@ const EmptyTeamsContainer = styled.main`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid #4211D0;
+    border: 1px solid #6055CD;
     border-radius: 18px;
-    background-color: #4211D0;
+    background-color: #6055CD;
     color: white;
     font-family: 'Nanum Gothic', sans-serif;
     font-weight: regular;

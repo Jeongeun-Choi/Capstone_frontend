@@ -27,7 +27,7 @@ const ProvedContainer = styled.form`
     }
     & span {
       //color: #AAABD3;
-      color: #4211D0;
+      color: #6055CD;
     }
     & .input-item {
       font-family: 'Nanum Gothic', sans-serif;
@@ -46,13 +46,13 @@ const ProvedContainer = styled.form`
       width: 133%;
       margin-top: 3%;
       background-color: white;
-      border: 1px solid #4211D0;
+      border: 1px solid #6055CD;
       border-radius: 2px;
       font-family: 'Nanum Gothic', sans-serif;
       font-style: regular;
       font-size: 12px;
       //color: #AAABD3;
-      color: #4211D0;
+      color: #6055CD;
     }
     & .try-again{
       margin-top: 20%;
@@ -70,8 +70,8 @@ const ModalFooter = styled.button`
   color: #ffffff;
   // background-color: #aaabd3;
   // border: 1px solid #aaabd3;
-  background-color: #4211D0;
-  border: 1px solid #4211D0;
+  background-color: #6055CD;
+  border: 1px solid #6055CD;
   font-weight: bold;
   position: fixed;
   bottom: 0;

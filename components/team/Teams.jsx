@@ -47,7 +47,7 @@ const MyTeam = styled.div`
     font-size: 10px;
     line-height: 20px;
     color: #000000;
-    //color: #4211D0;
+    //color: #6055CD;
   }
 
   .info-name{
@@ -64,7 +64,7 @@ const MyTeam = styled.div`
     font-size: 13px;
     line-height: 10px;
     //color: #000000;
-    color: #4211D0;
+    color: #6055CD;
   }
 
   .info-location{ 
@@ -80,7 +80,7 @@ const MyTeam = styled.div`
     font-size: 10px;
     line-height: 10px;
     color: #000000;
-    //color: #4211D0;
+    //color: #6055CD;
   }
 
 `;

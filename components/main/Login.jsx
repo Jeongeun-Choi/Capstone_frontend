@@ -45,7 +45,7 @@ const LoginContainer = styled.div`
     margin: 5px 0 15px 0;
 
     font-family: 'Nanum Gothic', sans-serif;
-    color: #4211D0;
+    color: #6055CD;
     font-weight: bold;
     font-size: 23px;
     text-align: center;
@@ -61,7 +61,7 @@ const LoginContainer = styled.div`
     font-weight: bold;
     font-size: 12px;
     //color: #868686;
-    color: #4211D0;
+    color: #6055CD;
   }
 
   .horizon {
@@ -94,7 +94,7 @@ const LoginContainer = styled.div`
     font-family: 'Nanum Gothic', sans-serif;
     font-size: 12px;
     color: #868686;   
-    //color: #4211D0;
+    //color: #6055CD;
   }
 `;
 

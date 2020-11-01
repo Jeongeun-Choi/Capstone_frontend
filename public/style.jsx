@@ -108,9 +108,9 @@ export const Button = styled.button`
   color: white;
   font-family: 'Nanum Gothic', sans-serif;
   font-weight: regular;
-  border: 1px solid #4211D0;
+  border: 1px solid #6055CD;
   border-radius: 18px;
-  background-color: #4211D0;
+  background-color: #6055CD;
 `;
 
 export const SNSLogin = styled.div`
@@ -122,6 +122,6 @@ export const SNSLogin = styled.div`
   //border: 1px solid #868686;
   border-radius: 18px;
   line-height: 35px;
-  color: #4211D0;
-  border: 1px solid #4211D0;
+  color: #6055CD;
+  border: 1px solid #6055CD;
 `;

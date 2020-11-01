@@ -13,7 +13,7 @@ const TeamContainer = styled.div`
   .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
       //color: #aaabd3;
-      color: #4211D0;
+      color: #6055CD;
       font-weight: bold;
     }
   }
@@ -24,12 +24,12 @@ const TeamContainer = styled.div`
 
     :hover {
       //color: #aaabd3;
-      color: #4211D0;
+      color: #6055CD;
     }
   }
   .ant-tabs-ink-bar {
     //border-bottom: 4px solid #aaabd3;
-    border-bottom: 4px solid #4211D0;
+    border-bottom: 4px solid #6055CD;
   }
 `;
 
