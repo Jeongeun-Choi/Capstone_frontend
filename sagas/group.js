@@ -1,5 +1,5 @@
 import { all, put, fork, takeLatest, delay, call } from 'redux-saga/effects';
-import axios from 'axios';
+import customAxios from '../utils/baseAxios';
 import {
   deleteGroupFailureAction,
   updateGroupFailureAction,
@@ -12,11 +12,11 @@ import {
   UPDATE_GROUP_REQUEST,
   updateGroupSuccessAction,
   DELETE_GROUP_REQUEST,
-  deleteGroupSuccessAction
+  deleteGroupSuccessAction,
 } from '../reducers/group';
 
 function loadGroupsAPI() {
-  return axios.get(`/groups`);
+  return customAxios.get(`/groups`);
 }
 
 function* loadGroups() {
@@ -33,7 +33,7 @@ function* watchLoadGroups() {
 }
 
 function addGroupAPI(data) {
-  return axios.post(`/groups`, data);
+  return customAxios.post(`/groups`, data);
 }
 
 function* addGroup(action) {
@@ -84,6 +84,6 @@ export default function* postSaga() {
     fork(watchLoadGroups),
     fork(watchAddGroup),
     fork(watchUpdateGroup),
-    fork(watchDeleteGroup)
+    fork(watchDeleteGroup),
   ]);
 }
