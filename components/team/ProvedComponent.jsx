@@ -4,7 +4,7 @@ import {
   ModalHeader,
   BasicInput,
   ShortInput,
-  modalFooter
+  modalFooter 
 } from '../../public/style';
 import styled from '@emotion/styled';
 import { Select } from 'antd';
@@ -19,20 +19,19 @@ const ProvedContainer = styled.form`
   & main {
     & p {
       margin-top: 15%;
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: normal;
+      font-family: 'Nanum Gothic', sans-serif;
+      font-style: regular;
       font-size: 12px;
       line-height: 14px;
       text-align: center;
     }
     & span {
-      //color: #FBD14B;
-      color: #AAABD3;
+      //color: #AAABD3;
+      color: #4211D0;
     }
     & .input-item {
-      text-family: Roboto;
-      font-weight: normal;
+      font-family: 'Nanum Gothic', sans-serif;
+      font-style: regular;
       font-size: 12px;
       color: #868686;
     }
@@ -47,18 +46,20 @@ const ProvedContainer = styled.form`
       width: 133%;
       margin-top: 3%;
       background-color: white;
-      border: 1px solid #e5e5e5;
+      border: 1px solid #4211D0;
       border-radius: 2px;
-      text-family: Roboto;
-      font-size: 13px;
-      color: #AAABD3;
+      font-family: 'Nanum Gothic', sans-serif;
+      font-style: regular;
+      font-size: 12px;
+      //color: #AAABD3;
+      color: #4211D0;
     }
     & .try-again{
       margin-top: 20%;
       color: #868686;
-      text-family: Roboto;
+      font-family: 'Nanum Gothic', sans-serif;
+      font-style: regular;
       font-size: 12px;
-      font-weight: normal;
       text-align: center;
     }
   }
@@ -67,8 +68,10 @@ const ProvedContainer = styled.form`
 const ModalFooter = styled.button`
   ${modalFooter}
   color: #ffffff;
-  background-color: #aaabd3;
-  border: 1px solid #aaabd3;
+  // background-color: #aaabd3;
+  // border: 1px solid #aaabd3;
+  background-color: #4211D0;
+  border: 1px solid #4211D0;
   font-weight: bold;
   position: fixed;
   bottom: 0;

@@ -12,7 +12,8 @@ const TeamContainer = styled.div`
   }
   .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
-      color: #aaabd3;
+      //color: #aaabd3;
+      color: #4211D0;
       font-weight: bold;
     }
   }
@@ -22,11 +23,13 @@ const TeamContainer = styled.div`
     justify-content: center;
 
     :hover {
-      color: #aaabd3;
+      //color: #aaabd3;
+      color: #4211D0;
     }
   }
   .ant-tabs-ink-bar {
-    border-bottom: 4px solid #aaabd3;
+    //border-bottom: 4px solid #aaabd3;
+    border-bottom: 4px solid #4211D0;
   }
 `;
 

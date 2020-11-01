@@ -19,21 +19,23 @@ const EmptyTeamsContainer = styled.main`
   align-items: center;
 
   & p {
-    font-family: Roboto;
+    font-family: 'Nanum Gothic', sans-serif;
     font-size: 15px;
     text-align: center;
   }
   & button {
-    width: 30%;
-    height: 6%;
-    min-width: 120px;
-    background-color: #AAABD3;
-    border: 1px solid #AAABD3;
-    border-radius: 17.5px;
-    font-family: Roboto;
-    font-weight: bold;
+    width: 90%;
+    height: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid #4211D0;
+    border-radius: 18px;
+    background-color: #4211D0;
     color: white;
-    text-align: center;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: regular;
   }
 `;
 

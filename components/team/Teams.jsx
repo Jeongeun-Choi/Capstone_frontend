@@ -42,12 +42,12 @@ const MyTeam = styled.div`
     margin-left: 5px;
     flex-direction: column;
     
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-style: regular;
     font-size: 10px;
     line-height: 20px;
     color: #000000;
+    //color: #4211D0;
   }
 
   .info-name{
@@ -58,12 +58,13 @@ const MyTeam = styled.div`
     margin-left: 5px;
     flex-direction: column;
 
-    font-family: Roboto;
-    font-style: normal;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-style: regular;
     font-weight: bold;
     font-size: 13px;
     line-height: 10px;
-    color: #000000;
+    //color: #000000;
+    color: #4211D0;
   }
 
   .info-location{ 
@@ -74,12 +75,12 @@ const MyTeam = styled.div`
     margin-left: 5px;
     flex-direction: column;
     
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-style: regular;
     font-size: 10px;
     line-height: 10px;
     color: #000000;
+    //color: #4211D0;
   }
 
 `;

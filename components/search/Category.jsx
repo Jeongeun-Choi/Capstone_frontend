@@ -3,11 +3,15 @@ import { basicBoxStyle } from '../../public/style';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 
+
 const CategoryBox = styled.div`
   ${basicBoxStyle}
-  width: 100%;
+  //TODO: ul 중앙정렬
+  height: 100%;
   display: flex;
-  margin-bottom: 10px;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 8%;
   align-items: center;
   justify-content: space-around;
   background-color: #868686;

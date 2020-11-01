@@ -54,8 +54,17 @@ const MakingTeamContainer = styled.form`
   }
   & .subtitle {
     font-weight: bold;
+    margin-top: 5%;
     margin-right: 5px;
   }
+  & .team-info-textarea{
+    width: 95%;
+    resize: none;
+    overflow-y: auto;
+    // color: #aaa69d;
+    border: 1px solid #blue;
+  }
+  
   & .team-location-title {
     display: flex;
   }
@@ -70,6 +79,7 @@ const MakingTeamContainer = styled.form`
       border-radius: 5px;
       text-align: center;
       margin-right: 5px;
+      color: #aaa69d;
     }
 
     & .team-active-day-content-item-active {
@@ -83,7 +93,7 @@ const MakingTeamContainer = styled.form`
 const MakingTeamHeader = styled(ModalHeader)`
   color: #ffffff;
   background-color: #aaabd3;
-
+  //글쎄.. 꼭 보라색을 써야하나..?ㅋ
   h3 {
     color: #ffffff;
   }
@@ -207,7 +217,7 @@ const MakingTeam = ({ setCloseModal }) => {
               rows="5"
               cols="33"
             >
-              블라블라머시기어쩌고
+              모임 소개글을 작성해주세요.
             </textarea>
           </div>
           <div className="team-active-day">

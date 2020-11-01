@@ -35,9 +35,8 @@ const LoginContainer = styled.div`
       width: 90%;
       margin-top: 1%;
     }
-    
   }
-
+  
   .login{
     width: 90%;
     height: 5%;
@@ -45,7 +44,8 @@ const LoginContainer = styled.div`
     flex-direction: column;
     margin: 5px 0 15px 0;
 
-    font-family: Roboto;
+    font-family: 'Nanum Gothic', sans-serif;
+    color: #4211D0;
     font-weight: bold;
     font-size: 23px;
     text-align: center;
@@ -57,11 +57,11 @@ const LoginContainer = styled.div`
     display: flex;
     justify-content: center;
     margin: 10px 0 5px 0;
-
-    font-family: Roboto;
+    font-family: 'Nanum Gothic', sans-serif;
     font-weight: bold;
     font-size: 12px;
-    color: #868686;
+    //color: #868686;
+    color: #4211D0;
   }
 
   .horizon {
@@ -69,8 +69,7 @@ const LoginContainer = styled.div`
     display: flex;
     justify-content: center;
     margin: 13px 0 13px 0;
-
-    font-family: Roboto;
+    font-family: 'Nanum Gothic', sans-serif;
     font-size: 11px;
     color: #868686;
     opacity: 0.7;
@@ -83,6 +82,7 @@ const LoginContainer = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    font-family: 'Nanum Gothic', sans-serif;
   }
 
   .notYet{
@@ -91,9 +91,10 @@ const LoginContainer = styled.div`
     justify-content: center;
     margin: 10px 0 0 0;
 
-    font-family: Roboto;
+    font-family: 'Nanum Gothic', sans-serif;
     font-size: 12px;
     color: #868686;   
+    //color: #4211D0;
   }
 `;
 
