@@ -51,9 +51,6 @@ const WritingPostContainer = styled.form`
     resize: none;
     border: none;
   }
-
-  & .post-active-time-content {
-  }
 `;
 
 const WritingPostHeader = styled(ModalHeader)`
