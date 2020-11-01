@@ -1,12 +1,33 @@
 import { all, put, fork, takeLatest, delay, call } from 'redux-saga/effects';
-import axios from 'axios';
+import customAxios from '../utils/baseAxios';
 import {
   LOAD_CATEGORYS_REQUEST,
   loadCategorysSuccessAction,
-  loadCategorysFailureAction
+  loadCategorysFailureAction,
+  LOAD_CATEGORY_REQUEST,
+  loadCategorySuccessAction,
+  loadCategoryFailureAction
 } from '../reducers/category';
+
+function loadCategoryAPI() {
+  return customAxios.get(`/categorys`);
+}
+function* loadCategory() {
+  try {
+    const categories = yield call(loadCategoryAPI);
+    yield put(loadCategorySuccessAction(categories.data));
+  } catch (err) {
+    console.error(err);
+    yield put(loadCategoryFailureAction(err));
+  }
+}
+
+function* watchLoadCategory() {
+  yield takeLatest(LOAD_CATEGORY_REQUEST, loadCategory);
+}
+
 function loadCategorysAPI() {
-  return axios.get(`/categorys/detail`);
+  return customAxios.get(`/categorys/detail`);
 }
 function* loadCategorys() {
   try {
@@ -22,5 +43,5 @@ function* watchLoadCategorys() {
 }
 
 export default function* categorySaga() {
-  yield all([fork(watchLoadCategorys)]);
+  yield all([fork(watchLoadCategorys), fork(watchLoadCategory)]);
 }

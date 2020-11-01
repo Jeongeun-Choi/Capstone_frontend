@@ -14,44 +14,6 @@ export const initialState = {
   posts: []
 };
 
-const dummyPosts = [
-  {
-    category: 'sports',
-    name: '축사모',
-    location: '부산 해운대구'
-  },
-  {
-    category: 'sports',
-    name: '농구의 신',
-    location: '부산 동래'
-  },
-  {
-    category: 'sports',
-    name: '탁구왕 김제빵',
-    location: '서울 강남'
-  },
-  {
-    category: 'game',
-    name: '오토체스',
-    location: '부산 남구'
-  },
-  {
-    category: 'game',
-    name: '도로 위 무법자',
-    location: '창원'
-  },
-  {
-    category: 'study',
-    name: '공기업이 최고다',
-    location: '광주'
-  },
-  {
-    category: 'programming',
-    name: '프론트에서 백까지',
-    location: '서울'
-  }
-];
-
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
@@ -96,7 +58,7 @@ const reducer = (state = initialState, action) => {
       case LOAD_POSTS_SUCCESS: {
         draft.postsLoading = false;
         draft.postsDone = true;
-        draft.posts = dummyPosts;
+        draft.posts.push(...action.data);
         break;
       }
       case LOAD_POSTS_FAILURE: {
@@ -148,7 +110,7 @@ const reducer = (state = initialState, action) => {
         break;
       }
       default:
-        return state;
+        break;
     }
   });
 };

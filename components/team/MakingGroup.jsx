@@ -12,7 +12,7 @@ import KakaoMap from '../map/KakaoMap';
 import styled from '@emotion/styled';
 import { LeftOutlined } from '@ant-design/icons';
 import inputChangeHook from '../../hooks/inputChangeHook';
-import timePickerHook from '../../hooks/timePickerHook';
+import usePickerHook from '../../hooks/usePickerHook';
 import Upload from '../uploadImg/Upload';
 import { addGroupRequestAction } from '../../reducers/group';
 
@@ -33,7 +33,7 @@ const formatter = value => {
   return `${value}명`;
 };
 
-const MakingTeamContainer = styled.form`
+const MakingGroupContainer = styled.form`
   width: 100%;
 
   & .team-content {
@@ -59,6 +59,10 @@ const MakingTeamContainer = styled.form`
     font-weight: bold;
     margin-right: 5px;
   }
+
+  & textarea {
+    resize: none;
+  }
   & .team-location-title {
     display: flex;
   }
@@ -83,7 +87,7 @@ const MakingTeamContainer = styled.form`
   }
 `;
 
-const MakingTeamHeader = styled(ModalHeader)`
+const MakingGroupHeader = styled(ModalHeader)`
   color: #ffffff;
   background-color: #aaabd3;
 
@@ -92,7 +96,7 @@ const MakingTeamHeader = styled(ModalHeader)`
   }
 `;
 
-const MakingTeamFooter = styled.button`
+const MakingGroupFooter = styled.button`
   ${modalFooter};
   border: 1px solid #aaabd3;
   background-color: #aaabd3;
@@ -100,7 +104,7 @@ const MakingTeamFooter = styled.button`
   font-weight: bold;
 `;
 
-const MakingTeam = ({ setCloseModal }) => {
+const MakingGroup = ({ setCloseModal }) => {
   const { categories } = useSelector(state => state.category);
   const { me } = useSelector(state => state.user);
   const dispatch = useDispatch();
@@ -111,8 +115,8 @@ const MakingTeam = ({ setCloseModal }) => {
   const [location, setLocation] = useState('');
   const [maxMember, setMaxMember] = useState(0);
   const [activeDays, setActiveDays] = useState([]);
-  const [startTime, setStartTime] = timePickerHook('');
-  const [endTime, setEndTime] = timePickerHook('');
+  const [startTime, changeStartTime] = usePickerHook('');
+  const [endTime, changeEndTime] = usePickerHook('');
   const [skills, setSkills] = useState('');
   const [groupImages, setGroupImages] = useState([]);
   const [middleCategory, setMiddleCategory] = useState('');
@@ -196,11 +200,11 @@ const MakingTeam = ({ setCloseModal }) => {
 
   return (
     <Modal>
-      <MakingTeamContainer encType="multipart/form-data">
-        <MakingTeamHeader>
+      <MakingGroupContainer encType="multipart/form-data">
+        <MakingGroupHeader>
           <h3>모임 개설</h3>
           <LeftOutlined onClick={closeModal} />
-        </MakingTeamHeader>
+        </MakingGroupHeader>
         <main className="team-content">
           <div className="team-item">
             <div className="category-title">
@@ -260,8 +264,8 @@ const MakingTeam = ({ setCloseModal }) => {
           <div className="team-item">
             <div className="subtitle">활동 시간</div>
             <div className="team-active-time-content">
-              <TimePicker format={format} onChange={setStartTime} />
-              <TimePicker format={format} onChange={setEndTime} />
+              <TimePicker format={format} onChange={changeStartTime} />
+              <TimePicker format={format} onChange={changeEndTime} />
             </div>
           </div>
           <div className="team-item">
@@ -294,12 +298,12 @@ const MakingTeam = ({ setCloseModal }) => {
             <Upload images={groupImages} setImages={setGroupImages} />
           </div>
         </main>
-        <MakingTeamFooter type="submit" onClick={submitResult}>
+        <MakingGroupFooter type="submit" onClick={submitResult}>
           모임 개설하기
-        </MakingTeamFooter>
-      </MakingTeamContainer>
+        </MakingGroupFooter>
+      </MakingGroupContainer>
     </Modal>
   );
 };
 
-export default MakingTeam;
+export default MakingGroup;

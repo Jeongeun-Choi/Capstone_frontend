@@ -73,13 +73,15 @@ const Footer = ({ pathName }) => {
           </Link>
         </li>
         <li>
-          <a name="like">
-            <FormOutlined />
-          </a>
+          <Link href="/writing">
+            <a name="writing">
+              <FormOutlined />
+            </a>
+          </Link>
         </li>
         <li>
-          <Link href="/team">
-            <a name="team">
+          <Link href="/group">
+            <a name="group">
               <TeamOutlined />
             </a>
           </Link>

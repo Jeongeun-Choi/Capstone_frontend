@@ -18,19 +18,19 @@ const index = () => {
 
   return (
     <>
-      {showingSignup ? <Signup setShowingSignup={setShowingSignup} /> : null}
-      {showingLogin ? (
+      {showingSignup && <Signup setShowingSignup={setShowingSignup} />}
+      {showingLogin && (
         <Login
           setShowingLogin={setShowingLogin}
           setShowingSignup={setShowingSignup}
           setShowingInitialLocation={setShowingInitialLocation}
         />
-      ) : null}
-      {showingInitialLocation ? (
+      )}
+      {showingInitialLocation && (
         <InitialLocation
           setShowingInitialLocation={setShowingInitialLocation}
         />
-      ) : null}
+      )}
       <Home />
     </>
   );

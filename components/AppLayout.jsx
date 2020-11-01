@@ -21,23 +21,30 @@ const SearchInput = styled(Search)`
 
 const type = {
   purple: { backgroundColor: '#AAABD3', color: 'white' },
-  white: { backgroundColor: 'white', color: 'black' },
+  white: { backgroundColor: 'white', color: 'black' }
 };
 
 const pathNameMap = {
+  writing: {
+    ...type.white,
+    backButton: false,
+    declareButton: false,
+    closeButton: false,
+    title: '모집글 등록'
+  },
   team: {
     ...type.purple,
-    backButton: true,
-    declareButton: true,
+    backButton: false,
+    declareButton: false,
     closeButton: false,
     title: '모임명',
-    subTitle: '아무거나',
+    subTitle: '아무거나'
   },
   mypage: {
     ...type.white,
     backButton: true,
-    title: '마이페이지',
-  },
+    title: '마이페이지'
+  }
 };
 
 const AppLayout = ({ children }) => {

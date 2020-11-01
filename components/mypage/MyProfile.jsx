@@ -1,31 +1,99 @@
 import React from 'react';
-import { Tabs, Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 import MyInfo from './MyInfo';
 import PreferCategory from './PreferCategory';
 import PreferLocation from './PreferLocation';
 
+import { Tabs, Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import styled from '@emotion/styled';
+
 const { TabPane } = Tabs;
 
+const ProfileSection = styled.section`
+  width: 100%;
+  height: 100%;
+  background: #d4d5e9;
+  padding-top: 2rem;
+
+  & .profile_intro {
+    width: 90%;
+    padding: 2rem;
+    margin: 0 auto;
+    background: #aaabd3;
+    border-radius: 10px;
+  }
+
+  & .ant-tabs-nav-list {
+    width: 100%;
+    color: #aaabd3;
+    background: #d4d5e9;
+  }
+
+  & .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
+  & .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+    background: #d4d5e9;
+    border: none;
+  }
+
+  & .ant-tabs {
+    min-height: 100%;
+  }
+
+  & .ant-tabs-tab {
+    height: 3rem;
+  }
+
+  & .ant-tabs-tab:hover {
+    opacity: 0.6;
+  }
+
+  & .ant-tabs-tab-active {
+    .ant-tabs-tab-btn {
+      color: white;
+      font-weight: bold;
+    }
+  }
+
+  & .ant-tabs-content-holder {
+    padding: 2rem;
+    height: 100%;
+    background: white;
+  }
+
+  & .profile_intro {
+    color: white;
+    & > span {
+      font-weight: bold;
+      margin-left: 1rem;
+    }
+  }
+`;
 const MyProfile = () => {
+  const myInfo = useSelector((state) => state.user.me);
+
   return (
-    <section>
-      <div>
-        <Avatar icon={<UserOutlined />}></Avatar>
-        <span>이다경</span>님 안녕하세요
+    <ProfileSection>
+      <div className='profile_intro'>
+        {myInfo.profileImg ? (
+          <Avatar size='large' src={myInfo.profileImg}></Avatar>
+        ) : (
+          <Avatar size='large' icon={<UserOutlined />}></Avatar>
+        )}
+        <span>{myInfo.name}</span>님 안녕하세요
       </div>
-      <Tabs defaultActiveKey='1' centered>
+      <Tabs defaultActiveKey='1' centered type='card'>
         <TabPane tab='개인정보설정' key='1'>
-          <MyInfo />
+          <MyInfo myInfo={myInfo} />
         </TabPane>
         <TabPane tab='관심분야설정' key='2'>
-          <PreferCategory />
+          <PreferCategory myInfo={myInfo} />
         </TabPane>
         <TabPane tab='활동지역설정' key='3'>
-          <PreferLocation />
+          <PreferLocation myInfo={myInfo} />
         </TabPane>
       </Tabs>
-    </section>
+    </ProfileSection>
   );
 };
 

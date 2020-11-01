@@ -1,5 +1,5 @@
-import { all, put, fork, takeLatest, delay } from 'redux-saga/effects';
-import axios from 'axios';
+import { all, put, fork, takeLatest, delay, call } from 'redux-saga/effects';
+import customAxios from '../utils/baseAxios';
 import {
   LOAD_POSTS_REQUEST,
   loadPostsSuccessAction,
@@ -17,15 +17,15 @@ import {
 
 function loadPostsAPI(data) {
   const { categoryId } = data;
-  return axios.get(`/recurits?categoryid=${categoryId}`);
+  return customAxios.get(`/recurits?categoryid=${categoryId}`);
 }
 
 function* loadPosts(action) {
   try {
     const postsData = yield call(loadPostsAPI, action.data);
-    yield put(loadPostsSuccessAction(postsData.recruits));
+    yield put(loadPostsSuccessAction(postsData.data.recruits));
   } catch (err) {
-    yield loadPostsFailureAction(err);
+    yield put(loadPostsFailureAction(err));
   }
 }
 

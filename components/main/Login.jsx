@@ -4,7 +4,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import { BasicInput, Button, SNSLogin, Modal } from '../../public/style';
 import { useDispatch } from 'react-redux';
 import { loginRequestAction } from '../../reducers/user';
-import inputChangeHook from '../../hooks/inputChangeHook';
+import useInputChangeHook from '../../hooks/useInputChangeHook';
 import { message } from 'antd';
 
 const LoginContainer = styled.div`
@@ -68,8 +68,8 @@ const Login = ({
   setShowingInitialLocation
 }) => {
   const dispatch = useDispatch();
-  const [email, onChangeEmail] = inputChangeHook('');
-  const [password, onChangePassword] = inputChangeHook('');
+  const [email, onChangeEmail] = useInputChangeHook('');
+  const [password, onChangePassword] = useInputChangeHook('');
 
   const submitForm = useCallback(
     e => {
