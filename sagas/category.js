@@ -1,5 +1,5 @@
 import { all, put, fork, takeLatest, delay, call } from 'redux-saga/effects';
-import axios from 'axios';
+import customAxios from '../utils/baseAxios';
 import {
   LOAD_CATEGORYS_REQUEST,
   loadCategorysSuccessAction,
@@ -10,7 +10,7 @@ import {
 } from '../reducers/category';
 
 function loadCategoryAPI() {
-  return axios.get(`/categorys`);
+  return customAxios.get(`/categorys`);
 }
 function* loadCategory() {
   try {
@@ -27,7 +27,7 @@ function* watchLoadCategory() {
 }
 
 function loadCategorysAPI() {
-  return axios.get(`/categorys/detail`);
+  return customAxios.get(`/categorys/detail`);
 }
 function* loadCategorys() {
   try {

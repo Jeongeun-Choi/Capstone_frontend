@@ -69,25 +69,27 @@ const ModalFooter = styled.footer`
 const LocationSetting = ({
   setShowingLocationModal,
   locations,
-  setLocations
+  setLocations,
+  onSubmit,
 }) => {
   const [tempLocations, setTempLocations] = useState(locations);
 
   const closeLocationModal = useCallback(() => {
-    setShowingLocationModal(prev => !prev);
+    setShowingLocationModal((prev) => !prev);
     setTempLocations(locations);
   }, [locations]);
 
   const submitResult = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       if (tempLocations.length === 0) {
         return alert('한 개 이상의 지역을 설정해야합니다.');
       }
 
-      setLocations(tempLocations);
+      setLocations && setLocations(tempLocations);
+      onSubmit && onSubmit(tempLocations);
       setTempLocations([]);
-      setShowingLocationModal(prev => !prev);
+      setShowingLocationModal((prev) => !prev);
     },
     [tempLocations]
   );
@@ -99,9 +101,9 @@ const LocationSetting = ({
           <h3>지역 설정</h3>
           <CloseOutlined onClick={closeLocationModal} />
         </ModalHeader>
-        <div className="form-content">
+        <div className='form-content'>
           <div>
-            <div className="choice-location">
+            <div className='choice-location'>
               선택지역<span>({tempLocations.length}/3)</span>
             </div>
             <div>"찾으시려는 지역의 명칭을 정확하게 입력해주세요."</div>
@@ -112,13 +114,13 @@ const LocationSetting = ({
           </div>
         </div>
         <ModalFooter>
-          <section className="choice-location">
+          <section className='choice-location'>
             <div>선택한 지역</div>
-            <div className="choice-location-board">
-              {tempLocations.map(location => (
+            <div className='choice-location-board'>
+              {tempLocations.map((location) => (
                 <Item
                   key={location.bname}
-                  type="location"
+                  type='location'
                   name={location.bname}
                   array={tempLocations}
                   setArray={setTempLocations}
@@ -126,13 +128,13 @@ const LocationSetting = ({
               ))}
             </div>
           </section>
-          <section className="footer-buttons">
+          <section className='footer-buttons'>
             <div>
-              <button className="reset">
+              <button className='reset'>
                 <ReloadOutlined />
                 초기화
               </button>
-              <button className="submit" onClick={submitResult}>
+              <button className='submit' onClick={submitResult}>
                 적용하기
               </button>
             </div>

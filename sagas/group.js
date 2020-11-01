@@ -1,5 +1,5 @@
 import { all, put, fork, takeLatest, delay, call } from 'redux-saga/effects';
-import axios from 'axios';
+import customAxios from '../utils/baseAxios';
 import {
   deleteGroupFailureAction,
   updateGroupFailureAction,
@@ -18,7 +18,7 @@ import { splitSkills } from '../utils/splitSkills';
 import { makeActiveTimes } from '../utils/makeActiveTimes';
 
 function loadGroupsAPI() {
-  return axios.get(`/groups`);
+  return customAxios.get(`/groups`);
 }
 
 function* loadGroups() {
@@ -63,7 +63,7 @@ function addGroupAPI(data) {
     groupImages,
     detailCategoryId: category
   };
-  axios.post(`/groups`, requestData);
+  customAxios.post(`/groups`, requestData);
   return requestData;
 }
 

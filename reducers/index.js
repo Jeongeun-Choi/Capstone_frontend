@@ -6,22 +6,20 @@ import category from './category';
 import group from './group';
 import { combineReducers } from 'redux';
 
-const rootReducer = combineReducers({
-  //SSR 위해서 생성
-  index: (state = {}, action) => {
-    switch (action.type) {
-      case HYDRATE:
-        // console.log('HYDRATE', action);
-        return { ...state, ...action.payload };
-
-      default:
-        return state;
+const rootReducer = (state, action) => {
+  switch (action.type) {
+    case HYDRATE:
+      return { ...state, ...action.payload };
+    default: {
+      const combineReducer = combineReducers({
+        user,
+        post,
+        category,
+        group,
+      });
+      return combineReducer(state, action);
     }
-  },
-  user,
-  post,
-  category,
-  group
-});
+  }
+};
 
 export default rootReducer;

@@ -77,9 +77,9 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
       const memberId = me.id;
       try {
         dispatch(addLocationRequestAction({ memberId, locations }));
-        dispatch(addCategoryRequestAction({ memberId, fields }));
-        setShowingInitialLocation(prev => !prev);
-        setShowingSelection(prev => !prev);
+        dispatch(addCategoryRequestAction({ memberId, categories: fields }));
+        // setShowingInitialLocation(prev => !prev);
+        // setShowingSelection(prev => !prev);
       } catch (err) {
         console.log(err);
       }

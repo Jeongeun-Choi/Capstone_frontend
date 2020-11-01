@@ -8,9 +8,7 @@ export const initialState = {
   detailCategorysLoading: false,
   detailCategorysDone: false,
   detailCategorysError: false,
-
   category: [],
-  detailCategory: [],
   categories: undefined
 };
 
@@ -108,6 +106,8 @@ const reducer = (state = initialState, action) => {
         draft.categorysError = action.err;
         break;
       }
+      default:
+        break;
     }
   });
 };
