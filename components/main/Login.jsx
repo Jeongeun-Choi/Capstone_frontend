@@ -4,7 +4,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import { BasicInput, Button, SNSLogin, Modal } from '../../public/style';
 import { useDispatch } from 'react-redux';
 import { loginRequestAction } from '../../reducers/user';
-import inputChangeHook from '../../hooks/inputChangeHook';
+import useInputChangeHook from '../../hooks/useInputChangeHook';
 
 const LoginContainer = styled.div`
   width: 100%;
@@ -64,19 +64,19 @@ const LoginContainer = styled.div`
 const Login = ({
   setShowingLogin,
   setShowingSignup,
-  setShowingInitialLocation
+  setShowingInitialLocation,
 }) => {
   const dispatch = useDispatch();
-  const [email, onChangeEmail] = inputChangeHook('');
-  const [password, onChangePassword] = inputChangeHook('');
+  const [email, onChangeEmail] = useInputChangeHook('');
+  const [password, onChangePassword] = useInputChangeHook('');
 
   const submitForm = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       try {
         dispatch(loginRequestAction({ email, password }));
-        setShowingLogin(prev => !prev);
-        setShowingInitialLocation(prev => !prev);
+        setShowingLogin((prev) => !prev);
+        setShowingInitialLocation((prev) => !prev);
       } catch (error) {
         console.error(error);
       }
@@ -85,18 +85,18 @@ const Login = ({
   );
 
   const closeLoginModal = useCallback(() => {
-    setShowingLogin(prev => !prev);
+    setShowingLogin((prev) => !prev);
   }, []);
 
   const openSignupModal = useCallback(() => {
-    setShowingSignup(prev => !prev);
-    setShowingLogin(prev => !prev);
+    setShowingSignup((prev) => !prev);
+    setShowingLogin((prev) => !prev);
   }, []);
 
   return (
     <Modal>
       <LoginContainer>
-        <div className="close">
+        <div className='close'>
           <CloseOutlined onClick={closeLoginModal} />
         </div>
         <h2>로그인</h2>
@@ -104,26 +104,26 @@ const Login = ({
           <BasicInput
             onChange={onChangeEmail}
             value={email}
-            placeholder="이메일"
-            type="email"
+            placeholder='이메일'
+            type='email'
           />
           <BasicInput
             onChange={onChangePassword}
             value={password}
-            placeholder="비밀번호"
-            type="password"
+            placeholder='비밀번호'
+            type='password'
           />
           <Button>로그인</Button>
         </form>
         <div>비밀번호를 잊으셨나요?</div>
-        <div className="horizon">-----또는-----</div>
-        <div className="sns-login">
+        <div className='horizon'>-----또는-----</div>
+        <div className='sns-login'>
           <SNSLogin>카카오계정으로 로그인</SNSLogin>
           <SNSLogin>구글계정으로 로그인</SNSLogin>
         </div>
-        <div className="signup">
+        <div className='signup'>
           <div>아직 모두의 모임의 회원이 아니신가요?</div>
-          <button className="signup-button" onClick={openSignupModal}>
+          <button className='signup-button' onClick={openSignupModal}>
             회원가입
           </button>
         </div>
