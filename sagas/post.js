@@ -1,4 +1,4 @@
-import { all, put, fork, takeLatest, delay } from 'redux-saga/effects';
+import { all, put, fork, takeLatest, delay, call } from 'redux-saga/effects';
 import axios from 'axios';
 import {
   LOAD_POSTS_REQUEST,
@@ -17,15 +17,15 @@ import {
 
 function loadPostsAPI(data) {
   const { categoryId } = data;
-  return axios.get(`/recurits?categoryid=${categoryId}`);
+  return axios.get(`/recruits?categoryId=${categoryId}`);
 }
 
 function* loadPosts(action) {
   try {
     const postsData = yield call(loadPostsAPI, action.data);
-    yield put(loadPostsSuccessAction(postsData.recruits));
+    yield put(loadPostsSuccessAction(postsData.data.recruits));
   } catch (err) {
-    yield loadPostsFailureAction(err);
+    yield put(loadPostsFailureAction(err));
   }
 }
 
