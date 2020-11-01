@@ -9,7 +9,7 @@ import FieldSetting from './FieldSetting';
 import Item from './Item';
 import {
   addLocationRequestAction,
-  addCategoryRequestAction
+  addCategoryRequestAction,
 } from '../../reducers/user';
 
 const SelectionForm = styled.form`
@@ -46,7 +46,7 @@ const Footer = styled.button`
 
 const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
   const dispatch = useDispatch();
-  const { me } = useSelector(state => state.user);
+  const { me } = useSelector((state) => state.user);
   const [locations, setLocations] = useState([]);
   const [fields, setFields] = useState([]);
   const [fieldsObj, setFieldsObj] = useState({});
@@ -55,7 +55,7 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
 
   useEffect(() => {
     const newObj = {};
-    fields.forEach(field =>
+    fields.forEach((field) =>
       newObj[field.middleCategory]
         ? newObj[field.middleCategory].push({ id: field.id, name: field.name })
         : (newObj[field.middleCategory] = [{ id: field.id, name: field.name }])
@@ -64,19 +64,19 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
   }, [fields]);
 
   const showLocationModal = useCallback(() => {
-    setShowingLocationModal(prev => !prev);
+    setShowingLocationModal((prev) => !prev);
   });
 
   const showFieldModal = useCallback(() => {
-    setShowingFieldModal(prev => !prev);
+    setShowingFieldModal((prev) => !prev);
   });
 
   const submitResult = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       const memberId = me.id;
       dispatch(addLocationRequestAction({ memberId, locations }));
-      dispatch(addCategoryRequestAction({ memberId, fields }));
+      dispatch(addCategoryRequestAction({ memberId, categories: fields }));
       // setShowingInitialLocation(prev => !prev);
       // setShowingSelection(prev => !prev);
     },
@@ -84,7 +84,7 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
   );
 
   const closeModal = useCallback(() => {
-    setShowingSelection(prev => !prev);
+    setShowingSelection((prev) => !prev);
   }, []);
 
   return (
@@ -95,43 +95,43 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
             <LeftOutlined onClick={closeModal} />
             <h3>지역 및 관심분야 설정</h3>
           </ModalHeader>
-          <section className="setting">
-            <div className="section-header">
+          <section className='setting'>
+            <div className='section-header'>
               <div>활동 선호 지역 설정 ({locations.length}/3)</div>
               <RightOutlined onClick={showLocationModal} />
             </div>
-            <div className="section-main">
-              {locations.map(location => (
+            <div className='section-main'>
+              {locations.map((location) => (
                 <Item
                   key={location.bname}
-                  type="location"
+                  type='location'
                   name={location.bname}
                   array={locations}
                   setArray={setLocations}
-                  color="#CBA6C3"
+                  color='#CBA6C3'
                 />
               ))}
             </div>
           </section>
           <Divider />
-          <section className="setting">
-            <div className="section-header">
+          <section className='setting'>
+            <div className='section-header'>
               <div>관심 분야 설정 ({fields.length}/3)</div>
               <RightOutlined onClick={showFieldModal} />
             </div>
-            <div className="section-main">
-              {Object.keys(fieldsObj).map(middleCategory => (
-                <div key={middleCategory} className="choice-board">
+            <div className='section-main'>
+              {Object.keys(fieldsObj).map((middleCategory) => (
+                <div key={middleCategory} className='choice-board'>
                   <div>{middleCategory} / 중분류</div>
-                  <div className="choice-board-list">
-                    {fieldsObj[middleCategory].map(subclass => (
+                  <div className='choice-board-list'>
+                    {fieldsObj[middleCategory].map((subclass) => (
                       <Item
                         key={subclass.name}
-                        type="field"
+                        type='field'
                         name={subclass.name}
                         array={fields}
                         setArray={setFields}
-                        color="#CBA6C3"
+                        color='#CBA6C3'
                       />
                     ))}
                   </div>
@@ -139,7 +139,7 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
               ))}
             </div>
           </section>
-          <Footer htmlType="submit">설정하기</Footer>
+          <Footer htmlType='submit'>설정하기</Footer>
         </SelectionForm>
       </Modal>
       {showingLocationModal && (
