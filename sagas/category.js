@@ -3,8 +3,29 @@ import axios from 'axios';
 import {
   LOAD_CATEGORYS_REQUEST,
   loadCategorysSuccessAction,
-  loadCategorysFailureAction
+  loadCategorysFailureAction,
+  LOAD_CATEGORY_REQUEST,
+  loadCategorySuccessAction,
+  loadCategoryFailureAction
 } from '../reducers/category';
+
+function loadCategoryAPI() {
+  return axios.get(`/categorys`);
+}
+function* loadCategory() {
+  try {
+    const categories = yield call(loadCategoryAPI);
+    yield put(loadCategorySuccessAction(categories.data));
+  } catch (err) {
+    console.error(err);
+    yield put(loadCategoryFailureAction(err));
+  }
+}
+
+function* watchLoadCategory() {
+  yield takeLatest(LOAD_CATEGORY_REQUEST, loadCategory);
+}
+
 function loadCategorysAPI() {
   return axios.get(`/categorys/detail`);
 }
@@ -22,5 +43,5 @@ function* watchLoadCategorys() {
 }
 
 export default function* categorySaga() {
-  yield all([fork(watchLoadCategorys)]);
+  yield all([fork(watchLoadCategorys), fork(watchLoadCategory)]);
 }
