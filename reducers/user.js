@@ -13,28 +13,28 @@ export const initialState = {
   signUpError: null,
 
   me: {
-    id: undefined,
-    userName: undefined,
-    email: undefined,
-    phoneNumber: undefined,
-    birthDate: undefined,
-
+    id: null,
+    name: null,
+    email: null,
+    telephone: null,
+    birthday: null,
+    profileImg: null,
     locations: [], //활동지역
-    fields: [], //관심분야
+    // fields: [], //관심분야
 
-    preferGroups: [],
-    applyGroups: [], //내가 지원한 모임
-    joinGroups: {
-      activeTeams: [],
-      inactiveTeams: []
-    } //나의 모임
-  }
+    // PreferGroups: [],
+    // ApplyGroups: [], //내가 지원한 모임
+    // JoinGroups: {
+    //   activeGroups: [],
+    //   inactiveTeams: [],
+    // }, //나의 모임
+  },
 };
 
-const dummyUser = data => ({
+const dummyUser = (data) => ({
   ...data,
-  userName: '정은',
-  email: 'jeong@test.com'
+  name: '정은',
+  email: 'jeong@test.com',
 });
 
 export const LOAD_JOINGROUPS_REQUEST = 'LOAD_JOINGROUPS_REQUEST';
@@ -69,13 +69,21 @@ export const ADD_CATEGORY_REQUEST = 'ADD_CATEGORY_REQUEST';
 export const ADD_CATEGORY_SUCCESS = 'ADD_CATEGORY_SUCCESS';
 export const ADD_CATEGORY_FAILURE = 'ADD_CATEGORY_FAILURE';
 
-export const UPDATE_CATEGORY_REQUEST = 'UPDATE_CATEGORY_REQUEST';
-export const UPDATE_CATEGORY_SUCCESS = 'UPDATE_CATEGORY_SUCCESS';
-export const UPDATE_CATEGORY_FAILURE = 'UPDATE_CATEGORY_FAILURE';
+export const LOAD_MY_INFO_REQUEST = 'LOAD_MY_INFO_REQUEST';
+export const LOAD_MY_INFO_SUCCESS = 'LOAD_MY_INFO_SUCCESS';
+export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE';
 
-export const DELETE_CATEGORY_REQUEST = 'DELETE_CATEGORY_REQUEST';
-export const DELETE_CATEGORY_SUCCESS = 'DELETE_CATEGORY_SUCCESS';
-export const DELETE_CATEGORY_FAILURE = 'DELETE_CATEGORY_FAILURE';
+export const UPDATE_MY_INFO_REQUEST = 'UPDATE_MY_INFO_REQUEST';
+export const UPDATE_MY_INFO_SUCCESS = 'UPDATE_MY_INFO_SUCCESS';
+export const UPDATE_MY_INFO_FAILURE = 'UPDATE_MY_INFO_FAILURE';
+
+export const LOAD_PREFER_GROUPS_REQUEST = 'LOAD_PREFER_GROUPS_REQUEST';
+export const LOAD_PREFER_GROUPS_SUCCESS = 'LOAD_PREFER_GROUPS_SUCCESS';
+export const LOAD_PREFER_GROUPS_FAILURE = 'LOAD_PREFER_GROUPS_FAILURE';
+
+export const UPDATE_PREFER_LOCATION_REQUEST = 'UPDATE_PREFER_LOCATION_REQUEST';
+export const UPDATE_PREFER_LOCATION_SUCCESS = 'UPDATE_PREFER_LOCATION_SUCCESS';
+export const UPDATE_PREFER_LOCATION_FAILURE = 'UPDATE_PREFER_LOCATION_FAILURE';
 
 export const loadJoingroupsRequestAction = createAction(
   LOAD_JOINGROUPS_REQUEST
@@ -126,29 +134,36 @@ export const deleteLocationFailureAction = createAction(
 export const addCategoryRequestAction = createAction(ADD_CATEGORY_REQUEST);
 export const addCategorySuccessAction = createAction(ADD_CATEGORY_SUCCESS);
 export const addCategoryFailureAction = createAction(ADD_CATEGORY_FAILURE);
+export const loadMyInfoRequestAction = createAction(LOAD_MY_INFO_REQUEST);
+export const loadMyInfoSuccessAction = createAction(LOAD_MY_INFO_SUCCESS);
+export const loadMyInfoFailureAction = createAction(LOAD_MY_INFO_FAILURE);
 
-export const updateCategoryRequestAction = createAction(
-  UPDATE_CATEGORY_REQUEST
+export const updateMyInfoRequestAction = createAction(UPDATE_MY_INFO_REQUEST);
+export const updateMyInfoSuccessAction = createAction(UPDATE_MY_INFO_SUCCESS);
+export const updateMyInfoFailureAction = createAction(UPDATE_MY_INFO_FAILURE);
+
+export const loadPreferGroupsRequestAction = createAction(
+  LOAD_PREFER_GROUPS_REQUEST
 );
-export const updateCategorySuccessAction = createAction(
-  UPDATE_CATEGORY_SUCCESS
+export const loadPreferGroupsSuccessAction = createAction(
+  LOAD_PREFER_GROUPS_SUCCESS
 );
-export const updateCategoryFailureAction = createAction(
-  UPDATE_CATEGORY_FAILURE
+export const loadPreferGroupsFailureAction = createAction(
+  LOAD_PREFER_GROUPS_FAILURE
 );
 
-export const deleteCategoryRequestAction = createAction(
-  DELETE_CATEGORY_REQUEST
+export const updatePreferLocationReuqestAction = createAction(
+  UPDATE_PREFER_LOCATION_REQUEST
 );
-export const deleteCategorySuccessAction = createAction(
-  DELETE_CATEGORY_SUCCESS
+export const updatePreferLocationSuccessAction = createAction(
+  UPDATE_PREFER_LOCATION_SUCCESS
 );
-export const deleteCategoryFailureAction = createAction(
-  DELETE_CATEGORY_FAILURE
+export const updatePreferLocationFailureAction = createAction(
+  UPDATE_PREFER_LOCATION_FAILURE
 );
 
 const reducer = (state = initialState, action) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (action.type) {
       case LOAD_JOINGROUPS_REQUEST: {
         break;
@@ -225,7 +240,7 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case UPDATE_LOCATION_SUCCESS: {
-        draft.me.locations = action.data;
+        draft.me.PreferLocations = action.data;
         break;
       }
       case UPDATE_LOCATION_FAILURE: {
@@ -246,36 +261,57 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case ADD_CATEGORY_SUCCESS: {
-        draft.me.categories = action.data;
+        draft.me.PreferCategories = action.data;
         break;
       }
       case ADD_CATEGORY_FAILURE: {
         break;
       }
+      case LOAD_MY_INFO_REQUEST: {
+        break;
+      }
+      case LOAD_MY_INFO_SUCCESS: {
+        draft.me = { ...draft.me, ...action.data };
+        break;
+      }
+      case LOAD_MY_INFO_FAILURE: {
+        break;
+      }
+      case UPDATE_MY_INFO_REQUEST: {
+        break;
+      }
+      case UPDATE_MY_INFO_SUCCESS: {
+        draft.me.profileImg = action.data.profileImg;
+        draft.me.email = action.data.email;
+        draft.me.telephone = action.data.telephone;
+        break;
+      }
+      case UPDATE_MY_INFO_FAILURE: {
+        break;
+      }
+      case LOAD_PREFER_GROUPS_REQUEST: {
+        break;
+      }
+      case LOAD_PREFER_GROUPS_SUCCESS: {
+        draft.me.preferGroups = action.data;
+        break;
+      }
+      case LOAD_PREFER_GROUPS_FAILURE: {
+        break;
+      }
+      case UPDATE_PREFER_LOCATION_REQUEST: {
+        break;
+      }
+      case UPDATE_PREFER_LOCATION_SUCCESS: {
+        draft.me.PreferLocations = action.data;
+        break;
+      }
+      case UPDATE_PREFER_LOCATION_FAILURE: {
+        break;
+      }
 
-      case UPDATE_CATEGORY_REQUEST: {
-        break;
-      }
-      case UPDATE_CATEGORY_SUCCESS: {
-        draft.me.categories = action.data;
-        break;
-      }
-      case UPDATE_CATEGORY_FAILURE: {
-        break;
-      }
-
-      case DELETE_CATEGORY_REQUEST: {
-        break;
-      }
-      case DELETE_CATEGORY_SUCCESS: {
-        draft.me.categories = action.data;
-        break;
-      }
-      case DELETE_CATEGORY_FAILURE: {
-        break;
-      }
       default:
-        return state;
+        break;
     }
   });
 };
