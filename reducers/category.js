@@ -9,7 +9,7 @@ export const initialState = {
   detailCategorysDone: false,
   detailCategorysError: false,
 
-  categories: undefined
+  categories: [],
 };
 
 export const LOAD_CATEGORYS_REQUEST = 'LOAD_CATEGORYS_REQUEST';
@@ -21,7 +21,7 @@ export const loadCategorysSuccessAction = createAction(LOAD_CATEGORYS_SUCCESS);
 export const loadCategorysFailureAction = createAction(LOAD_CATEGORYS_FAILURE);
 
 const reducer = (state = initialState, action) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (action.type) {
       case LOAD_CATEGORYS_REQUEST: {
         draft.categorysLoading = true;
@@ -49,6 +49,8 @@ const reducer = (state = initialState, action) => {
         draft.categorysError = action.err;
         break;
       }
+      default:
+        break;
     }
   });
 };

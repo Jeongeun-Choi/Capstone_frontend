@@ -11,45 +11,45 @@ export const initialState = {
   updatePostLoading: false, //모집글 수정 시도중
   updatePostDone: false,
   updatePostError: null,
-  posts: []
+  posts: [],
 };
 
 const dummyPosts = [
   {
     category: 'sports',
     name: '축사모',
-    location: '부산 해운대구'
+    location: '부산 해운대구',
   },
   {
     category: 'sports',
     name: '농구의 신',
-    location: '부산 동래'
+    location: '부산 동래',
   },
   {
     category: 'sports',
     name: '탁구왕 김제빵',
-    location: '서울 강남'
+    location: '서울 강남',
   },
   {
     category: 'game',
     name: '오토체스',
-    location: '부산 남구'
+    location: '부산 남구',
   },
   {
     category: 'game',
     name: '도로 위 무법자',
-    location: '창원'
+    location: '창원',
   },
   {
     category: 'study',
     name: '공기업이 최고다',
-    location: '광주'
+    location: '광주',
   },
   {
     category: 'programming',
     name: '프론트에서 백까지',
-    location: '서울'
-  }
+    location: '서울',
+  },
 ];
 
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
@@ -85,7 +85,7 @@ export const deletePostSuccessAction = createAction(DELETE_POST_SUCCESS);
 export const deletePostFailureAction = createAction(DELETE_POST_FAILURE);
 
 const reducer = (state = initialState, action) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (action.type) {
       case LOAD_POSTS_REQUEST: {
         draft.postsLoading = true;
@@ -148,7 +148,7 @@ const reducer = (state = initialState, action) => {
         break;
       }
       default:
-        return state;
+        break;
     }
   });
 };
