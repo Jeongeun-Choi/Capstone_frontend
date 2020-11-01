@@ -1,7 +1,13 @@
 import axios from 'axios';
 
+const baseURL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:5000/api'
+    : 'https://modugroup.tk/api';
+
 const customAxios = axios.create({
-  baseURL: 'http://49.50.173.83:5000/api'
+  baseURL: baseURL,
+  withCredentials: true,
 });
 
 // baseURL: 'http://localhost:5000/api'
