@@ -17,7 +17,7 @@ import {
 
 function loadPostsAPI(data) {
   const { categoryId } = data;
-  return customAxios.get(`/recurits?categoryid=${categoryId}`);
+  return customAxios.get(`/recruits?categoryid=${categoryId}`);
 }
 
 function* loadPosts(action) {

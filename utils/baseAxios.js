@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { NODE_ENV } from '../config';
 
 const baseURL =
-  process.env.NODE_ENV === 'development'
+  NODE_ENV === 'development'
     ? 'http://localhost:5000/api'
     : 'https://modugroup.tk/api';
 
