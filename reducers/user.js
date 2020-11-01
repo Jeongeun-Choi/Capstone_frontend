@@ -13,14 +13,14 @@ export const initialState = {
   signUpError: null,
 
   me: {
-    memberId: undefined,
+    id: undefined,
     userName: undefined,
     email: undefined,
     phoneNumber: undefined,
     birthDate: undefined,
 
     locations: [], //활동지역
-    fields: [], //관심분야
+    categories: [], //관심분야
 
     preferGroups: [],
     applyGroups: [] //내가 지원한 모임
@@ -53,8 +53,29 @@ export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 
-export const ADD_LOCATIONS = 'ADD_LOCATIONS';
-export const ADD_FIELDS = 'ADD_FIELDS';
+export const ADD_LOCATION_REQUEST = 'ADD_LOCATION_REQUEST';
+export const ADD_LOCATION_SUCCESS = 'ADD_LOCATION_SUCCESS';
+export const ADD_LOCATION_FAILURE = 'ADD_LOCATION_FAILURE';
+
+export const UPDATE_LOCATION_REQUEST = 'UPDATE_LOCATION_REQUEST';
+export const UPDATE_LOCATION_SUCCESS = 'UPDATE_LOCATION_SUCCESS';
+export const UPDATE_LOCATION_FAILURE = 'UPDATE_LOCATION_FAILURE';
+
+export const DELETE_LOCATION_REQUEST = 'DELETE_LOCATION_REQUEST';
+export const DELETE_LOCATION_SUCCESS = 'DELETE_LOCATION_SUCCESS';
+export const DELETE_LOCATION_FAILURE = 'DELETE_LOCATION_FAILURE';
+
+export const ADD_CATEGORY_REQUEST = 'ADD_CATEGORY_REQUEST';
+export const ADD_CATEGORY_SUCCESS = 'ADD_CATEGORY_SUCCESS';
+export const ADD_CATEGORY_FAILURE = 'ADD_CATEGORY_FAILURE';
+
+export const UPDATE_CATEGORY_REQUEST = 'UPDATE_CATEGORY_REQUEST';
+export const UPDATE_CATEGORY_SUCCESS = 'UPDATE_CATEGORY_SUCCESS';
+export const UPDATE_CATEGORY_FAILURE = 'UPDATE_CATEGORY_FAILURE';
+
+export const DELETE_CATEGORY_REQUEST = 'DELETE_CATEGORY_REQUEST';
+export const DELETE_CATEGORY_SUCCESS = 'DELETE_CATEGORY_SUCCESS';
+export const DELETE_CATEGORY_FAILURE = 'DELETE_CATEGORY_FAILURE';
 
 export const loadJoingroupsRequestAction = createAction(
   LOAD_JOINGROUPS_REQUEST
@@ -78,8 +99,53 @@ export const signupRequestAction = createAction(SIGN_UP_REQUEST);
 export const signupSuccessAction = createAction(SIGN_UP_SUCCESS);
 export const signupFailureAction = createAction(SIGN_UP_FAILURE);
 
-export const addLocationsAction = createAction(ADD_LOCATIONS);
-export const addFieldsAction = createAction(ADD_FIELDS);
+export const addLocationRequestAction = createAction(ADD_LOCATION_REQUEST);
+export const addLocationSuccessAction = createAction(ADD_LOCATION_SUCCESS);
+export const addLocationFailureAction = createAction(ADD_LOCATION_FAILURE);
+
+export const updateLocationRequestAction = createAction(
+  UPDATE_LOCATION_REQUEST
+);
+export const updateLocationSuccessAction = createAction(
+  UPDATE_LOCATION_SUCCESS
+);
+export const updateLocationFailureAction = createAction(
+  UPDATE_LOCATION_FAILURE
+);
+
+export const deleteLocationRequestAction = createAction(
+  DELETE_LOCATION_REQUEST
+);
+export const deleteLocationSuccessAction = createAction(
+  DELETE_LOCATION_SUCCESS
+);
+export const deleteLocationFailureAction = createAction(
+  DELETE_LOCATION_FAILURE
+);
+
+export const addCategoryRequestAction = createAction(ADD_CATEGORY_REQUEST);
+export const addCategorySuccessAction = createAction(ADD_CATEGORY_SUCCESS);
+export const addCategoryFailureAction = createAction(ADD_CATEGORY_FAILURE);
+
+export const updateCategoryRequestAction = createAction(
+  UPDATE_CATEGORY_REQUEST
+);
+export const updateCategorySuccessAction = createAction(
+  UPDATE_CATEGORY_SUCCESS
+);
+export const updateCategoryFailureAction = createAction(
+  UPDATE_CATEGORY_FAILURE
+);
+
+export const deleteCategoryRequestAction = createAction(
+  DELETE_CATEGORY_REQUEST
+);
+export const deleteCategorySuccessAction = createAction(
+  DELETE_CATEGORY_SUCCESS
+);
+export const deleteCategoryFailureAction = createAction(
+  DELETE_CATEGORY_FAILURE
+);
 
 const reducer = (state = initialState, action) => {
   return produce(state, draft => {
@@ -144,12 +210,68 @@ const reducer = (state = initialState, action) => {
         draft.logOutError = action.error;
         break;
       }
-      case ADD_LOCATIONS: {
+      case ADD_LOCATION_REQUEST: {
+        break;
+      }
+      case ADD_LOCATION_SUCCESS: {
         draft.me.locations = action.data;
         break;
       }
-      case ADD_FIELDS: {
-        draft.me.fields = action.data;
+      case ADD_LOCATION_FAILURE: {
+        break;
+      }
+
+      case UPDATE_LOCATION_REQUEST: {
+        break;
+      }
+      case UPDATE_LOCATION_SUCCESS: {
+        draft.me.locations = action.data;
+        break;
+      }
+      case UPDATE_LOCATION_FAILURE: {
+        break;
+      }
+
+      case DELETE_LOCATION_REQUEST: {
+        break;
+      }
+      case DELETE_LOCATION_SUCCESS: {
+        draft.me.locations = action.data;
+        break;
+      }
+      case DELETE_LOCATION_FAILURE: {
+        break;
+      }
+      case ADD_CATEGORY_REQUEST: {
+        break;
+      }
+      case ADD_CATEGORY_SUCCESS: {
+        draft.me.categories = action.data;
+        break;
+      }
+      case ADD_CATEGORY_FAILURE: {
+        break;
+      }
+
+      case UPDATE_CATEGORY_REQUEST: {
+        break;
+      }
+      case UPDATE_CATEGORY_SUCCESS: {
+        draft.me.categories = action.data;
+        break;
+      }
+      case UPDATE_CATEGORY_FAILURE: {
+        break;
+      }
+
+      case DELETE_CATEGORY_REQUEST: {
+        break;
+      }
+      case DELETE_CATEGORY_SUCCESS: {
+        draft.me.categories = action.data;
+        break;
+      }
+      case DELETE_CATEGORY_FAILURE: {
         break;
       }
       default:

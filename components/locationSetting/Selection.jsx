@@ -1,13 +1,16 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Divider } from 'antd';
 import { Modal, ModalHeader, modalFooter } from '../../public/style';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import LocationSetting from './LocationSetting';
 import FieldSetting from './FieldSetting';
 import Item from './Item';
-import { addLocationsAction, addFieldsAction } from '../../reducers/user';
+import {
+  addLocationRequestAction,
+  addCategoryRequestAction
+} from '../../reducers/user';
 
 const SelectionForm = styled.form`
   display: flex;
@@ -43,6 +46,7 @@ const Footer = styled.button`
 
 const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
   const dispatch = useDispatch();
+  const { me } = useSelector(state => state.user);
   const [locations, setLocations] = useState([]);
   const [fields, setFields] = useState([]);
   const [fieldsObj, setFieldsObj] = useState({});
@@ -70,16 +74,21 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
   const submitResult = useCallback(
     e => {
       e.preventDefault();
-      dispatch(addLocationsAction(locations));
-      dispatch(addFieldsAction(fields));
-      setShowingLocation(prev => !prev);
+      const memberId = me.id;
+      try {
+        dispatch(addLocationRequestAction({ memberId, locations }));
+        dispatch(addCategoryRequestAction({ memberId, fields }));
+        setShowingInitialLocation(prev => !prev);
+        setShowingSelection(prev => !prev);
+      } catch (err) {
+        console.log(err);
+      }
     },
     [locations, fields]
   );
 
   const closeModal = useCallback(() => {
     setShowingSelection(prev => !prev);
-    // setLocations([])
   }, []);
 
   return (
@@ -137,20 +146,20 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
           <Footer htmlType="submit">설정하기</Footer>
         </SelectionForm>
       </Modal>
-      {showingLocationModal ? (
+      {showingLocationModal && (
         <LocationSetting
           setShowingLocationModal={setShowingLocationModal}
           locations={locations}
           setLocations={setLocations}
         />
-      ) : null}
-      {showingFieldModal ? (
+      )}
+      {showingFieldModal && (
         <FieldSetting
           setShowingFieldModal={setShowingFieldModal}
           fields={fields}
           setFields={setFields}
         />
-      ) : null}
+      )}
     </>
   );
 };

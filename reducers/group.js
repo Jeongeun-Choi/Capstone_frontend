@@ -58,7 +58,6 @@ const reducer = (state = initialState, action) => {
       case LOAD_GROUPS_SUCCESS: {
         draft.groupsLoading = false;
         draft.groupsDone = true;
-        // draft.GROUPS = dummyGROUPS;
         break;
       }
       case LOAD_GROUPS_FAILURE: {
@@ -75,6 +74,7 @@ const reducer = (state = initialState, action) => {
       case ADD_GROUP_SUCCESS: {
         draft.addGroupLoading = false;
         draft.addGroupDone = true;
+        draft.groups.push(action.data);
         break;
       }
       case ADD_GROUP_FAILURE: {
@@ -91,6 +91,10 @@ const reducer = (state = initialState, action) => {
       case UPDATE_GROUP_SUCCESS: {
         draft.updateGroupLoading = false;
         draft.updateGroupDone = true;
+        const index = draft.groups.findIndex(
+          group => group.id === action.data.groupId
+        );
+        draft.groups.splice(index, 1, action.data);
         break;
       }
       case UPDATE_GROUP_FAILURE: {
@@ -102,7 +106,7 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case DELETE_GROUP_SUCCESS: {
-        //   draft.GROUPs =  대충 filter써서 걸러낸다.
+        draft.groups.filter(group => group.id !== action.data.groupId);
         break;
       }
       case DELETE_GROUP_FAILURE: {

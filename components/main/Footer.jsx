@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {
   HomeOutlined,
   TeamOutlined,
-  HeartOutlined,
+  FormOutlined,
   SearchOutlined,
   EllipsisOutlined
 } from '@ant-design/icons';
@@ -16,7 +16,7 @@ const Menubar = styled.nav`
   bottom: 0;
   min-width: 320px;
 
-  & ul{
+  & ul {
     width: 100%;
     min-width: 320px;
     height: 50px;
@@ -25,7 +25,7 @@ const Menubar = styled.nav`
     background-color: #f6f6f6;
     font-size: 20px;
 
-    & li{
+    & li {
       width: 20%;
       min-width: 64px;
       height: 50px;
@@ -33,11 +33,11 @@ const Menubar = styled.nav`
       line-height: 50px;
     }
 
-    & a{
+    & a {
       color: #c4c4c4;
     }
   }
-  
+
   a[name~=${props => props.selected}] {
     color: #000000;
   }
@@ -48,11 +48,10 @@ const Footer = ({ pathName }) => {
   const [selected, setSelected] = useState('main');
 
   useEffect(() => {
-    const path = pathName.split('/')[1];
-    if (path === '') {
+    if (pathName === '') {
       setSelected('main');
     } else {
-      setSelected(path);
+      setSelected(pathName);
     }
   }, [pathName]);
 
@@ -75,7 +74,7 @@ const Footer = ({ pathName }) => {
         </li>
         <li>
           <a name="like">
-            <HeartOutlined />
+            <FormOutlined />
           </a>
         </li>
         <li>
@@ -86,9 +85,11 @@ const Footer = ({ pathName }) => {
           </Link>
         </li>
         <li>
-          <a name="mypage">
-            <EllipsisOutlined />
-          </a>
+          <Link href="/mypage">
+            <a name="mypage">
+              <EllipsisOutlined />
+            </a>
+          </Link>
         </li>
       </ul>
     </Menubar>
