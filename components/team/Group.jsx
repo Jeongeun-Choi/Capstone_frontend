@@ -15,21 +15,37 @@ const MyGroup = styled.li`
   width: 95%;
   height: 52px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-bottom: 11px;
 
-  .group-image {
+  & .group-image {
     ${basicTeamStyle}
     width: 20%;
     min-width: 74.74px;
+    margin-right: 5px;
+    border: none;
+    & img {
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
-  .group-info {
+  & .group-info {
     ${basicTeamStyle}
     width: 60%;
     min-width: 247.44px;
     display: flex;
-    flex-direction: column;
-    font-size: 11px;
+    justify-content: space-between;
+    background-color: #f6f6f6;
+    border: 1px solid #f6f6f6;
+    line-height: 52px;
+
+    & .group-info-name {
+      font-size: 0.9rem;
+    }
+
+    & .group-info-position {
+      font-size: 0.8rem;
+    }
   }
 `;
 
@@ -42,17 +58,30 @@ const Group = ({ groupId, groupName, position, type, data }) => {
     const response = await customAxios.get(`/groups/${groupId}`);
     setGroupData(response.data.group);
     setIsShowing(prev => !prev);
-  }, [groupId]);
+  }, [groupId, data]);
 
   return (
     <>
       <MyGroup onClick={openGroup}>
         <section className="group-image">
-          <div>대충 이미지</div>
+          <img
+            src={
+              data.Group.GroupImages.length
+                ? data.Group.GroupImages[0].URL
+                : '/images/teamimg.jpg'
+            }
+            alt={
+              data.Group.GroupImages.length
+                ? data.Group.GroupImages[0].description
+                : '기본 이미지'
+            }
+          />
         </section>
         <section className="group-info">
-          <div>{groupName}</div>
-          {position && <div>{positions[position]}</div>}
+          <div className="group-info-name">{groupName}</div>
+          {position && (
+            <div className="group-info-position">{positions[position]}</div>
+          )}
         </section>
       </MyGroup>
       {type === 'post'
