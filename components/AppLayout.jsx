@@ -9,8 +9,8 @@ import { basicStyle } from '../public/style';
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  height: 100%;
 `;
 
 const { Search } = Input;
@@ -21,38 +21,50 @@ const SearchInput = styled(Search)`
 
 const type = {
   purple: { backgroundColor: '#AAABD3', color: 'white' },
-  white: { backgroundColor: 'white', color: 'black' }
-};
-
-const pathNameMap = {
-  writing: {
-    ...type.white,
-    backButton: false,
-    declareButton: false,
-    closeButton: false,
-    title: '모집글 등록'
-  },
-  team: {
-    ...type.purple,
-    backButton: false,
-    declareButton: false,
-    closeButton: false,
-    title: '모임명',
-    subTitle: '아무거나'
-  },
-  mypage: {
-    ...type.white,
-    backButton: true,
-    title: '마이페이지'
-  }
+  white: { backgroundColor: 'white', color: 'black' },
 };
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
-  const [, pathName] = router.pathname.split('/');
+  const pathNameMap = {
+    writing: {
+      ...type.white,
+      backButton: false,
+      declareButton: false,
+      closeButton: false,
+      title: '모집글 등록',
+    },
+    team: {
+      ...type.purple,
+      backButton: false,
+      declareButton: false,
+      closeButton: false,
+      title: '모임명',
+      subTitle: '아무거나',
+    },
+    mypage: {
+      ...type.white,
+      backButton: true,
+      title: '마이페이지',
+      moreButton: true,
+      moreOnClick: () => router.push('/setting'),
+    },
+    setting: {
+      ...type.white,
+      backButton: true,
+      title: '설정',
+    },
+    withdrawal: {
+      ...type.white,
+      backButton: true,
+      title: '회원탈퇴',
+    },
+  };
+
+  const [, pathName, secondPath] = router.pathname.split('/');
   return (
     <AppContainer>
-      <Header {...pathNameMap[pathName]} />
+      <Header {...pathNameMap[secondPath || pathName]} />
       {pathName.includes('search') ? <SearchInput /> : null}
       {children}
       <Footer pathName={pathName} />
