@@ -1,4 +1,4 @@
 /node_modules
 /.next
 /api/index.js
-.env
+/config

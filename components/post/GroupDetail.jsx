@@ -32,7 +32,7 @@ const GroupContainer = styled.div`
     font-weight: bold;
   }
 
-  & .post-content {
+  & .group-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,7 +46,7 @@ const GroupContainer = styled.div`
       height: 30vh;
     }
 
-    & .post-content-header {
+    & .group-content-header {
       width: 90%;
       display: flex;
       justify-content: space-between;
@@ -68,18 +68,20 @@ const GroupContainer = styled.div`
       }
     }
 
-    & .team-info,
-    .post-deadline,
-    .team-location,
-    .team-review,
-    .team-qna {
+    & .group-content-item {
       width: 90%;
       margin-top: 5px;
       margin-bottom: 5px;
+      & .group-content-item-time-div {
+        display: flex;
+
+        & div {
+          margin-right: 5px;
+        }
+      }
     }
 
-    & .post-deadline,
-    .team-location {
+    & .group-location {
       display: flex;
     }
 
@@ -142,12 +144,13 @@ const Plus = styled.button`
   z-index: 9999;
 `;
 
-const GroupDetail = ({ data, setIsShowing }) => {
+const GroupDetail = ({ data, setIsShowing, setModify }) => {
   const {
     id,
     name,
     ActiveCategories,
     GroupImages,
+    ActiveTimes,
     Skills,
     groupIntro,
     location
@@ -184,18 +187,18 @@ const GroupDetail = ({ data, setIsShowing }) => {
             </div>
             <ExclamationCircleTwoTone twoToneColor="#DFDFEC" />
           </GroupHeader>
-          <section className="post-content">
+          <section className="group-content">
             <img
               className="big-img"
               src={GroupImages && GroupImages[0].URL}
               alt={GroupImages && GroupImages[0].description}
             />
-            <div className="post-content-header">
+            <div className="group-content-header">
               <div>
-                <div className="team-category">
+                <div className="group-content-item">
                   {ActiveCategories[0].DetailCategory.name}
                 </div>
-                <div className="team-name">
+                <div className="group-content-item">
                   {name} | {location.split(' ')[2]}
                 </div>
               </div>
@@ -203,15 +206,39 @@ const GroupDetail = ({ data, setIsShowing }) => {
                 {filledHeart ? <HeartFilled /> : <HeartOutlined />}
               </div>
             </div>
-            <div className="team-info">
+            <div className="group-content-item">
               <div className="subtitle">모임소개</div>
               <div className="team-info-textarea">{groupIntro}</div>
             </div>
-            <div className="post-deadline">
-              <div className="subtitle">마감일</div>
-              <div>yyyy.mm.dd</div>
+            <div className="group-content-item">
+              <div className="subtitle">필요 스킬</div>
+              <div>{location}</div>
             </div>
-            <div className="team-location">
+            <div className="group-content-item">
+              <div className="subtitle">활동 요일</div>
+              <div>{ActiveTimes.reduce((acc, time) => {return acc + `${time.activeDay}, `}, '')}</div>
+            </div>
+            <div className="group-content-item">
+              <div className="subtitle">활동 시간</div>
+              <div className="group-content-item-time">
+                <div className="group-content-item-time-div">
+                  <div>시작 시간</div>
+                  <div>{ActiveTimes[0].startTime}</div>
+                </div>
+                <div className="group-content-item-time-div">
+                  <div>종료 시간</div>
+                  <div>{ActiveTimes[0].endTime}</div>
+                </div>
+              </div>
+            </div>
+            <div className="group-content-item">
+              <div className="subtitle">활동 시간</div>
+              <div>
+                <div>{ActiveTimes.startTime}</div>
+                <div>{ActiveTimes.endTime}</div>
+              </div>
+            </div>
+            <div className="group-location">
               <div className="subtitle">모임 지역</div>
               <div>{location}</div>
             </div>
@@ -229,12 +256,12 @@ const GroupDetail = ({ data, setIsShowing }) => {
               </div>
             </div>
             <Divider />
-            <div className="team-review">
+            <div className="group-content-item">
               <div className="subtitle">모임 리뷰</div>
               <div>리뷰 컴포넌트 ~,~</div>
             </div>
             <Divider />
-            <div className="team-qna">
+            <div className="group-content-item">
               <div className="subtitle">모임 Q&amp;A</div>
               <div>QnA 컴포넌트 ~,~</div>
             </div>
@@ -245,7 +272,11 @@ const GroupDetail = ({ data, setIsShowing }) => {
         </GroupContainer>
       </Modal>
       {isShowingSetting && (
-        <Setting setIsShowingSetting={setIsShowingSetting} />
+        <Setting
+          setIsShowing={setIsShowing}
+          setIsShowingSetting={setIsShowingSetting}
+          setModify={setModify}
+        />
       )}
     </>
   );

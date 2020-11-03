@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { LeftOutlined } from '@ant-design/icons';
-import inputChangeHook from '../../hooks/inputChangeHook';
+import useInputChangeHook from '../../hooks/useInputChangeHook';
 import { DatePicker, TimePicker, Slider } from 'antd';
+import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import {
   modalFooter,
@@ -10,7 +11,6 @@ import {
   Modal
 } from '../../public/style';
 import usePickerHook from '../../hooks/usePickerHook';
-import customAxios from '../../utils/baseAxios';
 
 const format = 'HH:mm';
 
@@ -71,11 +71,12 @@ const WritingPostFooter = styled.button`
 `;
 
 const WritingPost = ({ setIsShowing, data }) => {
-  const [title, changeTitle] = inputChangeHook('');
-  const [contents, changeContents] = inputChangeHook('');
+  const [title, changeTitle] = useInputChangeHook('');
+  const [contents, changeContents] = useInputChangeHook('');
   const [date, changeDate] = usePickerHook('');
   const [time, changeTime] = usePickerHook('');
   const [expectMemberCount, setExpectMemberCount] = useState(0);
+  const dispatch = useDispatch();
 
   const formatter = value => {
     return `${value}명`;
@@ -100,7 +101,7 @@ const WritingPost = ({ setIsShowing, data }) => {
         groupMemberId: data.id
       };
       try {
-        await customAxios.post(`/recruits`, body);
+        dispatch(addPostRequestAction(body));
         setIsShowing(prev => prev);
       } catch (err) {
         console.log(err);

@@ -25,6 +25,13 @@ const type = {
 };
 
 const pathNameMap = {
+  search: {
+    ...type.white,
+    backButton: false,
+    declareButton: false,
+    closeButton: false,
+    title: '모임 검색'
+  },
   writing: {
     ...type.white,
     backButton: false,
@@ -32,13 +39,12 @@ const pathNameMap = {
     closeButton: false,
     title: '모집글 등록'
   },
-  team: {
+  group: {
     ...type.purple,
     backButton: false,
     declareButton: false,
     closeButton: false,
-    title: '모임명',
-    subTitle: '아무거나'
+    title: '모임 관리'
   },
   mypage: {
     ...type.white,

@@ -43,7 +43,8 @@ import {
 } from '../reducers/user';
 
 function loadJoinGroupsAPI(data) {
-  return customAxios.get(`/join-group/${data}`);
+  const { id } = data;
+  return customAxios.get(`/join-group/${id}`);
 }
 
 function* loadJoinGroups(action) {
@@ -59,7 +60,8 @@ function* watchLoadJoinGroups() {
 }
 
 function loadApplyGroupsAPI(data) {
-  return axios.get(`/apply-group/${data}`);
+  const { id } = data;
+  return customAxios.get(`/apply-group/${id}`);
 }
 function* loadApplyGroups(action) {
   try {
@@ -274,6 +276,7 @@ function* watchUpdatePreferLocation() {
 export default function* userSaga() {
   yield all([
     fork(watchLoadJoinGroups),
+    fork(watchLoadApplyGroups),
     fork(watchLogIn),
     fork(watchSignup),
     fork(watchLogOut),
