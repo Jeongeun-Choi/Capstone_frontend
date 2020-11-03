@@ -37,7 +37,7 @@ const LikeGroups = () => {
 
   return (
     <GroupContainer>
-      {preferGroups && preferGroups.recruitingGroups.length ? (
+      {preferGroups && preferGroups.recruitingGroups?.length ? (
         <GroupList>
           {preferGroups.recruitingGroups.map((group, index) => (
             <GroupItem
@@ -54,7 +54,7 @@ const LikeGroups = () => {
         <div>모집 중인 그룹이 없습니다.</div>
       )}
 
-      {preferGroups && preferGroups.recruitedGroups.length ? (
+      {preferGroups && preferGroups.recruitedGroups?.length ? (
         <GroupList>
           {preferGroups.recruitedGroups.map((group, index) => (
             <GroupItem

@@ -39,7 +39,10 @@ import {
   updateMyInfoFailureAction,
   UPDATE_PREFER_LOCATION_REQUEST,
   updatePreferLocationSuccessAction,
-  updatePreferLocationFailureAction
+  updatePreferLocationFailureAction,
+  withdrawSuccessAction,
+  WITHDRAW_MEMBER_REQUEST,
+  withdrawFailureAction,
 } from '../reducers/user';
 
 function loadJoinGroupsAPI(data) {
@@ -108,17 +111,33 @@ function* watchSignup() {
 function logOutAPI() {
   return customAxios.delete('/member/logout');
 }
-function* logOut(action) {
+function* logOut() {
   try {
-    yield delay(1000);
-    const { email, password } = action.data;
-    yield put(logoutSuccessAction({ email, password }));
+    yield call(logOutAPI);
+    yield put(logoutSuccessAction());
   } catch (err) {
     yield put(logoutFailureAction(err));
   }
 }
+
 function* watchLogOut() {
   yield takeLatest(LOG_OUT_REQUEST, logOut);
+}
+
+function withdrawMemberAPI() {
+  return customAxios.delete('/member');
+}
+function* withdrawMember() {
+  try {
+    yield call(withdrawMemberAPI);
+    yield put(withdrawSuccessAction());
+  } catch (err) {
+    yield put(withdrawFailureAction(err));
+  }
+}
+
+function* watchWithdrawMember() {
+  yield takeLatest(WITHDRAW_MEMBER_REQUEST, withdrawMember);
 }
 
 function addLocationAPI(data) {
@@ -188,7 +207,7 @@ function* watchDeleteLocation() {
 function addCategoryAPI(data) {
   const { memberId, categories } = data;
 
-  const categoryIds = categories.map(category => category.id);
+  const categoryIds = categories.map((category) => category.id);
   const requestData = { memberId, categoryIds };
 
   return customAxios.put('/member/category', requestData);
@@ -280,6 +299,7 @@ export default function* userSaga() {
     fork(watchLogIn),
     fork(watchSignup),
     fork(watchLogOut),
+    fork(watchWithdrawMember),
     fork(watchAddLocation),
     fork(watchUpdateLocation),
     fork(watchDeleteLocation),
@@ -287,6 +307,6 @@ export default function* userSaga() {
     fork(watchLoadMyInfo),
     fork(watchUpdateMyInfo),
     fork(watchLoadPreferGroups),
-    fork(watchUpdatePreferLocation)
+    fork(watchUpdatePreferLocation),
   ]);
 }

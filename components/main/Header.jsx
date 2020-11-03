@@ -5,10 +5,12 @@ import {
   LeftOutlined,
   InfoCircleOutlined,
   CloseOutlined,
+  MoreOutlined,
 } from '@ant-design/icons';
 
 const CustomHeader = styled.header`
   width: 100%;
+  height: 10vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,7 +47,11 @@ const Header = ({
   title,
   backButton = false,
   declareButton = false,
+  declareOnClick,
   closeButton = false,
+  closeOnClick,
+  moreButton = false,
+  moreOnClick,
 }) => {
   const router = useRouter();
 
@@ -59,8 +65,21 @@ const Header = ({
         <h1>{title}</h1>
       </div>
       <div className='second_button'>
-        {declareButton && <InfoCircleOutlined />}
-        {closeButton && <CloseOutlined />}
+        {declareButton && (
+          <div onClick={declareOnClick}>
+            <InfoCircleOutlined />
+          </div>
+        )}
+        {closeButton && (
+          <div onClick={closeOnClick}>
+            <CloseOutlined />
+          </div>
+        )}
+        {moreButton && (
+          <div onClick={moreOnClick}>
+            <MoreOutlined />
+          </div>
+        )}
       </div>
     </CustomHeader>
   );
