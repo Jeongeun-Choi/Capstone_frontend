@@ -5,7 +5,8 @@ import Selection from './Selection';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   loadJoingroupsRequestAction,
-  loadApplyGroupsRequestAction
+  loadApplyGroupsRequestAction,
+  loadRecruitsRequestAction
 } from '../../reducers/user';
 
 const InitialLocationContainer = styled.div`
@@ -49,9 +50,10 @@ const InitialLocation = ({ setShowingInitialLocation }) => {
   const [showingSelection, setShowingSelection] = useState(false);
 
   useEffect(() => {
-    !me.joinGroups &&
+    !me.id &&
       dispatch(loadJoingroupsRequestAction({ id: me.id })) &&
-      dispatch(loadApplyGroupsRequestAction({ id: me.id }));
+      dispatch(loadApplyGroupsRequestAction({ id: me.id })) &&
+      dispatch(loadRecruitsRequestAction({ id: me.id }));
   }, [me.id && me]);
 
   const openSelectionModal = useCallback(e => {

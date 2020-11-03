@@ -42,8 +42,27 @@ import {
   updatePreferLocationFailureAction,
   withdrawSuccessAction,
   WITHDRAW_MEMBER_REQUEST,
-  withdrawFailureAction
+  withdrawFailureAction,
+  loadRecruitsSuccessAction,
+  loadRecruitsFailureAction,
+  LOAD_RECRUITS_REQUEST
 } from '../reducers/user';
+
+function loadRecruitsAPI(data) {
+  return customAxios.get(`/recruits/member/${data}`);
+}
+
+function* loadRecruits(action) {
+  try {
+    const response = yield call(loadRecruitsAPI, action.data);
+    yield put(loadRecruitsSuccessAction(response.data));
+  } catch (err) {
+    yield put(loadRecruitsFailureAction(err));
+  }
+}
+function* watchLoadRecruits() {
+  yield takeLatest(LOAD_RECRUITS_REQUEST, loadRecruits);
+}
 
 function loadJoinGroupsAPI(data) {
   const { id } = data;
@@ -142,7 +161,7 @@ function* watchWithdrawMember() {
 
 function addLocationAPI(data) {
   const { memberId, locations } = data;
-  
+
   const newLocations = locations.reduce((acc, location) => {
     const { sido, sigungu, bname } = location;
     acc.push({ address: `${sido} ${sigungu} ${bname}` });
@@ -294,6 +313,7 @@ function* watchUpdatePreferLocation() {
 
 export default function* userSaga() {
   yield all([
+    fork(watchLoadRecruits),
     fork(watchLoadJoinGroups),
     fork(watchLoadApplyGroups),
     fork(watchLogIn),
