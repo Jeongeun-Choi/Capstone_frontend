@@ -116,7 +116,6 @@ const MakingGroup = ({
   setModify = null,
   data = null
 }) => {
-  console.log(data);
   const { categories } = useSelector(state => state.category);
   const { me } = useSelector(state => state.user);
   const dispatch = useDispatch();
@@ -304,7 +303,9 @@ const MakingGroup = ({
                 </Select>
                 {showDetailCategory && (
                   <Select
-                    defaultValue={data.ActiveCategories[0].DetailCategory.name}
+                    defaultValue={
+                      data && data.ActiveCategories[0].DetailCategory.name
+                    }
                     onChange={changeDetailCategory}
                     style={{ width: 100 }}
                   >
