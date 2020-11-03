@@ -17,7 +17,7 @@ import {
 
 function loadPostsAPI(data) {
   const { categoryId } = data;
-  return customAxios.get(`/recurits?categoryid=${categoryId}`);
+  return customAxios.get(`/recruits?categoryid=${categoryId}`);
 }
 
 function* loadPosts(action) {
@@ -33,12 +33,16 @@ function* watchLoadPosts() {
   yield takeLatest(LOAD_POSTS_REQUEST, loadPosts);
 }
 
-function addPostAPI(data) {}
+function addPostAPI(data) {
+  return customAxios.post(`/recruits`, data);
+}
 
 function* addPost(action) {
   try {
-    yield delay(1000);
-    yield put(addPostSuccessAction());
+    const postData = yield call(addPostAPI, action.data);
+    yield put(
+      addPostSuccessAction({ id: postData.data.recruitId, ...action.data })
+    );
   } catch (err) {
     yield addPostFailureAction(err);
   }

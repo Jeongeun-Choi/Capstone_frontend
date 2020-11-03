@@ -50,8 +50,8 @@ const InitialLocation = ({ setShowingInitialLocation }) => {
 
   useEffect(() => {
     !me.joinGroups &&
-      dispatch(loadJoingroupsRequestAction(me.id)) &&
-      dispatch(loadApplyGroupsRequestAction(me.id));
+      dispatch(loadJoingroupsRequestAction({ id: me.id })) &&
+      dispatch(loadApplyGroupsRequestAction({ id: me.id }));
   }, [me.id && me]);
 
   const openSelectionModal = useCallback(e => {

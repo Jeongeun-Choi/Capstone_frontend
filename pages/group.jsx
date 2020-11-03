@@ -27,7 +27,6 @@ const GroupContainer = styled.div`
     }
   }
   .ant-tabs-ink-bar {
-    /* border-bottom: 4px solid #aaabd3; */
     background-color: #aaabd3;
   }
 `;
@@ -41,14 +40,14 @@ const group = () => {
     <GroupContainer>
       <Tabs defaultActiveKey="1">
         <TabPane tab={applyGroups} key="1">
-          {me.applyGroups ? (
+          {me.applyGroups.length !== 0 ? (
             <Groups tab={myGroups} groups={me.applyGroups} type="group" />
           ) : (
             <EmptyTeams pageTab={applyGroups} />
           )}
         </TabPane>
         <TabPane tab={myGroups} key="2">
-          {me.joinGroups ? (
+          {me.joinGroups.length !== 0 ? (
             <Groups tab={myGroups} groups={me.joinGroups} type="group" />
           ) : (
             <EmptyTeams pageTab={myGroups} />

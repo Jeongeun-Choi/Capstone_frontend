@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Modal } from '../../../public/style';
 import styled from '@emotion/styled';
 import {
@@ -7,6 +7,7 @@ import {
   ContainerFilled,
   SettingFilled
 } from '@ant-design/icons';
+import MakingGroup from '../MakingGroup';
 
 const SettingModal = styled(Modal)`
   background-color: rgba(0, 0, 0.4, 0.7);
@@ -43,9 +44,15 @@ const SettingModal = styled(Modal)`
   }
 `;
 
-const Setting = ({ setIsShowingSetting }) => {
+const Setting = ({ setIsShowingSetting, setIsShowing, setModify }) => {
   const closeModal = useCallback(() => {
     setIsShowingSetting(prev => !prev);
+  }, []);
+
+  const openModifyModal = useCallback(() => {
+    setModify(prev => !prev);
+    setIsShowingSetting(prev => !prev);
+    setIsShowing(prev => !prev);
   }, []);
 
   return (
@@ -55,7 +62,7 @@ const Setting = ({ setIsShowingSetting }) => {
           <LeftOutlined onClick={closeModal} />
         </header>
         <section className="setting-content">
-          <div className="setting-content-item">
+          <div className="setting-content-item" onClick={openModifyModal}>
             <div className="setting-content-item-icon">
               <SettingFilled />
             </div>
