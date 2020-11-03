@@ -4,6 +4,7 @@ import { basicTeamStyle } from '../../public/style';
 import customAxios from '../../utils/baseAxios';
 import GroupDetail from '../post/GroupDetail';
 import WritingPost from '../writing/WritingPost';
+import MakingGroup from './MakingGroup';
 
 const positions = {
   L: '모임장',
@@ -35,6 +36,7 @@ const MyGroup = styled.li`
 const Group = ({ groupId, groupName, position, type, data }) => {
   const [groupData, setGroupData] = useState(null);
   const [isShowing, setIsShowing] = useState(false);
+  const [modify, setModify] = useState(false);
 
   const openGroup = useCallback(async () => {
     const response = await customAxios.get(`/groups/${groupId}`);
@@ -58,8 +60,19 @@ const Group = ({ groupId, groupName, position, type, data }) => {
           isShowing && <WritingPost data={data} setIsShowing={setIsShowing} />
         : groupData &&
           isShowing && (
-            <GroupDetail data={groupData} setIsShowing={setIsShowing} />
+            <GroupDetail
+              data={groupData}
+              setIsShowing={setIsShowing}
+              setModify={setModify}
+            />
           )}
+      {modify && (
+        <MakingGroup
+          data={groupData}
+          modify={modify}
+          setCloseModal={setModify}
+        />
+      )}
     </>
   );
 };
