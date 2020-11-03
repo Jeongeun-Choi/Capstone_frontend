@@ -11,7 +11,7 @@ export const initialState = {
   updateGroupLoading: false, //모집글 수정 시도중
   updateGroupDone: false,
   updateGroupError: null,
-  groups: [],
+  groups: []
 };
 
 export const LOAD_GROUPS_REQUEST = 'LOAD_GROUPS_REQUEST';
@@ -47,7 +47,7 @@ export const deleteGroupSuccessAction = createAction(DELETE_GROUP_SUCCESS);
 export const deleteGroupFailureAction = createAction(DELETE_GROUP_FAILURE);
 
 const reducer = (state = initialState, action) => {
-  return produce(state, (draft) => {
+  return produce(state, draft => {
     switch (action.type) {
       case LOAD_GROUPS_REQUEST: {
         draft.groupsLoading = true;
@@ -93,7 +93,7 @@ const reducer = (state = initialState, action) => {
         draft.updateGroupLoading = false;
         draft.updateGroupDone = true;
         const index = draft.groups.findIndex(
-          group => group.id === action.data.groupId
+          group => group.id == action.data.groupId
         );
         draft.groups.splice(index, 1, action.data);
         break;
