@@ -10,6 +10,6 @@ export default function* rootSaga() {
     fork(userSaga),
     fork(postSaga),
     fork(categorySaga),
-    fork(groupSaga)
+    fork(groupSaga),
   ]);
 }
