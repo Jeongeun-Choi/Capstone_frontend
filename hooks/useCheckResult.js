@@ -15,8 +15,10 @@ const Screen = styled.div`
   background: rgba(125, 125, 125, 0.7);
 
   & .button_container {
-    width: 30%;
+    width: 40%;
+    min-width: 350px;
     height: 20vh;
+    min-height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
