@@ -24,8 +24,8 @@ export const initialState = {
 
     preferGroups: [],
     applyGroups: [], //내가 지원한 모임
-    joinGroups: [] //나의 모임
-  }
+    joinGroups: [], //나의 모임
+  },
 };
 
 export const LOAD_JOINGROUPS_REQUEST = 'LOAD_JOINGROUPS_REQUEST';
@@ -47,6 +47,10 @@ export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+
+export const WITHDRAW_MEMBER_REQUEST = 'WITHDRAW_MEMBER_REQUEST';
+export const WITHDRAW_MEMBER_SUCCESS = 'WITHDRAW_MEMBER_SUCCESS';
+export const WITHDRAW_MEMBER_FAILURE = 'WITHDRAW_MEMBER_FAILURE';
 
 export const ADD_LOCATION_REQUEST = 'ADD_LOCATION_REQUEST';
 export const ADD_LOCATION_SUCCESS = 'ADD_LOCATION_SUCCESS';
@@ -112,6 +116,10 @@ export const signupRequestAction = createAction(SIGN_UP_REQUEST);
 export const signupSuccessAction = createAction(SIGN_UP_SUCCESS);
 export const signupFailureAction = createAction(SIGN_UP_FAILURE);
 
+export const withdrawRequestAction = createAction(WITHDRAW_MEMBER_REQUEST);
+export const withdrawSuccessAction = createAction(WITHDRAW_MEMBER_SUCCESS);
+export const withdrawFailureAction = createAction(WITHDRAW_MEMBER_FAILURE);
+
 export const addLocationRequestAction = createAction(ADD_LOCATION_REQUEST);
 export const addLocationSuccessAction = createAction(ADD_LOCATION_SUCCESS);
 export const addLocationFailureAction = createAction(ADD_LOCATION_FAILURE);
@@ -168,7 +176,7 @@ export const updatePreferLocationFailureAction = createAction(
 );
 
 const reducer = (state = initialState, action) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (action.type) {
       case LOAD_JOINGROUPS_REQUEST: {
         break;
@@ -238,6 +246,16 @@ const reducer = (state = initialState, action) => {
       case LOG_OUT_FAILURE: {
         draft.logOutLoading = false;
         draft.logOutError = action.error;
+        break;
+      }
+      case WITHDRAW_MEMBER_REQUEST: {
+        break;
+      }
+      case WITHDRAW_MEMBER_SUCCESS: {
+        draft.me = {};
+        break;
+      }
+      case WITHDRAW_MEMBER_FAILURE: {
         break;
       }
       case ADD_LOCATION_REQUEST: {
