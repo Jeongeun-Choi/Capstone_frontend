@@ -45,7 +45,11 @@ const FindingAddress = ({ locations, setLocations }) => {
 
   return (
     <>
-      <SearchInput placeholder="지역을 입력해주세요" onSearch={handleSearch} />
+      <SearchInput
+        placeholder="지역을 입력해주세요"
+        onClick={handleSearch}
+        onSearch={handleSearch}
+      />
       <Modal
         visible={showingScreen}
         onCancel={handleCancel}

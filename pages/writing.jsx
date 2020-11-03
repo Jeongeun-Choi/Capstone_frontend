@@ -8,7 +8,7 @@ const writing = () => {
 
   return (
     <>
-      {me.joinGroups ? (
+      {me.joinGroups.length ? (
         <>
           <div>
             “새로운 모집글을 등록하고자 하는 경우, 해당 모임을 선택하세요.”

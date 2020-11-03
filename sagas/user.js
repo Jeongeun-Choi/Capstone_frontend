@@ -42,7 +42,7 @@ import {
   updatePreferLocationFailureAction,
   withdrawSuccessAction,
   WITHDRAW_MEMBER_REQUEST,
-  withdrawFailureAction,
+  withdrawFailureAction
 } from '../reducers/user';
 
 function loadJoinGroupsAPI(data) {
@@ -142,10 +142,11 @@ function* watchWithdrawMember() {
 
 function addLocationAPI(data) {
   const { memberId, locations } = data;
-
+  
   const newLocations = locations.reduce((acc, location) => {
     const { sido, sigungu, bname } = location;
-    return acc.push({ address: `${sido} ${sigungu} ${bname}` });
+    acc.push({ address: `${sido} ${sigungu} ${bname}` });
+    return acc;
   }, []);
 
   const requestData = { memberId, locations: newLocations };
@@ -207,7 +208,7 @@ function* watchDeleteLocation() {
 function addCategoryAPI(data) {
   const { memberId, categories } = data;
 
-  const categoryIds = categories.map((category) => category.id);
+  const categoryIds = categories.map(category => category.id);
   const requestData = { memberId, categoryIds };
 
   return customAxios.put('/member/category', requestData);
@@ -216,7 +217,6 @@ function addCategoryAPI(data) {
 function* addCategory(action) {
   try {
     const response = yield call(addCategoryAPI, action.data);
-    console.log(response.data);
     yield put(addCategorySuccessAction(response.data.preferCategory));
   } catch (err) {
     yield put(addCategoryFailureAction(err));
@@ -307,6 +307,6 @@ export default function* userSaga() {
     fork(watchLoadMyInfo),
     fork(watchUpdateMyInfo),
     fork(watchLoadPreferGroups),
-    fork(watchUpdatePreferLocation),
+    fork(watchUpdatePreferLocation)
   ]);
 }
