@@ -4,12 +4,25 @@ import styled from '@emotion/styled';
 import Link from 'next/link';
 import { categoryNames } from '../../utils/categoryNames';
 
+
 const CategoryBox = styled.li`
   ${basicBoxStyle}
-  max-height: 90px;
-  max-width: 500px;
-  margin-right: 15px;
-  margin-bottom: 20px;
+  //TODO: ul 중앙정렬
+  height: 100%;
+  display: flex;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 8%;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #868686;
+  opacity: 0.75;
+  border-radius: 3px;
+
+  color: white;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
 `;
 
 const Category = ({ name }) => {
