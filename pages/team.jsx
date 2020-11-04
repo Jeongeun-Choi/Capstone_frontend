@@ -4,15 +4,15 @@ import styled from '@emotion/styled';
 import Teams from '../components/team/Teams';
 import EmptyTeams from '../components/team/EmptyTeams';
 
-// #AAABD3
 const TeamContainer = styled.div`
   width: 100%;
   .ant-tabs-nav-list {
     width: 100%;
+    // align-items: center;
+    // justify-content: center;
   }
   .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
-      //color: #aaabd3;
       color: #6055CD;
       font-weight: bold;
     }
@@ -23,12 +23,10 @@ const TeamContainer = styled.div`
     justify-content: center;
 
     :hover {
-      //color: #aaabd3;
       color: #6055CD;
     }
   }
   .ant-tabs-ink-bar {
-    //border-bottom: 4px solid #aaabd3;
     border-bottom: 4px solid #6055CD;
   }
 `;

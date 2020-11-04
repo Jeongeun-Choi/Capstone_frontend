@@ -47,22 +47,24 @@ const MakingTeamContainer = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: 'Nanum Gothic', sans-serif;
+
   & .team-input {
     ${basicStyle};
     width: 60%;
     border: none;
   }
   & .subtitle {
-    font-weight: bold;
+    //font-weight: extra-bold;
+    border: 1px solid red;
     margin-top: 5%;
     margin-right: 5px;
+    margin-bottom: 3px;
   }
   & .team-info-textarea{
     width: 95%;
     resize: none;
     overflow-y: auto;
-    // color: #aaa69d;
-    border: 1px solid #blue;
   }
   
   & .team-location-title {
@@ -83,8 +85,8 @@ const MakingTeamContainer = styled.form`
     }
 
     & .team-active-day-content-item-active {
-      border: 1px solid #aaabd3;
-      background-color: #aaabd3;
+      border: 1px solid #6055CD;
+      background-color: #6055CD;
       color: #ffffff;
     }
   }
@@ -92,8 +94,7 @@ const MakingTeamContainer = styled.form`
 
 const MakingTeamHeader = styled(ModalHeader)`
   color: #ffffff;
-  background-color: #aaabd3;
-  //글쎄.. 꼭 보라색을 써야하나..?ㅋ
+  background-color: #6055CD;
   h3 {
     color: #ffffff;
   }
@@ -101,8 +102,8 @@ const MakingTeamHeader = styled(ModalHeader)`
 
 const MakingTeamFooter = styled.button`
   ${modalFooter};
-  border: 1px solid #aaabd3;
-  background-color: #aaabd3;
+  border: 1px solid #6055CD;
+  background-color: #6055CD;
   color: #ffffff;
   font-weight: bold;
 `;
@@ -243,7 +244,7 @@ const MakingTeam = ({ setCloseModal }) => {
             </div>
           </div>
           <div className="team-personnel">
-            <div className="subtitle">최대 인원</div>
+            <div className="subtitle">활동 최대 인원</div>
             <Slider
               defaultValue={0}
               max={10}
@@ -269,7 +270,7 @@ const MakingTeam = ({ setCloseModal }) => {
           </div>
           <div className="main-image">
             <div className="subtitle">이미지 추가</div>
-            <Upload images={groupImages} setImages={setGroupImages} />
+              <Upload images={groupImages} setImages={setGroupImages} />
           </div>
         </main>
         <MakingTeamFooter htmlType="submit">모임 개설하기</MakingTeamFooter>

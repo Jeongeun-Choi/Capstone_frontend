@@ -19,7 +19,7 @@ const CategoryBox = styled.div`
   border-radius: 3px;
 
   color: white;
-  font-family: Roboto;
+  font-family: 'Nanum Gothic', sans-serif;
   font-weight: bold;
   font-size: 18px;
 `;

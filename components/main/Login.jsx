@@ -6,6 +6,10 @@ import { useDispatch } from 'react-redux';
 import { loginRequestAction } from '../../reducers/user';
 import inputChangeHook from '../../hooks/inputChangeHook';
 
+// const CloseOutlined = styled.div`
+//   align-items: left;
+// `
+
 const LoginContainer = styled.div`
   width: 100%;
   height: 90vh;
@@ -94,7 +98,6 @@ const LoginContainer = styled.div`
     font-family: 'Nanum Gothic', sans-serif;
     font-size: 12px;
     color: #868686;   
-    //color: #6055CD;
   }
 `;
 
