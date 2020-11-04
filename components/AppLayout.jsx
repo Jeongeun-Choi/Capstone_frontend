@@ -21,7 +21,7 @@ const SearchInput = styled(Search)`
 
 const type = {
   purple: { backgroundColor: '#AAABD3', color: 'white' },
-  white: { backgroundColor: 'white', color: 'black' },
+  white: { backgroundColor: 'white', color: 'black' }
 };
 
 const AppLayout = ({ children }) => {
@@ -36,7 +36,7 @@ const AppLayout = ({ children }) => {
       backButton: false,
       declareButton: false,
       closeButton: false,
-      title: '모집글 등록',
+      title: '모집글 등록'
     },
     team: {
       ...type.purple,
@@ -44,25 +44,25 @@ const AppLayout = ({ children }) => {
       declareButton: false,
       closeButton: false,
       title: '모임명',
-      subTitle: '아무거나',
+      subTitle: '아무거나'
     },
     mypage: {
       ...type.white,
       backButton: true,
       title: '마이페이지',
       moreButton: true,
-      moreOnClick: () => router.push('/setting'),
+      moreOnClick: () => router.push('/setting')
     },
     setting: {
       ...type.white,
       backButton: true,
-      title: '설정',
+      title: '설정'
     },
     withdrawal: {
       ...type.white,
       backButton: true,
-      title: '회원탈퇴',
-    },
+      title: '회원탈퇴'
+    }
   };
 
   const [, pathName, secondPath] = router.pathname.split('/');

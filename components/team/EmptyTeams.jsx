@@ -19,13 +19,23 @@ const EmptyTeamsContainer = styled.main`
   align-items: center;
 
   & p {
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 15px;
     text-align: center;
   }
   & button {
-    width: 10%;
-    min-width: 120px;
-    border: 1px solid #e2e2e2;
-    text-align: center;
+    width: 90%;
+    height: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid #6055CD;
+    border-radius: 18px;
+    background-color: #6055CD;
+    color: white;
+    font-family: 'Nanum Gothic', sans-serif;
+    font-weight: regular;
   }
 `;
 

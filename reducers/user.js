@@ -188,14 +188,14 @@ const reducer = (state = initialState, action) => {
       case LOAD_JOINGROUPS_FAILURE: {
         break;
       }
-      case LOAD_JOINGROUPS_REQUEST: {
+      case LOAD_APPLYGROUPS_REQUEST: {
         break;
       }
-      case LOAD_JOINGROUPS_SUCCESS: {
+      case LOAD_APPLYGROUPS_SUCCESS: {
         draft.me.applyGroups = action.data.groups;
         break;
       }
-      case LOAD_JOINGROUPS_FAILURE: {
+      case LOAD_APPLYGROUPS_FAILURE: {
         break;
       }
       case LOG_IN_REQUEST: {

@@ -70,7 +70,7 @@ function addGroupAPI(data) {
 function* addGroup(action) {
   try {
     const addData = yield call(addGroupAPI, action.data);
-    yield put(addGroupSuccessAction(addData));
+    yield put(addGroupSuccessAction({ id: addData.groupId, ...action.data }));
   } catch (err) {
     yield put(addGroupFailureAction(err));
   }
@@ -80,7 +80,40 @@ function* watchAddGroup() {
   yield takeLatest(ADD_GROUP_REQUEST, addGroup);
 }
 
-function updateGroupAPI(data) {}
+function updateGroupAPI(data) {
+  const {
+    memberId,
+    groupName,
+    groupIntro,
+    activeDays,
+    startTime,
+    endTime,
+    skills,
+    location,
+    maxMember,
+    groupImages,
+    detailCategoryIds,
+    groupId
+  } = data;
+
+  const newSkills = splitSkills(skills);
+  const activeTimes = makeActiveTimes(activeDays, startTime, endTime);
+
+  const requestData = {
+    memberId,
+    groupName,
+    groupIntro,
+    activeTimes,
+    skills: newSkills,
+    location,
+    maxMember,
+    groupImages,
+    detailCategoryIds,
+    groupId
+  };
+
+  return customAxios.put('/groups', requestData);
+}
 
 function* updateGroup(action) {
   try {

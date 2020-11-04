@@ -1,4 +1,4 @@
-import { all, put, fork, takeLatest, delay, call } from 'redux-saga/effects';
+import { all, put, fork, takeLatest, call } from 'redux-saga/effects';
 import customAxios from '../utils/baseAxios';
 import {
   LOAD_CATEGORYS_REQUEST,
