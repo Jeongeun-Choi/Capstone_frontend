@@ -27,6 +27,10 @@ const type = {
 const AppLayout = ({ children }) => {
   const router = useRouter();
   const pathNameMap = {
+    home: {
+      ...type.white,
+      title: '모두의 모임',
+    },
     writing: {
       ...type.white,
       backButton: false,
@@ -64,7 +68,7 @@ const AppLayout = ({ children }) => {
   const [, pathName, secondPath] = router.pathname.split('/');
   return (
     <AppContainer>
-      <Header {...pathNameMap[secondPath || pathName]} />
+      <Header {...pathNameMap[secondPath || pathName ? pathName : 'home']} />
       {pathName.includes('search') ? <SearchInput /> : null}
       {children}
       <Footer pathName={pathName} />
