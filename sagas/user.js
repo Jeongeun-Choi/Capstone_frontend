@@ -49,12 +49,14 @@ import {
 } from '../reducers/user';
 
 function loadRecruitsAPI(data) {
-  return customAxios.get(`/recruits/member/${data}`);
+  const { id } = data;
+  return customAxios.get(`/recruits/member/${id}`);
 }
 
 function* loadRecruits(action) {
   try {
     const response = yield call(loadRecruitsAPI, action.data);
+    console.log(response);
     yield put(loadRecruitsSuccessAction(response.data));
   } catch (err) {
     yield put(loadRecruitsFailureAction(err));

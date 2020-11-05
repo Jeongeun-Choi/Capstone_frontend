@@ -34,6 +34,7 @@ function* watchLoadPosts() {
 }
 
 function addPostAPI(data) {
+  console.log(data);
   return customAxios.post(`/recruits`, data);
 }
 
@@ -52,12 +53,14 @@ function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost);
 }
 
-function updatePostAPI(data) {}
+function updatePostAPI(data) {
+  return customAxios.put(`/recruits`, data);
+}
 
 function* updatePost(action) {
   try {
-    yield delay(1000);
-    yield put(updatePostSuccessAction());
+    yield call(updatePostAPI, action.data);
+    yield put(updatePostSuccessAction(action.data));
   } catch (err) {
     yield updatePostFailureAction(err);
   }
