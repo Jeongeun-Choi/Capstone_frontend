@@ -12,18 +12,20 @@ const PostContainer = styled.ul`
 `;
 
 const PostList = ({ category, posts }) => {
+  console.log(posts);
   return (
     <PostContainer>
-      {posts.map(post => (
-        <Item
-          type="post"
-          name={post.title}
-          id={post.id}
-          category={category}
-          location={post.JoinGroup.Group.location}
-          image={post.JoinGroup.Group.GroupImages[0]}
-        />
-      ))}
+      {posts.length &&
+        posts.map(post => (
+          <Item
+            type="post"
+            name={post.title}
+            id={post.id}
+            category={category}
+            location={post.JoinGroup.Group.location}
+            image={post.JoinGroup.Group.GroupImages[0]}
+          />
+        ))}
     </PostContainer>
   );
 };

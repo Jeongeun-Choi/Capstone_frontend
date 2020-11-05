@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { basicTeamStyle } from '../../public/style';
-import customAxios from '../../utils/baseAxios';
 import GroupDetail from '../post/GroupDetail';
 import WritingPost from '../writing/WritingPost';
 import MakingGroup from './MakingGroup';
@@ -49,16 +48,12 @@ const MyGroup = styled.li`
   }
 `;
 
-const Group = ({ groupId, groupName, position, type, data }) => {
-  const [groupData, setGroupData] = useState(null);
+const Group = ({ groupId, groupName, position = null, type, data = null }) => {
   const [isShowing, setIsShowing] = useState(false);
-  const [modify, setModify] = useState(false);
 
-  const openGroup = useCallback(async () => {
-    const response = await customAxios.get(`/groups/${groupId}`);
-    setGroupData(response.data.group);
+  const openGroup = useCallback(() => {
     setIsShowing(prev => !prev);
-  }, [groupId, data]);
+  }, []);
 
   return (
     <>
@@ -66,12 +61,12 @@ const Group = ({ groupId, groupName, position, type, data }) => {
         <section className="group-image">
           <img
             src={
-              data.Group.GroupImages.length
+              data && data.Group.GroupImages.length
                 ? data.Group.GroupImages[0].URL
                 : '/images/teamimg.jpg'
             }
             alt={
-              data.Group.GroupImages.length
+              data && data.Group.GroupImages.length
                 ? data.Group.GroupImages[0].description
                 : '기본 이미지'
             }
@@ -84,24 +79,13 @@ const Group = ({ groupId, groupName, position, type, data }) => {
           )}
         </section>
       </MyGroup>
-      {type === 'post'
-        ? groupData &&
-          isShowing && <WritingPost data={data} setIsShowing={setIsShowing} />
-        : groupData &&
-          isShowing && (
-            <GroupDetail
-              data={groupData}
-              setIsShowing={setIsShowing}
-              setModify={setModify}
-            />
+      {type === 'group'
+        ? isShowing && (
+            <GroupDetail setIsShowing={setIsShowing} groupId={groupId} />
+          )
+        : isShowing && (
+            <WritingPost id={groupId} setIsShowing={setIsShowing} type={type} />
           )}
-      {modify && (
-        <MakingGroup
-          data={groupData}
-          modify={modify}
-          setCloseModal={setModify}
-        />
-      )}
     </>
   );
 };

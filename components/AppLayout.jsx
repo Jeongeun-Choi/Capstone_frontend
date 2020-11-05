@@ -34,7 +34,7 @@ const AppLayout = ({ children }) => {
       closeButton: false,
       title: '모집글 등록'
     },
-    team: {
+    group: {
       ...type.purple,
       backButton: false,
       declareButton: false,

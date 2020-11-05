@@ -19,16 +19,25 @@ const Groups = ({ groups, type }) => {
   return (
     <GroupsContainer>
       <ul>
-        {groups.map(group => (
-          <Group
-            key={group.id}
-            groupId={group.Group.id}
-            groupName={group.Group.name}
-            position={group.position}
-            data={group}
-            type={type}
-          />
-        ))}
+        {type === 'group'
+          ? groups.map(group => (
+              <Group
+                key={group.id}
+                groupId={group.Group.id}
+                groupName={group.Group.name}
+                position={group.position}
+                data={group}
+                type={type}
+              />
+            ))
+          : groups.map(group => (
+              <Group
+                key={group.id}
+                groupId={group.id}
+                groupName={group.title}
+                type={type}
+              />
+            ))}
       </ul>
     </GroupsContainer>
   );

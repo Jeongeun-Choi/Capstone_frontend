@@ -50,7 +50,7 @@ const InitialLocation = ({ setShowingInitialLocation }) => {
   const [showingSelection, setShowingSelection] = useState(false);
 
   useEffect(() => {
-    !me.id &&
+    !me.joinGroups &&
       dispatch(loadJoingroupsRequestAction({ id: me.id })) &&
       dispatch(loadApplyGroupsRequestAction({ id: me.id })) &&
       dispatch(loadRecruitsRequestAction({ id: me.id }));

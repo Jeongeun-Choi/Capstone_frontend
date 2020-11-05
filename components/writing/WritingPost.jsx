@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { LeftOutlined } from '@ant-design/icons';
 import useInputChangeHook from '../../hooks/useInputChangeHook';
 import { DatePicker, TimePicker, Slider } from 'antd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import {
   modalFooter,
@@ -11,6 +11,11 @@ import {
   Modal
 } from '../../public/style';
 import usePickerHook from '../../hooks/usePickerHook';
+import {
+  addPostRequestAction,
+  updatePostRequestAction
+} from '../../reducers/post';
+import customAxios from '../../utils/baseAxios';
 
 const format = 'HH:mm';
 
@@ -24,7 +29,7 @@ const WritingPostContainer = styled.form`
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    height: 94%;
+    height: 100%;
     overflow: auto;
 
     & .post-item {
@@ -70,13 +75,28 @@ const WritingPostFooter = styled.button`
   font-weight: bold;
 `;
 
-const WritingPost = ({ setIsShowing, data }) => {
-  const [title, changeTitle] = useInputChangeHook('');
-  const [contents, changeContents] = useInputChangeHook('');
+const WritingPost = ({ setIsShowing, id, type }) => {
+  const modify = type === 'postEdit' ? true : false;
+  const [recruit, setRecruit] = useState(null);
+  const [title, changeTitle, setTitle] = useInputChangeHook('');
+  const [contents, changeContents, setContents] = useInputChangeHook('');
   const [date, changeDate] = usePickerHook('');
   const [time, changeTime] = usePickerHook('');
   const [expectMemberCount, setExpectMemberCount] = useState(0);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    !recruit && modify && getData();
+  }, [recruit]);
+
+  const getData = useCallback(async () => {
+    const { data } = await customAxios.get(`/recruits/${id}`);
+    setRecruit(data.recruit);
+    setTitle(data.recruit.title);
+    setContents(data.recruit.contents);
+    setExpectMemberCount(data.recruit.expectMemberCount);
+  }, [id]);
 
   const formatter = value => {
     return `${value}명`;
@@ -91,23 +111,28 @@ const WritingPost = ({ setIsShowing, data }) => {
   }, []);
 
   const submitResult = useCallback(
-    async e => {
+    e => {
       e.preventDefault();
       const body = {
         title,
         contents,
         deadline: `${date} ${time}:00`,
-        expectMemberCount,
-        groupMemberId: data.id
+        expectMemberCount
       };
       try {
-        dispatch(addPostRequestAction(body));
-        setIsShowing(prev => prev);
+        if (modify) {
+          body.recruitId = recruit.id;
+          dispatch(updatePostRequestAction(body));
+        } else {
+          body.groupMemberId = id;
+          dispatch(addPostRequestAction(body));
+        }
+        setIsShowing(prev => !prev);
       } catch (err) {
         console.log(err);
       }
     },
-    [title, contents, date, time, expectMemberCount, data]
+    [title, contents, date, time, expectMemberCount, recruit]
   );
 
   return (
@@ -149,7 +174,7 @@ const WritingPost = ({ setIsShowing, data }) => {
             <div className="post-item">
               <div className="subtitle">예상 인원</div>
               <Slider
-                defaultValue={0}
+                defaultValue={expectMemberCount}
                 max={10}
                 tipFormatter={formatter}
                 onChange={changeSlider}
@@ -157,7 +182,7 @@ const WritingPost = ({ setIsShowing, data }) => {
             </div>
           </main>
           <WritingPostFooter type="submit" onClick={submitResult}>
-            모임 개설하기
+            {modify ? '모집글 수정하기' : '모집글 작성하기'}
           </WritingPostFooter>
         </WritingPostContainer>
       </Modal>
