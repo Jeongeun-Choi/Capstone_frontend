@@ -21,14 +21,18 @@ const SelectionForm = styled.form`
 
   .section-header {
     display: flex;
+    border: 1px solid red;
   }
+
   .setting {
     width: 90%;
     height: 90px;
+    margin-left: 5%;
+    border: 1px solid blue;
   }
 
   .choice-board {
-    color: #cba6c3;
+    color: #6055CD;
 
     & .choice-board-list {
       display: flex;
@@ -36,11 +40,12 @@ const SelectionForm = styled.form`
   }
 `;
 
+
 const Footer = styled.button`
   ${modalFooter}
   color: #ffffff;
-  background-color: #cba6c3;
-  border: 1px solid #cba6c3;
+  background-color: #6055CD;
+  border: 1px solid #6055CD;
   font-weight: bold;
 `;
 
@@ -102,6 +107,7 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
           <section className="setting">
             <div className="section-header">
               <div>활동 선호 지역 설정 ({locations.length}/3)</div>
+              &nbsp;
               <RightOutlined onClick={showLocationModal} />
             </div>
             <div className="section-main">
@@ -112,7 +118,7 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
                   name={location.bname}
                   array={locations}
                   setArray={setLocations}
-                  color="#CBA6C3"
+                  color="#6055CD"
                 />
               ))}
             </div>
@@ -121,6 +127,7 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
           <section className="setting">
             <div className="section-header">
               <div>관심 분야 설정 ({fields.length}/3)</div>
+              &nbsp;
               <RightOutlined onClick={showFieldModal} />
             </div>
             <div className="section-main">
@@ -135,7 +142,7 @@ const Selection = ({ setShowingSelection, setShowingInitialLocation }) => {
                         name={subclass.name}
                         array={fields}
                         setArray={setFields}
-                        color="#CBA6C3"
+                        color="#6055CD"
                       />
                     ))}
                   </div>

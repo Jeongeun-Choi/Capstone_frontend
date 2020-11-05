@@ -10,7 +10,7 @@ const GroupItemWrapper = styled.li`
   margin: 0 auto;
   margin-top: 0.5rem;
 
-  color: ${(props) => (props.recruiting ? '#AAABD3' : '#868686')};
+  color: ${(props) => (props.recruiting ? '#6055CD' : '#868686')};
   & .item_wrapper {
     min-height: 100px;
     display: flex;
@@ -20,7 +20,7 @@ const GroupItemWrapper = styled.li`
     border-radius: 8px;
     padding: 0.5rem 1rem;
     color: white;
-    background: ${(props) => (props.recruiting ? '#AAABD3' : '#868686')};
+    background: ${(props) => (props.recruiting ? '#6055CD' : '#868686')};
   }
 
   & .item_name {

@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 const ModalFooter = styled.footer`
   ${modalFooter}
+  font-family: 'Nanum Gothic', sans-serif;
   color: #ffffff;
   background-color: #cba6c3;
   border: 1px solid #cba6c3;

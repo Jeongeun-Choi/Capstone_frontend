@@ -12,6 +12,7 @@ const LocationForm = styled.form`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  font-family: 'Nanum Gothic', sans-serif;
 
   .form-content {
     display: flex;
@@ -21,22 +22,42 @@ const LocationForm = styled.form`
     max-height: 450px;
     max-width: 600px;
     min-width: 270px;
+
+    .select-count{
+      //border: 1px solid red;
+      margin-bottom: 15%;
+      font-size: 7.5px;
+    }
+   
+    .select-info{
+      //border: 1px solid green;
+      margin-bottom: 5%;
+    }
+
+    .select-examples {
+      margin-top: 3%;
+      color: #868686;
+      font-size: 8px;
+    }
+ 
   }
+
 `;
 
 const ModalFooter = styled.footer`
   ${modalFooter}
   color: #ffffff;
-  background-color: #cba6c3;
-  border: 1px solid #cba6c3;
+  font-family: 'Nanum Gothic', sans-serif;
+  background-color: #6055CD;
+  border: 1px solid #6055CD;
   height: 120px;
 
   .choice-location {
-    font-weight: bold;
     height: 70px;
     border-bottom: 1px solid #868686;
+    padding: 2% 0 0 2%;
+    font-size: 7.5px;
   }
-
   .choice-location-board {
     display: flex;
   }
@@ -45,7 +66,6 @@ const ModalFooter = styled.footer`
     display: flex;
     justify-content: center;
     align-items: center;
-
     div {
       width: 90%;
       display: flex;
@@ -55,14 +75,14 @@ const ModalFooter = styled.footer`
   }
 
   button {
-    background-color: #cba6c3;
-    border: 1px solid #cba6c3;
-    outline-color: #cba6c3;
+    background-color: #6055CD;
+    border: 1px solid #6055CD;
+    outline-color: #6055CD;
     font-weight: bold;
   }
-
   .reset {
     width: 90px;
+    /* border: 1px solid red; */
   }
 `;
 
@@ -103,14 +123,20 @@ const LocationSetting = ({
         </ModalHeader>
         <div className='form-content'>
           <div>
-            <div className='choice-location'>
+            {/* className변경 'choice-location' -> 'select-count' */}
+            <div className='select-count'>
               선택지역<span>({tempLocations.length}/3)</span>
             </div>
-            <div>"찾으시려는 지역의 명칭을 정확하게 입력해주세요."</div>
+            <div className='select-info'>"찾으시려는 <b>지역</b>의 <b>명칭</b>을 <b>정확하게</b> 입력해주세요."</div>
             <Address
               locations={tempLocations}
               setLocations={setTempLocations}
             />
+            <div className='select-examples'>
+              예시 1) <b>대전광역시</b>를 입력하고 싶은 경우, <b>대전</b> 또는 <b>대전광역시</b> 입력<br></br>
+              예시 2) <b>영등포구</b>를 선택하고 싶은 경우, <b>영등포</b> 또는 <b>영등포구</b> 입력<br></br>
+              예시 3) <b>남천동</b>을 선택하고 싶은 경우, <b>남천</b> 또는 <b>남천동</b> 입력
+            </div>
           </div>
         </div>
         <ModalFooter>
@@ -132,7 +158,7 @@ const LocationSetting = ({
             <div>
               <button className='reset'>
                 <ReloadOutlined />
-                초기화
+                &nbsp; 초기화
               </button>
               <button className='submit' onClick={submitResult}>
                 적용하기

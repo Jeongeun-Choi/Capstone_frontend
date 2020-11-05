@@ -93,7 +93,7 @@ const PostContainer = styled.div`
 `;
 
 const PostHeader = styled(ModalHeader)`
-  background-color: #aaabd3;
+  background-color: #6055CD;
 
   h3 {
     color: #ffffff;
@@ -109,8 +109,8 @@ const PostHeader = styled(ModalHeader)`
 const Footer = styled.button`
   ${modalFooter}
   color: #ffffff;
-  background-color: #aaabd3;
-  border: 1px solid #aaabd3;
+  background-color: #6055CD;
+  border: 1px solid #6055CD;
   font-weight: bold;
 `;
 const PostDetail = ({ data, setIsShowing }) => {

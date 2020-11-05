@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import Groups from '../components/team/Groups';
 import EmptyTeams from '../components/team/EmptyTeams';
 
-// #AAABD3
+// #6055CD
 const GroupContainer = styled.div`
   width: 100%;
   .ant-tabs-nav-list {
@@ -13,7 +13,7 @@ const GroupContainer = styled.div`
   }
   .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
-      color: #aaabd3;
+      color: #6055CD;
       font-weight: bold;
     }
   }
@@ -23,11 +23,11 @@ const GroupContainer = styled.div`
     justify-content: center;
 
     :hover {
-      color: #aaabd3;
+      color: #6055CD;
     }
   }
   .ant-tabs-ink-bar {
-    background-color: #aaabd3;
+    background-color: #6055CD;
   }
 `;
 const group = () => {

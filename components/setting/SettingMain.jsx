@@ -12,6 +12,8 @@ const SettingMainContainer = styled.section`
   flex-direction: column;
   align-items: center;
   background: #f2f2f7;
+  font-family: 'Nanum Gothic', sans-serif;
+
   & .setting_list {
     width: 100%;
     max-width: 500px;
@@ -41,7 +43,7 @@ const SettingMainContainer = styled.section`
       border-top: 1px solid grey;
       border-bottom: 1px solid grey;
       background: white;
-      color: white;
+      //color: white;
       font-weight: bold;
       cursor: pointer;
       &:hover {
@@ -49,10 +51,12 @@ const SettingMainContainer = styled.section`
       }
     }
     & .logout_button {
-      background-color: #aaabd3;
+      background-color: white;
+      color: #6055CD;
     }
     & .withdraw_button {
-      background-color: #e74c3c;
+      background-color: #6055CD;
+      color: white;
     }
   }
 `;
@@ -94,7 +98,7 @@ const SettingMain = () => {
 
       <div className='button_wrapper'>
         <button className='logout_button' onClick={logout}>
-          로그 아웃
+          로그아웃
         </button>
       </div>
       <div className='button_wrapper'>

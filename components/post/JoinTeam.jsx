@@ -15,31 +15,31 @@ const Container = styled.div`
     width: 85%;
   }
   & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-    background: #aaabd3;
-    border-color: #aaabd3;
+    background: #6055CD;
+    border-color: #6055CD;
     z-index: 5;
 
     & :active::before {
-      background-color: #aaabd3;
-      border-color: #aaabd3;
+      background-color: #6055CD;
+      border-color: #6055CD;
     }
 
     & :hover::before {
-      background-color: #aaabd3;
-      border-color: #aaabd3;
+      background-color: #6055CD;
+      border-color: #6055CD;
     }
   }
 
   &
     .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):active::before {
-    background-color: #aaabd3;
-    border-color: #aaabd3;
+    background-color: #6055CD;
+    border-color: #6055CD;
   }
 
   & .ant-radio-button-wrapper {
     background: rgba(0, 0, 0, 0);
-    border-color: #aaabd3;
-    color: #aaabd3;
+    border-color: #6055CD;
+    color: #6055CD;
   }
 
   & .basic-info {
@@ -63,7 +63,7 @@ const Container = styled.div`
 const ContainerHeader = styled(ModalHeader)`
   line-height: 25px;
   color: #ffffff;
-  background-color: #aaabd3;
+  background-color: #6055CD;
 
   & .post-info {
     height: 70px;

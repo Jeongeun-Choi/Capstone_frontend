@@ -26,7 +26,7 @@ const ProvedContainer = styled.form`
       text-align: center;
     }
     & span {
-      //color: #AAABD3;
+      //color: #6055CD;
       color: #6055CD;
     }
     & .input-item {
@@ -51,7 +51,7 @@ const ProvedContainer = styled.form`
       font-family: 'Nanum Gothic', sans-serif;
       font-style: regular;
       font-size: 12px;
-      //color: #AAABD3;
+      //color: #6055CD;
       color: #6055CD;
     }
     & .try-again{
@@ -68,8 +68,8 @@ const ProvedContainer = styled.form`
 const ModalFooter = styled.button`
   ${modalFooter}
   color: #ffffff;
-  // background-color: #aaabd3;
-  // border: 1px solid #aaabd3;
+  // background-color: #6055CD;
+  // border: 1px solid #6055CD;
   background-color: #6055CD;
   border: 1px solid #6055CD;
   font-weight: bold;

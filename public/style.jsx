@@ -5,7 +5,7 @@ import { css } from '@emotion/core';
  * 
  회: #868686
  흰: #F8FAFF
- 보: #AAABD3
+ 보: #6055CD
  핑: #CBA6C3 
  남: #353866
  노: #FBD14B

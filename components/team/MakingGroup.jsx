@@ -86,8 +86,8 @@ const MakingGroupContainer = styled.form`
     }
 
     & .team-active-day-content-item-active {
-      border: 1px solid #aaabd3;
-      background-color: #aaabd3;
+      border: 1px solid #6055CD;
+      background-color: #6055CD;
       color: #ffffff;
     }
   }
@@ -95,7 +95,7 @@ const MakingGroupContainer = styled.form`
 
 const MakingGroupHeader = styled(ModalHeader)`
   color: #ffffff;
-  background-color: #aaabd3;
+  background-color: #6055CD;
 
   h3 {
     color: #ffffff;
@@ -104,8 +104,8 @@ const MakingGroupHeader = styled(ModalHeader)`
 
 const MakingGroupFooter = styled.button`
   ${modalFooter};
-  border: 1px solid #aaabd3;
-  background-color: #aaabd3;
+  border: 1px solid #6055CD;
+  background-color: #6055CD;
   color: #ffffff;
   font-weight: bold;
 `;

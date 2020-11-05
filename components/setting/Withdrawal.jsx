@@ -25,7 +25,7 @@ const Container = styled.section`
   & button {
     width: 100%;
     margin-top: auto;
-    background: #aaabd3;
+    background: #6055CD;
     height: 5vh;
     border: none;
     color: white;

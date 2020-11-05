@@ -119,7 +119,7 @@ const GroupContainer = styled.div`
 const GroupHeader = styled(ModalHeader)`
   line-height: 25px;
   color: #ffffff;
-  background-color: #aaabd3;
+  background-color: #6055CD;
 
   & .anticon-exclamation-circle {
     position: absolute;

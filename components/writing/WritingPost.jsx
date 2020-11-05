@@ -55,7 +55,7 @@ const WritingPostContainer = styled.form`
 
 const WritingPostHeader = styled(ModalHeader)`
   color: #ffffff;
-  background-color: #aaabd3;
+  background-color: #6055CD;
 
   h3 {
     color: #ffffff;
@@ -64,8 +64,8 @@ const WritingPostHeader = styled(ModalHeader)`
 
 const WritingPostFooter = styled.button`
   ${modalFooter};
-  border: 1px solid #aaabd3;
-  background-color: #aaabd3;
+  border: 1px solid #6055CD;
+  background-color: #6055CD;
   color: #ffffff;
   font-weight: bold;
 `;

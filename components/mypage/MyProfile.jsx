@@ -20,13 +20,13 @@ const ProfileSection = styled.section`
     width: 90%;
     padding: 2rem;
     margin: 0 auto;
-    background: #aaabd3;
+    background: #6055CD;
     border-radius: 10px;
   }
 
   & .ant-tabs-nav-list {
     width: 100%;
-    color: #aaabd3;
+    color: #6055CD;
     background: #d4d5e9;
   }
 
