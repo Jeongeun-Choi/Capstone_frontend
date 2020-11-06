@@ -19,8 +19,8 @@ const SearchContainer = styled.div`
   }
 
   & .category-list {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 15%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -38,7 +38,7 @@ const search = () => {
   return (
     <SearchContainer>
       <div className="information">
-        "<b> 입력</b>하거나, 아래의 <b>카테고리를 선택</b>하여 모임을 찾아보세요!"
+        "모임명을 <b>입력</b>하거나, 아래의 <b>카테고리를 선택</b>하여 모임을 찾아보세요!"
       </div>
       <ul className="category-list">
         {category.map(item => (

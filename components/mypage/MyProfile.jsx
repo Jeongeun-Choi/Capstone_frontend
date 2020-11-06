@@ -13,8 +13,10 @@ const { TabPane } = Tabs;
 const ProfileSection = styled.section`
   width: 100%;
   height: 100%;
-  background: #d4d5e9;
+  background: #F6F6F6;
   padding-top: 2rem;
+  font-family: 'Nanum Gothic', sans-serif;
+
 
   & .profile_intro {
     width: 90%;
@@ -27,12 +29,12 @@ const ProfileSection = styled.section`
   & .ant-tabs-nav-list {
     width: 100%;
     color: #6055CD;
-    background: #d4d5e9;
+    background: #F6F6F6;
   }
 
   & .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
   & .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
-    background: #d4d5e9;
+    background: #F6F6F6;
     border: none;
   }
 
@@ -45,12 +47,14 @@ const ProfileSection = styled.section`
   }
 
   & .ant-tabs-tab:hover {
-    opacity: 0.6;
+    /* opacity: 0.6; */
+    font-weight: extrabold;
   }
 
   & .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
-      color: white;
+      //color: white;
+      color: #6055CD;
       font-weight: bold;
     }
   }

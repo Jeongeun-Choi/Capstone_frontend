@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { signupRequestAction } from '../../reducers/user';
 
 const SignupContainer = styled.main`
+  font-family: 'Nanum Gothic', sans-serif;
   width: 100%;
   height: 100vh;
 
@@ -25,11 +26,16 @@ const SignupContainer = styled.main`
     justify-content: center;
     align-items: center;
 
+    input {
+      padding-left: 2%;
+    }
+
     & .input-div {
       width: 90%;
       height: 10vh;
       max-width: 600px;
       min-width: 270px;
+      margin-top: 3%;     
     }
 
     & .input-kind {
@@ -40,17 +46,23 @@ const SignupContainer = styled.main`
       display: flex;
     }
 
+    & span {
+        color: #6055CD;
+      }
+
     & .input-date {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
     }
+
     & .password-promise {
       font-size: 9px;
     }
   }
 `;
+
 const SignupForm = styled.form`
   width: 100%;
   height: 90vh;
@@ -58,6 +70,7 @@ const SignupForm = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-left: 3%;
 
   .input-div {
     width: 90%;
@@ -72,6 +85,7 @@ const SignupForm = styled.form`
     max-width: 600px;
     min-width: 270px;
     display: flex;
+    padding: 1%;
   }
 
   .input-date {
@@ -136,13 +150,13 @@ const Signup = ({ setShowingSignup }) => {
         <form className="signup-form" onSubmit={signUp}>
           <div className="input-div">
             <div className="input-kind">
-              <div>이메일*</div>
+              <div>이메일&nbsp;<span>*</span></div>
             </div>
             <BasicInput onChange={onChangeEmail} value={email} type="email" />
           </div>
           <div className="input-div">
             <div className="input-kind">
-              <div>비밀번호*</div>
+              <div>비밀번호&nbsp;<span>*</span></div>
             </div>
             <BasicInput
               onChange={onChangePassword}
@@ -155,7 +169,7 @@ const Signup = ({ setShowingSignup }) => {
           </div>
           <div className="input-div">
             <div className="input-kind">
-              <div>비밀번호 확인*</div>
+              <div>비밀번호 확인&nbsp;<span>*</span></div>
             </div>
             <BasicInput
               onChange={onChangePasswordCheck}
@@ -165,13 +179,13 @@ const Signup = ({ setShowingSignup }) => {
           </div>
           <div className="input-div">
             <div className="input-kind">
-              <div>이름*</div>
+              <div>이름&nbsp;<span>*</span></div>
             </div>
             <BasicInput onChange={onChangeName} value={name} type="text" />
           </div>
           <div className="input-div">
             <div className="input-kind">
-              <div>생년월일*</div>
+              <div>생년월일&nbsp;<span>*</span></div>
             </div>
             <div className="input-date">
               <div className="short-input">
@@ -197,15 +211,15 @@ const Signup = ({ setShowingSignup }) => {
               <div className="switch">
                 <Switch
                   onChange={changeGender}
-                  checkedChildren="여성"
-                  unCheckedChildren="남성"
+                  checkedChildren="여"
+                  unCheckedChildren="남"
                 />
               </div>
             </div>
           </div>
           <div className="input-div">
             <div className="input-kind">
-              <div>휴대전화*</div>
+              <div>휴대전화&nbsp;<span>*</span></div>
             </div>
             <BasicInput
               onChange={onChangeTelephone}
@@ -215,7 +229,7 @@ const Signup = ({ setShowingSignup }) => {
           </div>
           <div className="input-div">
             <Button type="button" onClick={signUp}>
-              확인
+              제출
             </Button>
           </div>
         </form>

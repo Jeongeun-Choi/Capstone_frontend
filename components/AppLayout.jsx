@@ -44,7 +44,7 @@ const AppLayout = ({ children }) => {
     },
     mypage: {
       ...type.white,
-      backButton: true,
+      backButton: false,
       title: '마이페이지',
       moreButton: true,
       moreOnClick: () => router.push('/setting')

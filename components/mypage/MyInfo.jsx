@@ -8,16 +8,19 @@ import {
   LockOutlined,
   CloseOutlined,
   UploadOutlined,
+  CheckOutlined,
 } from '@ant-design/icons';
 import styled from '@emotion/styled';
 
 const MyInfoContainer = styled.section`
   display: flex;
   flex-direction: column;
+
   & .info_explain {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 0.7rem;
   }
   & .info_modify_button {
     background-color: white;
@@ -27,13 +30,16 @@ const MyInfoContainer = styled.section`
   }
 
   & .info_column {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: grey;
+    //border: 1px solid red;
+    margin-bottom: 1%;
   }
 
   & .info_content {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: bold;
+    //border: 1px solid blue;
   }
 
   & li {
@@ -72,8 +78,8 @@ const MyInfoContainer = styled.section`
     & button {
       width: 4rem;
       height: 2rem;
-      background: #6055CD;
-      color: white;
+      background: white;
+      color: #6055CD;
       font-weight: bold;
       border: none;
       border-radius: 5px;
@@ -145,8 +151,8 @@ const MyInfo = ({ myInfo }) => {
     <MyInfoContainer>
       <div className='info_explain'>
         <span>
-          지원에 필요한 정보 및 지원 결과를 받아볼 이메일, 연락처 정보를
-          입력해주세요.
+          지원 정보 및 지원 결과 수신이 가능한<br></br>
+          이메일, 연락처 정보를 입력해주세요.
         </span>
         <button className='info_modify_button' onClick={changeStatus}>
           <SettingOutlined />
@@ -155,18 +161,18 @@ const MyInfo = ({ myInfo }) => {
 
       <ul>
         <li>
-          <div className='info_column'>이름{isModify && <LockOutlined />}</div>
+          <div className='info_column'>이름&nbsp; {isModify && <LockOutlined />}</div>
           <div className='info_content'>{myInfo.name}</div>
         </li>
         <li>
           <div className='info_column'>
-            생년월일{isModify && <LockOutlined />}
+            생년월일&nbsp; {isModify && <LockOutlined />}
           </div>
           <div className='info_content'>{myInfo.birthday}</div>
         </li>
 
         <li>
-          <div className='info_column'>성별{isModify && <LockOutlined />}</div>
+          <div className='info_column'>성별&nbsp; {isModify && <LockOutlined />}</div>
           <div className='info_content'>{myInfo.gender ? '여자' : '남자'}</div>
         </li>
         <li>
@@ -187,7 +193,11 @@ const MyInfo = ({ myInfo }) => {
         </li>
         {isModify && (
           <li className='modify_image'>
-            <div className='info_column'>프로필 이미지</div>
+            <div className='info_column'>프로필 이미지
+            <button onClick={onClickImageUpload}>
+                  <UploadOutlined />
+            </button>
+            </div>
             <div className='image_wrapper'>
               <div className='image_border'>
                 <img
@@ -207,9 +217,6 @@ const MyInfo = ({ myInfo }) => {
                   ref={imageRef}
                   onChange={imageUpload}
                 />
-                <button onClick={onClickImageUpload}>
-                  <UploadOutlined />
-                </button>
               </div>
             </div>
           </li>
@@ -217,7 +224,7 @@ const MyInfo = ({ myInfo }) => {
       </ul>
       {isModify && (
         <button className='modify_button' onClick={modifyInfo}>
-          수정 완료
+          <CheckOutlined />
         </button>
       )}
     </MyInfoContainer>
