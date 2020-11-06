@@ -43,6 +43,8 @@ const index = () => {
   useEffect(() => {
     const newGroups = groups.filter(
       group =>
+        group.ActiveCategories &&
+        group.ActiveCategories.length &&
         group.ActiveCategories[0].DetailCategory.Category.id === categoryId
     );
     setFilterGroups(newGroups);
