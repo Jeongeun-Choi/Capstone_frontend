@@ -43,7 +43,28 @@ import {
   withdrawSuccessAction,
   WITHDRAW_MEMBER_REQUEST,
   withdrawFailureAction,
+  loadRecruitsSuccessAction,
+  loadRecruitsFailureAction,
+  LOAD_RECRUITS_REQUEST
 } from '../reducers/user';
+
+function loadRecruitsAPI(data) {
+  const { id } = data;
+  return customAxios.get(`/recruits/member/${id}`);
+}
+
+function* loadRecruits(action) {
+  try {
+    const response = yield call(loadRecruitsAPI, action.data);
+    console.log(response);
+    yield put(loadRecruitsSuccessAction(response.data));
+  } catch (err) {
+    yield put(loadRecruitsFailureAction(err));
+  }
+}
+function* watchLoadRecruits() {
+  yield takeLatest(LOAD_RECRUITS_REQUEST, loadRecruits);
+}
 
 function loadJoinGroupsAPI(data) {
   const { id } = data;
@@ -145,7 +166,8 @@ function addLocationAPI(data) {
 
   const newLocations = locations.reduce((acc, location) => {
     const { sido, sigungu, bname } = location;
-    return acc.push({ address: `${sido} ${sigungu} ${bname}` });
+    acc.push({ address: `${sido} ${sigungu} ${bname}` });
+    return acc;
   }, []);
 
   const requestData = { memberId, locations: newLocations };
@@ -207,7 +229,7 @@ function* watchDeleteLocation() {
 function addCategoryAPI(data) {
   const { memberId, categories } = data;
 
-  const categoryIds = categories.map((category) => category.id);
+  const categoryIds = categories.map(category => category.id);
   const requestData = { memberId, categoryIds };
 
   return customAxios.put('/member/category', requestData);
@@ -216,7 +238,6 @@ function addCategoryAPI(data) {
 function* addCategory(action) {
   try {
     const response = yield call(addCategoryAPI, action.data);
-    console.log(response.data);
     yield put(addCategorySuccessAction(response.data.preferCategory));
   } catch (err) {
     yield put(addCategoryFailureAction(err));
@@ -294,6 +315,7 @@ function* watchUpdatePreferLocation() {
 
 export default function* userSaga() {
   yield all([
+    fork(watchLoadRecruits),
     fork(watchLoadJoinGroups),
     fork(watchLoadApplyGroups),
     fork(watchLogIn),
@@ -307,6 +329,6 @@ export default function* userSaga() {
     fork(watchLoadMyInfo),
     fork(watchUpdateMyInfo),
     fork(watchLoadPreferGroups),
-    fork(watchUpdatePreferLocation),
+    fork(watchUpdatePreferLocation)
   ]);
 }

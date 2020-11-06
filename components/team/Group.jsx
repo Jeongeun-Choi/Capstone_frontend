@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { basicTeamStyle } from '../../public/style';
-import customAxios from '../../utils/baseAxios';
 import GroupDetail from '../post/GroupDetail';
 import WritingPost from '../writing/WritingPost';
 import MakingGroup from './MakingGroup';
@@ -15,64 +14,78 @@ const MyGroup = styled.li`
   width: 95%;
   height: 52px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-bottom: 11px;
 
-  .group-image {
+  & .group-image {
     ${basicTeamStyle}
     width: 20%;
     min-width: 74.74px;
+    margin-right: 5px;
+    border: none;
+    & img {
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
-  .group-info {
+  & .group-info {
     ${basicTeamStyle}
     width: 60%;
     min-width: 247.44px;
     display: flex;
-    flex-direction: column;
-    font-size: 11px;
+    justify-content: space-between;
+    background-color: #f6f6f6;
+    border: 1px solid #f6f6f6;
+    line-height: 52px;
+
+    & .group-info-name {
+      font-size: 0.9rem;
+    }
+
+    & .group-info-position {
+      font-size: 0.8rem;
+    }
   }
 `;
 
-const Group = ({ groupId, groupName, position, type, data }) => {
-  const [groupData, setGroupData] = useState(null);
+const Group = ({ groupId, groupName, position = null, type, data = null }) => {
   const [isShowing, setIsShowing] = useState(false);
-  const [modify, setModify] = useState(false);
 
-  const openGroup = useCallback(async () => {
-    const response = await customAxios.get(`/groups/${groupId}`);
-    setGroupData(response.data.group);
+  const openGroup = useCallback(() => {
     setIsShowing(prev => !prev);
-  }, [groupId]);
+  }, []);
 
   return (
     <>
       <MyGroup onClick={openGroup}>
         <section className="group-image">
-          <div>대충 이미지</div>
+          <img
+            src={
+              data && data.Group.GroupImages.length
+                ? data.Group.GroupImages[0].URL
+                : '/images/teamimg.jpg'
+            }
+            alt={
+              data && data.Group.GroupImages.length
+                ? data.Group.GroupImages[0].description
+                : '기본 이미지'
+            }
+          />
         </section>
         <section className="group-info">
-          <div>{groupName}</div>
-          {position && <div>{positions[position]}</div>}
+          <div className="group-info-name">{groupName}</div>
+          {position && (
+            <div className="group-info-position">{positions[position]}</div>
+          )}
         </section>
       </MyGroup>
-      {type === 'post'
-        ? groupData &&
-          isShowing && <WritingPost data={data} setIsShowing={setIsShowing} />
-        : groupData &&
-          isShowing && (
-            <GroupDetail
-              data={groupData}
-              setIsShowing={setIsShowing}
-              setModify={setModify}
-            />
+      {type === 'group'
+        ? isShowing && (
+            <GroupDetail setIsShowing={setIsShowing} groupId={groupId} />
+          )
+        : isShowing && (
+            <WritingPost id={groupId} setIsShowing={setIsShowing} type={type} />
           )}
-      {modify && (
-        <MakingGroup
-          data={groupData}
-          modify={modify}
-          setCloseModal={setModify}
-        />
-      )}
     </>
   );
 };

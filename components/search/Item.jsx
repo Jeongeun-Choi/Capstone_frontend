@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { basicBoxStyle } from '../../public/style';
 import GroupDetail from '../post/GroupDetail';
 import PostDetail from '../post/PostDetail';
-import customAxios from '../../utils/baseAxios';
 import { categoryUrlNames } from '../../utils/categoryNames';
 
 const ItemBox = styled.div`
@@ -37,26 +36,17 @@ const ItemBox = styled.div`
   }
 `;
 
-const Item = ({ type, name, id, location, category, image }) => {
+const Item = ({ type, name, id, location, category, image = null }) => {
   const [isShowing, setIsShowing] = useState(false);
-  const [data, setData] = useState(null);
 
   const clickItem = useCallback(async () => {
-    if (type === 'post') {
-      const response = await customAxios.get(`/recruits/${id}`);
-      setData(response.data.recruit);
-    } else {
-      const response = await customAxios.get(`/groups/${id}`);
-      setData(response.data.group);
-    }
     setIsShowing(prev => !prev);
-  }, [id]);
+  }, []);
 
-  console.log(type);
   return (
     <>
       <ItemBox onClick={clickItem}>
-        <img src={image.URL} alt={image.description} />
+        <img src={image && image.URL || '/images/teamimg.jpg'} alt={image && image.description || '기본 그룹 사진'} />
         <div className="box-info">
           <div className="box-info-category">{categoryUrlNames[category]}</div>
           <div className="box-info-name">{name}</div>
@@ -64,8 +54,8 @@ const Item = ({ type, name, id, location, category, image }) => {
         </div>
       </ItemBox>
       {type === 'post'
-        ? isShowing && <PostDetail data={data} setIsShowing={setIsShowing} />
-        : isShowing && <GroupDetail data={data} setIsShowing={setIsShowing} />}
+        ? isShowing && <PostDetail recruitId={id} setIsShowing={setIsShowing} />
+        : isShowing && <GroupDetail groupId={id} setIsShowing={setIsShowing} />}
     </>
   );
 };

@@ -29,23 +29,24 @@ const index = () => {
   const categoryName = router.query.category;
   const [isGroup, setIsGroup] = useState(true);
   const [filterGroups, setFilterGroups] = useState([]);
+  const [categoryId, setCategoryId] = useState(0);
 
   useEffect(() => {
-    const categoryId = category.filter(
+    const id = category.filter(
       item => item.type === categoryUrlNames[categoryName]
     )[0].id;
+    dispatch(loadGroupsRequestAction());
+    dispatch(loadPostsRequestAction({ id }));
+    setCategoryId(id);
+  }, [category]);
 
-    if (posts.length === 0 && groups.length === 0) {
-      dispatch(loadGroupsRequestAction());
-      dispatch(loadPostsRequestAction({ categoryId }));
-    }
-
+  useEffect(() => {
     const newGroups = groups.filter(
       group =>
         group.ActiveCategories[0].DetailCategory.Category.id === categoryId
     );
     setFilterGroups(newGroups);
-  }, [category, posts, groups]);
+  }, [groups]);
 
   const changeSelect = useCallback(value => {
     if (value === 'group') {

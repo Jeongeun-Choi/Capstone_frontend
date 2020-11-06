@@ -19,6 +19,7 @@ import {
   updateGroupRequestAction
 } from '../../reducers/group';
 import useCheckResult from '../../hooks/useCheckResult';
+import customAxios from '../../utils/baseAxios';
 
 const format = 'HH:mm';
 const { Option } = Select;
@@ -110,71 +111,78 @@ const MakingGroupFooter = styled.button`
   font-weight: bold;
 `;
 
-const MakingGroup = ({
-  setCloseModal,
-  modify = false,
-  setModify = null,
-  data = null
-}) => {
-  console.log(data);
+const MakingGroup = ({ setCloseModal, modify = false, groupId = null }) => {
+  console.log(modify, groupId);
   const { categories } = useSelector(state => state.category);
   const { me } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
-  const [category, setCategory] = useState(
-    modify ? [data.ActiveCategories[0].detailCategoryId] : []
-  );
-  const [groupName, changeGroupName] = useInputChangeHook(
-    modify ? data.name : ''
-  );
-  const [groupIntro, changeGroupIntro] = useInputChangeHook(
-    modify ? data.groupIntro : ''
-  );
-  const [location, setLocation] = useState(modify ? data.location : '');
-  const [maxMember, setMaxMember] = useState(modify ? data.memberCount : 0);
+  const [group, setGroup] = useState(null);
+  const [category, setCategory] = useState([]);
+  const [groupName, changeGroupName, setGroupName] = useInputChangeHook('');
+  const [groupIntro, changeGroupIntro, setGroupIntro] = useInputChangeHook('');
+  const [location, setLocation] = useState('');
+  const [maxMember, setMaxMember] = useState(0);
   const [activeDays, setActiveDays] = useState([]);
-  const [startTime, changeStartTime] = usePickerHook(
-    modify ? data.ActiveTimes[0].startTime : ''
-  );
-  const [endTime, changeEndTime] = usePickerHook(
-    modify ? data.ActiveTimes[0].endTime : ''
-  );
+  const [startTime, changeStartTime] = usePickerHook('');
+  const [endTime, changeEndTime] = usePickerHook('');
   const [skills, setSkills] = useState('');
-  const [groupImages, setGroupImages] = useState(
-    modify ? data.GroupImages : []
-  );
-  const [middleCategory, setMiddleCategory] = useState(
-    modify ? data.ActiveCategories[0].DetailCategory.Category.type : ''
-  );
+  const [groupImages, setGroupImages] = useState([]);
+  const [middleCategory, setMiddleCategory] = useState('');
+  const [detailCategory, setDetailCategory] = useState('');
   const [showDetailCategory, setShowDetailCategory] = useState(
     modify ? true : false
   );
 
   useEffect(() => {
-    if (modify) {
-      const activeDayArray = data.ActiveTimes.map(time => time.activeDay);
-      const skillsString = data.Skills.map(skill => skill.name).join(', ');
-      setActiveDays(activeDayArray);
-      setSkills(skillsString);
-    }
-  }, [modify]);
+    !group && modify && getData();
+  }, [group]);
 
-  const changeSlider = useCallback(value => {
-    setMaxMember(value);
-  }, []);
+  console.log(group, middleCategory);
+  const getData = useCallback(async () => {
+    const { data } = await customAxios.get(`/groups/${groupId}`);
+    setGroup(data.group);
+    const activeDayArray = data.group.ActiveTimes.map(time => time.activeDay);
+    const skillsString = data.group.Skills.map(skill => skill.name).join(', ');
+    setActiveDays(activeDayArray);
+    setSkills(skillsString);
+    setCategory(data.group.ActiveCategories[0].detailCategoryId);
+    setGroupName(data.group.name);
+    setGroupIntro(data.group.groupIntro);
+    setLocation(data.group.location);
+    setMaxMember(data.group.memberCount);
+    setGroupImages(data.group.GroupImages);
+    setMiddleCategory(
+      data.group.ActiveCategories[0].DetailCategory.Category.type
+    );
+    setDetailCategory(data.group.ActiveCategories[0].DetailCategory.name);
+  }, [groupId]);
+
+  const changeSlider = useCallback(
+    value => {
+      setMaxMember(value);
+    },
+    [maxMember]
+  );
 
   const changeSkills = useCallback(e => {
     setSkills(e.target.value);
   }, []);
 
-  const changeMiddleCategory = useCallback(value => {
-    setMiddleCategory(value);
-    setShowDetailCategory(prev => !prev);
-  }, []);
+  const changeMiddleCategory = useCallback(
+    value => {
+      setMiddleCategory(value);
+      !showDetailCategory && setShowDetailCategory(prev => !prev);
+    },
+    [middleCategory, showDetailCategory]
+  );
 
-  const changeDetailCategory = useCallback(value => {
-    setCategory([value]);
-  }, []);
+  const changeDetailCategory = useCallback(
+    value => {
+      setCategory([value]);
+    },
+    [detailCategory]
+  );
 
   const changeDayState = useCallback(
     e => {
@@ -241,7 +249,7 @@ const MakingGroup = ({
       e.preventDefault();
 
       const body = {
-        groupId: data.id,
+        groupId,
         detailCategoryIds: category,
         groupName,
         groupIntro,
@@ -281,18 +289,21 @@ const MakingGroup = ({
 
   return (
     <>
-      <Modal>
+      <Modal zIndex={3}>
         <MakingGroupContainer encType="multipart/form-data">
           <MakingGroupHeader>
-            <h3>모임 개설</h3>
+            <h3>{modify ? '모임 수정' : '모임 개설'}</h3>
             <LeftOutlined onClick={closeModal} />
           </MakingGroupHeader>
           <main className="team-content">
             <div className="team-item">
               <div className="category-title">
                 <div className="subtitle">카테고리</div>
+
                 <Select
-                  defaultValue={middleCategory}
+                  defaultValue={
+                    (modify && group && middleCategory) || '선택하세요.'
+                  }
                   onChange={changeMiddleCategory}
                   style={{ width: 200 }}
                 >
@@ -304,15 +315,16 @@ const MakingGroup = ({
                 </Select>
                 {showDetailCategory && (
                   <Select
-                    defaultValue={data.ActiveCategories[0].DetailCategory.name}
+                    defaultValue={detailCategory}
                     onChange={changeDetailCategory}
                     style={{ width: 100 }}
                   >
-                    {categories[middleCategory].map(category => (
-                      <Option key={category.id} value={category.id}>
-                        {category.name}
-                      </Option>
-                    ))}
+                    {middleCategory &&
+                      categories[middleCategory].map(category => (
+                        <Option key={category.id} value={category.id}>
+                          {category.name}
+                        </Option>
+                      ))}
                   </Select>
                 )}
               </div>
@@ -378,7 +390,7 @@ const MakingGroup = ({
             <div className="team-item">
               <div className="subtitle">최대 인원</div>
               <Slider
-                defaultValue={maxMember}
+                defaultValue={group && maxMember}
                 max={10}
                 tipFormatter={formatter}
                 onChange={changeSlider}
@@ -396,10 +408,10 @@ const MakingGroup = ({
             <div className="team-item">
               <div className="team-location-title">
                 <div className="subtitle">모임 지역</div>
-                {location.length !== 0 ? <div>{location}</div> : null}
+                {location.length && <div>{location}</div>}
               </div>
               <FindingAddress locations={location} setLocations={setLocation} />
-              {location.length !== 0 ? <KakaoMap location={location} /> : null}
+              {location.length && <KakaoMap location={location} />}
             </div>
             <div className="team-item">
               <div className="subtitle">이미지 추가</div>

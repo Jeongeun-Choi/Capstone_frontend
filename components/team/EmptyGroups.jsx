@@ -6,11 +6,12 @@ import MakingGroup from './MakingGroup';
 import { useSelector } from 'react-redux';
 
 const content = {
+  '나의 모집글': [`모집 글을 작성하여 모임원을 모아보세요!`],
   '나의 모임': [`원하는 모임이 없다면?\n만들어보세요!`, '모임 만들기'],
   '내가 지원한 모임': [`회원님과 잘 맞는 모임에 참여해보세요.`, '모임 참여하기']
 };
 
-const EmptyTeamsContainer = styled.main`
+const EmptyGroupsContainer = styled.main`
   width: 100%;
   height: 70vh;
   display: flex;
@@ -29,8 +30,9 @@ const EmptyTeamsContainer = styled.main`
   }
 `;
 
-const EmptyTeams = ({ pageTab }) => {
+const EmptyGroups = ({ pageTab }) => {
   const { me } = useSelector(state => state.user);
+
   const [pText, aText] = content[pageTab];
   const [isAlertModal, setIsAlertModal] = useState(false);
   const [isProvedModal, setIsProvedModal] = useState(false);
@@ -51,17 +53,20 @@ const EmptyTeams = ({ pageTab }) => {
 
   return (
     <>
-      <EmptyTeamsContainer>
+      <EmptyGroupsContainer>
         <p>
-          {pText.split('\n').map(text => (
-            <span key={text}>
-              {text}
-              <br />
-            </span>
-          ))}
+          {pText &&
+            pText.split('\n').map(text => (
+              <span key={text}>
+                {text}
+                <br />
+              </span>
+            ))}
         </p>
-        <button onClick={openAlertModal}>{aText}</button>
-      </EmptyTeamsContainer>
+        {pageTab !== '나의 모집글' && (
+          <button onClick={openAlertModal}>{aText}</button>
+        )}
+      </EmptyGroupsContainer>
       <Modal visible={isAlertModal} onOk={openScreen} onClose={openAlertModal}>
         <h4>모임 개설</h4>
         <div>새로운 모임을 개설하시겠습니까?</div>
@@ -79,4 +84,4 @@ const EmptyTeams = ({ pageTab }) => {
   );
 };
 
-export default EmptyTeams;
+export default EmptyGroups;
