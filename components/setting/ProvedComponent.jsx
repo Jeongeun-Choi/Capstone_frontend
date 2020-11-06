@@ -98,13 +98,13 @@ const ProvedComponent = ({ setCloseModal, setMakingTeam }) => {
       <ProvedContainer>
         <ModalHeader>
           <LeftOutlined onClick={closeModal} />
-          <h3>실명인증</h3>
+          <h3>#6055CD</h3>
         </ModalHeader>
         <main>
           <p>
             안전하고 즐거운 모임 운영을 위해
             <br />
-            실명인증을 해주세요.
+            #6055CD을 해주세요.
           </p>
           <div className="form-content">
             <div className="form-item">

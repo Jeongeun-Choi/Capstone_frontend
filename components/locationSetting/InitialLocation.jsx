@@ -17,13 +17,20 @@ const InitialLocationContainer = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  font-family: 'Nanum Gothic', sans-serif;
 
   img {
     width: 90px;
     height: 85px;
   }
   h2 {
+    width: 90%;
     font-weight: bold;
+  }
+  h6 {
+    width: 90%;
+    color: #868686;
+    margin-bottom: 5%;
   }
 `;
 
@@ -31,16 +38,19 @@ const Button = styled.button`
   ${basicStyle};
   width: 90%;
   color: #f8faff;
-  border: 1px solid #cba6c3;
+  border: 1px solid #EBE7F8;
   border-radius: 17.5px;
-  background-color: #cba6c3;
+  font-weight: bold;
+  background-color: #6055CD;
 `;
 
 const SkipButton = styled.button`
   ${basicStyle};
   width: 90%;
+  margin-top: 1%;
   border: none;
   border-radius: 17.5px;
+  font-size: 12px;
   background-color: rgba(0, 0, 0, 0);
 `;
 

@@ -47,7 +47,7 @@ const MyInfoContainer = styled.section`
     padding: 0.5rem;
     border: none;
     border-radius: 5px;
-    background: #aaabd3;
+    background: #6055CD;
     color: white;
     cursor: pointer;
 
@@ -72,7 +72,7 @@ const MyInfoContainer = styled.section`
     & button {
       width: 4rem;
       height: 2rem;
-      background: #aaabd3;
+      background: #6055CD;
       color: white;
       font-weight: bold;
       border: none;

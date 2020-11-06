@@ -27,14 +27,15 @@ const FieldForm = styled.form`
 const ModalFooter = styled.footer`
   ${modalFooter}
   color: #ffffff;
-  background-color: #cba6c3;
-  border: 1px solid #cba6c3;
+  background-color: #6055CD;
+  border: 1px solid #6055CD;
   height: 190px;
 
   .choice {
-    font-weight: bold;
     height: 140px;
     border-bottom: 1px solid #868686;
+    padding: 2% 0 0 2%;
+    font-size: 7.5px;
   }
 
   .choice-board {
@@ -45,6 +46,7 @@ const ModalFooter = styled.footer`
   .choice-board-list {
     display: flex;
   }
+
   .footer-buttons {
     height: 45px;
     display: flex;
@@ -60,9 +62,9 @@ const ModalFooter = styled.footer`
   }
 
   button {
-    background-color: #cba6c3;
-    border: 1px solid #cba6c3;
-    outline-color: #cba6c3;
+    background-color: #6055CD;
+    border: 1px solid #6055CD;
+    outline-color: #6055CD;
     font-weight: bold;
   }
 
@@ -114,7 +116,7 @@ const FieldSetting = ({
     <Modal zIndex={3}>
       <FieldForm>
         <ModalHeader>
-          <h3>지역 설정</h3>
+          <h3>관심 분야 설정</h3>
           <CloseOutlined onClick={closeFieldModal} />
         </ModalHeader>
         <Fields tempFields={tempFields} setTempFields={setTempFields} />
@@ -142,7 +144,7 @@ const FieldSetting = ({
             <div>
               <button className='reset'>
                 <ReloadOutlined />
-                초기화
+                &nbsp; 초기화
               </button>
               {/* TODO: onSubmit함수, action 보내기 */}
               <button className='submit' onClick={submitResult}>

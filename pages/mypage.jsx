@@ -17,7 +17,7 @@ const CustomTabs = styled(Tabs)`
   }
   .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
-      color: #aaabd3;
+      color: #6055CD;
       font-weight: bold;
     }
   }
@@ -27,7 +27,7 @@ const CustomTabs = styled(Tabs)`
     justify-content: center;
 
     :hover {
-      color: #aaabd3;
+      color: #6055CD;
     }
   }
 
@@ -42,7 +42,7 @@ const CustomTabs = styled(Tabs)`
     margin: 0;
   }
   .ant-tabs-ink-bar {
-    background: #aaabd3;
+    background: #6055CD;
   }
 `;
 

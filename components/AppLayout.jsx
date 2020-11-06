@@ -20,7 +20,7 @@ const SearchInput = styled(Search)`
 `;
 
 const type = {
-  purple: { backgroundColor: '#AAABD3', color: 'white' },
+  purple: { backgroundColor: '#6055CD', color: 'white' },
   white: { backgroundColor: 'white', color: 'black' }
 };
 
