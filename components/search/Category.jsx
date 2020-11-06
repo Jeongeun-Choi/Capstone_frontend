@@ -8,14 +8,26 @@ const CategoryBox = styled.li`
   ${basicBoxStyle}
   max-height: 90px;
   max-width: 500px;
-  margin-right: 15px;
-  margin-bottom: 20px;
   position: relative;
   text-align: center;
   color: #ffffff;
   font-size: 1.2rem;
   font-weight: bold;
   border: none;
+
+  /* TODO: ul 중앙정렬 */
+  display: flex;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 8%;
+  align-items: center;
+  justify-content: space-around;
+
+  color: white;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+
   & img {
     width: 100%;
     height: 100%;
