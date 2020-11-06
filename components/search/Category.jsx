@@ -11,7 +11,7 @@ const CategoryBox = styled.li`
   position: relative;
   text-align: center;
   color: #ffffff;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   border: none;
 
@@ -25,8 +25,6 @@ const CategoryBox = styled.li`
 
   color: white;
   font-family: 'Nanum Gothic', sans-serif;
-  font-weight: bold;
-  font-size: 18px;
 
   & img {
     width: 100%;
@@ -34,10 +32,13 @@ const CategoryBox = styled.li`
   }
 
   & .img_text {
+    width: 100%;
+    height: 100%;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0.5, 0.5);
   }
 `;
 
@@ -46,7 +47,11 @@ const Category = ({ name }) => {
     <Link href="/search/[category]" as={`/search/${categoryNames[name]}`}>
       <CategoryBox>
         <img
-          src={`/images/${categoryNames[name]}.jpg`}
+          src={
+            categoryNames[name] !== 'etc'
+              ? `/images/${categoryNames[name]}.jpg`
+              : `/images/logo.png`
+          }
           alt={`${categoryNames[name]}`}
         />
         <div className="img_text">{name}</div>
