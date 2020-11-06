@@ -8,6 +8,11 @@ import {
   MoreOutlined,
 } from '@ant-design/icons';
 
+const type = {
+  purple: { backgroundColor: '#AAABD3', color: 'white' },
+  white: { backgroundColor: 'white', color: 'black' },
+};
+
 const CustomHeader = styled.header`
   width: 100%;
   height: 10vh;
@@ -15,8 +20,8 @@ const CustomHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
-  color: ${(props) => props.color};
-  background: ${(props) => props.backgroundColor};
+  color: ${(props) => type[props.type].color};
+  background: ${(props) => type[props.type].backgroundColor};
   border-bottom: 1px solid grey;
 
   & .out_button {
@@ -41,8 +46,7 @@ const CustomHeader = styled.header`
 `;
 
 const Header = ({
-  backgroundColor = 'white',
-  color = 'black',
+  type = 'white',
   subTitle,
   title,
   backButton = false,
@@ -56,7 +60,7 @@ const Header = ({
   const router = useRouter();
 
   return (
-    <CustomHeader backgroundColor={backgroundColor} color={color}>
+    <CustomHeader type={type}>
       <div className='out_button' onClick={() => router.back()}>
         {backButton && <LeftOutlined />}
       </div>

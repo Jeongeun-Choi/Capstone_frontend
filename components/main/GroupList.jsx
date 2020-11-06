@@ -5,11 +5,18 @@ import GroupItem from './GroupItem';
 const GroupListWrapper = styled.ul`
   display: grid;
   grid-template-columns: 30% 30% 30%;
-  grid-template-rows: auto;
   row-gap: 1.5rem;
   column-gap: 1.5rem;
   width: 100%;
   justify-content: center;
+
+  @media screen and (max-width: 580px) {
+    grid-template-columns: 40% 40%;
+  }
+
+  @media screen and (min-width: 1080px) {
+    grid-template-columns: 20% 20% 20% 20%;
+  }
 `;
 
 const GroupList = ({ groups }) => {

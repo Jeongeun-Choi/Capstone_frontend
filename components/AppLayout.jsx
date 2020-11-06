@@ -21,54 +21,57 @@ const SearchInput = styled(Search)`
 
 const type = {
   purple: { backgroundColor: '#AAABD3', color: 'white' },
-  white: { backgroundColor: 'white', color: 'black' }
+  white: { backgroundColor: 'white', color: 'black' },
 };
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
   const pathNameMap = {
     home: {
-      ...type.white,
+      type: 'white',
       title: '모두의 모임',
     },
     writing: {
-      ...type.white,
+      type: 'white',
       backButton: false,
       declareButton: false,
       closeButton: false,
-      title: '모집글 등록'
+      title: '모집글 등록',
     },
     team: {
-      ...type.purple,
+      type: 'purple',
       backButton: false,
       declareButton: false,
       closeButton: false,
       title: '모임명',
-      subTitle: '아무거나'
+      subTitle: '아무거나',
     },
     mypage: {
-      ...type.white,
+      type: 'white',
       backButton: true,
       title: '마이페이지',
       moreButton: true,
-      moreOnClick: () => router.push('/setting')
+      moreOnClick: () => router.push('/setting'),
     },
     setting: {
-      ...type.white,
+      type: 'white',
       backButton: true,
-      title: '설정'
+      title: '설정',
     },
     withdrawal: {
-      ...type.white,
+      type: 'white',
       backButton: true,
-      title: '회원탈퇴'
-    }
+      title: '회원탈퇴',
+    },
   };
 
   const [, pathName, secondPath] = router.pathname.split('/');
   return (
     <AppContainer>
-      <Header {...pathNameMap[secondPath || pathName ? pathName : 'home']} />
+      {(pathNameMap[pathName || 'home'] || pathNameMap[secondPath]) && (
+        <Header {...pathNameMap[secondPath || pathName ? pathName : 'home']} />
+      )}
+
       {pathName.includes('search') ? <SearchInput /> : null}
       {children}
       <Footer pathName={pathName} />

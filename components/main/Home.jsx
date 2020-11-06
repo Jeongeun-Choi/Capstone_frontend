@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
 import { loadGroupsRequestAction } from '../../reducers/group';
 import GroupList from './GroupList';
+import FixedButton from './FixedButton';
 import styled from '@emotion/styled';
 
 const HomeContainer = styled.section`
@@ -24,6 +25,7 @@ const Home = () => {
         <LoadingOutlined style={{ fontSize: '3rem', margin: 'auto' }} />
       )}
       <GroupList groups={groups} />
+      <FixedButton />
     </HomeContainer>
   );
 };

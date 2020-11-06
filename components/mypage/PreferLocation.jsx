@@ -46,7 +46,7 @@ const PreferLocation = ({ myInfo }) => {
   };
 
   const [locations, setLocations] = useState(
-    myInfo.PreferLocations.map((location) => {
+    myInfo.PreferLocations?.map((location) => {
       const [sido, sigungu, bname] = location.address.split(' ');
       return {
         ...location,
@@ -61,7 +61,7 @@ const PreferLocation = ({ myInfo }) => {
     dispatch(
       updatePreferLocationReuqestAction({
         memberId: myInfo.id,
-        locations: tempLocations.map((location) =>
+        locations: tempLocations?.map((location) =>
           location.address
             ? location
             : {
@@ -84,7 +84,7 @@ const PreferLocation = ({ myInfo }) => {
         </div>
         {myInfo?.PreferLocations?.length && (
           <ul className='location_list'>
-            {myInfo.PreferLocations.map((location, index) => {
+            {myInfo.PreferLocations?.map((location, index) => {
               const [state, city, dong] = location.address.split(' ');
               return (
                 <li key={location.id} className='location_item'>

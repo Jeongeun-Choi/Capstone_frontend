@@ -65,7 +65,7 @@ const PreferCategory = ({ myInfo }) => {
         </div>
         {myInfo?.PreferCategories?.length && (
           <ul className='category_list'>
-            {myInfo.PreferCategories.map(({ DetailCategory }, index) => (
+            {myInfo.PreferCategories?.map(({ DetailCategory }, index) => (
               <li key={DetailCategory.id} className='category_item'>
                 <div>
                   <span className='category_column'>관심분야{index + 1}</span> /{' '}
@@ -80,7 +80,7 @@ const PreferCategory = ({ myInfo }) => {
       {isModify && (
         <FieldSetting
           setShowingFieldModal={setIsModify}
-          fields={myInfo.PreferCategories.map((category) => {
+          fields={myInfo.PreferCategories?.map((category) => {
             return {
               id: category.DetailCategory.id,
               name: category.DetailCategory.name,
