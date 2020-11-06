@@ -12,6 +12,8 @@ const CustomTabs = styled(Tabs)`
   width: 100%;
   height: 90vh;
   overflow-y: auto;
+  font-family: 'Nanum Gothic', sans-serif;
+  
   .ant-tabs-nav-list {
     width: 100%;
   }

@@ -12,6 +12,7 @@ const CategoryContainer = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 0.7rem;
   }
   & .category_button {
     background-color: white;
@@ -58,7 +59,8 @@ const PreferCategory = ({ myInfo }) => {
     <>
       <CategoryContainer>
         <div className='category_explain'>
-          등록된 관심분야의 인기모임을 놓치지 않도록 홈 화면에서 보여드릴게요.
+          등록된 관심분야의 인기모임을 놓치지 않도록<br></br>
+          홈 화면에서 보여드릴게요.
           <button className='category_button' onClick={changeStatus}>
             <SettingOutlined />
           </button>
