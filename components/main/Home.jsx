@@ -1,7 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { LoadingOutlined } from '@ant-design/icons';
+import { loadGroupsRequestAction } from '../../reducers/group';
+import GroupList from './GroupList';
+import FixedButton from './FixedButton';
+import styled from '@emotion/styled';
+
+const HomeContainer = styled.section`
+  width: 100%;
+  height: 100%;
+  display: flex;
+`;
 
 const Home = () => {
-  return <div>모임 주르륵 나오도록</div>;
+  const dispatch = useDispatch();
+  const { groups, groupsLoading } = useSelector((state) => state.group);
+
+  useEffect(() => {
+    dispatch(loadGroupsRequestAction());
+  }, []);
+  return (
+    <HomeContainer>
+      {groupsLoading && (
+        <LoadingOutlined style={{ fontSize: '3rem', margin: 'auto' }} />
+      )}
+      <GroupList groups={groups} />
+      <FixedButton />
+    </HomeContainer>
+  );
 };
 
 export default Home;
