@@ -15,7 +15,6 @@ const ProvedContainer = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   & main {
     & p {
       margin-top: 15%;
