@@ -47,7 +47,7 @@ const search = () => {
   return (
     <SearchContainer>
       <div className="information">
-        "<b>#6055CD 입력</b>하거나, 아래의 <b>카테고리를 선택</b>하여 모임을 찾아보세요!"
+        "모임명을 <b>입력</b>하거나, 아래의 <b>카테고리를 선택</b>하여 모임을 찾아보세요!"
       </div>
       <ul className="category-list">
         {Object.keys(categoryNames).map(category => (
