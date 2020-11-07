@@ -43,9 +43,11 @@ const group = () => {
   const { me } = useSelector(state => state.user);
 
   useEffect(() => {
-    loadJoingroupsRequestAction(me.id);
-    loadApplyGroupsRequestAction(me.id);
-  }, [me]);
+    if (me.id) {
+      loadJoingroupsRequestAction(me.id);
+      loadApplyGroupsRequestAction(me.id);
+    }
+  }, []);
 
   return (
     <GroupContainer>
