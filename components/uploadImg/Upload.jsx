@@ -49,13 +49,14 @@ const Upload = ({ images, setImages }) => {
 
   //이미지 삭제
   const deleteImage = useCallback(
-    url => () => {
+    url => async () => {
       const imageFormData = new FormData();
       imageFormData.append('url', url);
       try {
         // customAxios.post('/pic/delete', imageFormData, {
         //   headers: { Authorization: `Bearer ${getCookie()}` }
         // });
+        await customAxios.post('/pic/delete', imageFormData);
         setImages(images.filter(image => image != url));
       } catch (e) {
         console.error(e);

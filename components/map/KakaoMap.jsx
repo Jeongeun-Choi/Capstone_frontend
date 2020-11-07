@@ -27,7 +27,7 @@ const KakaoMap = ({ location }) => {
       draggable: false
     };
     const map = new kakao.maps.Map(container, options);
-  });
+  }, [lat, lng, location]);
 
   return <div id="map" style={{ width: '90%', height: 200 }}></div>;
 };

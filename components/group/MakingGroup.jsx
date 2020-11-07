@@ -288,10 +288,11 @@ const MakingGroup = ({
   const closeModal = useCallback(() => {
     setCloseModal(prev => !prev);
   }, []);
+  console.log(groupLocation);
 
   return (
     <>
-      <Modal>
+      <Modal zIndex={3}>
         <MakingGroupContainer encType="multipart/form-data">
           <MakingGroupHeader>
             <h3>{modify ? '모임 수정' : '모임 개설'}</h3>
@@ -301,7 +302,6 @@ const MakingGroup = ({
             <div className="team-item">
               <div className="category-title">
                 <div className="subtitle">카테고리</div>
-
                 <Select
                   defaultValue={(modify && middleCategory) || '선택하세요.'}
                   onChange={changeMiddleCategory}
@@ -407,14 +407,14 @@ const MakingGroup = ({
             <div className="team-item">
               <div className="team-location-title">
                 <div className="subtitle">모임 지역</div>
-                {location.length && <div>{location}</div>}
+                {location.length && <div>{groupLocation}</div>}
               </div>
               <FindingAddress
                 locations={groupLocation}
                 setLocations={setGroupLocation}
               />
-              {groupLocation.length && <KakaoMap location={groupLocation} />}
             </div>
+            {groupLocation && <KakaoMap location={groupLocation} />}
             <div className="team-item">
               <div className="subtitle">이미지 추가</div>
               <Upload images={groupImages} setImages={setGroupImages} />

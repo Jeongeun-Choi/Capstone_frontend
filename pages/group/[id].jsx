@@ -150,7 +150,7 @@ const Plus = styled.button`
   color: #ffffff;
   font-size: 1.5rem;
   font-weight: bold;
-  z-index: 9999;
+  z-index: 3;
 `;
 
 const GroupDetail = () => {
