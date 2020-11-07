@@ -1,6 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { Modal, ModalHeader, basicStyle } from '../../public/style';
+import {
+  Modal,
+  ModalHeader,
+  basicStyle,
+  modalFooter
+} from '../../public/style';
 import styled from '@emotion/styled';
 import { LeftOutlined } from '@ant-design/icons';
 import { Radio } from 'antd';
@@ -84,15 +89,31 @@ const ContainerHeader = styled(ModalHeader)`
   }
 `;
 
-const JoinGroup = ({ category, groupName }) => {
+const ContainerFooter = styled.button`
+  ${modalFooter};
+  color: #ffffff;
+  background-color: #6055cd;
+  border: 1px solid #6055cd;
+  font-weight: bold;
+`;
+
+const JoinGroup = ({ category, groupName, groupId }) => {
   const { me } = useSelector(state => state.user);
 
   const year = new Date().getFullYear();
   const [gender, setGender] = useState('');
+
   const onChangeGender = useCallback(e => {
     setGender(e.target.value);
   }, []);
 
+  const submitResult = useCallback(e => {
+    e.preventDefault();
+    const data = {
+      memberId: me.id,
+      groupId
+    };
+  }, []);
   return (
     <Modal zIndex="3">
       <Container>
@@ -152,6 +173,7 @@ const JoinGroup = ({ category, groupName }) => {
             </div>
           </section>
         </main>
+        <ContainerFooter onClick={}>제출하기</ContainerFooter>
       </Container>
     </Modal>
   );
