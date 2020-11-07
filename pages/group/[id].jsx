@@ -6,6 +6,8 @@ import styled from '@emotion/styled';
 import { HeartFilled, HeartOutlined, PlusOutlined } from '@ant-design/icons';
 import KakaoMap from '../../components/map/KakaoMap';
 import { Divider } from 'antd';
+import Setting from '../../components/team/groupSetting/Setting';
+import MakingGroup from '../../components/team/MakingGroup';
 
 const GroupContainer = styled.div`
   width: 100%;
@@ -47,6 +49,9 @@ const GroupContainer = styled.div`
       align-items: center;
       margin-top: 10px;
 
+      & > div {
+        width: 90%;
+      }
       & .like {
         display: flex;
         width: 30px;
@@ -144,6 +149,7 @@ const GroupDetail = () => {
   console.log(selectedGroup);
   const [filledHeart, setFilledHeart] = useState(false);
   const [isShowingSetting, setIsShowingSetting] = useState(false);
+  const [modify, setModify] = useState(false);
 
   const clickHeart = useCallback(() => {
     setFilledHeart(prev => !prev);
@@ -167,91 +173,118 @@ const GroupDetail = () => {
   }, [id]);
 
   return (
-    <GroupContainer>
-      <Header title={name} backButton={true} type="white" />
-      <section className="group-content">
-        <img
-          className="big-img"
-          src={GroupImages && GroupImages[0].URL}
-          alt={GroupImages && GroupImages[0].description}
+    <>
+      <GroupContainer>
+        <Header
+          title={name}
+          subtitle={ActiveCategories && ActiveCategories[0].DetailCategory.name}
+          backButton={true}
+          type="purple"
+          declareButton={true}
         />
-        <div className="group-content-header">
-          <div>
-            <div className="group-content-item">
-              {!!ActiveCategories && ActiveCategories[0]?.DetailCategory.name}
-            </div>
-            <div className="group-content-item">
-              {name} | {location?.split(' ')[2]}
-            </div>
-          </div>
-          <div className="like" onClick={clickHeart}>
-            {filledHeart ? <HeartFilled /> : <HeartOutlined />}
-          </div>
-        </div>
-        <div className="group-content-item">
-          <div className="subtitle">모임소개</div>
-          <div className="team-info-textarea">{groupIntro}</div>
-        </div>
-        <div className="group-content-item">
-          <div className="subtitle">필요 스킬</div>
-          <div>{location}</div>
-        </div>
-        <div className="group-content-item">
-          <div className="subtitle">활동 요일</div>
-          <div>
-            {ActiveTimes?.reduce((acc, time) => {
-              return acc + `${time.activeDay}, `;
-            }, '')}
-          </div>
-        </div>
-        <div className="group-content-item">
-          <div className="subtitle">활동 시간</div>
-          <div className="group-content-item-time">
-            <div className="group-content-item-time-div">
-              <div>시작 시간</div>
-              <div>{ActiveTimes?.length && ActiveTimes[0].startTime}</div>
-            </div>
-            <div className="group-content-item-time-div">
-              <div>종료 시간</div>
-              <div>{ActiveTimes?.length && ActiveTimes[0].endTime}</div>
-            </div>
-          </div>
-        </div>
-        <div className="group-location">
-          <div className="subtitle">모임 지역</div>
-          <div>{location}</div>
-        </div>
-        {location && <KakaoMap location={location} />}
-        <div className="team-page">
+        <section className="group-content">
           <img
-            className="small-img"
-            src={GroupImages?.length && GroupImages[0].URL}
-            alt={GroupImages?.length && GroupImages[0].description}
+            className="big-img"
+            src={GroupImages && GroupImages[0].URL}
+            alt={GroupImages && GroupImages[0].description}
           />
-          <div className="team-page-info">
+          <div className="group-content-header">
             <div>
-              {ActiveCategories?.length &&
-                ActiveCategories[0]?.DetailCategory.name}
+              <div className="group-content-item">
+                {!!ActiveCategories && ActiveCategories[0]?.DetailCategory.name}
+              </div>
+              <div className="group-content-item">
+                {name} | {location?.split(' ')[2]}
+              </div>
             </div>
-            <div>{name}</div>
-            <div>since 2019</div>
+            <div className="like" onClick={clickHeart}>
+              {filledHeart ? <HeartFilled /> : <HeartOutlined />}
+            </div>
           </div>
-        </div>
-        <Divider />
-        <div className="group-content-item">
-          <div className="subtitle">모임 리뷰</div>
-          <div>리뷰 컴포넌트 ~,~</div>
-        </div>
-        <Divider />
-        <div className="group-content-item">
-          <div className="subtitle">모임 Q&amp;A</div>
-          <div>QnA 컴포넌트 ~,~</div>
-        </div>
-      </section>
-      <Plus type="button" onClick={clickPlusButton}>
-        <PlusOutlined />
-      </Plus>
-    </GroupContainer>
+          <div className="group-content-item">
+            <div className="subtitle">모임소개</div>
+            <div className="team-info-textarea">{groupIntro}</div>
+          </div>
+          <div className="group-content-item">
+            <div className="subtitle">필요 스킬</div>
+            <div>
+              {Skills &&
+                Skills.reduce((total, skill) => {
+                  return total + `${skill.name} `;
+                }, '')}
+            </div>
+          </div>
+          <div className="group-content-item">
+            <div className="subtitle">활동 요일</div>
+            <div>
+              {ActiveTimes?.reduce((acc, time) => {
+                return acc + `${time.activeDay}, `;
+              }, '')}
+            </div>
+          </div>
+          <div className="group-content-item">
+            <div className="subtitle">활동 시간</div>
+            <div className="group-content-item-time">
+              <div className="group-content-item-time-div">
+                <div>시작 시간</div>
+                <div>{ActiveTimes?.length && ActiveTimes[0].startTime}</div>
+              </div>
+              <div className="group-content-item-time-div">
+                <div>종료 시간</div>
+                <div>{ActiveTimes?.length && ActiveTimes[0].endTime}</div>
+              </div>
+            </div>
+          </div>
+          <div className="group-location">
+            <div className="subtitle">모임 지역</div>
+            <div>{location}</div>
+          </div>
+          {location && <KakaoMap location={location} />}
+          <div className="team-page">
+            <img
+              className="small-img"
+              src={GroupImages?.length && GroupImages[0].URL}
+              alt={GroupImages?.length && GroupImages[0].description}
+            />
+            <div className="team-page-info">
+              <div>
+                {ActiveCategories?.length &&
+                  ActiveCategories[0]?.DetailCategory.name}
+              </div>
+              <div>{name}</div>
+              <div>since 2019</div>
+            </div>
+          </div>
+          <Divider />
+          <div className="group-content-item">
+            <div className="subtitle">모임 리뷰</div>
+            <div>리뷰 컴포넌트 ~,~</div>
+          </div>
+          <Divider />
+          <div className="group-content-item">
+            <div className="subtitle">모임 Q&amp;A</div>
+            <div>QnA 컴포넌트 ~,~</div>
+          </div>
+        </section>
+        <Plus type="button" onClick={clickPlusButton}>
+          <PlusOutlined />
+        </Plus>
+      </GroupContainer>
+      {isShowingSetting && (
+        <Setting
+          setIsShowingSetting={setIsShowingSetting}
+          setModify={setModify}
+        />
+      )}
+      {modify && (
+        <MakingGroup
+          groupId={id}
+          modify={modify}
+          setCloseModal={setModify}
+          data={selectedGroup}
+        />
+      )}
+    </>
   );
 };
 

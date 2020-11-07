@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 import { basicTeamStyle } from '../../public/style';
 import GroupDetail from '../post/GroupDetail';
 import WritingPost from '../writing/WritingPost';
@@ -48,16 +49,19 @@ const MyGroup = styled.li`
   }
 `;
 
-const Group = ({ groupId, groupName, position = null, type, data = null }) => {
+const Group = ({ id, groupName, position = null, type, data = null }) => {
   const [isShowing, setIsShowing] = useState(false);
-
-  const openGroup = useCallback(() => {
-    setIsShowing(prev => !prev);
+  const router = useRouter();
+  const moveDetailInfo = useCallback(async () => {
+    if (type === 'group') {
+      return router.push(`/group/${id}`);
+    }
+    return router.push(`/recruit/${id}`);
   }, []);
 
   return (
     <>
-      <MyGroup onClick={openGroup}>
+      <MyGroup onClick={moveDetailInfo}>
         <section className="group-image">
           <img
             src={
@@ -79,13 +83,13 @@ const Group = ({ groupId, groupName, position = null, type, data = null }) => {
           )}
         </section>
       </MyGroup>
-      {type === 'group'
+      {/* {type === 'group'
         ? isShowing && (
             <GroupDetail setIsShowing={setIsShowing} groupId={groupId} />
           )
         : isShowing && (
             <WritingPost id={groupId} setIsShowing={setIsShowing} type={type} />
-          )}
+          )} */}
     </>
   );
 };
