@@ -12,12 +12,12 @@ const PostContainer = styled.ul`
 `;
 
 const PostList = ({ category, posts }) => {
-  console.log(posts);
   return (
     <PostContainer>
       {posts.length &&
         posts.map(post => (
           <Item
+            key={post.id}
             type="post"
             name={post.title}
             id={post.id}

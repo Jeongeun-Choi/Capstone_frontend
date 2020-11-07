@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { Tabs } from 'antd';
 import MyProfile from '../components/mypage/MyProfile';
 import LikeGroups from '../components/mypage/LikeGroups';
 import { loadMyInfoRequestAction } from '../reducers/user';
 import styled from '@emotion/styled';
+import Header from '../components/main/Header';
 
 const { TabPane } = Tabs;
 
@@ -50,20 +52,29 @@ const CustomTabs = styled(Tabs)`
 
 const mypage = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(loadMyInfoRequestAction());
   }, []);
 
   return (
-    <CustomTabs defaultActiveKey='1' centered>
-      <TabPane tab='프로필' key='1'>
-        <MyProfile />
-      </TabPane>
-      <TabPane tab='좋아요' key='2'>
-        <LikeGroups />
-      </TabPane>
-    </CustomTabs>
+    <>
+      <Header
+        type="white"
+        title="마이페이지"
+        moreButton={true}
+        moreOnClick={() => router.push('/setting')}
+      />
+      <CustomTabs defaultActiveKey="1" centered>
+        <TabPane tab="프로필" key="1">
+          <MyProfile />
+        </TabPane>
+        <TabPane tab="좋아요" key="2">
+          <LikeGroups />
+        </TabPane>
+      </CustomTabs>
+    </>
   );
 };
 

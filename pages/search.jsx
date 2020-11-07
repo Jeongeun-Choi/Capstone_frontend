@@ -3,7 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import Category from '../components/search/Category';
 import { loadCategoryRequestAction } from '../reducers/category';
+import Header from '../components/main/Header';
 
+import { Input } from 'antd';
+import { basicStyle } from '../public/style';
+
+const { Search } = Input;
+const SearchInput = styled(Search)`
+  ${basicStyle}
+  width: 90%;
+`;
 const SearchContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -23,8 +32,10 @@ const SearchContainer = styled.div`
     height: 15%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     list-style: none;
+    @media screen and (min-width: 1080px) {
+      width: 60%;
+    }
   }
 `;
 
@@ -37,8 +48,11 @@ const search = () => {
 
   return (
     <SearchContainer>
+      <Header type="white" title="모임 검색" />
+      <SearchInput />
       <div className="information">
-        "모임명을 <b>입력</b>하거나, 아래의 <b>카테고리를 선택</b>하여 모임을 찾아보세요!"
+        "모임명을 <b>입력</b>하거나, 아래의 <b>카테고리를 선택</b>하여 모임을
+        찾아보세요!"
       </div>
       <ul className="category-list">
         {category.map(item => (

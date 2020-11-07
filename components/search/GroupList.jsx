@@ -15,6 +15,7 @@ const GroupList = ({ category, groups }) => {
     <GroupContainer>
       {groups.map(group => (
         <Item
+          key={group.id}
           type="group"
           name={group.name}
           id={group.id}

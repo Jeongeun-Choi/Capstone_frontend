@@ -8,8 +8,17 @@ import GroupList from '../../../components/search/GroupList';
 import PostList from '../../../components/search/PostList';
 import { useDispatch, useSelector } from 'react-redux';
 import { categoryUrlNames } from '../../../utils/categoryNames';
+import Header from '../../../components/main/Header';
+
+import { Input } from 'antd';
+import { basicStyle } from '../../../public/style';
 
 const { Option } = Select;
+const { Search } = Input;
+const SearchInput = styled(Search)`
+  ${basicStyle}
+  width: 90%;
+`;
 
 const SearchContainer = styled.div`
   width: 100%;
@@ -60,6 +69,8 @@ const index = () => {
 
   return (
     <SearchContainer>
+      <Header type="white" title="모임 검색" />
+      <SearchInput />
       <Select defaultValue="group" size="small" onChange={changeSelect}>
         <Option value="group">모임</Option>
         <Option value="recruit">모집글</Option>

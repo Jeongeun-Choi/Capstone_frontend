@@ -1,23 +1,20 @@
 import React, { useCallback, useState } from 'react';
 import styled from '@emotion/styled';
 import { CloseOutlined } from '@ant-design/icons';
-import { BasicInput, Button, SNSLogin, Modal} from '../../public/style';
 import { useDispatch } from 'react-redux';
-import { loginRequestAction } from '../../reducers/user';
-import useInputChangeHook from '../../hooks/useInputChangeHook';
+import { loginRequestAction } from '../reducers/user';
 import { message } from 'antd';
-
+import useInputChangeHook from '../hooks/useInputChangeHook';
+import { BasicInput, Button, SNSLogin } from '../public/style';
+import { useRouter } from 'next/router';
 
 const LoginContainer = styled.div`
   width: 100%;
-  height: 80vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 10%;
-  //border: 1px solid red;
-
   /* & img {
     width: 20vw;
     max-width: 150px;
@@ -32,7 +29,6 @@ const LoginContainer = styled.div`
     min-width: 270px;
     display: flex;
     margin: 0 0 0 150%;
-    //border: 1px solid red;
   }
 
   form {
@@ -46,36 +42,34 @@ const LoginContainer = styled.div`
     input,
     button {
       width: 90%;
-      padding-left: 2%;
+      padding-left: 0.5rem;
       margin-top: 1%;
     }
   }
-  
-  .login{
+
+  .login {
     width: 90%;
     display: flex;
     flex-direction: column;
-    margin: 0 0 5% 0;
+    margin-bottom: 2rem;
 
     font-family: 'Nanum Gothic', sans-serif;
-    color: #6055CD;
+    color: #6055cd;
     font-weight: bold;
-    font-size: 23px;
+    font-size: 1.5rem;
     text-align: center;
     align-items: center;
-    //border: 1px solid orange;
   }
 
-  .forgotPass{
+  .forgotPass {
     width: 90%;
     display: flex;
     justify-content: center;
     margin: 10px 0 5px 0;
     font-family: 'Nanum Gothic', sans-serif;
     font-weight: bold;
-    font-size: 12px;
-    //color: #868686;
-    color: #6055CD;
+    font-size: 0.7rem;
+    color: #6055cd;
   }
 
   .horizon {
@@ -84,7 +78,7 @@ const LoginContainer = styled.div`
     justify-content: center;
     margin: 10px 0 13px 0;
     font-family: 'Nanum Gothic', sans-serif;
-    font-size: 11px;
+    font-size: 0.65rem;
     color: #868686;
     opacity: 0.7;
   }
@@ -99,50 +93,47 @@ const LoginContainer = styled.div`
     font-family: 'Nanum Gothic', sans-serif;
   }
 
-  .signup{
+  .signup {
     width: 100%;
-    margin-top: 3%;
-    margin-left: 40%;
-    display: flex;
-    align-items: center;
-
-    .notYet{
-    width: 45%;
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
-    font-size: 12px;
-    color: #868686;   
-  }
+    align-items: center;
 
-    .signup-button{
-      width: 15%;
+    .notYet {
+      display: flex;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #868686;
+      margin-right: 1rem;
+    }
+
+    .signup-button {
       background-color: white;
       border: 0;
       outline: 0;
       color: #868686;
-      font-size: 12px;
+      font-size: 0.7rem;
       font-weight: bold;
     }
   }
-  
 `;
 
-const Login = ({
-  setShowingLogin,
-  setShowingSignup,
-  setShowingInitialLocation
-}) => {
+const login = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [email, onChangeEmail] = useInputChangeHook('');
   const [password, onChangePassword] = useInputChangeHook('');
 
   const submitForm = useCallback(
     e => {
       e.preventDefault();
+      if (!email.trim() || !password.trim()) {
+        return message('이메일과 비밀번호를 입력해주세요.');
+      }
       try {
         dispatch(loginRequestAction({ email, password }));
-        setShowingLogin(prev => !prev);
-        setShowingInitialLocation(prev => !prev);
+        router.push('/setting-info');
       } catch (error) {
         console.error(error);
       }
@@ -150,24 +141,8 @@ const Login = ({
     [email, password]
   );
 
-  const closeLoginModal = useCallback(() => {
-    setShowingLogin(prev => !prev);
-  }, []);
-
-  const openSignupModal = useCallback(() => {
-    setShowingSignup(prev => !prev);
-    setShowingLogin(prev => !prev);
-  }, []);
-
-  return (  
-  <Modal>
+  return (
     <LoginContainer>
-      <div className="close">
-        <CloseOutlined onClick={closeLoginModal} />
-      </div>
-
-      {/* <img src='/images/logo.png' alt='로고'></img> */}
-
       <div className="login">로그인</div>
       <form onSubmit={submitForm}>
         <BasicInput
@@ -192,13 +167,15 @@ const Login = ({
       </div>
       <div className="signup">
         <div className="notYet">아직 회원이 아니신가요?</div>
-        <button className="signup-button" onClick={openSignupModal}>
+        <button
+          className="signup-button"
+          onClick={() => router.push('/signup')}
+        >
           회원가입
         </button>
       </div>
     </LoginContainer>
-  </Modal>
   );
 };
 
-export default Login;
+export default login;

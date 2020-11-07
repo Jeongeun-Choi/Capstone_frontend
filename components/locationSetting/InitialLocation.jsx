@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { basicStyle, Modal } from '../../public/style';
-import Selection from './Selection';
 import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import {
   loadJoingroupsRequestAction,
   loadApplyGroupsRequestAction,
@@ -54,10 +54,10 @@ const SkipButton = styled.button`
   background-color: rgba(0, 0, 0, 0);
 `;
 
-const InitialLocation = ({ setShowingInitialLocation }) => {
+const InitialLocation = ({ setShowingModal }) => {
   const { me } = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const [showingSelection, setShowingSelection] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     !me.joinGroups &&
@@ -66,14 +66,14 @@ const InitialLocation = ({ setShowingInitialLocation }) => {
       dispatch(loadRecruitsRequestAction({ id: me.id }));
   }, [me.id && me]);
 
-  const openSelectionModal = useCallback(e => {
+  const openSelection = useCallback(e => {
     e.preventDefault();
-    setShowingSelection(prev => !prev);
+    setShowingModal(prev => !prev);
   }, []);
 
-  const closeSelectionModal = useCallback(e => {
+  const closeSelection = useCallback(e => {
     e.preventDefault();
-    setShowingInitialLocation(prev => !prev);
+    router.push('/');
   }, []);
 
   return (
@@ -90,19 +90,12 @@ const InitialLocation = ({ setShowingInitialLocation }) => {
             <br />
             추천해드릴게요
           </h6>
-          <Button onClick={openSelectionModal}>
+          <Button onClick={openSelection}>
             활동 선호 지역과 관심 분야 설정하기
           </Button>
-          <SkipButton onClick={closeSelectionModal}>다음에 할래요</SkipButton>
+          <SkipButton onClick={closeSelection}>다음에 할래요</SkipButton>
         </InitialLocationContainer>
       </Modal>
-
-      {showingSelection ? (
-        <Selection
-          setShowingSelection={setShowingSelection}
-          setShowingInitialLocation={setShowingInitialLocation}
-        />
-      ) : null}
     </>
   );
 };
