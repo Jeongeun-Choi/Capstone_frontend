@@ -1,10 +1,7 @@
 import React from 'react';
-import Header from './main/Header';
 import Footer from './main/Footer';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { Input } from 'antd';
-import { basicStyle } from '../public/style';
 
 const AppContainer = styled.div`
   display: flex;
@@ -13,61 +10,23 @@ const AppContainer = styled.div`
   height: 100%;
 `;
 
-const { Search } = Input;
-const SearchInput = styled(Search)`
-  ${basicStyle}
-  width: 90%;
-`;
+//로그인, 회원가입, 그룹 상세, 모집글 상세,회원탈퇴
+// /login, /signup, group/id, recruit/id, setting/withdrawal
 
-const type = {
-  purple: { backgroundColor: '#6055CD', color: 'white' },
-  white: { backgroundColor: 'white', color: 'black' }
-};
+const notNeedFooterPages = ['login', 'signup'];
+const haveSecondPathes = ['group', 'recruit', 'setting'];
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
-  const pathNameMap = {
-    writing: {
-      ...type.white,
-      backButton: false,
-      declareButton: false,
-      closeButton: false,
-      title: '모집글 등록'
-    },
-    team: {
-      ...type.purple,
-      backButton: false,
-      declareButton: false,
-      closeButton: false,
-      title: '모임명',
-      subTitle: '아무거나'
-    },
-    mypage: {
-      ...type.white,
-      backButton: false,
-      title: '마이페이지',
-      moreButton: true,
-      moreOnClick: () => router.push('/setting')
-    },
-    setting: {
-      ...type.white,
-      backButton: true,
-      title: '설정'
-    },
-    withdrawal: {
-      ...type.white,
-      backButton: true,
-      title: '회원탈퇴'
-    }
-  };
 
   const [, pathName, secondPath] = router.pathname.split('/');
   return (
     <AppContainer>
-      <Header {...pathNameMap[secondPath || pathName]} />
-      {pathName.includes('search') ? <SearchInput /> : null}
       {children}
-      <Footer pathName={pathName} />
+      {!notNeedFooterPages.includes(pathName) &&
+        !(haveSecondPathes.includes(pathName) && secondPath) && (
+          <Footer pathName={pathName} />
+        )}
     </AppContainer>
   );
 };

@@ -5,8 +5,18 @@ import {
   LeftOutlined,
   InfoCircleOutlined,
   CloseOutlined,
-  MoreOutlined,
+  MoreOutlined
 } from '@ant-design/icons';
+
+// const type = {
+//   purple: { backgroundColor: '#6055CD', color: 'white' },
+//   white: { backgroundColor: 'white', color: 'black' }
+// };
+
+const type = {
+  purple: { backgroundColor: 'white', color: '#6055CD' },
+  white: { backgroundColor: 'white', color: 'black' }
+};
 
 const CustomHeader = styled.header`
   width: 100%;
@@ -15,34 +25,39 @@ const CustomHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
-  color: ${(props) => props.color};
-  background: ${(props) => props.backgroundColor};
-  border-bottom: 1px solid grey;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-weight: bold;
+  color: ${props => type[props.type].color};
+  background: ${props => type[props.type].backgroundColor};
+  border-bottom: 1px solid #868686;
 
   & .out_button {
-    font-size: 1.8rem;
-    margin-left: 2rem;
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+    margin-left: 1.8rem;
     cursor: pointer;
   }
 
   & .header_title {
-    text-align: center;
+    margin-top: 0.5rem;
     & h1 {
       margin: 0;
-      color: ${(props) => props.color};
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: ${props => type[props.type].color};
     }
   }
 
   & .second_button {
-    font-size: 1.8rem;
-    margin-right: 2rem;
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+    margin-right: 1.8rem;
     cursor: pointer;
   }
 `;
 
 const Header = ({
-  backgroundColor = 'white',
-  color = 'black',
+  type = 'white',
   subTitle,
   title,
   backButton = false,
@@ -51,20 +66,20 @@ const Header = ({
   closeButton = false,
   closeOnClick,
   moreButton = false,
-  moreOnClick,
+  moreOnClick
 }) => {
   const router = useRouter();
 
   return (
-    <CustomHeader backgroundColor={backgroundColor} color={color}>
-      <div className='out_button' onClick={() => router.back()}>
+    <CustomHeader type={type}>
+      <div className="out_button" onClick={() => router.back()}>
         {backButton && <LeftOutlined />}
       </div>
-      <div className='header_title'>
+      <div className="header_title">
         {subTitle && <div>{subTitle}</div>}
         <h1>{title}</h1>
       </div>
-      <div className='second_button'>
+      <div className="second_button">
         {declareButton && (
           <div onClick={declareOnClick}>
             <InfoCircleOutlined />

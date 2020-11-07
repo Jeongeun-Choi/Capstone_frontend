@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { Modal, ModalHeader, basicStyle } from '../../public/style';
 import styled from '@emotion/styled';
 import { LeftOutlined } from '@ant-design/icons';
@@ -54,6 +55,7 @@ const Container = styled.div`
 
   & .additional-info {
     & input {
+      ${basicStyle}
       border: none;
       border-bottom: 1px solid #000000;
     }
@@ -75,16 +77,17 @@ const ContainerHeader = styled(ModalHeader)`
     & .user-name {
       font-size: 12px;
     }
-    & .team-info {
+    & .group-info {
       font-weight: bold;
       font-size: 15px;
     }
   }
 `;
 
-const JoinTeam = ({ category, userName, teamName }) => {
-  const [gender, setGender] = useState('');
+const JoinGroup = ({ category, groupName }) => {
+  const { me } = useSelector(state => state.user);
 
+  const [gender, setGender] = useState('');
   const onChangeGender = useCallback(e => {
     setGender(e.target.value);
   }, []);
@@ -95,9 +98,9 @@ const JoinTeam = ({ category, userName, teamName }) => {
         <ContainerHeader>
           <LeftOutlined />
           <div className="post-info">
-            <div className="user-name">{userName}님의 모임 참여 신청</div>
-            <div className="team-info">
-              {teamName} | {category}
+            <div className="user-name">{me.name}님의 모임 참여 신청</div>
+            <div className="group-info">
+              {groupName} | {category}
             </div>
           </div>
         </ContainerHeader>
@@ -107,12 +110,14 @@ const JoinTeam = ({ category, userName, teamName }) => {
             <div className="join-content-detail">
               <div className="join-content-detail-element">
                 <div>이름</div>
-                <input type="text" placeholder="이름을 입력하세요." />
+                <div>{me.name}</div>
                 <div>나이</div>
-                <input type="number" placeholder="이름을 입력하세요." />
+                <div>
+                  {new Date().getFullYear - Number(birthday.split('-')[0]) + 1}
+                </div>
                 <div>성별</div>
                 <Radio.Group
-                  defaultValue="female"
+                  defaultValue={me.gender}
                   buttonStyle="solid"
                   onChange={onChangeGender}
                   size="small"
@@ -121,9 +126,9 @@ const JoinTeam = ({ category, userName, teamName }) => {
                   <Radio.Button value="male">M</Radio.Button>
                 </Radio.Group>
                 <div>이메일</div>
-                <input type="email" placeholder="이름을 입력하세요." />
+                <div>{me.email}</div>
                 <div>연락처</div>
-                <input type="text" placeholder="이름을 입력하세요." />
+                <div>{me.telephone}</div>
               </div>
             </div>
             <div className="additional-info">
@@ -143,7 +148,7 @@ const JoinTeam = ({ category, userName, teamName }) => {
               </div>
               <div>
                 <div>요청사항</div>
-                <input />
+                <input placeholder="요청사항을 입력해 보세요" />
               </div>
             </div>
           </section>
@@ -153,4 +158,4 @@ const JoinTeam = ({ category, userName, teamName }) => {
   );
 };
 
-export default JoinTeam;
+export default JoinGroup;

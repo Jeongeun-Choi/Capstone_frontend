@@ -12,6 +12,7 @@ const LocationContainer = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 0.7rem;
   }
   & .location_modify_button {
     background-color: white;
@@ -46,7 +47,7 @@ const PreferLocation = ({ myInfo }) => {
   };
 
   const [locations, setLocations] = useState(
-    myInfo.PreferLocations.map((location) => {
+    myInfo.PreferLocations?.map((location) => {
       const [sido, sigungu, bname] = location.address.split(' ');
       return {
         ...location,
@@ -61,7 +62,7 @@ const PreferLocation = ({ myInfo }) => {
     dispatch(
       updatePreferLocationReuqestAction({
         memberId: myInfo.id,
-        locations: tempLocations.map((location) =>
+        locations: tempLocations?.map((location) =>
           location.address
             ? location
             : {
@@ -76,15 +77,15 @@ const PreferLocation = ({ myInfo }) => {
     <>
       <LocationContainer>
         <div className='location_explain'>
-          등록된 활동 지역의 새로운 모임을 놓치지 않도록 홈 화면에서
-          보여드릴게요.
+          등록된 활동 지역의 새로운 모임을 놓치지 않도록<br></br> 
+          홈 화면에서 보여드릴게요.
           <button className='location_modify_button' onClick={changeStatus}>
             <SettingOutlined />
           </button>
         </div>
         {myInfo?.PreferLocations?.length && (
           <ul className='location_list'>
-            {myInfo.PreferLocations.map((location, index) => {
+            {myInfo.PreferLocations?.map((location, index) => {
               const [state, city, dong] = location.address.split(' ');
               return (
                 <li key={location.id} className='location_item'>

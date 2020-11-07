@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { ModalHeader, Modal } from '../../public/style';
 import {
@@ -12,6 +12,8 @@ import KakaoMap from '../map/KakaoMap';
 import { Divider } from 'antd';
 import JoinTeam from './JoinTeam';
 import Setting from '../team/groupSetting/Setting';
+import customAxios from '../../utils/baseAxios';
+import MakingGroup from '../team/MakingGroup';
 
 const GroupContainer = styled.div`
   width: 100%;
@@ -82,6 +84,7 @@ const GroupContainer = styled.div`
     }
 
     & .group-location {
+      width: 90%;
       display: flex;
     }
 
@@ -144,20 +147,21 @@ const Plus = styled.button`
   z-index: 9999;
 `;
 
-const GroupDetail = ({ data, setIsShowing, setModify }) => {
-  const {
-    id,
-    name,
-    ActiveCategories,
-    GroupImages,
-    ActiveTimes,
-    Skills,
-    groupIntro,
-    location
-  } = data;
+const GroupDetail = ({ setIsShowing, groupId }) => {
+  const [modify, setModify] = useState(false);
+  const [data, setData] = useState(null);
   //TODO: 좋아요한 모집글인지 받아와서 초기값으로 선언하기
   const [filledHeart, setFilledHeart] = useState(false);
   const [isShowingSetting, setIsShowingSetting] = useState(false);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = useCallback(async () => {
+    const { data } = await customAxios.get(`/groups/${groupId}`);
+    setData(data.group);
+  }, [groupId]);
 
   const clickHeart = useCallback(() => {
     setFilledHeart(prev => !prev);
@@ -173,109 +177,104 @@ const GroupDetail = ({ data, setIsShowing, setModify }) => {
 
   return (
     <>
-      <Modal>
-        <GroupContainer>
-          <GroupHeader>
-            <LeftOutlined onClick={closeModal} />
-            <div className="post-info">
-              <div className="team-category">
-                {ActiveCategories[0].DetailCategory.name}
-              </div>
-              <div className="team-name">
-                {name} | {location.split(' ')[2]}
-              </div>
-            </div>
-            <ExclamationCircleTwoTone twoToneColor="#DFDFEC" />
-          </GroupHeader>
-          <section className="group-content">
-            <img
-              className="big-img"
-              src={GroupImages && GroupImages[0].URL}
-              alt={GroupImages && GroupImages[0].description}
-            />
-            <div className="group-content-header">
-              <div>
-                <div className="group-content-item">
-                  {ActiveCategories[0].DetailCategory.name}
+      {data && (
+        <Modal>
+          <GroupContainer>
+            <GroupHeader>
+              <LeftOutlined onClick={closeModal} />
+              <div className="post-info">
+                <div className="team-category">
+                  {data.ActiveCategories[0].DetailCategory.name}
                 </div>
-                <div className="group-content-item">
-                  {name} | {location.split(' ')[2]}
+                <div className="team-name">
+                  {data.name} | {data.location.split(' ')[2]}
                 </div>
               </div>
-              <div className="like" onClick={clickHeart}>
-                {filledHeart ? <HeartFilled /> : <HeartOutlined />}
-              </div>
-            </div>
-            <div className="group-content-item">
-              <div className="subtitle">모임소개</div>
-              <div className="team-info-textarea">{groupIntro}</div>
-            </div>
-            <div className="group-content-item">
-              <div className="subtitle">필요 스킬</div>
-              <div>{location}</div>
-            </div>
-            <div className="group-content-item">
-              <div className="subtitle">활동 요일</div>
-              <div>{ActiveTimes.reduce((acc, time) => {return acc + `${time.activeDay}, `}, '')}</div>
-            </div>
-            <div className="group-content-item">
-              <div className="subtitle">활동 시간</div>
-              <div className="group-content-item-time">
-                <div className="group-content-item-time-div">
-                  <div>시작 시간</div>
-                  <div>{ActiveTimes[0].startTime}</div>
-                </div>
-                <div className="group-content-item-time-div">
-                  <div>종료 시간</div>
-                  <div>{ActiveTimes[0].endTime}</div>
-                </div>
-              </div>
-            </div>
-            <div className="group-content-item">
-              <div className="subtitle">활동 시간</div>
-              <div>
-                <div>{ActiveTimes.startTime}</div>
-                <div>{ActiveTimes.endTime}</div>
-              </div>
-            </div>
-            <div className="group-location">
-              <div className="subtitle">모임 지역</div>
-              <div>{location}</div>
-            </div>
-            <KakaoMap location={location} />
-            <div className="team-page">
+              <ExclamationCircleTwoTone twoToneColor="#DFDFEC" />
+            </GroupHeader>
+            <section className="group-content">
               <img
-                className="small-img"
-                src={GroupImages && GroupImages[0].URL}
-                alt={GroupImages && GroupImages[0].description}
+                className="big-img"
+                src={data.GroupImages && data.GroupImages[0].URL}
+                alt={data.GroupImages && data.GroupImages[0].description}
               />
-              <div className="team-page-info">
-                <div>{ActiveCategories[0].DetailCategory.name}</div>
-                <div>{name}</div>
-                <div>since 2019</div>
+              <div className="group-content-header">
+                <div>
+                  <div className="group-content-item">
+                    {data.ActiveCategories[0].DetailCategory.name}
+                  </div>
+                  <div className="group-content-item">
+                    {data.name} | {data.location.split(' ')[2]}
+                  </div>
+                </div>
+                <div className="like" onClick={clickHeart}>
+                  {filledHeart ? <HeartFilled /> : <HeartOutlined />}
+                </div>
               </div>
-            </div>
-            <Divider />
-            <div className="group-content-item">
-              <div className="subtitle">모임 리뷰</div>
-              <div>리뷰 컴포넌트 ~,~</div>
-            </div>
-            <Divider />
-            <div className="group-content-item">
-              <div className="subtitle">모임 Q&amp;A</div>
-              <div>QnA 컴포넌트 ~,~</div>
-            </div>
-          </section>
-          <Plus type="button" onClick={clickPlusButton}>
-            <PlusOutlined />
-          </Plus>
-        </GroupContainer>
-      </Modal>
+              <div className="group-content-item">
+                <div className="subtitle">모임소개</div>
+                <div className="team-info-textarea">{data.groupIntro}</div>
+              </div>
+              <div className="group-content-item">
+                <div className="subtitle">필요 스킬</div>
+                <div>{data.location}</div>
+              </div>
+              <div className="group-content-item">
+                <div className="subtitle">활동 요일</div>
+                <div>
+                  {data.ActiveTimes.reduce((acc, time) => {
+                    return acc + `${time.activeDay} `;
+                  }, '')}
+                </div>
+              </div>
+              <div className="group-content-item">
+                <div className="subtitle">활동 시간</div>
+                <div className="group-content-item-time">
+                  <div className="group-content-item-time-div">
+                    <div>시작 시간</div>
+                    <div>{data.ActiveTimes[0].startTime}</div>
+                  </div>
+                  <div className="group-content-item-time-div">
+                    <div>종료 시간</div>
+                    <div>{data.ActiveTimes[0].endTime}</div>
+                  </div>
+                </div>
+              </div>
+              <div className="group-location">
+                <div className="subtitle">모임 지역</div>
+                <div>{data.location}</div>
+              </div>
+              <KakaoMap location={data.location} />
+              <Divider />
+              <div className="group-content-item">
+                <div className="subtitle">모임 리뷰</div>
+                <div>리뷰 컴포넌트 ~,~</div>
+              </div>
+              <Divider />
+              <div className="group-content-item">
+                <div className="subtitle">모임 Q&amp;A</div>
+                <div>QnA 컴포넌트 ~,~</div>
+              </div>
+            </section>
+            <Plus type="button" onClick={clickPlusButton}>
+              <PlusOutlined />
+            </Plus>
+          </GroupContainer>
+        </Modal>
+      )}
       {isShowingSetting && (
         <Setting
-          setIsShowing={setIsShowing}
           setIsShowingSetting={setIsShowingSetting}
+          groupId={groupId}
+          modify={modify}
           setModify={setModify}
+        />
+      )}
+      {modify && (
+        <MakingGroup
+          groupId={groupId}
+          modify={modify}
+          setCloseModal={setModify}
         />
       )}
     </>

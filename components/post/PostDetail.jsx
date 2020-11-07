@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { ModalHeader, modalFooter, Modal } from '../../public/style';
 import { LeftOutlined, ExclamationCircleTwoTone } from '@ant-design/icons';
 import JoinTeam from './JoinTeam';
 import { Divider } from 'antd';
+import customAxios from '../../utils/baseAxios';
+import GroupDetail from './GroupDetail';
 
 const PostContainer = styled.div`
   width: 100%;
@@ -113,11 +115,19 @@ const Footer = styled.button`
   border: 1px solid #6055CD;
   font-weight: bold;
 `;
-const PostDetail = ({ data, setIsShowing }) => {
-  const { id, title, contents, deadline, expectMemberCount, JoinGroup } = data;
-  const { Group } = JoinGroup;
+const PostDetail = ({ recruitId, setIsShowing }) => {
+  const [data, setData] = useState(null);
   const [showingJoinModal, setShowingJoinModal] = useState(false);
   const [showingGroupDetail, setShowingGroupDetail] = useState(false);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = useCallback(async () => {
+    const { data } = await customAxios.get(`/recruits/${recruitId}`);
+    setData(data.recruit);
+  }, [recruitId]);
 
   const clickJoinButton = useCallback(() => {}, []);
 
@@ -131,54 +141,75 @@ const PostDetail = ({ data, setIsShowing }) => {
 
   return (
     <>
-      <Modal>
-        <PostContainer>
-          <PostHeader>
-            <LeftOutlined onClick={closeModal} />
-            <h3>{title}</h3>
-            <ExclamationCircleTwoTone twoToneColor="#DFDFEC" />
-          </PostHeader>
-          <main className="post-content">
-            <div className="post-item">
-              <div className="subtitle">내용</div>
-              <div>{contents}</div>
-            </div>
-            <div className="post-item">
-              <div className="subtitle">마감 시간</div>
-              <div>{deadline}</div>
-            </div>
-            <div className="post-item">
-              <div className="subtitle">예상 인원</div>
-              {expectMemberCount}명
-            </div>
-            <Divider />
-            <div className="group-page" onClick={clickGroupDetail}>
-              <img
-                className="small-img"
-                src={Group.GroupImages[0].URL}
-                alt={Group.GroupImages[0].description}
-              />
-              <div className="group-page-info">
-                <div>{Group.ActiveCategories[0].DetailCategory.name}</div>
-                <div>{Group.name}</div>
-                <div>since 2019</div>
+      {data && (
+        <Modal>
+          <PostContainer>
+            <PostHeader>
+              <LeftOutlined onClick={closeModal} />
+              <h3>{data.title}</h3>
+              <ExclamationCircleTwoTone twoToneColor="#DFDFEC" />
+            </PostHeader>
+            <main className="post-content">
+              <div className="post-item">
+                <div className="subtitle">내용</div>
+                <div>{data.contents}</div>
               </div>
-            </div>
-          </main>
-        </PostContainer>
-        <Footer type="button" onClick={clickJoinButton}>
-          이 모임에 참여하기
-        </Footer>
-      </Modal>
+              <div className="post-item">
+                <div className="subtitle">마감 시간</div>
+                <div>{data.deadline}</div>
+              </div>
+              <div className="post-item">
+                <div className="subtitle">예상 인원</div>
+                {data.expectMemberCount}명
+              </div>
+              <Divider />
+              <div className="group-page" onClick={clickGroupDetail}>
+                <img
+                  className="small-img"
+                  src={
+                    data.JoinGroup.Group.GroupImages.length
+                      ? data.JoinGroup.Group.GroupImages[0].URL
+                      : '/images/teamimg.jpg'
+                  }
+                  alt={
+                    data.JoinGroup.Group.GroupImages.length
+                      ? data.JoinGroup.Group.GroupImages[0].description
+                      : '기본 이미지'
+                  }
+                />
+                <div className="group-page-info">
+                  <div>
+                    {
+                      data.JoinGroup.Group.ActiveCategories[0].DetailCategory
+                        .name
+                    }
+                  </div>
+                  <div>{data.JoinGroup.Group.name}</div>
+                  <div>since 2019</div>
+                </div>
+              </div>
+            </main>
+          </PostContainer>
+          <Footer type="button" onClick={clickJoinButton}>
+            이 모임에 참여하기
+          </Footer>
+        </Modal>
+      )}
       {showingJoinModal && (
         <JoinTeam
-          category={ActiveCategories[0].DetailCategory.name}
-          userName="최정은"
-          teamName={JoinGroup.Group.name}
+          category={
+            data.JoinGroup.Group.ActiveCategories[0].DetailCategory.name
+          }
+          groupName={data.JoinGroup.Group.name}
+          setShowingJoinModal={setShowingJoinModal}
+          groupId={data.JoinGroup.Group.id}
         />
       )}
       {showingGroupDetail && (
-        <GroupDetail data={Group} setIsShowing={setShowingGroupDetail} />
+        <GroupDetail
+          groupId={data.JoinGroup.Group.id}
+          setIsShowing={setShowingGroupDetail}
+        />
       )}
     </>
   );

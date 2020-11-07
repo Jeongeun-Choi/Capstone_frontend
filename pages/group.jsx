@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { Tabs } from 'antd';
 import styled from '@emotion/styled';
 import Groups from '../components/team/Groups';
-import EmptyTeams from '../components/team/EmptyTeams';
+import EmptyGroups from '../components/team/EmptyGroups';
+import Header from '../components/main/Header';
 
 // #6055CD
 const GroupContainer = styled.div`
@@ -39,19 +40,20 @@ const group = () => {
 
   return (
     <GroupContainer>
+      <Header type="white" title="모임명" />
       <Tabs defaultActiveKey="1">
         <TabPane tab={applyGroups} key="1">
           {me.applyGroups.length !== 0 ? (
-            <Groups tab={myGroups} groups={me.applyGroups} type="group" />
+            <Groups groups={me.applyGroups} type="group" />
           ) : (
-            <EmptyTeams pageTab={applyGroups} />
+            <EmptyGroups pageTab={applyGroups} />
           )}
         </TabPane>
         <TabPane tab={myGroups} key="2">
           {me.joinGroups.length !== 0 ? (
-            <Groups tab={myGroups} groups={me.joinGroups} type="group" />
+            <Groups groups={me.joinGroups} type="group" />
           ) : (
-            <EmptyTeams pageTab={myGroups} />
+            <EmptyGroups pageTab={myGroups} />
           )}
         </TabPane>
       </Tabs>

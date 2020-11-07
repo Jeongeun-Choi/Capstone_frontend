@@ -1,36 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadCategorysRequestAction } from '../reducers/category';
+import { loadMyInfoRequestAction } from '../reducers/user';
+import Header from '../components/main/Header';
 import Home from '../components/main/Home';
-import Login from '../components/main/Login';
-import Signup from '../components/main/Signup';
-import InitialLocation from '../components/locationSetting/InitialLocation';
 
 const index = () => {
   const dispatch = useDispatch();
-  const [showingLogin, setShowingLogin] = useState(true);
-  const [showingSignup, setShowingSignup] = useState(false);
-  const [showingInitialLocation, setShowingInitialLocation] = useState(false);
+  const { me } = useSelector(state => state.user);
 
   useEffect(() => {
     dispatch(loadCategorysRequestAction());
+    if (!me.id) dispatch(loadMyInfoRequestAction());
   }, []);
 
   return (
     <>
-      {showingSignup && <Signup setShowingSignup={setShowingSignup} />}
-      {showingLogin && (
-        <Login
-          setShowingLogin={setShowingLogin}
-          setShowingSignup={setShowingSignup}
-          setShowingInitialLocation={setShowingInitialLocation}
-        />
-      )}
-      {showingInitialLocation && (
-        <InitialLocation
-          setShowingInitialLocation={setShowingInitialLocation}
-        />
-      )}
+      <Header type="white" title="홈" />
       <Home />
     </>
   );

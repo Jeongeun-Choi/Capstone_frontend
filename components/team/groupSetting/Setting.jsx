@@ -44,7 +44,7 @@ const SettingModal = styled(Modal)`
   }
 `;
 
-const Setting = ({ setIsShowingSetting, setIsShowing, setModify }) => {
+const Setting = ({ setModify, setIsShowingSetting }) => {
   const closeModal = useCallback(() => {
     setIsShowingSetting(prev => !prev);
   }, []);
@@ -52,7 +52,6 @@ const Setting = ({ setIsShowingSetting, setIsShowing, setModify }) => {
   const openModifyModal = useCallback(() => {
     setModify(prev => !prev);
     setIsShowingSetting(prev => !prev);
-    setIsShowing(prev => !prev);
   }, []);
 
   return (

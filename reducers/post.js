@@ -92,6 +92,7 @@ const reducer = (state = initialState, action) => {
       case UPDATE_POST_SUCCESS: {
         draft.updatePostLoading = false;
         draft.updatePostDone = true;
+        draft.posts.push(action.data);
         break;
       }
       case UPDATE_POST_FAILURE: {
