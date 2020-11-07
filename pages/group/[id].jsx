@@ -6,11 +6,12 @@ import styled from '@emotion/styled';
 import { HeartFilled, HeartOutlined, PlusOutlined } from '@ant-design/icons';
 import KakaoMap from '../../components/map/KakaoMap';
 import { Divider } from 'antd';
-import Setting from '../../components/team/groupSetting/Setting';
-import MakingGroup from '../../components/team/MakingGroup';
+import Setting from '../../components/group/groupSetting/Setting';
+import MakingGroup from '../../components/group/MakingGroup';
 
 const GroupContainer = styled.div`
   width: 100%;
+  font-family: 'Nanum Gothic', sans-serif;
 
   & .post-info {
     height: 70px;
@@ -18,14 +19,6 @@ const GroupContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-
-  & .team-category {
-    font-size: 14px;
-  }
-  & .team-name {
-    font-size: 16px;
-    font-weight: bold;
   }
 
   & .group-content {
@@ -37,20 +30,36 @@ const GroupContainer = styled.div`
     overflow: auto;
 
     & .big-img {
-      margin-top: 20px;
       width: 100%;
       height: 30vh;
     }
 
     & .group-content-header {
-      width: 90%;
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 10px;
+      margin: 0.5rem 0 0.5rem 0;
+      //border: 1px solid skyblue;
+      background: #f6f6f6;
 
-      & > div {
+      & .group-basic-info {
         width: 90%;
+        //border: 1px solid red;
+        margin-left: 1rem;
+
+        & .group-basic-category {
+          font-size: 0.8rem;
+          color: black;
+        }
+
+        & > div {
+          width: 90%;
+        }
+        & .group-basic-name {
+          font-size: 1rem;
+          color: #120f0f;
+        }
       }
       & .like {
         display: flex;
@@ -58,6 +67,8 @@ const GroupContainer = styled.div`
         height: 30px;
         border-radius: 15px;
         background-color: #f6f6f6;
+        //border: 1px solid orange;
+        margin-right: 1rem;
 
         & .anticon-heart {
           margin: auto;
@@ -69,8 +80,10 @@ const GroupContainer = styled.div`
 
     & .group-content-item {
       width: 90%;
-      margin-top: 5px;
-      margin-bottom: 5px;
+      margin-top: 0.9rem;
+      margin-bottom: 0.6rem;
+      //border: 1px solid green;
+
       & .group-content-item-time-div {
         display: flex;
 
@@ -83,30 +96,39 @@ const GroupContainer = styled.div`
     & .group-location {
       display: flex;
       width: 90%;
+      //border: 1px solid pink;
+      margin-top: 1.5rem;
     }
 
     & .subtitle {
       font-weight: bold;
       font-size: 15px;
       margin-right: 10px;
+      //border: 1px solid blue;
     }
     & .team-page {
       display: flex;
       width: 90%;
       margin-top: 25px;
       height: 90px;
+      background-color: #f6f6f6;
+      border-radius: 10px;
+      //border: 1px solid purple;
 
       & .small-img {
+        margin-left: 0.3rem;
+        margin-top: 0.3rem;
+        border-radius: 10px;
         width: 45%;
-        min-width: 160px;
-        height: 90px;
+        min-width: 150px;
+        height: 80px;
       }
 
       & .team-page-info {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-left: 5px;
+        margin-left: 0.6rem;
       }
     }
 
@@ -119,7 +141,7 @@ const GroupContainer = styled.div`
 const Plus = styled.button`
   position: sticky;
   bottom: 1rem;
-  left: 85%;
+  left: 82.5%;
   width: 50px;
   height: 50px;
   border-radius: 25px;
@@ -189,24 +211,24 @@ const GroupDetail = () => {
             alt={GroupImages && GroupImages[0].description}
           />
           <div className="group-content-header">
-            <div>
-              <div className="group-content-item">
+            <div className="group-basic-info">
+              <div className="group-basic-category">
                 {!!ActiveCategories && ActiveCategories[0]?.DetailCategory.name}
               </div>
-              <div className="group-content-item">
+              <div className="group-basic-name">
                 {name} | {location?.split(' ')[2]}
               </div>
             </div>
-            <div className="like" onClick={clickHeart}>
-              {filledHeart ? <HeartFilled /> : <HeartOutlined />}
-            </div>
+          </div>
+          <div className="like" onClick={clickHeart}>
+            {filledHeart ? <HeartFilled /> : <HeartOutlined />}
           </div>
           <div className="group-content-item">
-            <div className="subtitle">모임소개</div>
+            <div className="subtitle">✦ 모임소개</div>
             <div className="team-info-textarea">{groupIntro}</div>
           </div>
           <div className="group-content-item">
-            <div className="subtitle">필요 스킬</div>
+            <div className="subtitle">✦ 필요한 스킬</div>
             <div>
               {Skills &&
                 Skills.reduce((total, skill) => {
@@ -215,7 +237,7 @@ const GroupDetail = () => {
             </div>
           </div>
           <div className="group-content-item">
-            <div className="subtitle">활동 요일</div>
+            <div className="subtitle">✦ 활동 요일</div>
             <div>
               {ActiveTimes?.reduce((acc, time) => {
                 return acc + `${time.activeDay}, `;
@@ -223,7 +245,7 @@ const GroupDetail = () => {
             </div>
           </div>
           <div className="group-content-item">
-            <div className="subtitle">활동 시간</div>
+            <div className="subtitle">✦ 활동 시간</div>
             <div className="group-content-item-time">
               <div className="group-content-item-time-div">
                 <div>시작 시간</div>
@@ -235,8 +257,9 @@ const GroupDetail = () => {
               </div>
             </div>
           </div>
+
           <div className="group-location">
-            <div className="subtitle">모임 지역</div>
+            <div className="subtitle">✦ 모임 지역</div>
             <div>{location}</div>
           </div>
           {location && <KakaoMap location={location} />}
@@ -257,12 +280,12 @@ const GroupDetail = () => {
           </div>
           <Divider />
           <div className="group-content-item">
-            <div className="subtitle">모임 리뷰</div>
+            <div className="subtitle">✦ 모임 리뷰</div>
             <div>리뷰 컴포넌트 ~,~</div>
           </div>
           <Divider />
           <div className="group-content-item">
-            <div className="subtitle">모임 Q&amp;A</div>
+            <div className="subtitle">✦ 모임 Q&amp;A</div>
             <div>QnA 컴포넌트 ~,~</div>
           </div>
         </section>

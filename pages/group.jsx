@@ -2,19 +2,20 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Tabs } from 'antd';
 import styled from '@emotion/styled';
-import Groups from '../components/team/Groups';
-import EmptyGroups from '../components/team/EmptyGroups';
+import Groups from '../components/group/Groups';
+import EmptyGroups from '../components/group/EmptyGroups';
 import Header from '../components/main/Header';
 
 // #6055CD
 const GroupContainer = styled.div`
+  font-family: 'Nanum Gothic', sans-serif;
   width: 100%;
   .ant-tabs-nav-list {
     width: 100%;
   }
   .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
-      color: #6055CD;
+      color: #6055cd;
       font-weight: bold;
     }
   }
@@ -24,11 +25,11 @@ const GroupContainer = styled.div`
     justify-content: center;
 
     :hover {
-      color: #6055CD;
+      color: #6055cd;
     }
   }
   .ant-tabs-ink-bar {
-    background-color: #6055CD;
+    background-color: #6055cd;
   }
 `;
 const group = () => {
@@ -39,7 +40,7 @@ const group = () => {
 
   return (
     <GroupContainer>
-      <Header type="purple" title="모임명" />
+      <Header type="white" title="모임명" />
       <Tabs defaultActiveKey="1">
         <TabPane tab={applyGroups} key="1">
           {me.applyGroups.length !== 0 ? (

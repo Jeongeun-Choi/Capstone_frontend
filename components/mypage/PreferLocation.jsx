@@ -12,6 +12,7 @@ const LocationContainer = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 0.7rem;
   }
   & .location_modify_button {
     background-color: white;
@@ -76,8 +77,8 @@ const PreferLocation = ({ myInfo }) => {
     <>
       <LocationContainer>
         <div className='location_explain'>
-          등록된 활동 지역의 새로운 모임을 놓치지 않도록 홈 화면에서
-          보여드릴게요.
+          등록된 활동 지역의 새로운 모임을 놓치지 않도록<br></br> 
+          홈 화면에서 보여드릴게요.
           <button className='location_modify_button' onClick={changeStatus}>
             <SettingOutlined />
           </button>

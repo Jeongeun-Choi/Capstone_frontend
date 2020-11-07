@@ -8,8 +8,13 @@ import {
   MoreOutlined
 } from '@ant-design/icons';
 
+// const type = {
+//   purple: { backgroundColor: '#6055CD', color: 'white' },
+//   white: { backgroundColor: 'white', color: 'black' }
+// };
+
 const type = {
-  purple: { backgroundColor: '#AAABD3', color: 'white' },
+  purple: { backgroundColor: 'white', color: '#6055CD' },
   white: { backgroundColor: 'white', color: 'black' }
 };
 
@@ -20,29 +25,41 @@ const CustomHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
+  font-weight: bold;
   color: ${props => type[props.type].color};
   background: ${props => type[props.type].backgroundColor};
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #868686;
 
   & .out_button {
-    font-size: 1.5rem;
-    margin-left: 2rem;
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+    margin-left: 1.8rem;
     cursor: pointer;
+    @media screen and (min-width: 780px) {
+      width: 2.5rem;
+      margin-left: 1rem;
+    }
   }
 
   & .header_title {
-    text-align: center;
+    margin-top: 0.5rem;
     & h1 {
       margin: 0;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
       color: ${props => type[props.type].color};
     }
   }
 
   & .second_button {
-    font-size: 1.5rem;
-    margin-right: 2rem;
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+    margin-right: 1.8rem;
     cursor: pointer;
+    @media screen and (min-width: 780px) {
+      width: 2.5rem;
+      margin-right: 1rem;
+    }
   }
 `;
 

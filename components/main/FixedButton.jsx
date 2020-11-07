@@ -22,9 +22,9 @@ const FixedButtonContainer = styled.div`
   }
 `;
 
-const FixedButton = () => {
+const FixedButton = ({ onClick }) => {
   return (
-    <FixedButtonContainer>
+    <FixedButtonContainer onClick={onClick}>
       <MenuOutlined />
     </FixedButtonContainer>
   );

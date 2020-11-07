@@ -1,19 +1,20 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import EmptyGroups from '../components/team/EmptyGroups';
-import Groups from '../components/team/Groups';
+import EmptyGroups from '../components/group/EmptyGroups';
+import Groups from '../components/group/Groups';
 import { useSelector } from 'react-redux';
 import { Tabs } from 'antd';
 import Header from '../components/main/Header';
 
 const GroupContainer = styled.div`
   width: 100%;
+  font-family: 'Nanum Gothic', sans-serif;
   .ant-tabs-nav-list {
     width: 100%;
   }
   .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
-      color: #aaabd3;
+      color: #6055cd;
       font-weight: bold;
     }
   }
@@ -23,11 +24,11 @@ const GroupContainer = styled.div`
     justify-content: center;
 
     :hover {
-      color: #aaabd3;
+      color: #6055cd;
     }
   }
   .ant-tabs-ink-bar {
-    background-color: #aaabd3;
+    background-color: #6055cd;
   }
 `;
 
