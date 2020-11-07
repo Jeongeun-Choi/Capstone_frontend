@@ -78,6 +78,10 @@ const PostHeader = styled(ModalHeader)`
 
   h3 {
     color: black;
+    white-space: nowrap; 
+    width: 50%;
+    overflow:hidden;
+    text-overflow: ellipsis;
   }
   & .anticon-exclamation-circle {
     position: absolute;

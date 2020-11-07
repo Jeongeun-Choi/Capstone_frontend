@@ -41,11 +41,15 @@ const CustomHeader = styled.header`
     }
   }
 
-  & .header_title {
+  & .header_title { 
     margin-top: 0.2rem;
     font-size: 0.8rem;
     text-align: center;
-    
+    white-space: nowrap; 
+    width: 50%;
+    overflow:hidden;
+    text-overflow: ellipsis;
+
     & h1 {
       margin: 0;
       font-size: 1rem;
