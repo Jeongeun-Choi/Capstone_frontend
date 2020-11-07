@@ -42,7 +42,8 @@ const CustomHeader = styled.header`
   }
 
   & .header_title {
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
+    font-size: 0.8rem;
     & h1 {
       margin: 0;
       font-size: 1.2rem;
