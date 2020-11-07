@@ -281,7 +281,7 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case ADD_LOCATION_SUCCESS: {
-        draft.me.locations = action.data;
+        draft.me.PreferLocations = action.data;
         break;
       }
       case ADD_LOCATION_FAILURE: {
