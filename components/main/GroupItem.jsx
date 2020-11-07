@@ -32,11 +32,11 @@ const GroupItem = ({ group }) => {
             alt={group.GroupImages[0].description}
           ></img>
         ) : (
-          <img src="/images/logo.png" alt="대체 이미지" />
+          <img src='/images/logo.png' alt='대체 이미지' />
         )}
         {group.ActiveCategories?.length ? (
           <div>
-            {group.ActiveCategories.map(category => (
+            {group.ActiveCategories.map((category) => (
               <span key={category.id}>{category.DetailCategory.name}</span>
             ))}
           </div>
@@ -44,7 +44,7 @@ const GroupItem = ({ group }) => {
           <></>
         )}
         <div>{group.name}</div>
-        <div>{group.location}</div>
+        <div>{group.location?.split(' ').slice(0, 3).join(' ')}</div>
       </GroupItemWrapper>
     </>
   );

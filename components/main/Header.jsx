@@ -5,12 +5,12 @@ import {
   LeftOutlined,
   InfoCircleOutlined,
   CloseOutlined,
-  MoreOutlined
+  MoreOutlined,
 } from '@ant-design/icons';
 
 const type = {
   purple: { backgroundColor: '#AAABD3', color: 'white' },
-  white: { backgroundColor: 'white', color: 'black' }
+  white: { backgroundColor: 'white', color: 'black' },
 };
 
 const CustomHeader = styled.header`
@@ -20,14 +20,19 @@ const CustomHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
-  color: ${props => type[props.type].color};
-  background: ${props => type[props.type].backgroundColor};
+  color: ${(props) => type[props.type].color};
+  background: ${(props) => type[props.type].backgroundColor};
   border-bottom: 1px solid grey;
 
   & .out_button {
+    width: 1.5rem;
     font-size: 1.5rem;
-    margin-left: 2rem;
+    margin-left: 0.5rem;
     cursor: pointer;
+    @media screen and (min-width: 780px) {
+      width: 2.5rem;
+      margin-left: 1rem;
+    }
   }
 
   & .header_title {
@@ -35,14 +40,19 @@ const CustomHeader = styled.header`
     & h1 {
       margin: 0;
       font-size: 1.5rem;
-      color: ${props => type[props.type].color};
+      color: ${(props) => type[props.type].color};
     }
   }
 
   & .second_button {
+    width: 1.5rem;
     font-size: 1.5rem;
-    margin-right: 2rem;
+    margin-right: 0.5rem;
     cursor: pointer;
+    @media screen and (min-width: 780px) {
+      width: 2.5rem;
+      margin-right: 1rem;
+    }
   }
 `;
 
@@ -56,20 +66,20 @@ const Header = ({
   closeButton = false,
   closeOnClick,
   moreButton = false,
-  moreOnClick
+  moreOnClick,
 }) => {
   const router = useRouter();
 
   return (
     <CustomHeader type={type}>
-      <div className="out_button" onClick={() => router.back()}>
+      <div className='out_button' onClick={() => router.back()}>
         {backButton && <LeftOutlined />}
       </div>
-      <div className="header_title">
+      <div className='header_title'>
         {subTitle && <div>{subTitle}</div>}
         <h1>{title}</h1>
       </div>
-      <div className="second_button">
+      <div className='second_button'>
         {declareButton && (
           <div onClick={declareOnClick}>
             <InfoCircleOutlined />

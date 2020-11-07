@@ -35,7 +35,6 @@ const GroupContainer = styled.div`
     overflow: auto;
 
     & .big-img {
-      margin-top: 20px;
       width: 100%;
       height: 30vh;
     }
@@ -138,7 +137,7 @@ const GroupDetail = () => {
     ActiveTimes,
     Skills,
     groupIntro,
-    location
+    location,
   } = selectedGroup;
 
   console.log(selectedGroup);
@@ -146,11 +145,11 @@ const GroupDetail = () => {
   const [isShowingSetting, setIsShowingSetting] = useState(false);
 
   const clickHeart = useCallback(() => {
-    setFilledHeart(prev => !prev);
+    setFilledHeart((prev) => !prev);
   }, []);
 
   const clickPlusButton = useCallback(() => {
-    setIsShowingSetting(prev => !prev);
+    setIsShowingSetting((prev) => !prev);
   }, []);
 
   const getGroupData = async () => {
@@ -168,67 +167,74 @@ const GroupDetail = () => {
 
   return (
     <GroupContainer>
-      <Header title={name} backButton={true} type="white" />
-      <section className="group-content">
+      <Header
+        subTitle={
+          ActiveCategories?.length && ActiveCategories[0]?.DetailCategory.name
+        }
+        title={name}
+        backButton={true}
+        type='white'
+      />
+      <section className='group-content'>
         <img
-          className="big-img"
+          className='big-img'
           src={GroupImages && GroupImages[0].URL}
           alt={GroupImages && GroupImages[0].description}
         />
-        <div className="group-content-header">
+        <div className='group-content-header'>
           <div>
-            <div className="group-content-item">
+            <div className='group-content-item'>
               {!!ActiveCategories && ActiveCategories[0]?.DetailCategory.name}
             </div>
-            <div className="group-content-item">
+            <div className='group-content-item'>
               {name} | {location?.split(' ')[2]}
             </div>
           </div>
-          <div className="like" onClick={clickHeart}>
+          <div className='like' onClick={clickHeart}>
             {filledHeart ? <HeartFilled /> : <HeartOutlined />}
           </div>
         </div>
-        <div className="group-content-item">
-          <div className="subtitle">모임소개</div>
-          <div className="team-info-textarea">{groupIntro}</div>
+        <div className='group-content-item'>
+          <div className='subtitle'>모임소개</div>
+          <div className='team-info-textarea'>{groupIntro}</div>
         </div>
-        <div className="group-content-item">
-          <div className="subtitle">필요 스킬</div>
+        <div className='group-content-item'>
+          <div className='subtitle'>필요 스킬</div>
           <div>{location}</div>
         </div>
-        <div className="group-content-item">
-          <div className="subtitle">활동 요일</div>
+        <div className='group-content-item'>
+          <div className='subtitle'>활동 요일</div>
           <div>
             {ActiveTimes?.reduce((acc, time) => {
               return acc + `${time.activeDay}, `;
             }, '')}
           </div>
         </div>
-        <div className="group-content-item">
-          <div className="subtitle">활동 시간</div>
-          <div className="group-content-item-time">
-            <div className="group-content-item-time-div">
+        <div className='group-content-item'>
+          <div className='subtitle'>활동 시간</div>
+          <div className='group-content-item-time'>
+            <div className='group-content-item-time-div'>
               <div>시작 시간</div>
               <div>{ActiveTimes?.length && ActiveTimes[0].startTime}</div>
             </div>
-            <div className="group-content-item-time-div">
+            <div className='group-content-item-time-div'>
               <div>종료 시간</div>
               <div>{ActiveTimes?.length && ActiveTimes[0].endTime}</div>
             </div>
           </div>
         </div>
-        <div className="group-location">
-          <div className="subtitle">모임 지역</div>
+        <div className='group-location'>
+          <div className='subtitle'>모임 지역</div>
           <div>{location}</div>
         </div>
         {location && <KakaoMap location={location} />}
-        <div className="team-page">
+        <div className='team-page'>
           <img
-            className="small-img"
+            className='small-img'
             src={GroupImages?.length && GroupImages[0].URL}
             alt={GroupImages?.length && GroupImages[0].description}
           />
-          <div className="team-page-info">
+          <div className='team-page-info'>
             <div>
               {ActiveCategories?.length &&
                 ActiveCategories[0]?.DetailCategory.name}
@@ -238,17 +244,17 @@ const GroupDetail = () => {
           </div>
         </div>
         <Divider />
-        <div className="group-content-item">
-          <div className="subtitle">모임 리뷰</div>
+        <div className='group-content-item'>
+          <div className='subtitle'>모임 리뷰</div>
           <div>리뷰 컴포넌트 ~,~</div>
         </div>
         <Divider />
-        <div className="group-content-item">
-          <div className="subtitle">모임 Q&amp;A</div>
+        <div className='group-content-item'>
+          <div className='subtitle'>모임 Q&amp;A</div>
           <div>QnA 컴포넌트 ~,~</div>
         </div>
       </section>
-      <Plus type="button" onClick={clickPlusButton}>
+      <Plus type='button' onClick={clickPlusButton}>
         <PlusOutlined />
       </Plus>
     </GroupContainer>

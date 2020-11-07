@@ -6,14 +6,14 @@ import {
   ExclamationCircleTwoTone,
   HeartOutlined,
   HeartFilled,
-  PlusOutlined
+  PlusOutlined,
 } from '@ant-design/icons';
 import KakaoMap from '../map/KakaoMap';
 import { Divider } from 'antd';
 import JoinTeam from './JoinTeam';
-import Setting from '../team/groupSetting/Setting';
+import Setting from '../group/groupSetting/Setting';
 import customAxios from '../../utils/baseAxios';
-import MakingGroup from '../team/MakingGroup';
+import MakingGroup from '../group/MakingGroup';
 
 const GroupContainer = styled.div`
   width: 100%;
@@ -122,7 +122,7 @@ const GroupContainer = styled.div`
 const GroupHeader = styled(ModalHeader)`
   line-height: 25px;
   color: #ffffff;
-  background-color: #6055CD;
+  background-color: #6055cd;
 
   & .anticon-exclamation-circle {
     position: absolute;
@@ -164,15 +164,15 @@ const GroupDetail = ({ setIsShowing, groupId }) => {
   }, [groupId]);
 
   const clickHeart = useCallback(() => {
-    setFilledHeart(prev => !prev);
+    setFilledHeart((prev) => !prev);
   }, []);
 
   const clickPlusButton = useCallback(() => {
-    setIsShowingSetting(prev => !prev);
+    setIsShowingSetting((prev) => !prev);
   }, []);
 
   const closeModal = useCallback(() => {
-    setIsShowing(prev => !prev);
+    setIsShowing((prev) => !prev);
   }, []);
 
   return (
@@ -182,81 +182,81 @@ const GroupDetail = ({ setIsShowing, groupId }) => {
           <GroupContainer>
             <GroupHeader>
               <LeftOutlined onClick={closeModal} />
-              <div className="post-info">
-                <div className="team-category">
+              <div className='post-info'>
+                <div className='team-category'>
                   {data.ActiveCategories[0].DetailCategory.name}
                 </div>
-                <div className="team-name">
+                <div className='team-name'>
                   {data.name} | {data.location.split(' ')[2]}
                 </div>
               </div>
-              <ExclamationCircleTwoTone twoToneColor="#DFDFEC" />
+              <ExclamationCircleTwoTone twoToneColor='#DFDFEC' />
             </GroupHeader>
-            <section className="group-content">
+            <section className='group-content'>
               <img
-                className="big-img"
+                className='big-img'
                 src={data.GroupImages && data.GroupImages[0].URL}
                 alt={data.GroupImages && data.GroupImages[0].description}
               />
-              <div className="group-content-header">
+              <div className='group-content-header'>
                 <div>
-                  <div className="group-content-item">
+                  <div className='group-content-item'>
                     {data.ActiveCategories[0].DetailCategory.name}
                   </div>
-                  <div className="group-content-item">
+                  <div className='group-content-item'>
                     {data.name} | {data.location.split(' ')[2]}
                   </div>
                 </div>
-                <div className="like" onClick={clickHeart}>
+                <div className='like' onClick={clickHeart}>
                   {filledHeart ? <HeartFilled /> : <HeartOutlined />}
                 </div>
               </div>
-              <div className="group-content-item">
-                <div className="subtitle">모임소개</div>
-                <div className="team-info-textarea">{data.groupIntro}</div>
+              <div className='group-content-item'>
+                <div className='subtitle'>모임소개</div>
+                <div className='team-info-textarea'>{data.groupIntro}</div>
               </div>
-              <div className="group-content-item">
-                <div className="subtitle">필요 스킬</div>
+              <div className='group-content-item'>
+                <div className='subtitle'>필요 스킬</div>
                 <div>{data.location}</div>
               </div>
-              <div className="group-content-item">
-                <div className="subtitle">활동 요일</div>
+              <div className='group-content-item'>
+                <div className='subtitle'>활동 요일</div>
                 <div>
                   {data.ActiveTimes.reduce((acc, time) => {
                     return acc + `${time.activeDay} `;
                   }, '')}
                 </div>
               </div>
-              <div className="group-content-item">
-                <div className="subtitle">활동 시간</div>
-                <div className="group-content-item-time">
-                  <div className="group-content-item-time-div">
+              <div className='group-content-item'>
+                <div className='subtitle'>활동 시간</div>
+                <div className='group-content-item-time'>
+                  <div className='group-content-item-time-div'>
                     <div>시작 시간</div>
                     <div>{data.ActiveTimes[0].startTime}</div>
                   </div>
-                  <div className="group-content-item-time-div">
+                  <div className='group-content-item-time-div'>
                     <div>종료 시간</div>
                     <div>{data.ActiveTimes[0].endTime}</div>
                   </div>
                 </div>
               </div>
-              <div className="group-location">
-                <div className="subtitle">모임 지역</div>
+              <div className='group-location'>
+                <div className='subtitle'>모임 지역</div>
                 <div>{data.location}</div>
               </div>
               <KakaoMap location={data.location} />
               <Divider />
-              <div className="group-content-item">
-                <div className="subtitle">모임 리뷰</div>
+              <div className='group-content-item'>
+                <div className='subtitle'>모임 리뷰</div>
                 <div>리뷰 컴포넌트 ~,~</div>
               </div>
               <Divider />
-              <div className="group-content-item">
-                <div className="subtitle">모임 Q&amp;A</div>
+              <div className='group-content-item'>
+                <div className='subtitle'>모임 Q&amp;A</div>
                 <div>QnA 컴포넌트 ~,~</div>
               </div>
             </section>
-            <Plus type="button" onClick={clickPlusButton}>
+            <Plus type='button' onClick={clickPlusButton}>
               <PlusOutlined />
             </Plus>
           </GroupContainer>
