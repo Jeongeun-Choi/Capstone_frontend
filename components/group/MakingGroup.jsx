@@ -50,8 +50,9 @@ const MakingGroupContainer = styled.form`
 
     & .team-item {
       width: 90%;
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
+      margin-top: 1rem;
+      margin-bottom: 0.2rem;
+     //border: 1px solid purple;
     }
   }
   & .team-input {
@@ -60,8 +61,9 @@ const MakingGroupContainer = styled.form`
     border: none;
   }
   & .subtitle {
-    font-weight: bold;
     margin-right: 5px;
+    //border: 1px solid red;
+    font-weight: bold;
   }
 
   & textarea {
@@ -94,11 +96,11 @@ const MakingGroupContainer = styled.form`
 `;
 
 const MakingGroupHeader = styled(ModalHeader)`
-  color: #ffffff;
-  background-color: #6055cd;
+  color: black;
+  background-color: white;
 
   h3 {
-    color: #ffffff;
+    color: black;
   }
 `;
 

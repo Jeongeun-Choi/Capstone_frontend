@@ -147,7 +147,7 @@ const Plus = styled.button`
   border: 1px solid #353866;
   background-color: #353866;
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 1.5rem; 
   font-weight: bold;
   z-index: 9999;
 `;
