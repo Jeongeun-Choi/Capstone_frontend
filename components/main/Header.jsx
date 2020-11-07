@@ -25,7 +25,6 @@ const CustomHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
-  font-family: 'Nanum Gothic', sans-serif;
   font-weight: bold;
   color: ${props => type[props.type].color};
   background: ${props => type[props.type].backgroundColor};
@@ -36,6 +35,10 @@ const CustomHeader = styled.header`
     margin-top: 0.5rem;
     margin-left: 1.8rem;
     cursor: pointer;
+    @media screen and (min-width: 780px) {
+      width: 2.5rem;
+      margin-left: 1rem;
+    }
   }
 
   & .header_title {
@@ -53,6 +56,10 @@ const CustomHeader = styled.header`
     margin-top: 0.5rem;
     margin-right: 1.8rem;
     cursor: pointer;
+    @media screen and (min-width: 780px) {
+      width: 2.5rem;
+      margin-right: 1rem;
+    }
   }
 `;
 

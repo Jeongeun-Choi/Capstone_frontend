@@ -20,7 +20,7 @@ const GroupContainer = styled.div`
     justify-content: center;
     align-items: center;
   }
-  
+
   & .group-content {
     display: flex;
     flex-direction: column;
@@ -30,7 +30,6 @@ const GroupContainer = styled.div`
     overflow: auto;
 
     & .big-img {
-      margin-top: 20px;
       width: 100%;
       height: 30vh;
     }
@@ -42,22 +41,22 @@ const GroupContainer = styled.div`
       align-items: center;
       margin: 0.5rem 0 0.5rem 0;
       //border: 1px solid skyblue;
-      background: #F6F6F6;
+      background: #f6f6f6;
 
-      & .group-basic-info{
+      & .group-basic-info {
         width: 90%;
         //border: 1px solid red;
         margin-left: 1rem;
 
-        & .group-basic-category{
+        & .group-basic-category {
           font-size: 0.8rem;
           color: black;
         }
 
-      & > div {
-        width: 90%;
-      }
-        & .group-basic-name{
+        & > div {
+          width: 90%;
+        }
+        & .group-basic-name {
           font-size: 1rem;
           color: #120f0f;
         }
@@ -112,7 +111,7 @@ const GroupContainer = styled.div`
       width: 90%;
       margin-top: 25px;
       height: 90px;
-      background-color: #F6F6F6;
+      background-color: #f6f6f6;
       border-radius: 10px;
       //border: 1px solid purple;
 
@@ -211,8 +210,8 @@ const GroupDetail = () => {
             src={GroupImages && GroupImages[0].URL}
             alt={GroupImages && GroupImages[0].description}
           />
-          <div className = "group-content-header">
-            <div className = "group-basic-info">
+          <div className="group-content-header">
+            <div className="group-basic-info">
               <div className="group-basic-category">
                 {!!ActiveCategories && ActiveCategories[0]?.DetailCategory.name}
               </div>
@@ -221,9 +220,8 @@ const GroupDetail = () => {
               </div>
             </div>
           </div>
-            <div className="like" onClick={clickHeart}>
-              {filledHeart ? <HeartFilled /> : <HeartOutlined />}
-            </div>
+          <div className="like" onClick={clickHeart}>
+            {filledHeart ? <HeartFilled /> : <HeartOutlined />}
           </div>
           <div className="group-content-item">
             <div className="subtitle">✦ 모임소개</div>
@@ -246,8 +244,8 @@ const GroupDetail = () => {
               }, '')}
             </div>
           </div>
-        <div className="group-content-item">
-          <div className="subtitle">✦ 활동 시간</div>
+          <div className="group-content-item">
+            <div className="subtitle">✦ 활동 시간</div>
             <div className="group-content-item-time">
               <div className="group-content-item-time-div">
                 <div>시작 시간</div>

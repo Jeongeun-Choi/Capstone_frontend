@@ -13,10 +13,14 @@ const App = ({ Component, pageProps }) => {
     // next-redux-wrapper@6에선 Provider로 감싸지 않아도 된다.
     <>
       <Head>
-        <meta charSet="utf-8" />
-        <title>App</title>
+        <meta charSet='utf-8' />
+        <title>모두의 모임</title>
+        <link
+          href='https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap'
+          rel='stylesheet'
+        ></link>
         <script
-          type="text/javascript"
+          type='text/javascript'
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${MAP_API}`}
         ></script>
       </Head>
@@ -28,6 +32,6 @@ const App = ({ Component, pageProps }) => {
 };
 
 App.propTypes = {
-  Component: PropTypes.elementType.isRequired
+  Component: PropTypes.elementType.isRequired,
 };
 export default wrapper.withRedux(withReduxSaga(App));
