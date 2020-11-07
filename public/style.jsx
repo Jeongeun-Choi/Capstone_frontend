@@ -25,21 +25,21 @@ export const basicBoxStyle = css`
   height: 100%;
   min-height: 90px;
   min-width: 130px;
-  border: 1px solid #A2A2A2;
+  border: 1px solid #a2a2a2;
 `;
 
 export const basicTeamStyle = css`
   width: 100%;
   height: 52px;
-  background-color: #F6F6F6;
-  border: 1px solid #F6F6F6;
+  background-color: #f6f6f6;
+  border: 1px solid #f6f6f6;
   border-radius: 3px;
 `;
 
 export const modalFooter = css`
   width: 100%;
   min-height: 50px;
-  z-index: 4;
+  z-index: 2;
   position: sticky;
   bottom: 0;
 `;
@@ -91,10 +91,10 @@ export const BasicInput = styled.input`
   box-sizing: border-box;
   // border: 1px solid #e5e5e5;
   // background-color: #e5e5e5;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
   background-color: white;
   opacity: 0.5;
-font-family: 'Nanum Gothic', sans-serif;
+  font-family: 'Nanum Gothic', sans-serif;
 `;
 
 export const ShortInput = styled(BasicInput)`
@@ -108,9 +108,9 @@ export const Button = styled.button`
   color: white;
   font-family: 'Nanum Gothic', sans-serif;
   font-weight: regular;
-  border: 1px solid #6055CD;
+  border: 1px solid #6055cd;
   border-radius: 18px;
-  background-color: #6055CD;
+  background-color: #6055cd;
 `;
 
 export const SNSLogin = styled.div`
@@ -122,6 +122,6 @@ export const SNSLogin = styled.div`
   //border: 1px solid #868686;
   border-radius: 18px;
   line-height: 35px;
-  color: #6055CD;
-  border: 1px solid #6055CD;
+  color: #6055cd;
+  border: 1px solid #6055cd;
 `;

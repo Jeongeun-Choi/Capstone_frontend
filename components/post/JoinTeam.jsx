@@ -16,31 +16,31 @@ const Container = styled.div`
     width: 85%;
   }
   & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-    background: #6055CD;
-    border-color: #6055CD;
+    background: #6055cd;
+    border-color: #6055cd;
     z-index: 5;
 
     & :active::before {
-      background-color: #6055CD;
-      border-color: #6055CD;
+      background-color: #6055cd;
+      border-color: #6055cd;
     }
 
     & :hover::before {
-      background-color: #6055CD;
-      border-color: #6055CD;
+      background-color: #6055cd;
+      border-color: #6055cd;
     }
   }
 
   &
     .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):active::before {
-    background-color: #6055CD;
-    border-color: #6055CD;
+    background-color: #6055cd;
+    border-color: #6055cd;
   }
 
   & .ant-radio-button-wrapper {
     background: rgba(0, 0, 0, 0);
-    border-color: #6055CD;
-    color: #6055CD;
+    border-color: #6055cd;
+    color: #6055cd;
   }
 
   & .basic-info {
@@ -65,7 +65,7 @@ const Container = styled.div`
 const ContainerHeader = styled(ModalHeader)`
   line-height: 25px;
   color: #ffffff;
-  background-color: #6055CD;
+  background-color: #6055cd;
 
   & .post-info {
     height: 70px;
@@ -87,6 +87,7 @@ const ContainerHeader = styled(ModalHeader)`
 const JoinGroup = ({ category, groupName }) => {
   const { me } = useSelector(state => state.user);
 
+  const year = new Date().getFullYear();
   const [gender, setGender] = useState('');
   const onChangeGender = useCallback(e => {
     setGender(e.target.value);
@@ -112,9 +113,7 @@ const JoinGroup = ({ category, groupName }) => {
                 <div>이름</div>
                 <div>{me.name}</div>
                 <div>나이</div>
-                <div>
-                  {new Date().getFullYear - Number(birthday.split('-')[0]) + 1}
-                </div>
+                <div>{year - Number(me.birthday.split('-')[0]) + 1}</div>
                 <div>성별</div>
                 <Radio.Group
                   defaultValue={me.gender}

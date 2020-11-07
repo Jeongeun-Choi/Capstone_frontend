@@ -122,8 +122,6 @@ const GroupContainer = styled.div`
 
 const GroupHeader = styled(ModalHeader)`
   line-height: 25px;
-  //color: #ffffff;
-  //background-color: #6055CD;
   color: black;
   background-color: white;
 
@@ -273,13 +271,7 @@ const GroupDetail = ({ setIsShowing, groupId }) => {
           setModify={setModify}
         />
       )}
-      {modify && (
-        <MakingGroup
-          groupId={groupId}
-          modify={modify}
-          setCloseModal={setModify}
-        />
-      )}
+      {modify && <MakingGroup modify={modify} setCloseModal={setModify} />}
     </>
   );
 };

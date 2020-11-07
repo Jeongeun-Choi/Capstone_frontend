@@ -15,13 +15,6 @@ const LoginContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* & img {
-    width: 20vw;
-    max-width: 150px;
-    min-width: 100px;
-    margin: 10% 0 5% 0;
-    //border: 1px solid green;
-  } */
 
   .close {
     width: 50%;
@@ -129,7 +122,7 @@ const login = () => {
     e => {
       e.preventDefault();
       if (!email.trim() || !password.trim()) {
-        return message('이메일과 비밀번호를 입력해주세요.');
+        return message.error('이메일과 비밀번호를 입력해주세요.');
       }
       try {
         dispatch(loginRequestAction({ email, password }));

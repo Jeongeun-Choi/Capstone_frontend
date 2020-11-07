@@ -176,8 +176,8 @@ function addLocationAPI(data) {
 }
 function* addLocation(action) {
   try {
-    yield call(addLocationAPI, action.data);
-    const data = action.data.locations;
+    const response = yield call(addLocationAPI, action.data);
+    const data = response.data.preferLocations;
     yield put(addLocationSuccessAction(data));
   } catch (err) {
     yield put(addLocationFailureAction(err));

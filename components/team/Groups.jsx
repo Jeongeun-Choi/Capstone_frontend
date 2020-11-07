@@ -23,7 +23,7 @@ const Groups = ({ groups, type }) => {
           ? groups.map(group => (
               <Group
                 key={group.id}
-                groupId={group.Group.id}
+                id={group.Group.id}
                 groupName={group.Group.name}
                 position={group.position}
                 data={group}
@@ -33,7 +33,7 @@ const Groups = ({ groups, type }) => {
           : groups.map(group => (
               <Group
                 key={group.id}
-                groupId={group.id}
+                id={group.id}
                 groupName={group.title}
                 type={type}
               />

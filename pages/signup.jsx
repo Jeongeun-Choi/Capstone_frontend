@@ -86,7 +86,7 @@ const SignupForm = styled.form`
   }
 `;
 
-const signup = ({ setShowingSignup }) => {
+const signup = () => {
   const [email, onChangeEmail] = useInputChangeHook('');
   const [password, onChangePassword] = useInputChangeHook('');
   const [passwordCheck, onChangePasswordCheck] = useInputChangeHook('');
@@ -126,7 +126,7 @@ const signup = ({ setShowingSignup }) => {
   }, []);
 
   const closeModal = useCallback(() => {
-    setShowingSignup(prev => !prev);
+    router.push('/login');
   }, []);
 
   return (
