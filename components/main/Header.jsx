@@ -44,9 +44,11 @@ const CustomHeader = styled.header`
   & .header_title {
     margin-top: 0.2rem;
     font-size: 0.8rem;
+    text-align: center;
+    
     & h1 {
       margin: 0;
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: bold;
       color: ${props => type[props.type].color};
     }

@@ -13,11 +13,11 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   & .post-content {
     display: flex;
     flex-direction: column;
     width: 90%;
+    //border: 1px solid green;
 
     & .big-img {
       margin-top: 20px;
@@ -25,66 +25,12 @@ const PostContainer = styled.div`
       height: 30vh;
     }
 
-    & .post-content-header {
-      width: 90%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
 
-      & .like {
-        display: flex;
-        width: 30px;
-        height: 30px;
-        border-radius: 15px;
-        background-color: #f6f6f6;
-
-        & .anticon-heart {
-          margin: auto;
-          font-size: 16px;
-          color: #eb5757;
-        }
-      }
-    }
-
-    & .team-info,
-    .post-deadline,
-    .team-location,
-    .team-review,
-    .team-qna {
-      width: 90%;
-      margin-top: 5px;
-      margin-bottom: 5px;
-    }
-
-    & .post-deadline,
-    .team-location {
-      display: flex;
-    }
-
-    & .subtitle {
-      font-weight: bold;
-      font-size: 15px;
-      margin-right: 10px;
-    }
-
-    & .group-page {
-      display: flex;
-      width: 90%;
-      margin-top: 25px;
-      height: 90px;
-
-      & .small-img {
-        width: 45%;
-        min-width: 160px;
-        height: 90px;
-      }
-
-      & .group-page-info {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin-left: 5px;
+    & .post-item{
+      margin-top: 0.9rem;
+      //border: 1px solid red;
+      & .subtitle{
+        font-weight: bold;
       }
     }
 
@@ -92,13 +38,46 @@ const PostContainer = styled.div`
       border-top: 1px solid #5f5f5f;
     }
   }
+
+  & .click-group-page{
+    text-align: center;
+    //border: 1px solid orange;
+    
+  }
+
+  & .group-page {
+    display: flex;
+    width: 90%;
+    margin-top: 25px;
+    height: 90px;
+    background-color: #F6F6F6;
+    border-radius: 10px;
+    margin-left: 1rem; 
+    //border: 1px solid violet;
+
+    & .small-img {
+      margin-left: 0.3rem;
+      margin-top: 0.3rem;
+      border-radius: 10px;
+      width: 45%;
+      min-width: 150px;
+      height: 80px;
+    }
+
+    & .group-page-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 0.6rem;
+    }
+  }
 `;
 
 const PostHeader = styled(ModalHeader)`
-  background-color: #6055cd;
+  background-color: white;
 
   h3 {
-    color: #ffffff;
+    color: black;
   }
   & .anticon-exclamation-circle {
     position: absolute;
@@ -160,22 +139,25 @@ const PostDetail = () => {
         <PostHeader>
           <LeftOutlined onClick={backRoute} />
           <h3>{title}</h3>
-          <ExclamationCircleTwoTone twoToneColor="#DFDFEC" />
+          <ExclamationCircleTwoTone twoToneColor="#C4C4C4" />
         </PostHeader>
         <main className="post-content">
           <div className="post-item">
-            <div className="subtitle">내용</div>
+            <div className="subtitle">✦ 내용</div>
             <div>{contents}</div>
           </div>
           <div className="post-item">
-            <div className="subtitle">마감 시간</div>
+            <div className="subtitle">✦ 마감 시간</div>
             <div>{deadline}</div>
           </div>
           <div className="post-item">
-            <div className="subtitle">예상 인원</div>
+            <div className="subtitle">✦ 예상 인원</div>
             {expectMemberCount}명
           </div>
           <Divider />
+          <div className="click-group-page">
+            "모임을 <b>클릭</b>하여 <b>모임 상세 정보</b>를 확인해보세요!"
+          </div>
           <div className="group-page" onClick={moveDetailInfo}>
             <img
               className="small-img"
@@ -196,7 +178,9 @@ const PostDetail = () => {
                   JoinGroup?.Group?.ActiveCategories?.length &&
                   JoinGroup.Group.ActiveCategories[0].DetailCategory.name}
               </div>
-              <div>{JoinGroup?.Group && JoinGroup.Group.name}</div>
+              <div>
+                <b>{JoinGroup?.Group && JoinGroup.Group.name}</b>
+              </div>
               <div>since 2019</div>
             </div>
           </div>

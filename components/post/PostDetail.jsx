@@ -158,14 +158,12 @@ const PostContainer = styled.div`
 `;
 
 const PostHeader = styled(ModalHeader)`
-  //background-color: #6055CD;
   background-color: white;
 
   h3 {
-    /* color: #ffffff; */
     color: black;
   }
-
+  
   & .anticon-exclamation-circle {
     position: absolute;
     top: 25px;
