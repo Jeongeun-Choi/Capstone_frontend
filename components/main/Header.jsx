@@ -5,12 +5,12 @@ import {
   LeftOutlined,
   InfoCircleOutlined,
   CloseOutlined,
-  MoreOutlined,
+  MoreOutlined
 } from '@ant-design/icons';
 
 const type = {
   purple: { backgroundColor: '#AAABD3', color: 'white' },
-  white: { backgroundColor: 'white', color: 'black' },
+  white: { backgroundColor: 'white', color: 'black' }
 };
 
 const CustomHeader = styled.header`
@@ -20,12 +20,12 @@ const CustomHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
-  color: ${(props) => type[props.type].color};
-  background: ${(props) => type[props.type].backgroundColor};
+  color: ${props => type[props.type].color};
+  background: ${props => type[props.type].backgroundColor};
   border-bottom: 1px solid grey;
 
   & .out_button {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-left: 2rem;
     cursor: pointer;
   }
@@ -34,12 +34,13 @@ const CustomHeader = styled.header`
     text-align: center;
     & h1 {
       margin: 0;
-      color: ${(props) => props.color};
+      font-size: 1.5rem;
+      color: ${props => type[props.type].color};
     }
   }
 
   & .second_button {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-right: 2rem;
     cursor: pointer;
   }
@@ -55,20 +56,20 @@ const Header = ({
   closeButton = false,
   closeOnClick,
   moreButton = false,
-  moreOnClick,
+  moreOnClick
 }) => {
   const router = useRouter();
 
   return (
     <CustomHeader type={type}>
-      <div className='out_button' onClick={() => router.back()}>
+      <div className="out_button" onClick={() => router.back()}>
         {backButton && <LeftOutlined />}
       </div>
-      <div className='header_title'>
+      <div className="header_title">
         {subTitle && <div>{subTitle}</div>}
         <h1>{title}</h1>
       </div>
-      <div className='second_button'>
+      <div className="second_button">
         {declareButton && (
           <div onClick={declareOnClick}>
             <InfoCircleOutlined />

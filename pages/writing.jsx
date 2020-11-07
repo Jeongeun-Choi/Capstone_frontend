@@ -4,6 +4,7 @@ import EmptyGroups from '../components/team/EmptyGroups';
 import Groups from '../components/team/Groups';
 import { useSelector } from 'react-redux';
 import { Tabs } from 'antd';
+import Header from '../components/main/Header';
 
 const GroupContainer = styled.div`
   width: 100%;
@@ -38,6 +39,13 @@ const writing = () => {
 
   return (
     <GroupContainer>
+      <Header
+        type="white"
+        backButton={false}
+        declareButton={false}
+        closeButton={false}
+        title="모집글 등록"
+      />
       <Tabs defaultActiveKey="1">
         <TabPane tab={myGroups} key="1">
           {me.joinGroups.length !== 0 ? (
