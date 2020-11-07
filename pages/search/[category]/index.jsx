@@ -41,13 +41,13 @@ const index = () => {
   const [categoryId, setCategoryId] = useState(0);
 
   useEffect(() => {
-    const id = category.filter(
+    const categoryId = category.filter(
       item => item.type === categoryUrlNames[categoryName]
     )[0].id;
     dispatch(loadGroupsRequestAction());
-    dispatch(loadPostsRequestAction({ id }));
-    setCategoryId(id);
-  }, [category]);
+    dispatch(loadPostsRequestAction({ categoryId }));
+    setCategoryId(categoryId);
+  }, []);
 
   useEffect(() => {
     const newGroups = groups.filter(
@@ -57,15 +57,18 @@ const index = () => {
         group.ActiveCategories[0].DetailCategory.Category.id === categoryId
     );
     setFilterGroups(newGroups);
-  }, [groups]);
+  }, [groups, posts]);
 
-  const changeSelect = useCallback(value => {
-    if (value === 'group') {
-      setIsGroup(true);
-    } else {
-      setIsGroup(false);
-    }
-  }, []);
+  const changeSelect = useCallback(
+    value => {
+      if (value === 'group') {
+        setIsGroup(true);
+      } else {
+        setIsGroup(false);
+      }
+    },
+    [isGroup]
+  );
 
   return (
     <SearchContainer>
