@@ -6,8 +6,8 @@ import styled from '@emotion/styled';
 import { HeartFilled, HeartOutlined, PlusOutlined } from '@ant-design/icons';
 import KakaoMap from '../../components/map/KakaoMap';
 import { Divider } from 'antd';
-import Setting from '../../components/team/groupSetting/Setting';
-import MakingGroup from '../../components/team/MakingGroup';
+import Setting from '../../components/group/groupSetting/Setting';
+import MakingGroup from '../../components/group/MakingGroup';
 
 const GroupContainer = styled.div`
   width: 100%;

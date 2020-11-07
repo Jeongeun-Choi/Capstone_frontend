@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import EmptyGroups from '../components/team/EmptyGroups';
-import Groups from '../components/team/Groups';
+import EmptyGroups from '../components/group/EmptyGroups';
+import Groups from '../components/group/Groups';
 import { useSelector } from 'react-redux';
 import { Tabs } from 'antd';
 import Header from '../components/main/Header';
@@ -14,7 +14,7 @@ const GroupContainer = styled.div`
   }
   .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
-      color:#6055CD;
+      color: #6055cd;
       font-weight: bold;
     }
   }
@@ -24,11 +24,11 @@ const GroupContainer = styled.div`
     justify-content: center;
 
     :hover {
-      color:#6055CD;
+      color: #6055cd;
     }
   }
   .ant-tabs-ink-bar {
-    background-color: #6055CD;
+    background-color: #6055cd;
   }
 `;
 
