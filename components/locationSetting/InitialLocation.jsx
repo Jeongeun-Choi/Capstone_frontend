@@ -8,6 +8,7 @@ import {
   loadApplyGroupsRequestAction,
   loadRecruitsRequestAction
 } from '../../reducers/user';
+import { loadCategorysRequestAction } from '../../reducers/category';
 
 const InitialLocationContainer = styled.div`
   width: 100%;
@@ -38,10 +39,10 @@ const Button = styled.button`
   ${basicStyle};
   width: 90%;
   color: #f8faff;
-  border: 1px solid #EBE7F8;
+  border: 1px solid #ebe7f8;
   border-radius: 17.5px;
   font-weight: bold;
-  background-color: #6055CD;
+  background-color: #6055cd;
 `;
 
 const SkipButton = styled.button`
@@ -60,11 +61,11 @@ const InitialLocation = ({ setShowingModal }) => {
   const router = useRouter();
 
   useEffect(() => {
-    !me.joinGroups &&
-      dispatch(loadJoingroupsRequestAction({ id: me.id })) &&
-      dispatch(loadApplyGroupsRequestAction({ id: me.id })) &&
-      dispatch(loadRecruitsRequestAction({ id: me.id }));
-  }, [me.id && me]);
+    dispatch(loadJoingroupsRequestAction({ id: me.id }));
+    dispatch(loadApplyGroupsRequestAction({ id: me.id }));
+    dispatch(loadRecruitsRequestAction({ id: me.id }));
+    dispatch(loadCategorysRequestAction());
+  }, []);
 
   const openSelection = useCallback(e => {
     e.preventDefault();

@@ -73,11 +73,11 @@ const Selection = ({ setShowingModal }) => {
 
   const showLocationModal = useCallback(() => {
     setShowingLocationModal(prev => !prev);
-  });
+  }, []);
 
   const showFieldModal = useCallback(() => {
     setShowingFieldModal(prev => !prev);
-  });
+  }, []);
 
   const submitResult = useCallback(
     e => {
@@ -100,7 +100,7 @@ const Selection = ({ setShowingModal }) => {
 
   return (
     <>
-      <SelectionForm onSubmit={submitResult}>
+      <SelectionForm>
         <ModalHeader>
           <LeftOutlined onClick={closeModal} />
           <h3>지역 및 관심분야 설정</h3>
@@ -149,7 +149,7 @@ const Selection = ({ setShowingModal }) => {
             ))}
           </div>
         </section>
-        <Footer htmlType="submit">설정하기</Footer>
+        <Footer onClick={submitResult}>설정하기</Footer>
       </SelectionForm>
       {showingLocationModal && (
         <LocationSetting

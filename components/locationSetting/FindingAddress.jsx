@@ -36,6 +36,11 @@ const FindingAddress = ({ locations, setLocations }) => {
         bname = data.bname;
 
         const location = { sido, sigungu, bname };
+        if (locations.length === 3) {
+          alert('최대 3개만 입력 됩니다.');
+          setShowingScreen(prev => !prev);
+          return;
+        }
         setLocations([...locations, location]);
       }
       setShowingScreen(prev => !prev);
