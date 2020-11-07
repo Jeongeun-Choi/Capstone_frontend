@@ -16,7 +16,7 @@ const index = () => {
 
   return (
     <>
-      <Header type="white" title="모두의 모임" />
+      <Header type="white" title="홈" />
       <Home />
     </>
   );

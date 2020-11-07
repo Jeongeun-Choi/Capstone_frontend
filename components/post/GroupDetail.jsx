@@ -17,6 +17,7 @@ import MakingGroup from '../team/MakingGroup';
 
 const GroupContainer = styled.div`
   width: 100%;
+  font-family: 'Nanum Gothic', sans-serif;
 
   & .post-info {
     height: 70px;
@@ -121,8 +122,8 @@ const GroupContainer = styled.div`
 
 const GroupHeader = styled(ModalHeader)`
   line-height: 25px;
-  color: #ffffff;
-  background-color: #6055cd;
+  color: black;
+  background-color: white;
 
   & .anticon-exclamation-circle {
     position: absolute;

@@ -13,7 +13,8 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  font-family: 'Nanum Gothic', sans-serif;
+/* 
   & .post-content {
     display: flex;
     flex-direction: column;
@@ -32,6 +33,7 @@ const PostContainer = styled.div`
       align-items: center;
       margin-top: 10px;
 
+      //안 쓰이는 부분 아닌가..?
       & .like {
         display: flex;
         width: 30px;
@@ -91,15 +93,79 @@ const PostContainer = styled.div`
     & .ant-divider {
       border-top: 1px solid #5f5f5f;
     }
+  } */
+
+
+  //여기부터 수정한 코드
+  & .post-content {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    //border: 1px solid green;
+
+    & .big-img {
+      margin-top: 20px;
+      width: 100%;
+      height: 30vh;
+    }
+
+
+    & .post-item{
+      margin-top: 0.9rem;
+      //border: 1px solid red;
+      & .subtitle{
+        font-weight: bold;
+      }
+    }
+
+    & .ant-divider {
+      border-top: 1px solid #5f5f5f;
+    }
+  }
+
+  & .click-group-page{
+    text-align: center;
+    //border: 1px solid orange;
+    
+  }
+
+  & .group-page {
+    display: flex;
+    width: 90%;
+    margin-top: 25px;
+    height: 90px;
+    background-color: #F6F6F6;
+    border-radius: 10px;
+    margin-left: 1rem; 
+    //border: 1px solid violet;
+
+    & .small-img {
+      margin-left: 0.3rem;
+      margin-top: 0.3rem;
+      border-radius: 10px;
+      width: 45%;
+      min-width: 150px;
+      height: 80px;
+    }
+
+    & .group-page-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 0.6rem;
+    }
   }
 `;
 
 const PostHeader = styled(ModalHeader)`
-  background-color: #6055CD;
+  //background-color: #6055CD;
+  background-color: white;
 
   h3 {
-    color: #ffffff;
+    /* color: #ffffff; */
+    color: black;
   }
+
   & .anticon-exclamation-circle {
     position: absolute;
     top: 25px;
@@ -147,22 +213,25 @@ const PostDetail = ({ recruitId, setIsShowing }) => {
             <PostHeader>
               <LeftOutlined onClick={closeModal} />
               <h3>{data.title}</h3>
-              <ExclamationCircleTwoTone twoToneColor="#DFDFEC" />
+              <ExclamationCircleTwoTone twoToneColor="#C4C4C4" />
             </PostHeader>
             <main className="post-content">
               <div className="post-item">
-                <div className="subtitle">내용</div>
+                <div className="subtitle">✦ 내용</div>
                 <div>{data.contents}</div>
               </div>
               <div className="post-item">
-                <div className="subtitle">마감 시간</div>
+                <div className="subtitle">✦ 마감 시간</div>
                 <div>{data.deadline}</div>
               </div>
               <div className="post-item">
-                <div className="subtitle">예상 인원</div>
+                <div className="subtitle">✦ 예상 인원</div>
                 {data.expectMemberCount}명
               </div>
               <Divider />
+              <div className="click-group-page">
+                "모임을 <b>클릭</b>하여 <b>모임 상세 정보</b>를 확인해보세요!"
+              </div>
               <div className="group-page" onClick={clickGroupDetail}>
                 <img
                   className="small-img"
@@ -184,7 +253,7 @@ const PostDetail = ({ recruitId, setIsShowing }) => {
                         .name
                     }
                   </div>
-                  <div>{data.JoinGroup.Group.name}</div>
+                  <div><b>{data.JoinGroup.Group.name}</b></div>
                   <div>since 2019</div>
                 </div>
               </div>
