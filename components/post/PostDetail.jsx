@@ -13,6 +13,7 @@ const PostContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Nanum Gothic', sans-serif;
 
   & .post-content {
     display: flex;

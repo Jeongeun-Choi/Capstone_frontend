@@ -5,8 +5,11 @@ import { useRouter } from 'next/router';
 const GroupItemWrapper = styled.li`
   width: 100%;
   height: 40vh;
+  margin-top: 1rem;
   cursor: pointer;
   transition: opacity 0.5s;
+  border: 1px solid blue;
+
   &:hover {
     opacity: 0.8;
   }
