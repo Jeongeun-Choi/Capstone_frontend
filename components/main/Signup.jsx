@@ -48,7 +48,7 @@ const SignupContainer = styled.main`
 
     & span {
         color: #6055CD;
-      }
+    }
 
     & .input-date {
       display: flex;
@@ -94,6 +94,7 @@ const SignupForm = styled.form`
     align-items: center;
     width: 100%;
   }
+
   .password-promise {
     font-size: 9px;
   }

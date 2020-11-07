@@ -7,6 +7,7 @@ import EmptyTeams from '../components/team/EmptyTeams';
 
 // #6055CD
 const GroupContainer = styled.div`
+  font-family: 'Nanum Gothic', sans-serif;
   width: 100%;
   .ant-tabs-nav-list {
     width: 100%;
