@@ -8,6 +8,7 @@ import Header from '../components/main/Header';
 
 // #6055CD
 const GroupContainer = styled.div`
+  font-family: 'Nanum Gothic', sans-serif;
   width: 100%;
   .ant-tabs-nav-list {
     width: 100%;
@@ -39,7 +40,7 @@ const group = () => {
 
   return (
     <GroupContainer>
-      <Header type="purple" title="모임명" />
+      <Header type="white" title="모임명" />
       <Tabs defaultActiveKey="1">
         <TabPane tab={applyGroups} key="1">
           {me.applyGroups.length !== 0 ? (

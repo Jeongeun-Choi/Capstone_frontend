@@ -15,7 +15,6 @@ const CategoryBox = styled.li`
   font-weight: bold;
   border: none;
 
-  /* TODO: ul 중앙정렬 */
   display: flex;
   margin-left: 2%;
   margin-right: 2%;
@@ -29,6 +28,7 @@ const CategoryBox = styled.li`
   & img {
     width: 100%;
     height: 100%;
+    border-radius: 5px;
   }
 
   & .img_text {
@@ -39,6 +39,7 @@ const CategoryBox = styled.li`
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0.5, 0.5);
+    border-radius: 5px;
   }
 `;
 

@@ -8,12 +8,13 @@ import Header from '../components/main/Header';
 
 const GroupContainer = styled.div`
   width: 100%;
+  font-family: 'Nanum Gothic', sans-serif;
   .ant-tabs-nav-list {
     width: 100%;
   }
   .ant-tabs-tab-active {
     .ant-tabs-tab-btn {
-      color: #aaabd3;
+      color:#6055CD;
       font-weight: bold;
     }
   }
@@ -23,11 +24,11 @@ const GroupContainer = styled.div`
     justify-content: center;
 
     :hover {
-      color: #aaabd3;
+      color:#6055CD;
     }
   }
   .ant-tabs-ink-bar {
-    background-color: #aaabd3;
+    background-color: #6055CD;
   }
 `;
 

@@ -17,6 +17,7 @@ import MakingGroup from '../team/MakingGroup';
 
 const GroupContainer = styled.div`
   width: 100%;
+  font-family: 'Nanum Gothic', sans-serif;
 
   & .post-info {
     height: 70px;

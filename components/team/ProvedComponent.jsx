@@ -26,8 +26,10 @@ const ProvedContainer = styled.form`
       text-align: center;
     }
     & span {
-      //color: #6055CD;
       color: #6055CD;
+    }
+    input {
+      padding-left: 2%;
     }
     & .input-item {
       font-family: 'Nanum Gothic', sans-serif;
