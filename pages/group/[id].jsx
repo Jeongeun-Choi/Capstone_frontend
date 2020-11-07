@@ -216,7 +216,7 @@ const GroupDetail = () => {
                 {!!ActiveCategories && ActiveCategories[0]?.DetailCategory.name}
               </div>
               <div className="group-basic-name">
-                {name} | {location?.split(' ')[2]}
+                {selectedGroup?.name} | {location?.split(' ')[2]}
               </div>
             </div>
           </div>
@@ -274,7 +274,7 @@ const GroupDetail = () => {
                 {ActiveCategories?.length &&
                   ActiveCategories[0]?.DetailCategory.name}
               </div>
-              <div>{name}</div>
+              <div>{selectedGroup?.name}</div>
               <div>since 2019</div>
             </div>
           </div>

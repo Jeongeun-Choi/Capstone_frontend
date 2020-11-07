@@ -32,9 +32,9 @@ const Groups = ({ groups, type }) => {
             ))
           : groups.map(group => (
               <Group
-                key={group.id}
-                id={group.id}
-                groupName={group.title}
+                key={group?.Group ? group.Group.id : group.id}
+                id={group?.Group ? group.Group.id : group.id}
+                groupName={group?.Group ? group.Group.name : group.title}
                 type={type}
               />
             ))}

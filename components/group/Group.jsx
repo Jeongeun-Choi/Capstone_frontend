@@ -65,12 +65,12 @@ const Group = ({ id, groupName, position = null, type, data = null }) => {
         <section className="group-image">
           <img
             src={
-              data && data.Group.GroupImages.length
+              data && data.Group.GroupImages?.length
                 ? data.Group.GroupImages[0].URL
                 : '/images/teamimg.jpg'
             }
             alt={
-              data && data.Group.GroupImages.length
+              data && data.Group.GroupImages?.length
                 ? data.Group.GroupImages[0].description
                 : '기본 이미지'
             }

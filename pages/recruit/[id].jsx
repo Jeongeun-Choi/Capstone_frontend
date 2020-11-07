@@ -120,7 +120,6 @@ const PostDetail = () => {
   const [selectedRecruit, setSelectedRecruit] = useState({});
   const [showingJoinModal, setShowingJoinModal] = useState(false);
   const { id } = router.query;
-  console.log(selectedRecruit);
   const {
     title,
     contents,
@@ -150,9 +149,9 @@ const PostDetail = () => {
     router.back();
   }, []);
 
-  const moveDetailInfo = useCallback(async () => {
+  const moveDetailInfo = useCallback(() => {
     router.push(`/group/${JoinGroup?.Group?.id}`);
-  }, []);
+  }, [selectedRecruit]);
 
   return (
     <>

@@ -58,7 +58,12 @@ const Item = ({ type, name, id, location, category, image = null }) => {
         <div className="box-info">
           <div className="box-info-category">{categoryUrlNames[category]}</div>
           <div className="box-info-name">{name}</div>
-          <div className="box-info-location">{location}</div>
+          <div className="box-info-location">
+            {location
+              ?.split(' ')
+              .slice(0, 3)
+              .join(' ')}
+          </div>
         </div>
       </ItemBox>
     </>
