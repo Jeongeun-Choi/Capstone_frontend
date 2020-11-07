@@ -9,6 +9,12 @@ const FilterDayContainer = styled.section`
 
   & .column_name {
     font-size: 1.1rem;
+    //border: 1px solid green;
+  }
+
+  & .day_of_week{
+    //border: 1px solid pink;
+    margin: 0.3rem;
   }
 `;
 
@@ -24,7 +30,7 @@ const FilterDay = () => {
   return (
     <FilterDayContainer>
       <div className='column_name'>활동 요일</div>
-      <DayWrapper>
+      <DayWrapper className='day_of_week'>
         <CheckBoxLabel id='monday' text='월' />
         <CheckBoxLabel id='tuesday' text='화' />
         <CheckBoxLabel id='wednesday' text='수' />

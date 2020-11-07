@@ -24,6 +24,12 @@ const FilterForm = styled.form`
 
     & .column_title {
       font-size: 1.1rem;
+      //border: 1px solid blue;
+    }
+
+    & .div_content{
+      //border: 1px solid purple;
+      margin: 0.3rem;
     }
   }
 `;
@@ -32,7 +38,7 @@ const Button = styled.button`
   width: 100%;
   height: 8vh;
   color: white;
-  background-color: #aaabd3;
+  background-color: #6055CD;
   border: none;
   font-size: 1.2rem;
   cursor: pointer;

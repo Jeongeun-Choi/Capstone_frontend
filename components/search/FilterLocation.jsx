@@ -24,6 +24,12 @@ const Locations = [
 const FilterLocationContainer = styled.div`
   & .column_name {
     font-size: 1.1rem;
+    //border: 1px solid red;
+  }
+
+  & .location_container{
+    //border: 1px solid orange;
+    margin: 0.3rem;
   }
 `;
 
@@ -42,7 +48,7 @@ const FilterLocation = () => {
   return (
     <FilterLocationContainer>
       <div className='column_name'>활동 지역</div>
-      <LocationWrapper>
+      <LocationWrapper className="location_container">
         {Locations.map((location) => (
           <CheckBoxLabel
             key={location.id}
