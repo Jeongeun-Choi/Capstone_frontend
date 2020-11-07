@@ -19,15 +19,6 @@ const GroupContainer = styled.div`
     align-items: center;
   }
   
-  //안 쓰이는 부분 같은데.. 아닌가? 일단 주석처리!
-  /* & .team-category {
-    font-size: 14px;
-  }
-  & .team-name {
-    font-size: 16px;
-    font-weight: bold;
-  } */
-
   & .group-content {
     display: flex;
     flex-direction: column;
@@ -208,38 +199,24 @@ const GroupDetail = () => {
           src={GroupImages && GroupImages[0].URL}
           alt={GroupImages && GroupImages[0].description}
         />
+        
         <div className="group-content-header">
-          {/* <div>
-            <div className="group-content-item">
-              {!!ActiveCategories && ActiveCategories[0]?.DetailCategory.name}
-            </div>
-            <div className="group-content-item">
-              <b>{name}</b> | {location?.split(' ')[2]}
-            </div>
-          </div> */}
-        <div className = "group-content-header">
-          <div className = "group-basic-info">
-            <div className = "group-basic-category">
-              {!!ActiveCategories && ActiveCategories[0]?.DetailCategory.name}
-            </div>
-            <div className = "group-basic-name">
-               <b>{name} | {location?.split(' ')[2]}</b> 
+          <div className = "group-content-header">
+            <div className = "group-basic-info">
+              <div className = "group-basic-category">
+                {!!ActiveCategories && ActiveCategories[0]?.DetailCategory.name}
+              </div>
+              <div className = "group-basic-name">
+                <b>{name} | {location?.split(' ')[2]}</b> 
+              </div>
             </div>
           </div>
-
-          {/* <div className = "group-basic-info">
-            {!!ActiveCategories && ActiveCategories[0]?.DetailCategory.name}
-          </div>
-          <div className = "group-basic-info">
-
-          </div> */}
-
-        </div>
 
           <div className="like" onClick={clickHeart}>
             {filledHeart ? <HeartFilled /> : <HeartOutlined />}
           </div>
         </div>
+
         <div className="group-content-item">
           <div className="subtitle">✦ 모임소개</div>
           <div className="team-info-textarea">{groupIntro}</div>

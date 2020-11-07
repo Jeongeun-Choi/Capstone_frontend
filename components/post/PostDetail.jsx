@@ -214,7 +214,6 @@ const PostDetail = ({ recruitId, setIsShowing }) => {
               <LeftOutlined onClick={closeModal} />
               <h3>{data.title}</h3>
               <ExclamationCircleTwoTone twoToneColor="#C4C4C4" />
-              {/* <ExclamationCircleTwoTone twoToneColor="#DFDFEC" /> */}
             </PostHeader>
             <main className="post-content">
               <div className="post-item">
