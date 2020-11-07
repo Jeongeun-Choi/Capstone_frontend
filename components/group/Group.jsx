@@ -5,6 +5,7 @@ import { basicTeamStyle } from '../../public/style';
 import GroupDetail from '../post/GroupDetail';
 import WritingPost from '../writing/WritingPost';
 import MakingGroup from './MakingGroup';
+import { ContainerFilled } from '@ant-design/icons';
 
 const positions = {
   L: '모임장',
@@ -46,6 +47,13 @@ const MyGroup = styled.li`
     & .group-info-position {
       font-size: 0.8rem;
     }
+
+    & .group-application {
+      width: 10%;
+      display: flex;
+      flex-direction: column;
+      font-size: 0.7rem;
+    }
   }
 `;
 
@@ -80,6 +88,12 @@ const Group = ({ id, groupName, position = null, type, data = null }) => {
           <div className="group-info-name">{groupName}</div>
           {position && (
             <div className="group-info-position">{positions[position]}</div>
+          )}
+          {type !== 'group' && (
+            <div className="group-application">
+              <ContainerFilled />
+              <div>지원서 열람</div>
+            </div>
           )}
         </section>
       </MyGroup>
