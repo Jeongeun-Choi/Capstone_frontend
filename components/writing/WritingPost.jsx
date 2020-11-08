@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { LeftOutlined } from '@ant-design/icons';
 import useInputChangeHook from '../../hooks/useInputChangeHook';
 import { DatePicker, TimePicker, Slider } from 'antd';
+import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import {
@@ -16,8 +17,6 @@ import {
   updatePostRequestAction
 } from '../../reducers/post';
 import customAxios from '../../utils/baseAxios';
-
-const format = 'HH:mm';
 
 const WritingPostContainer = styled.form`
   width: 100%;
@@ -60,7 +59,7 @@ const WritingPostContainer = styled.form`
 
 const WritingPostHeader = styled(ModalHeader)`
   color: #ffffff;
-  background-color: #6055CD;
+  background-color: #6055cd;
 
   h3 {
     color: #ffffff;
@@ -69,34 +68,37 @@ const WritingPostHeader = styled(ModalHeader)`
 
 const WritingPostFooter = styled.button`
   ${modalFooter};
-  border: 1px solid #6055CD;
-  background-color: #6055CD;
+  border: 1px solid #6055cd;
+  background-color: #6055cd;
   color: #ffffff;
   font-weight: bold;
 `;
 
 const WritingPost = ({ setIsShowing, id, type }) => {
+  const format = 'HH:mm';
   const modify = type === 'postEdit' ? true : false;
   const [recruit, setRecruit] = useState(null);
-  const [title, changeTitle, setTitle] = useInputChangeHook('');
-  const [contents, changeContents, setContents] = useInputChangeHook('');
-  const [date, changeDate] = usePickerHook('');
-  const [time, changeTime] = usePickerHook('');
+  const [title, changeTitle] = useInputChangeHook('');
+  const [contents, changeContents] = useInputChangeHook('');
+  const [date, changeDate, setDate] = usePickerHook('');
+  const [time, changeTime, setTime] = usePickerHook('');
   const [expectMemberCount, setExpectMemberCount] = useState(0);
 
+  console.log(date, time);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    !recruit && modify && getData();
-  }, [recruit]);
+    modify && getData();
+  }, []);
 
-  const getData = useCallback(async () => {
+  const getData = async () => {
     const { data } = await customAxios.get(`/recruits/${id}`);
     setRecruit(data.recruit);
-    setTitle(data.recruit.title);
-    setContents(data.recruit.contents);
-    setExpectMemberCount(data.recruit.expectMemberCount);
-  }, [id]);
+    const [getDate, getTime] =
+      data.recruit && data.recruit?.deadline.split(' ');
+    setDate(getDate);
+    setTime(getTime);
+  };
 
   const formatter = value => {
     return `${value}명`;
@@ -148,7 +150,7 @@ const WritingPost = ({ setIsShowing, id, type }) => {
               <label htmlFor="title">제목</label>
               <input
                 id="title"
-                value={title}
+                value={recruit ? recruit.title : title}
                 className="post-input"
                 onChange={changeTitle}
                 placeholder="제목을 입력해주세요."
@@ -159,7 +161,7 @@ const WritingPost = ({ setIsShowing, id, type }) => {
               <textarea
                 id="content"
                 required
-                value={contents}
+                value={recruit ? recruit.contents : contents}
                 onChange={changeContents}
                 placeholder="모집글에 대한 내용을 입력해주세요."
               ></textarea>
@@ -167,14 +169,23 @@ const WritingPost = ({ setIsShowing, id, type }) => {
             <div className="post-item">
               <div className="subtitle">마감 시간</div>
               <div className="post-active-time-content">
-                <DatePicker onChange={changeDate} />
-                <TimePicker format={format} onChange={changeTime} />
+                <DatePicker
+                  defaultValue={recruit && moment(date, 'YYYY-MM-DD')}
+                  onChange={changeDate}
+                />
+                <TimePicker
+                  defaultValue={recruit && moment(time, format)}
+                  format={format}
+                  onChange={changeTime}
+                />
               </div>
             </div>
             <div className="post-item">
               <div className="subtitle">예상 인원</div>
               <Slider
-                defaultValue={expectMemberCount}
+                defaultValue={
+                  recruit ? recruit.expectMemberCount : expectMemberCount
+                }
                 max={10}
                 tipFormatter={formatter}
                 onChange={changeSlider}
