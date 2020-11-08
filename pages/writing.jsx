@@ -58,8 +58,8 @@ const writing = () => {
       />
       <Tabs defaultActiveKey="1">
         <TabPane tab={myGroups} key="1">
-          {me.joinGroups.length !== 0 ? (
-            <Groups groups={me.joinGroups} type="post" />
+          {me.JoinGroups?.length !== 0 ? (
+            <Groups groups={me.JoinGroups} type="post" />
           ) : (
             <EmptyGroups pageTab={myGroups} />
           )}

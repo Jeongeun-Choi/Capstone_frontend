@@ -45,7 +45,7 @@ import {
   withdrawFailureAction,
   loadRecruitsSuccessAction,
   loadRecruitsFailureAction,
-  LOAD_RECRUITS_REQUEST
+  LOAD_RECRUITS_REQUEST,
 } from '../reducers/user';
 
 function loadRecruitsAPI(data) {
@@ -56,7 +56,6 @@ function loadRecruitsAPI(data) {
 function* loadRecruits(action) {
   try {
     const response = yield call(loadRecruitsAPI, action.data);
-    console.log(response);
     yield put(loadRecruitsSuccessAction(response.data));
   } catch (err) {
     yield put(loadRecruitsFailureAction(err));
@@ -229,7 +228,7 @@ function* watchDeleteLocation() {
 function addCategoryAPI(data) {
   const { memberId, categories } = data;
 
-  const categoryIds = categories.map(category => category.id);
+  const categoryIds = categories.map((category) => category.id);
   const requestData = { memberId, categoryIds };
 
   return customAxios.put('/member/category', requestData);
@@ -329,6 +328,6 @@ export default function* userSaga() {
     fork(watchLoadMyInfo),
     fork(watchUpdateMyInfo),
     fork(watchLoadPreferGroups),
-    fork(watchUpdatePreferLocation)
+    fork(watchUpdatePreferLocation),
   ]);
 }

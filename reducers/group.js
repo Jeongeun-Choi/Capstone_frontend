@@ -11,7 +11,7 @@ export const initialState = {
   updateGroupLoading: false, //모집글 수정 시도중
   updateGroupDone: false,
   updateGroupError: null,
-  groups: []
+  groups: [],
 };
 
 export const LOAD_GROUPS_REQUEST = 'LOAD_GROUPS_REQUEST';
@@ -30,6 +30,10 @@ export const DELETE_GROUP_REQUEST = 'DELETE_GROUP_REQUEST';
 export const DELETE_GROUP_SUCCESS = 'DELETE_GROUP_SUCCESS';
 export const DELETE_GROUP_FAILURE = 'DELETE_GROUP_FAILURE';
 
+export const LOAD_FILTERED_GROUPS_REQUEST = 'LOAD_FILTERED_GROUPS_REQUEST';
+export const LOAD_FILTERED_GROUPS_SUCCESS = 'LOAD_FILTERED_GROUPS_SUCCESS';
+export const LOAD_FILTERED_GROUPS_FAILURE = 'LOAD_FILTERED_GROUPS_FAILURE';
+
 export const loadGroupsRequestAction = createAction(LOAD_GROUPS_REQUEST);
 export const loadGroupsSuccessAction = createAction(LOAD_GROUPS_SUCCESS);
 export const loadGroupsFailureAction = createAction(LOAD_GROUPS_FAILURE);
@@ -46,8 +50,18 @@ export const deleteGroupRequestAction = createAction(DELETE_GROUP_REQUEST);
 export const deleteGroupSuccessAction = createAction(DELETE_GROUP_SUCCESS);
 export const deleteGroupFailureAction = createAction(DELETE_GROUP_FAILURE);
 
+export const loadFilteredGroupsRequestAction = createAction(
+  LOAD_FILTERED_GROUPS_REQUEST
+);
+export const loadFilteredGroupsSuccessAction = createAction(
+  LOAD_FILTERED_GROUPS_SUCCESS
+);
+export const loadFilteredGroupsFailureAction = createAction(
+  LOAD_FILTERED_GROUPS_FAILURE
+);
+
 const reducer = (state = initialState, action) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (action.type) {
       case LOAD_GROUPS_REQUEST: {
         draft.groupsLoading = true;
@@ -93,7 +107,7 @@ const reducer = (state = initialState, action) => {
         draft.updateGroupLoading = false;
         draft.updateGroupDone = true;
         const index = draft.groups.findIndex(
-          group => group.id == action.data.groupId
+          (group) => group.id == action.data.groupId
         );
         draft.groups.splice(index, 1, action.data);
         break;
@@ -107,11 +121,21 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case DELETE_GROUP_SUCCESS: {
-        draft.groups.filter(group => group.id !== action.data.groupId);
+        draft.groups.filter((group) => group.id !== action.data.groupId);
         break;
       }
       case DELETE_GROUP_FAILURE: {
         draft.deleteGroupError = action.err;
+        break;
+      }
+      case LOAD_FILTERED_GROUPS_REQUEST: {
+        break;
+      }
+      case LOAD_FILTERED_GROUPS_SUCCESS: {
+        draft.groups = action.data.groups;
+        break;
+      }
+      case LOAD_FILTERED_GROUPS_FAILURE: {
         break;
       }
       default:
