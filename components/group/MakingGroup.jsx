@@ -114,7 +114,7 @@ const MakingGroupFooter = styled.button`
 
 const MakingGroup = ({
   setCloseModal,
-  groupId,
+  groupId = null,
   modify = false,
   data = null
 }) => {
@@ -123,44 +123,45 @@ const MakingGroup = ({
   const { me } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
-  const {
-    name,
-    ActiveCategories,
-    GroupImages,
-    ActiveTimes,
-    Skills,
-    groupIntro,
-    location,
-    memberCount
-  } = data;
-
   const [category, setCategory] = useState(
     modify
-      ? [ActiveCategories?.length && ActiveCategories[0].DetailCategory.id]
+      ? [
+          data?.ActiveCategories?.length &&
+            ActiveCategories[0].DetailCategory.id
+        ]
       : []
   );
-  const [groupName, changeGroupName] = useInputChangeHook(modify ? name : '');
-  const [intro, changeIntro] = useInputChangeHook(modify ? groupIntro : '');
-  const [groupLocation, setGroupLocation] = useState(modify ? location : '');
-  const [maxMember, setMaxMember] = useState(modify ? memberCount : 0);
+  const [groupName, changeGroupName] = useInputChangeHook(
+    modify ? data && name : ''
+  );
+  const [intro, changeIntro] = useInputChangeHook(
+    modify ? data && groupIntro : ''
+  );
+  const [groupLocation, setGroupLocation] = useState(
+    modify ? data && location : ''
+  );
+  const [maxMember, setMaxMember] = useState(modify ? data && memberCount : 0);
   const [activeDays, setActiveDays] = useState([]);
   const [startTime, changeStartTime] = usePickerHook(
-    modify ? ActiveTimes?.length && ActiveTimes[0].startTime : ''
+    modify ? data?.ActiveTimes?.length && data.ActiveTimes[0].startTime : ''
   );
   const [endTime, changeEndTime] = usePickerHook(
-    modify ? ActiveTimes?.length && ActiveTimes[0].endTime : ''
+    modify ? data?.ActiveTimes?.length && data.ActiveTimes[0].endTime : ''
   );
   const [skills, setSkills] = useState('');
-  const [groupImages, setGroupImages] = useState(modify ? GroupImages : []);
+  const [groupImages, setGroupImages] = useState(
+    modify ? data && GroupImages : []
+  );
   const [middleCategory, setMiddleCategory] = useState(
     modify
-      ? ActiveCategories?.length &&
-          ActiveCategories[0]?.DetailCategory.Category.type
+      ? data?.ActiveCategories?.length &&
+          data.ActiveCategories[0]?.DetailCategory.Category.type
       : ''
   );
   const [detailCategory, setDetailCategory] = useState(
     modify
-      ? ActiveCategories?.length && ActiveCategories[0]?.DetailCategory.name
+      ? data?.ActiveCategories?.length &&
+          data.ActiveCategories[0]?.DetailCategory.name
       : ''
   );
   const [showDetailCategory, setShowDetailCategory] = useState(
@@ -305,7 +306,6 @@ const MakingGroup = ({
     }
   }, []);
 
-  console.log(groupName, moment(startTime, 'HH:mm'), endTime);
   return (
     <>
       <Modal zIndex={3}>
@@ -399,12 +399,12 @@ const MakingGroup = ({
               <div className="subtitle">활동 시간</div>
               <div className="team-active-time-content">
                 <TimePicker
-                  defaultValue={moment(startTime, format)}
+                  defaultValue={modify && moment(startTime, format)}
                   format={format}
                   onChange={changeStartTime}
                 />
                 <TimePicker
-                  defaultValue={moment(endTime, format)}
+                  defaultValue={modify && moment(endTime, format)}
                   format={format}
                   onChange={changeEndTime}
                 />
