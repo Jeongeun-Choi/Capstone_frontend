@@ -33,7 +33,7 @@ const SearchContainer = styled.div`
 const index = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { me } = useSelector(state => state.me);
+  // const { me } = useSelector(state => state.me);
   const { posts } = useSelector(state => state.post);
   const { groups } = useSelector(state => state.group);
   const { category } = useSelector(state => state.category);
@@ -48,7 +48,7 @@ const index = () => {
     )[0].id;
     dispatch(loadGroupsRequestAction());
     dispatch(loadPostsRequestAction({ categoryId }));
-    dispatch(loadPreferGroupsRequestAction(me.id));
+    // dispatch(loadPreferGroupsRequestAction(me && me?.id));
     setCategoryId(categoryId);
   }, [categoryName]);
 
