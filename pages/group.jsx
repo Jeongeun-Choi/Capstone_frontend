@@ -57,7 +57,7 @@ const group = () => {
 
   return (
     <GroupContainer>
-      <Header type="white" title="모임명" />
+      <Header type="white" title="모임" />
       <Tabs defaultActiveKey="1">
         <TabPane tab={applyGroups} key="1">
           {me.ApplyGroups?.length !== 0 ? (

@@ -55,7 +55,8 @@ const ModalFooter = styled.footer`
     height: 70px;
     border-bottom: 1px solid #868686;
     padding: 2% 0 0 2%;
-    font-size: 7.5px;
+    //font-size: 7.5px;
+    font-size: 0.75rem;
   }
   .choice-location-board {
     display: flex;
