@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import EmptyGroups from '../components/group/EmptyGroups';
 import Groups from '../components/group/Groups';
-import { useSelector } from 'react-redux';
 import { Tabs } from 'antd';
 import Header from '../components/main/Header';
 import {
@@ -41,7 +41,7 @@ const writing = () => {
   const myPosts = '나의 모집글';
   const myGroups = '나의 모임';
   const { me } = useSelector(state => state.user);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadJoingroupsRequestAction({ id: me.id }));
     dispatch(loadRecruitsRequestAction({ id: me.id }));
