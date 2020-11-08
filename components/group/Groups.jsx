@@ -21,7 +21,7 @@ const Groups = ({ groups, type }) => {
     <GroupsContainer>
       <ul>
         {type === 'group'
-          ? groups?.map((group) => (
+          ? groups?.map(group => (
               <Group
                 key={group.id}
                 id={group.Group.id}
@@ -36,11 +36,12 @@ const Groups = ({ groups, type }) => {
                 type={type}
               />
             ))
-          : groups?.map((group) => (
+          : groups?.map(group => (
               <Group
                 key={group?.Group ? group.Group.id : group.id}
                 id={group?.Group ? group.Group.id : group.id}
                 groupName={group?.Group ? group.Group.name : group.title}
+                data={group}
                 type={type}
               />
             ))}
