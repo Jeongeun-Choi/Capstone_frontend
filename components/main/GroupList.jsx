@@ -24,7 +24,7 @@ const GroupListWrapper = styled.ul`
 const GroupList = ({ groups }) => {
   return (
     <GroupListWrapper>
-      {groups.map((group) => (
+      {groups?.map((group) => (
         <GroupItem key={group.id} group={group} />
       ))}
     </GroupListWrapper>

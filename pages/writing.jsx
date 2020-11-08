@@ -36,28 +36,28 @@ const writing = () => {
   const { TabPane } = Tabs;
   const myPosts = '나의 모집글';
   const myGroups = '나의 모임';
-  const { me } = useSelector(state => state.user);
+  const { me } = useSelector((state) => state.user);
 
   return (
     <GroupContainer>
       <Header
-        type="white"
+        type='white'
         backButton={false}
         declareButton={false}
         closeButton={false}
-        title="모집글 등록"
+        title='모집글 등록'
       />
-      <Tabs defaultActiveKey="1">
-        <TabPane tab={myGroups} key="1">
-          {me.joinGroups.length !== 0 ? (
-            <Groups groups={me.joinGroups} type="post" />
+      <Tabs defaultActiveKey='1'>
+        <TabPane tab={myGroups} key='1'>
+          {me.JoinGroups?.length !== 0 ? (
+            <Groups groups={me.JoinGroups} type='post' />
           ) : (
             <EmptyGroups pageTab={myGroups} />
           )}
         </TabPane>
-        <TabPane tab={myPosts} key="2">
+        <TabPane tab={myPosts} key='2'>
           {me.recruits.length ? (
-            <Groups groups={me.recruits} type="postEdit" />
+            <Groups groups={me.recruits} type='postEdit' />
           ) : (
             <EmptyGroups pageTab={myPosts} />
           )}

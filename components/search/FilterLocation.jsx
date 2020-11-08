@@ -21,24 +21,25 @@ const Locations = [
   { id: 'jeju', location: '제주' },
 ];
 
-const FilterLocationContainer = styled.div`
+const FilterLocationContainer = styled.section`
   & .column_name {
     font-size: 1.1rem;
   }
 `;
 
-const LocationWrapper = styled.section`
+const LocationWrapper = styled.div`
   display: grid;
   justify-content: center;
   grid-template-columns: 16% 16% 16% 16% 16% 16%;
   row-gap: 0.2rem;
+  margin-top: 1rem;
 
   @media screen and (min-width: 720px) {
     justify-content: flex-start;
     grid-template-columns: 6% 6% 6% 6% 6% 6%;
   }
 `;
-const FilterLocation = () => {
+const FilterLocation = ({ setActiveLocation }) => {
   return (
     <FilterLocationContainer>
       <div className='column_name'>활동 지역</div>
@@ -48,6 +49,7 @@ const FilterLocation = () => {
             key={location.id}
             id={location.id}
             text={location.location}
+            setState={setActiveLocation}
             width={'2.5rem'}
           ></CheckBoxLabel>
         ))}

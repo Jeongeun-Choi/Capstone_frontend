@@ -1,10 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tabs } from 'antd';
 import styled from '@emotion/styled';
 import Groups from '../components/group/Groups';
 import EmptyGroups from '../components/group/EmptyGroups';
 import Header from '../components/main/Header';
+import { loadMyInfoRequestAction } from '../reducers/user';
 
 // #6055CD
 const GroupContainer = styled.div`
@@ -33,25 +34,30 @@ const GroupContainer = styled.div`
   }
 `;
 const group = () => {
+  const dispatch = useDispatch();
   const { TabPane } = Tabs;
   const applyGroups = '내가 지원한 모임';
   const myGroups = '나의 모임';
-  const { me } = useSelector(state => state.user);
+  const { me } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(loadMyInfoRequestAction());
+  }, []);
 
   return (
     <GroupContainer>
-      <Header type="white" title="모임명" />
-      <Tabs defaultActiveKey="1">
-        <TabPane tab={applyGroups} key="1">
-          {me.applyGroups.length !== 0 ? (
-            <Groups groups={me.applyGroups} type="group" />
+      <Header type='white' title='모임명' />
+      <Tabs defaultActiveKey='1'>
+        <TabPane tab={applyGroups} key='1'>
+          {me.ApplyGroups?.length !== 0 ? (
+            <Groups groups={me.ApplyGroups} type='group' />
           ) : (
             <EmptyGroups pageTab={applyGroups} />
           )}
         </TabPane>
-        <TabPane tab={myGroups} key="2">
-          {me.joinGroups.length !== 0 ? (
-            <Groups groups={me.joinGroups} type="group" />
+        <TabPane tab={myGroups} key='2'>
+          {me.JoinGroups?.length !== 0 ? (
+            <Groups groups={me.JoinGroups} type='group' />
           ) : (
             <EmptyGroups pageTab={myGroups} />
           )}

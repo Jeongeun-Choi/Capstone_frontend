@@ -6,20 +6,35 @@ import { Modal, ModalHeader, modalFooter } from '../../public/style';
 import { LeftOutlined } from '@ant-design/icons';
 import styled from '@emotion/styled';
 import { Slider } from 'antd';
+import { useDispatch } from 'react-redux';
+import { loadFilteredGroupsRequestAction } from '../../reducers/group';
 
 const FilterForm = styled.form`
   width: 100%;
   height: 100%;
 
+  & .ant-slider-track {
+    background-color: #aaabd3;
+    &:hover {
+      background-color: #aaabd3;
+    }
+  }
+  & .ant-slider-handle {
+    border: 2px solid #aaabd3;
+  }
+  & .ant-slider-dot-active {
+    border-color: #aaabd3;
+  }
   & .main_section {
     width: 100%;
-    height: 75%;
-    margin-top: 10px;
-    padding: 0 2rem;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
 
     & section {
       width: 100%;
-      margin-bottom: 2rem;
+      padding: 0 2rem;
+      margin: 1rem 0;
     }
 
     & .column_title {
@@ -31,6 +46,7 @@ const FilterForm = styled.form`
 const Button = styled.button`
   width: 100%;
   height: 8vh;
+  margin-top: auto;
   color: white;
   background-color: #aaabd3;
   border: none;
@@ -49,21 +65,40 @@ const marks = {
 };
 
 const SearchFilter = ({ toggleFilter }) => {
-  const [sortBase, setSortBase] = useState('');
-  const [inputValue, setInputValue] = useState(0);
+  const dispatch = useDispatch();
+
+  const [sortBase, setSortBase] = useState('default');
+  const [peopleNumber, setPeopleNumber] = useState(0);
   const [activeDay, setActiveDay] = useState([]);
   const [activeLocation, setActiveLocation] = useState([]);
-  const [selected, setSelected] = useState('default');
+
   const onChange = useCallback((value) => {
-    setInputValue(value);
+    setPeopleNumber(value);
   }, []);
 
-  const onChangeSelect = (value) => {
-    setSelected(value);
+  const onChangeSelect = (e) => {
+    setSortBase(e.target.value);
   };
+
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch(
+        loadFilteredGroupsRequestAction({
+          sortBase,
+          peopleNumber,
+          activeDay,
+          activeLocation,
+        })
+      );
+      toggleFilter();
+    },
+    [sortBase, peopleNumber, activeDay, activeLocation]
+  );
+
   return (
     <Modal>
-      <FilterForm>
+      <FilterForm onSubmit={onSubmit}>
         <ModalHeader>
           <span onClick={toggleFilter}>
             <LeftOutlined />
@@ -72,7 +107,7 @@ const SearchFilter = ({ toggleFilter }) => {
         </ModalHeader>
         <section className='main_section'>
           <section>
-            <SearchSelect selected={selected} onChangeSelect={onChangeSelect} />
+            <SearchSelect sortBase={sortBase} onChangeSelect={onChangeSelect} />
           </section>
           <section>
             <div className='column_title'>모집 인원</div>
@@ -82,14 +117,14 @@ const SearchFilter = ({ toggleFilter }) => {
                 max={10}
                 marks={marks}
                 onChange={onChange}
-                value={inputValue}
+                value={peopleNumber}
               />
             </div>
           </section>
-          <FilterDay />
-          <FilterLocation />
+          <FilterDay setActiveDay={setActiveDay} />
+          <FilterLocation setActiveLocation={setActiveLocation} />
+          <Button>검 색</Button>
         </section>
-        <Button>검 색</Button>
       </FilterForm>
     </Modal>
   );

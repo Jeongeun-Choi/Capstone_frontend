@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import FilterDay from './FilterDay';
 
 const Label = styled.label`
   display: inline-block;
@@ -20,7 +21,15 @@ const Input = styled.input`
   }
 `;
 
-const CheckBoxLabel = ({ id, text, onChange, width }) => {
+const CheckBoxLabel = ({ id, text, setState, width }) => {
+  const onChange = (e) => {
+    console.log(e.target.checked);
+    if (e.target.checked) {
+      setState((prev) => [...prev, text]);
+      return;
+    }
+    setState((prev) => prev.filter((value) => value !== text));
+  };
   return (
     <>
       <Input id={id} type='checkbox' hidden onChange={onChange}></Input>
