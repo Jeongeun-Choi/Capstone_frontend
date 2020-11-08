@@ -27,6 +27,7 @@ const GroupContainer = styled.div`
   }
   .ant-tabs-tab {
     width: 50%;
+    margin-right: 1px;
     display: flex;
     justify-content: center;
 
@@ -59,7 +60,7 @@ const group = () => {
 
   return (
     <GroupContainer>
-      <Header type="white" title="모임명" />
+      <Header type="white" title="모임" />
       <Tabs defaultActiveKey="1">
         <TabPane tab={applyGroups} key="1">
           {me.ApplyGroups?.length !== 0 ? (

@@ -8,6 +8,12 @@ import useCheckResult from '../../hooks/useCheckResult';
 const GroupContainer = styled.section`
   display: flex;
   flex-direction: column;
+
+  & .liked-group-division{
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+  }
 `;
 
 const GroupList = styled.ul`
@@ -22,7 +28,7 @@ const GroupList = styled.ul`
 
 const LikeGroups = () => {
   const dispatch = useDispatch();
-  const { id, preferGroups } = useSelector((state) => state.user.me);
+  const { id, PreferGroups } = useSelector((state) => state.user.me);
 
   const [toggleIsShow, CheckScreen] = useCheckResult({
     title: '푸시알람 설정',
@@ -37,38 +43,38 @@ const LikeGroups = () => {
 
   return (
     <GroupContainer>
-      {preferGroups && preferGroups.recruitingGroups?.length ? (
+      {PreferGroups && PreferGroups.recruitingGroups?.length ? (
         <GroupList>
-          {preferGroups.recruitingGroups.map((group, index) => (
+          {PreferGroups.recruitingGroups.map((group, index) => (
             <GroupItem
               key={group.id}
               memberId={id}
               group={group}
-              deadLine={preferGroups.recruitingGroupsDeadLine[index]}
+              deadLine={PreferGroups.recruitingGroupsDeadLine[index]}
               recruiting={true}
               toggleIsShow={toggleIsShow}
             />
           ))}
         </GroupList>
       ) : (
-        <div>모집 중인 그룹이 없습니다.</div>
+        <div className="liked-group-division"><b>모집 중</b>인 그룹이 없습니다.</div>
       )}
 
-      {preferGroups && preferGroups.recruitedGroups?.length ? (
+      {PreferGroups && PreferGroups.recruitedGroups?.length ? (
         <GroupList>
-          {preferGroups.recruitedGroups.map((group, index) => (
+          {PreferGroups.recruitedGroups.map((group, index) => (
             <GroupItem
               key={group.id}
               memberId={id}
               group={group}
-              deadLine={preferGroups.recruitedGroupsDeadLine[index]}
+              deadLine={PreferGroups.recruitedGroupsDeadLine[index]}
               recruiting={false}
               toggleIsShow={toggleIsShow}
             />
           ))}
         </GroupList>
       ) : (
-        <div>모집 마감된 그룹이 없습니다.</div>
+        <div className="liked-group-division">모집이 <b>마감</b>된 그룹이 없습니다.</div>
       )}
       <CheckScreen />
     </GroupContainer>

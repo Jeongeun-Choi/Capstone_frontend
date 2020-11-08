@@ -5,14 +5,15 @@ const ModalFooter = styled.footer`
   ${modalFooter}
   font-family: 'Nanum Gothic', sans-serif;
   color: #ffffff;
-  background-color: #cba6c3;
-  border: 1px solid #cba6c3;
+  background-color: #6055CD;
+  border: 1px solid #6055CD;
   height: 120px;
 
   .choice {
     font-weight: bold;
     height: 70px;
     border-bottom: 1px solid #868686;
+    font-size: 0.8rem;
   }
 
   .choice-board {
@@ -33,9 +34,9 @@ const ModalFooter = styled.footer`
   }
 
   button {
-    background-color: #cba6c3;
-    border: 1px solid #cba6c3;
-    outline-color: #cba6c3;
+    background-color: #6055CD;
+    border: 1px solid#6055CD;
+    outline-color: #6055CD;
     font-weight: bold;
   }
 

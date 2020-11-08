@@ -12,19 +12,20 @@ const GroupItemWrapper = styled.li`
 
   color: ${(props) => (props.recruiting ? '#6055CD' : '#868686')};
   & .item_wrapper {
-    min-height: 100px;
+    min-height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
     border-radius: 8px;
     padding: 0.5rem 1rem;
+    margin-top: 0.3rem;
     color: white;
     background: ${(props) => (props.recruiting ? '#6055CD' : '#868686')};
   }
 
   & .item_name {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
   }
 
@@ -33,7 +34,7 @@ const GroupItemWrapper = styled.li`
   }
 
   & .alarm_button {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 `;
 
@@ -57,7 +58,7 @@ const GroupItem = ({ memberId, group, recruiting, deadLine, toggleIsShow }) => {
   return (
     <GroupItemWrapper recruiting={recruiting}>
       <div>
-        {recruiting ? '모집 중' : '모집마감'} / {date}
+        &nbsp;{recruiting ? '모집 중' : '모집마감'} / {date}
       </div>
       <div className='item_wrapper'>
         <div>
@@ -66,7 +67,7 @@ const GroupItem = ({ memberId, group, recruiting, deadLine, toggleIsShow }) => {
               {category.DetailCategory.name}
             </span>
           ))}
-          <div className='item_name'>{group.name}</div>
+          <div className='item_name'><b>{group.name}</b></div>
           <div>{state && `${state} / ${city}`}</div>
         </div>
         <div className='alarm_button' onClick={modifyAlarm}>
