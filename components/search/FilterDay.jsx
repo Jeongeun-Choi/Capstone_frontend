@@ -12,7 +12,7 @@ const FilterDayContainer = styled.section`
     //border: 1px solid green;
   }
 
-  & .day_of_week{
+  & .day_of_week {
     //border: 1px solid pink;
     margin: 0.3rem;
   }
@@ -21,23 +21,24 @@ const FilterDayContainer = styled.section`
 const DayWrapper = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 1rem;
   @media screen and (min-width: 780px) {
     justify-content: flex-start;
   }
 `;
 
-const FilterDay = () => {
+const FilterDay = ({ setActiveDay }) => {
   return (
     <FilterDayContainer>
-      <div className='column_name'>활동 요일</div>
-      <DayWrapper className='day_of_week'>
-        <CheckBoxLabel id='monday' text='월' />
-        <CheckBoxLabel id='tuesday' text='화' />
-        <CheckBoxLabel id='wednesday' text='수' />
-        <CheckBoxLabel id='thursday' text='목' />
-        <CheckBoxLabel id='friday' text='금' />
-        <CheckBoxLabel id='saturday' text='토' />
-        <CheckBoxLabel id='sunday' text='일' />
+      <div className="column_name">활동 요일</div>
+      <DayWrapper>
+        <CheckBoxLabel id="monday" text="월" setState={setActiveDay} />
+        <CheckBoxLabel id="tuesday" text="화" setState={setActiveDay} />
+        <CheckBoxLabel id="wednesday" text="수" setState={setActiveDay} />
+        <CheckBoxLabel id="thursday" text="목" setState={setActiveDay} />
+        <CheckBoxLabel id="friday" text="금" setState={setActiveDay} />
+        <CheckBoxLabel id="saturday" text="토" setState={setActiveDay} />
+        <CheckBoxLabel id="sunday" text="일" setState={setActiveDay} />
       </DayWrapper>
     </FilterDayContainer>
   );

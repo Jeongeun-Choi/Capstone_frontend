@@ -7,7 +7,8 @@ const GroupsContainer = styled.main`
   height: 80vh;
 
   & ul {
-    width: 90%;
+    width: 100%;
+    padding: 0 0.5rem;
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -20,17 +21,22 @@ const Groups = ({ groups, type }) => {
     <GroupsContainer>
       <ul>
         {type === 'group'
-          ? groups.map(group => (
+          ? groups?.map((group) => (
               <Group
                 key={group.id}
                 id={group.Group.id}
                 groupName={group.Group.name}
                 position={group.position}
+                location={group.Group.location}
+                categoryName={
+                  group.Group?.ActiveCategories?.length &&
+                  group.Group?.ActiveCategories[0].DetailCategory?.name
+                }
                 data={group}
                 type={type}
               />
             ))
-          : groups.map(group => (
+          : groups?.map((group) => (
               <Group
                 key={group?.Group ? group.Group.id : group.id}
                 id={group?.Group ? group.Group.id : group.id}
