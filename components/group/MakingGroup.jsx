@@ -126,8 +126,9 @@ const MakingGroup = ({
   const [category, setCategory] = useState(
     modify
       ? [
-          data?.ActiveCategories?.length &&
-            ActiveCategories[0].DetailCategory.id
+          data &&
+            data?.ActiveCategories?.length &&
+            data.ActiveCategories[0].DetailCategory.id
         ]
       : []
   );
@@ -143,10 +144,14 @@ const MakingGroup = ({
   const [maxMember, setMaxMember] = useState(modify ? data && memberCount : 0);
   const [activeDays, setActiveDays] = useState([]);
   const [startTime, changeStartTime] = usePickerHook(
-    modify ? data?.ActiveTimes?.length && data.ActiveTimes[0].startTime : ''
+    modify
+      ? data && data?.ActiveTimes?.length && data.ActiveTimes[0].startTime
+      : ''
   );
   const [endTime, changeEndTime] = usePickerHook(
-    modify ? data?.ActiveTimes?.length && data.ActiveTimes[0].endTime : ''
+    modify
+      ? data && data?.ActiveTimes?.length && data.ActiveTimes[0].endTime
+      : ''
   );
   const [skills, setSkills] = useState('');
   const [groupImages, setGroupImages] = useState(
@@ -154,7 +159,8 @@ const MakingGroup = ({
   );
   const [middleCategory, setMiddleCategory] = useState(
     modify
-      ? data?.ActiveCategories?.length &&
+      ? data &&
+          data?.ActiveCategories?.length &&
           data.ActiveCategories[0]?.DetailCategory.Category.type
       : ''
   );
