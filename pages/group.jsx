@@ -51,8 +51,8 @@ const group = () => {
 
   useEffect(() => {
     if (me.id) {
-      dispatch(loadJoingroupsRequestAction(me.id));
-      dispatch(loadApplyGroupsRequestAction(me.id));
+      dispatch(loadJoingroupsRequestAction({ id: me.id }));
+      dispatch(loadApplyGroupsRequestAction({ id: me.id }));
       dispatch(loadPreferGroupsRequestAction(me.id));
     }
   }, []);
