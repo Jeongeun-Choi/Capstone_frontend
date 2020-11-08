@@ -9,7 +9,7 @@ import { ContainerFilled } from '@ant-design/icons';
 
 const positions = {
   L: '모임장',
-  N: '팀원',
+  N: '팀원'
 };
 
 const MyGroup = styled.li`
@@ -76,7 +76,7 @@ const Group = ({
   type,
   data = null,
   location,
-  categoryName,
+  categoryName
 }) => {
   const [isShowing, setIsShowing] = useState(false);
   const router = useRouter();
@@ -90,29 +90,29 @@ const Group = ({
   return (
     <>
       <MyGroup onClick={moveDetailInfo}>
-        <section className='group-image'>
+        <section className="group-image">
           <img
             src={
-              data && data.Group.GroupImages?.length
+              data?.Group?.GroupImages?.length
                 ? data.Group.GroupImages[0].URL
                 : '/images/teamimg.jpg'
             }
             alt={
-              data && data.Group.GroupImages?.length
+              data?.Group?.GroupImages?.length
                 ? data.Group.GroupImages[0].description
                 : '기본 이미지'
             }
           />
         </section>
-        <section className='group-info'>
+        <section className="group-info">
           <div>
             <div>{categoryName}</div>
-            <div className='group-info-name'>{groupName}</div>
+            <div className="group-info-name">{groupName}</div>
             <div>{location}</div>
           </div>
 
           {position && (
-            <div className='group-info-position'>{positions[position]}</div>
+            <div className="group-info-position">{positions[position]}</div>
           )}
           {type !== 'group' && (
             <div className="group-application">
