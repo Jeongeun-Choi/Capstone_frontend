@@ -35,9 +35,12 @@ const ModalFooter = styled.footer`
     height: 140px;
     border-bottom: 1px solid #868686;
     padding: 2% 0 0 2%;
-    font-size: 7.5px;
-  }
+    font-size: 0.75rem;
 
+    .choice-middleCategory {
+      font-size: 0.5rem;
+    }
+  }
   .choice-board {
     display: flex;
     flex-direction: column;
@@ -125,7 +128,7 @@ const FieldSetting = ({
             <div>선택한 분야</div>
             {Object.keys(fieldsObj).map(middleCategory => (
               <div key={middleCategory} className="choice-board">
-                <div>{middleCategory} / 중분류</div>
+                <div className="choice-middleCategory">{middleCategory} / 중분류</div>
                 <div className="choice-board-list">
                   {fieldsObj[middleCategory].map(subclass => (
                     <Item

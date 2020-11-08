@@ -18,9 +18,9 @@ const EmptyGroupsContainer = styled.main`
     ${basicStyle};
     width: 90%;
     color: #f8faff;
-    border: 1px solid #cba6c3;
+    border: 1px solid #6055CD;
     border-radius: 17.5px;
-    background-color: #cba6c3;
+    background-color: #6055CD;
   }
 `;
 

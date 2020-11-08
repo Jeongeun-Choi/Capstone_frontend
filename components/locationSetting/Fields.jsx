@@ -12,6 +12,7 @@ const FieldsContainer = styled.div`
     height: 35px;
     border-top: 1px solid #c4c4c4;
     border-bottom: 1px solid #c4c4c4;
+    padding-top: 0.3rem;
 
     & div {
       width: 50%;
@@ -31,6 +32,7 @@ const FieldsContainer = styled.div`
       display: flex;
       flex-direction: column;
       list-style: none;
+      padding-left: 1rem;
 
       & li {
         width: 90%;
@@ -46,6 +48,7 @@ const FieldsContainer = styled.div`
       display: flex;
       flex-direction: column;
       list-style: none;
+      padding-left: 1rem;
 
       & li {
         width: 90%;
