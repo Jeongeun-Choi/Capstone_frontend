@@ -26,6 +26,7 @@ const GroupContainer = styled.div`
   }
   .ant-tabs-tab {
     width: 50%;
+    margin-right: 1px;
     display: flex;
     justify-content: center;
 

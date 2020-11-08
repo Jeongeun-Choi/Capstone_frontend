@@ -142,7 +142,7 @@ const WritingPost = ({ setIsShowing, id, type }) => {
     <>
       <Modal>
         <WritingPostHeader>
-          <h3>모임글 작성</h3>
+          <h3>모집글 작성</h3>
           <LeftOutlined onClick={closeModal} />
         </WritingPostHeader>
         <WritingPostContainer>
