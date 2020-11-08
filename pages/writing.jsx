@@ -23,6 +23,7 @@ const GroupContainer = styled.div`
     }
   }
   .ant-tabs-tab {
+    margin-right: 1px;
     width: 50%;
     display: flex;
     justify-content: center;
@@ -58,14 +59,14 @@ const writing = () => {
       />
       <Tabs defaultActiveKey="1">
         <TabPane tab={myGroups} key="1">
-          {me.JoinGroups?.length !== 0 ? (
+          {me?.JoinGroups?.length !== 0 ? (
             <Groups groups={me.JoinGroups} type="post" />
           ) : (
             <EmptyGroups pageTab={myGroups} />
           )}
         </TabPane>
         <TabPane tab={myPosts} key="2">
-          {me.recruits.length ? (
+          {me?.recruits.length ? (
             <Groups groups={me.recruits} type="postEdit" />
           ) : (
             <EmptyGroups pageTab={myPosts} />

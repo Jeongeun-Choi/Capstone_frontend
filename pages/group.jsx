@@ -26,8 +26,8 @@ const GroupContainer = styled.div`
     }
   }
   .ant-tabs-tab {
-    width: 50%;
     margin-right: 1px;
+    width: 50%;
     display: flex;
     justify-content: center;
 
@@ -63,14 +63,14 @@ const group = () => {
       <Header type="white" title="모임" />
       <Tabs defaultActiveKey="1">
         <TabPane tab={applyGroups} key="1">
-          {me.ApplyGroups?.length !== 0 ? (
+          {me?.ApplyGroups?.length !== 0 ? (
             <Groups groups={me.ApplyGroups} type="group" />
           ) : (
             <EmptyGroups pageTab={applyGroups} />
           )}
         </TabPane>
         <TabPane tab={myGroups} key="2">
-          {me.JoinGroups?.length !== 0 ? (
+          {me?.JoinGroups?.length !== 0 ? (
             <Groups groups={me.JoinGroups} type="group" />
           ) : (
             <EmptyGroups pageTab={myGroups} />
