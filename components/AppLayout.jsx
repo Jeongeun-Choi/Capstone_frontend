@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Footer from './main/Footer';
 import styled from '@emotion/styled';
+import { message } from 'antd';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
 const AppContainer = styled.div`
@@ -18,8 +20,18 @@ const haveSecondPathes = ['group', 'recruit', 'setting'];
 
 const AppLayout = ({ children }) => {
   const router = useRouter();
+  const { me } = useSelector(state => state.user);
 
   const [, pathName, secondPath] = router.pathname.split('/');
+
+  // useEffect(() => {
+  //   !me.id &&
+  //     pathName !== 'signup' &&
+  //     pathName !== 'login' &&
+  //     router.push('/login') &&
+  //     message.error('로그인이 필요합니다.');
+  // }, []);
+
   return (
     <AppContainer>
       {children}

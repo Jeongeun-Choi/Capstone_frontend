@@ -39,7 +39,7 @@ export const basicTeamStyle = css`
 export const modalFooter = css`
   width: 100%;
   min-height: 50px;
-  z-index: 2;
+  z-index: 3;
   position: sticky;
   bottom: 0;
 `;

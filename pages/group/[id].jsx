@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Header from '../../components/main/Header';
 import customAxios from '../../utils/baseAxios';
 import styled from '@emotion/styled';
 import { HeartFilled, HeartOutlined, PlusOutlined } from '@ant-design/icons';
 import KakaoMap from '../../components/map/KakaoMap';
-import { Divider } from 'antd';
+import { Divider, message } from 'antd';
 import Setting from '../../components/group/groupSetting/Setting';
 import MakingGroup from '../../components/group/MakingGroup';
 
@@ -150,12 +151,13 @@ const Plus = styled.button`
   color: #ffffff;
   font-size: 1.5rem; 
   font-weight: bold;
-  z-index: 9999;
+  z-index: 3;
 `;
 
 const GroupDetail = () => {
   const router = useRouter();
   const { id } = router.query;
+  const { me } = useSelector(state => state.user);
   const [selectedGroup, setSelectedGroup] = useState({});
 
   const {
@@ -173,7 +175,15 @@ const GroupDetail = () => {
   const [isShowingSetting, setIsShowingSetting] = useState(false);
   const [modify, setModify] = useState(false);
 
-  const clickHeart = useCallback(() => {
+  const clickHeart = useCallback(async () => {
+    if (!me.id) {
+      return message.error('로그인을 해야 합니다.');
+    }
+    if (!filledHeart) {
+      await customAxios.post(`/prefer-group`, { memberId: me.id, groupId: id });
+    } else {
+      await customAxios.delete(`/prefer-group?memberId=${me.id}&groupId=${id}`);
+    }
     setFilledHeart(prev => !prev);
   }, []);
 
@@ -192,12 +202,12 @@ const GroupDetail = () => {
 
   useEffect(() => {
     getGroupData();
-  }, [id]);
+  }, []);
 
   return (
     <>
       <GroupContainer>
-        <Header title={name} subTitle={ActiveCategories && ActiveCategories[0].DetailCategory.name} backButton={true} type="white" />
+        <Header title={name} subTitle={ActiveCategories?.length && ActiveCategories[0]?.DetailCategory.name} backButton={true} type="white" />
           {/* title={name}
           subtitle={ActiveCategories && ActiveCategories[0].DetailCategory.name}
           backButton={true}
@@ -214,10 +224,11 @@ const GroupDetail = () => {
           <div className="group-content-header">
             <div className="group-basic-info">
               <div className="group-basic-category">
-                {!!ActiveCategories && ActiveCategories[0]?.DetailCategory.name}
+                {ActiveCategories?.length &&
+                  ActiveCategories[0]?.DetailCategory?.name}
               </div>
               <div className="group-basic-name">
-                <b>{name} | {location?.split(' ')[2]}</b>
+                <b>{selectedGroup?.name} | {location?.split(' ')[2]}</b>
               </div>
             </div>
             <div className="like" onClick={clickHeart}>
@@ -281,9 +292,9 @@ const GroupDetail = () => {
             <div className="team-page-info">
               <div>
                 {ActiveCategories?.length &&
-                  ActiveCategories[0]?.DetailCategory.name}
+                  ActiveCategories[0]?.DetailCategory?.name}
               </div>
-              <div><b>{name}</b></div>
+              <div><b>{selectedGroup?.name}</b></div>
               <div>since 2019</div>
             </div>
           </div>

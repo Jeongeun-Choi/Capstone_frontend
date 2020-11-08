@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Tabs } from 'antd';
 import styled from '@emotion/styled';
 import Groups from '../components/group/Groups';
 import EmptyGroups from '../components/group/EmptyGroups';
 import Header from '../components/main/Header';
+import {
+  loadJoingroupsRequestAction,
+  loadApplyGroupsRequestAction
+} from '../reducers/user';
 
 // #6055CD
 const GroupContainer = styled.div`
@@ -38,19 +42,26 @@ const group = () => {
   const myGroups = '나의 모임';
   const { me } = useSelector(state => state.user);
 
+  useEffect(() => {
+    if (me.id) {
+      loadJoingroupsRequestAction(me.id);
+      loadApplyGroupsRequestAction(me.id);
+    }
+  }, []);
+
   return (
     <GroupContainer>
       <Header type="white" title="모임명" />
       <Tabs defaultActiveKey="1">
         <TabPane tab={applyGroups} key="1">
-          {me.applyGroups.length !== 0 ? (
+          {me.applyGroups?.length ? (
             <Groups groups={me.applyGroups} type="group" />
           ) : (
             <EmptyGroups pageTab={applyGroups} />
           )}
         </TabPane>
         <TabPane tab={myGroups} key="2">
-          {me.joinGroups.length !== 0 ? (
+          {me.joinGroups?.length ? (
             <Groups groups={me.joinGroups} type="group" />
           ) : (
             <EmptyGroups pageTab={myGroups} />
