@@ -34,7 +34,7 @@ const SearchContainer = styled.div`
 const index = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  // const { me } = useSelector(state => state.me);
+  const { me } = useSelector(state => state.user);
   const { posts } = useSelector(state => state.post);
   const { groups } = useSelector(state => state.group);
   const { category } = useSelector(state => state.category);
@@ -49,7 +49,7 @@ const index = () => {
     )[0].id;
     dispatch(loadGroupsRequestAction());
     dispatch(loadPostsRequestAction({ categoryId }));
-    // dispatch(loadPreferGroupsRequestAction(me && me?.id));
+    me?.id && dispatch(loadPreferGroupsRequestAction(me.id));
     setCategoryId(categoryId);
   }, [categoryName]);
 
@@ -60,6 +60,7 @@ const index = () => {
         group.ActiveCategories.length &&
         group.ActiveCategories[0].DetailCategory.Category.id === categoryId
     );
+    // const newPosts = posts.filter(post => post.)
     setFilterGroups(newGroups);
   }, [groups]);
 
