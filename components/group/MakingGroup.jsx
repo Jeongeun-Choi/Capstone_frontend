@@ -7,6 +7,7 @@ import {
   basicStyle
 } from '../../public/style';
 import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment';
 import FindingAddress from '../locationSetting/FindingAddress';
 import KakaoMap from '../map/KakaoMap';
 import styled from '@emotion/styled';
@@ -20,7 +21,6 @@ import {
 } from '../../reducers/group';
 import useCheckResult from '../../hooks/useCheckResult';
 
-const format = 'HH:mm';
 const { Option } = Select;
 
 const days = {
@@ -116,6 +116,7 @@ const MakingGroup = ({
   modify = false,
   data = null
 }) => {
+  const format = 'HH:mm';
   const { categories } = useSelector(state => state.category);
   const { me } = useSelector(state => state.user);
   const dispatch = useDispatch();
@@ -131,34 +132,38 @@ const MakingGroup = ({
     memberCount
   } = data;
 
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState(
+    modify
+      ? ActiveCategories?.length && ActiveCategories[0].DetailCategory.id
+      : []
+  );
   const [groupName, changeGroupName] = useInputChangeHook(modify ? name : '');
   const [intro, changeIntro] = useInputChangeHook(modify ? groupIntro : '');
   const [groupLocation, setGroupLocation] = useState(modify ? location : '');
   const [maxMember, setMaxMember] = useState(modify ? memberCount : 0);
   const [activeDays, setActiveDays] = useState([]);
-  const [startTime, changeStartTime] = usePickerHook('');
-  const [endTime, changeEndTime] = usePickerHook('');
+  const [startTime, changeStartTime] = usePickerHook(
+    modify ? ActiveTimes?.length && ActiveTimes[0].startTime : ''
+  );
+  const [endTime, changeEndTime] = usePickerHook(
+    modify ? ActiveTimes?.length && ActiveTimes[0].endTime : ''
+  );
   const [skills, setSkills] = useState('');
   const [groupImages, setGroupImages] = useState(modify ? GroupImages : []);
   const [middleCategory, setMiddleCategory] = useState(
-    modify ? ActiveCategories[0].DetailCategory.Category.type : ''
+    modify
+      ? ActiveCategories?.length &&
+          ActiveCategories[0]?.DetailCategory.Category.type
+      : ''
   );
   const [detailCategory, setDetailCategory] = useState(
-    modify ? ActiveCategories[0].DetailCategory.name : ''
+    modify
+      ? ActiveCategories?.length && ActiveCategories[0]?.DetailCategory.name
+      : ''
   );
   const [showDetailCategory, setShowDetailCategory] = useState(
     modify ? true : false
   );
-
-  useEffect(() => {
-    if (modify) {
-      const activeDayArray = ActiveTimes.map(time => time.activeDay);
-      const skillsString = Skills.map(skill => skill.name).join(', ');
-      setActiveDays(activeDayArray);
-      setSkills(skillsString);
-    }
-  }, []);
 
   const changeSlider = useCallback(
     value => {
@@ -288,8 +293,17 @@ const MakingGroup = ({
   const closeModal = useCallback(() => {
     setCloseModal(prev => !prev);
   }, []);
-  console.log(groupLocation);
 
+  useEffect(() => {
+    if (modify) {
+      const activeDayArray = ActiveTimes.map(time => time.activeDay);
+      const skillsString = Skills.map(skill => skill.name).join(', ');
+      setActiveDays(activeDayArray);
+      setSkills(skillsString);
+    }
+  }, []);
+
+  console.log(groupName, moment(startTime, 'HH:mm'), endTime);
   return (
     <>
       <Modal zIndex={3}>
@@ -382,8 +396,16 @@ const MakingGroup = ({
             <div className="team-item">
               <div className="subtitle">활동 시간</div>
               <div className="team-active-time-content">
-                <TimePicker format={format} onChange={changeStartTime} />
-                <TimePicker format={format} onChange={changeEndTime} />
+                <TimePicker
+                  defaultValue={moment(startTime, format)}
+                  format={format}
+                  onChange={changeStartTime}
+                />
+                <TimePicker
+                  defaultValue={moment(endTime, format)}
+                  format={format}
+                  onChange={changeEndTime}
+                />
               </div>
             </div>
             <div className="team-item">
