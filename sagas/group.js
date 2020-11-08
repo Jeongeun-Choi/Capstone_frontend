@@ -12,7 +12,10 @@ import {
   UPDATE_GROUP_REQUEST,
   updateGroupSuccessAction,
   DELETE_GROUP_REQUEST,
-  deleteGroupSuccessAction
+  deleteGroupSuccessAction,
+  LOAD_FILTERED_GROUPS_REQUEST,
+  loadFilteredGroupsSuccessAction,
+  loadFilteredGroupsFailureAction,
 } from '../reducers/group';
 import { splitSkills } from '../utils/splitSkills';
 import { makeActiveTimes } from '../utils/makeActiveTimes';
@@ -46,7 +49,7 @@ function addGroupAPI(data) {
     location,
     maxMember,
     groupImages,
-    category
+    category,
   } = data;
 
   const newSkills = splitSkills(skills);
@@ -61,7 +64,7 @@ function addGroupAPI(data) {
     location,
     maxMember,
     groupImages,
-    detailCategoryId: category
+    detailCategoryId: category,
   };
   customAxios.post(`/groups`, requestData);
   return requestData;
@@ -93,7 +96,7 @@ function updateGroupAPI(data) {
     maxMember,
     groupImages,
     detailCategoryIds,
-    groupId
+    groupId,
   } = data;
 
   const newSkills = splitSkills(skills);
@@ -109,7 +112,7 @@ function updateGroupAPI(data) {
     maxMember,
     groupImages,
     detailCategoryIds,
-    groupId
+    groupId,
   };
 
   return customAxios.put('/groups', requestData);
@@ -143,11 +146,30 @@ function* watchDeleteGroup() {
   yield takeLatest(DELETE_GROUP_REQUEST, deleteGroup);
 }
 
+function loadFilteredGroupsAPI(data) {
+  return customAxios.post('/search/groups', data);
+}
+
+function* loadFilteredGroups(action) {
+  try {
+    const response = yield call(loadFilteredGroupsAPI, action.data);
+    yield put(loadFilteredGroupsSuccessAction(response.data));
+  } catch (err) {
+    yield put(loadFilteredGroupsFailureAction(err));
+    console.log(err);
+  }
+}
+
+function* watchLoadFilteredGroups() {
+  yield takeLatest(LOAD_FILTERED_GROUPS_REQUEST, loadFilteredGroups);
+}
+
 export default function* groupSaga() {
   yield all([
     fork(watchLoadGroups),
     fork(watchAddGroup),
     fork(watchUpdateGroup),
-    fork(watchDeleteGroup)
+    fork(watchDeleteGroup),
+    fork(watchLoadFilteredGroups),
   ]);
 }

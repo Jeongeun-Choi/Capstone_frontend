@@ -271,7 +271,9 @@ const GroupDetail = ({ setIsShowing, groupId }) => {
           setModify={setModify}
         />
       )}
-      {modify && <MakingGroup modify={modify} setCloseModal={setModify} />}
+      {modify && (
+        <MakingGroup data={data} modify={modify} setCloseModal={setModify} />
+      )}
     </>
   );
 };

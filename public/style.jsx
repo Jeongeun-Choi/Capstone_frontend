@@ -39,7 +39,7 @@ export const basicTeamStyle = css`
 export const modalFooter = css`
   width: 100%;
   min-height: 50px;
-  z-index: 2;
+  z-index: 3;
   position: sticky;
   bottom: 0;
 `;
@@ -52,15 +52,15 @@ export const Modal = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
-  z-index: ${props => (props.zIndex ? props.zIndex : 1)};
+  z-index: ${(props) => (props.zIndex ? props.zIndex : 1)};
   background-color: #ffffff;
 `;
 
 export const ModalHeader = styled.header`
   width: 100%;
-  height: 75px;
+  height: 10vh;
   border-bottom: 1px solid #a2a2a2;
-  line-height: 75px;
+  line-height: 10vh;
   z-index: 3;
   position: sticky;
   top: 0;

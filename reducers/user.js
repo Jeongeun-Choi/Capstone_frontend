@@ -23,10 +23,10 @@ export const initialState = {
     categories: [], //관심분야
 
     recruits: [],
-    preferGroups: [],
-    applyGroups: [], //내가 지원한 모임
-    joinGroups: [] //나의 모임
-  }
+    PrferGroups: [],
+    ApplyGroups: [], //내가 지원한 모임
+    JoinGroups: [], //나의 모임
+  },
 };
 
 export const LOAD_RECRUITS_REQUEST = 'LOAD_RECRUITS_REQUEST';
@@ -185,13 +185,13 @@ export const updatePreferLocationFailureAction = createAction(
 );
 
 const reducer = (state = initialState, action) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (action.type) {
       case LOAD_JOINGROUPS_REQUEST: {
         break;
       }
       case LOAD_JOINGROUPS_SUCCESS: {
-        draft.me.joinGroups = action.data.groups;
+        draft.me.JoinGroups = action.data.groups;
         break;
       }
       case LOAD_JOINGROUPS_FAILURE: {
@@ -211,7 +211,7 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case LOAD_APPLYGROUPS_SUCCESS: {
-        draft.me.applyGroups = action.data.groups;
+        draft.me.ApplyGroups = action.data.groups;
         break;
       }
       case LOAD_APPLYGROUPS_FAILURE: {
@@ -345,7 +345,7 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case LOAD_PREFER_GROUPS_SUCCESS: {
-        draft.me.preferGroups = action.data;
+        draft.me.PreferGroups = action.data;
         break;
       }
       case LOAD_PREFER_GROUPS_FAILURE: {

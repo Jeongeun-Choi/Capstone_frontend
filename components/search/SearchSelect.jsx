@@ -1,8 +1,8 @@
 import React from 'react';
 
-const SearchSelect = ({ selected, onChangeSelect }) => {
+const SearchSelect = ({ sortBase, onChangeSelect }) => {
   return (
-    <select name='sort' value={selected} onChange={onChangeSelect}>
+    <select name='sort' value={sortBase} onChange={onChangeSelect}>
       <option value='default' disabled hidden>
         정렬방식
       </option>
