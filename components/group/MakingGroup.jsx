@@ -52,7 +52,7 @@ const MakingGroupContainer = styled.form`
       width: 90%;
       margin-top: 1rem;
       margin-bottom: 0.2rem;
-     //border: 1px solid purple;
+      //border: 1px solid purple;
     }
   }
   & .team-input {
@@ -136,7 +136,7 @@ const MakingGroup = ({
 
   const [category, setCategory] = useState(
     modify
-      ? ActiveCategories?.length && ActiveCategories[0].DetailCategory.id
+      ? [ActiveCategories?.length && ActiveCategories[0].DetailCategory.id]
       : []
   );
   const [groupName, changeGroupName] = useInputChangeHook(modify ? name : '');
