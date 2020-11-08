@@ -47,7 +47,7 @@ const index = () => {
     dispatch(loadGroupsRequestAction());
     dispatch(loadPostsRequestAction({ categoryId }));
     setCategoryId(categoryId);
-  }, []);
+  }, [categoryName]);
 
   useEffect(() => {
     const newGroups = groups.filter(
@@ -57,7 +57,7 @@ const index = () => {
         group.ActiveCategories[0].DetailCategory.Category.id === categoryId
     );
     setFilterGroups(newGroups);
-  }, [groups, posts]);
+  }, [groups]);
 
   const changeSelect = useCallback(
     value => {
