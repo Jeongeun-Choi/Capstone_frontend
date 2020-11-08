@@ -67,9 +67,11 @@ const Groups = ({ groups, type }) => {
                 />
               ))}
         </ul>
-        <Writing type="button" onClick={clickWriting}>
-          <EditOutlined />
-        </Writing>
+        {type === 'group' && (
+          <Writing type="button" onClick={clickWriting}>
+            <EditOutlined />
+          </Writing>
+        )}
       </GroupsContainer>
       {openWritingModal && <MakingGroup setCloseModal={setOpenWritingModal} />}
     </>
