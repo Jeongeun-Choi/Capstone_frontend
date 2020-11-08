@@ -53,11 +53,19 @@ const MyGroup = styled.li`
     }
     & .group-info-name {
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 1rem;
+    }
+
+    & .group-info-category, 
+    .group-info-location{
+      font-size: 0.8rem;
     }
 
     & .group-info-position {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
+      font-weight: bold;
+      width: 20%;
+      margin-left: 1rem;
     }
 
     & .group-application {
@@ -106,9 +114,9 @@ const Group = ({
         </section>
         <section className='group-info'>
           <div>
-            <div>{categoryName}</div>
+            <div className='group-info-category'>{categoryName}</div>
             <div className='group-info-name'>{groupName}</div>
-            <div>{location}</div>
+            <div className='group-info-location'>{location}</div>
           </div>
 
           {position && (
