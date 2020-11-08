@@ -21,49 +21,52 @@ const format = 'HH:mm';
 
 const WritingPostContainer = styled.form`
   width: 100%;
-  height: 85%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
 
   & .post-content {
-    display: flex;
-    flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
     height: 100%;
     overflow: auto;
+    margin-left: 1rem;
 
     & .post-item {
       width: 90%;
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
+      margin-top: 1.5rem;
       display: flex;
       flex-direction: column;
-    }
-  }
-  & .post-input {
-    ${basicStyle};
-    width: 60%;
-    border: none;
-  }
-  & label,
-  .subtitle {
-    font-weight: bold;
-    margin-right: 5px;
-    font-size: 1.1rem;
-  }
+      //border: 1px solid red;
 
-  & textarea {
-    resize: none;
-    border: none;
+      & label,
+      .subtitle {
+        font-weight: bold;
+        margin-right: 5px;
+        font-size: 1rem;
+        //border: 1px solid blue;
+      }
+
+      & .post-input {
+        ${basicStyle};
+        width: 60%;
+        border: none;
+      }
+
+      & textarea {
+        resize: none;
+        border: none;
+      }
+    }
   }
 `;
 
 const WritingPostHeader = styled(ModalHeader)`
-  color: #ffffff;
-  background-color: #6055CD;
+  color: black;
+  background-color: #ffffff;
 
   h3 {
-    color: #ffffff;
+    color: black;
   }
 `;
 
@@ -145,7 +148,7 @@ const WritingPost = ({ setIsShowing, id, type }) => {
         <WritingPostContainer>
           <main className="post-content">
             <div className="post-item">
-              <label htmlFor="title">제목</label>
+              <label htmlFor="title">✦ 제목</label>
               <input
                 id="title"
                 value={title}
@@ -155,7 +158,7 @@ const WritingPost = ({ setIsShowing, id, type }) => {
               />
             </div>
             <div className="post-item">
-              <label htmlFor="content">내용</label>
+              <label htmlFor="content">✦ 내용</label>
               <textarea
                 id="content"
                 required
@@ -165,14 +168,14 @@ const WritingPost = ({ setIsShowing, id, type }) => {
               ></textarea>
             </div>
             <div className="post-item">
-              <div className="subtitle">마감 시간</div>
+              <div className="subtitle">✦ 마감 시간</div>
               <div className="post-active-time-content">
                 <DatePicker onChange={changeDate} />
                 <TimePicker format={format} onChange={changeTime} />
               </div>
             </div>
             <div className="post-item">
-              <div className="subtitle">예상 인원</div>
+              <div className="subtitle">✦ 예상 인원</div>
               <Slider
                 defaultValue={expectMemberCount}
                 max={10}
