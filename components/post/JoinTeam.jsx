@@ -14,6 +14,7 @@ import customAxios from '../../utils/baseAxios';
 
 const Container = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -96,6 +97,7 @@ const ContainerFooter = styled.button`
   background-color: #6055cd;
   border: 1px solid #6055cd;
   font-weight: bold;
+  margin-top: auto;
 `;
 
 const JoinGroup = ({ category, groupName, groupId }) => {
