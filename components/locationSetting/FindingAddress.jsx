@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import styled from '@emotion/styled';
-import { Modal, Input } from 'antd';
+import { Modal, Input, message } from 'antd';
 import { basicStyle } from '../../public/style';
 
 const { Search } = Input;
@@ -37,7 +37,7 @@ const FindingAddress = ({ locations, setLocations }) => {
 
         const location = { sido, sigungu, bname };
         if (locations.length === 3) {
-          alert('최대 3개만 입력 됩니다.');
+          message.error('최대 3개만 입력 됩니다.');
           setShowingScreen(prev => !prev);
           return;
         }

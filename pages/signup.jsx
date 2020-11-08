@@ -50,6 +50,10 @@ const SignupContainer = styled.main`
     & .password-promise {
       font-size: 9px;
     }
+    & input[type='number'] {
+      appearance: none;
+      -moz-appearance: none;
+    }
   }
 `;
 const SignupForm = styled.form`
@@ -91,10 +95,10 @@ const signup = () => {
   const [password, onChangePassword] = useInputChangeHook('');
   const [passwordCheck, onChangePasswordCheck] = useInputChangeHook('');
   const [name, onChangeName] = useInputChangeHook('');
-  const [birthYear, onChangeBirthYear] = useInputChangeHook(0);
-  const [birthMonth, onChangeBirthMonth] = useInputChangeHook(0);
-  const [birthDay, onChangeBirthDay] = useInputChangeHook(0);
-  const [telephone, onChangeTelephone] = useInputChangeHook(0);
+  const [birthYear, onChangeBirthYear] = useInputChangeHook('');
+  const [birthMonth, onChangeBirthMonth] = useInputChangeHook('');
+  const [birthDay, onChangeBirthDay] = useInputChangeHook('');
+  const [telephone, onChangeTelephone] = useInputChangeHook('');
   const [gender, setGender] = useState('');
 
   const dispatch = useDispatch();

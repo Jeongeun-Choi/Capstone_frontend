@@ -30,15 +30,18 @@ const MyGroup = styled.li`
     min-width: 74.74px;
     margin-right: 0.5rem;
     border: none;
+
     & img {
       width: 100%;
       height: 100%;
+      border-radius: 3px;
     }
     cursor: pointer;
     &:hover {
       opacity: 0.8;
     }
   }
+
   & .group-info {
     ${basicTeamStyle}
     width: 80%;
@@ -50,25 +53,40 @@ const MyGroup = styled.li`
     background-color: #f6f6f6;
     border: 1px solid #f6f6f6;
     padding: 0 1rem;
+
+    & .group-info-wrapper {
+      & .group-info-name {
+        font-weight: bold;
+        font-size: 1rem;
+        //border: 1px solid purple;
+      }
+
+      & .group-info-category,
+      .group-info-location {
+        font-size: 0.8rem;
+        //border: 3px solid blue;
+      }
+    }
+
+    & .group-info-position {
+      font-size: 0.7rem;
+      font-weight: bold;
+      width: 20%;
+      margin-left: 1rem;
+    }
+
     @media screen and (min-width: 540px) {
       width: 80%;
       height: 12vh;
     }
-    & .group-info-name {
-      font-weight: bold;
-      font-size: 1.2rem;
-    }
-
-    & .group-info-position {
-      font-size: 0.8rem;
-    }
 
     & .group-application {
-      width: 25%;
+      width: 30%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 1.2rem;
+      text-align: center;
+      font-size: 0.7rem;
       cursor: pointer;
 
       &:hover {
@@ -85,6 +103,9 @@ const MyGroup = styled.li`
 
         & div {
           font-size: 0.8rem;
+        }
+
+        & .read-application {
         }
       }
     }
@@ -127,19 +148,19 @@ const Group = ({
                 : '/images/teamimg.jpg'
             }
             alt={
-              data && data.Group?.GroupImages?.length
+              data?.Group?.GroupImages?.length
                 ? data.Group.GroupImages[0].description
                 : '기본 이미지'
             }
           />
         </section>
         <section className='group-info'>
-          <div>
-            <div>{categoryName}</div>
-            <div className='group-info-name'>{groupName}</div>
-            <div>{location && location.split(' ').slice(0, 3).join(' ')}</div>
+          <div className='group-info-category'>{categoryName}</div>
+          <div className='group-info-name'>
+            <b>{groupName}</b>
           </div>
-
+          <div>{location && location.split(' ').slice(0, 3).join(' ')}</div>
+          <div className='group-info-wrapper'></div>
           {position && (
             <div className='group-info-position'>{positions[position]}</div>
           )}

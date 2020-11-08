@@ -14,47 +14,36 @@ import customAxios from '../../utils/baseAxios';
 
 const Container = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
   & .join-content-detail {
-    width: 85%;
-  }
-  & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-    background: #6055cd;
-    border-color: #6055cd;
-    z-index: 5;
-
-    & :active::before {
-      background-color: #6055cd;
-      border-color: #6055cd;
+    width: 100%;
+    
+    & .detail-q{
+      margin-top: 0.5rem;
+      //border: 1px solid blue;
     }
 
-    & :hover::before {
-      background-color: #6055cd;
-      border-color: #6055cd;
+    & .detail-a{
+      //border: 1px solid green;
     }
-  }
-
-  &
-    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):active::before {
-    background-color: #6055cd;
-    border-color: #6055cd;
-  }
-
-  & .ant-radio-button-wrapper {
-    background: rgba(0, 0, 0, 0);
-    border-color: #6055cd;
-    color: #6055cd;
   }
 
   & .basic-info {
     width: 90%;
+    ${basicStyle}
+    & .subtitle {
+      font-weight: bold;
+      font-size: 1rem;
+     // border: 1px solid red;
+      margin-top: 1.5rem;
+    }
 
     & input {
-      ${basicStyle}
       border: none;
       width: 100%;
     }
@@ -62,9 +51,20 @@ const Container = styled.div`
 
   & .additional-info {
     & input {
-      ${basicStyle}
       border: none;
       border-bottom: 1px solid #000000;
+    }
+
+    & input[type="radio"]{
+      margin-top: 0.5rem;
+      width: 12px;
+      height: 12px;
+
+    }
+
+    & .radio-wrapper {
+      width: 33%;
+      display: inline;
     }
   }
 `;
@@ -97,6 +97,7 @@ const ContainerFooter = styled.button`
   background-color: #6055cd;
   border: 1px solid #6055cd;
   font-weight: bold;
+  margin-top: auto;
 `;
 
 const JoinGroup = ({ category, groupName, groupId }) => {
@@ -151,43 +152,33 @@ const JoinGroup = ({ category, groupName, groupId }) => {
             <div className="subtitle">기본 정보</div>
             <div className="join-content-detail">
               <div className="join-content-detail-element">
-                <div>이름</div>
-                <div>{me.name}</div>
-                <div>나이</div>
-                <div>{year - Number(me.birthday.split('-')[0]) + 1}</div>
-                <div>성별</div>
-                <Radio.Group
-                  defaultValue={me.gender}
-                  buttonStyle="solid"
-                  onChange={onChangeGender}
-                  size="small"
-                >
-                  <Radio.Button value="female">F</Radio.Button>
-                  <Radio.Button value="male">M</Radio.Button>
-                </Radio.Group>
-                <div>이메일</div>
-                <div>{me.email}</div>
-                <div>연락처</div>
-                <div>{me.telephone}</div>
+                <div className="detail-q">✦ 이름</div>
+                <div className="detail-a">{me.name}</div>
+                <div className="detail-q">✦ 나이</div>
+                <div className="detail-a">{me.birthday&&year - Number(me.birthday.split('-')[0]) + 1}</div>
+                <div className="detail-q">✦ 성별</div>
+                <input type="text" className="detail-a" value={me.gender?"여성":"남성"} readonly />
+                <div className="detail-q">✦ 이메일</div>
+                <div className="detail-a">{me.email}</div>
+                <div className="detail-q">✦ 연락처</div>
+                <div className="detail-a">{me.telephone}</div>
               </div>
             </div>
             <div className="additional-info">
               <div className="subtitle">추가 정보</div>
               <div className="join-content-detail">
-                <div>예상 활동 기간</div>
-                <Radio.Group
-                  defaultValue={activityPeriod}
-                  buttonStyle="solid"
-                  onChange={onChangePeriod}
-                  size="small"
-                >
-                  <Radio.Button value="3MonthUnder">3개월 미만</Radio.Button>
-                  <Radio.Button value="3MonthOver">3개월 이상</Radio.Button>
-                  <Radio.Button value="6MonthOver">6개월 이상</Radio.Button>
-                </Radio.Group>
-              </div>
-              <div>
-                <div>요청사항</div>
+                <div className="detail-q">✦ 예상 활동 기간</div> 
+                  <div className="radio-wrapper">
+                    <input id="3MonthUnder" type="radio" name="actMonth" value="3MonthUnder" /> <label htmlFor="3MonthUnder">3개월 미만 </label>
+                  </div>                     
+                  <div className="radio-wrapper">
+                    <input id="3MonthOver" type="radio" name="actMonth" value="3MonthOver" /> <label htmlFor="3MonthOver">3개월 이상 </label>
+                  </div>  
+                  <div className="radio-wrapper">
+                    <input id="6MonthOver" type="radio" name="actMonth" value="6MonthOver" /> <label htmlFor="6MonthOver">6개월 이상 </label>
+                  </div>  
+                <div className="detail-q">✦ 요청사항</div>
+
                 <input placeholder="요청사항을 입력해 보세요" />
               </div>
             </div>

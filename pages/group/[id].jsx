@@ -31,6 +31,7 @@ const GroupContainer = styled.div`
     & .big-img {
       width: 100%;
       height: 30vh;
+      margin-top: 0.5rem;
     }
 
     & .group-content-header {
@@ -183,7 +184,7 @@ const GroupDetail = () => {
       await customAxios.delete(`/prefer-group?memberId=${me.id}&groupId=${id}`);
     }
     setFilledHeart(prev => !prev);
-  }, []);
+  }, [filledHeart]);
 
   const clickPlusButton = useCallback(() => {
     setIsShowingSetting(prev => !prev);
@@ -201,6 +202,15 @@ const GroupDetail = () => {
   useEffect(() => {
     getGroupData();
   }, []);
+
+  useEffect(() => {
+    if (!me.id) return;
+    const { recruitingGroups, recruitedGroups } = me.PreferGroups;
+    const isPrefer =
+      recruitingGroups.some(group => group.id === parseInt(id, 10)) ||
+      recruitedGroups.some(group => group.id === parseInt(id, 10));
+    isPrefer && setFilledHeart(true);
+  }, [me]);
 
   return (
     <>

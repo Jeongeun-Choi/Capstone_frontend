@@ -8,7 +8,8 @@ import Header from '../components/main/Header';
 import {
   loadJoingroupsRequestAction,
   loadApplyGroupsRequestAction,
-  loadMyInfoRequestAction
+  loadMyInfoRequestAction,
+  loadPreferGroupsRequestAction
 } from '../reducers/user';
 
 // #6055CD
@@ -25,6 +26,7 @@ const GroupContainer = styled.div`
     }
   }
   .ant-tabs-tab {
+    margin-right: 1px;
     width: 50%;
     display: flex;
     justify-content: center;
@@ -50,24 +52,25 @@ const group = () => {
 
   useEffect(() => {
     if (me.id) {
-      loadJoingroupsRequestAction(me.id);
-      loadApplyGroupsRequestAction(me.id);
+      dispatch(loadJoingroupsRequestAction({ id: me.id }));
+      dispatch(loadApplyGroupsRequestAction({ id: me.id }));
+      dispatch(loadPreferGroupsRequestAction(me.id));
     }
   }, []);
 
   return (
     <GroupContainer>
-      <Header type="white" title="모임명" />
+      <Header type="white" title="모임" />
       <Tabs defaultActiveKey="1">
         <TabPane tab={applyGroups} key="1">
-          {me.ApplyGroups?.length !== 0 ? (
+          {me?.ApplyGroups?.length !== 0 ? (
             <Groups groups={me.ApplyGroups} type="group" />
           ) : (
             <EmptyGroups pageTab={applyGroups} />
           )}
         </TabPane>
         <TabPane tab={myGroups} key="2">
-          {me.JoinGroups?.length !== 0 ? (
+          {me?.JoinGroups?.length !== 0 ? (
             <Groups groups={me.JoinGroups} type="group" />
           ) : (
             <EmptyGroups pageTab={myGroups} />
