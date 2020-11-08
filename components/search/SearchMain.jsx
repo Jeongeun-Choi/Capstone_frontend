@@ -61,7 +61,7 @@ const SearchMain = () => {
         peopleNumber,
         activeDay,
         activeLocation,
-        groupName,
+        inputValue,
         categoryName
       );
       dispatch(
@@ -70,7 +70,7 @@ const SearchMain = () => {
           peopleNumber,
           activeDay,
           activeLocation,
-          groupName,
+          groupName: inputValue,
           category: categoryUrlNames[categoryName],
         })
       );

@@ -155,11 +155,13 @@ const Group = ({
           />
         </section>
         <section className='group-info'>
-          <div className='group-info-category'>{categoryName}</div>
-          <div className='group-info-name'>
-            <b>{groupName}</b>
+          <div>
+            <div className='group-info-category'>{categoryName}</div>
+            <div className='group-info-name'>
+              <b>{groupName}</b>
+            </div>
+            <div>{location && location.split(' ').slice(0, 3).join(' ')}</div>
           </div>
-          <div>{location && location.split(' ').slice(0, 3).join(' ')}</div>
           <div className='group-info-wrapper'></div>
           {position && (
             <div className='group-info-position'>{positions[position]}</div>
