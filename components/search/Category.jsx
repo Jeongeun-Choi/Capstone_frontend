@@ -12,7 +12,6 @@ const CategoryBox = styled.li`
   text-align: center;
   color: #ffffff;
   font-size: 1.1rem;
-  font-weight: bold;
   border: none;
 
   display: flex;
@@ -21,9 +20,7 @@ const CategoryBox = styled.li`
   margin-bottom: 8%;
   align-items: center;
   justify-content: space-around;
-
-  color: white;
-  font-family: 'Nanum Gothic', sans-serif;
+  font-weight: bold;
 
   & img {
     width: 100%;

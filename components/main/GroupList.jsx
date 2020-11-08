@@ -10,7 +10,7 @@ const GroupListWrapper = styled.ul`
   column-gap: 1.5rem;
   width: 100%;
   justify-content: center;
-  border: 1px solid red;
+  //border: 1px solid red;
 
   @media screen and (max-width: 580px) {
     grid-template-columns: 40% 40%;

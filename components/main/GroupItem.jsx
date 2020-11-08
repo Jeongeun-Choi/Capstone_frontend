@@ -8,7 +8,7 @@ const GroupItemWrapper = styled.li`
   margin-top: 1rem;
   cursor: pointer;
   transition: opacity 0.5s;
-  border: 1px solid blue;
+  //border: 1px solid blue;
 
   &:hover {
     opacity: 0.8;
@@ -17,6 +17,16 @@ const GroupItemWrapper = styled.li`
     width: 100%;
     height: 70%;
   }
+
+  .group-category, .group-location {
+    font-size: 0.8rem;
+  }
+
+  .group-name {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
 `;
 
 const GroupItem = ({ group }) => {
@@ -38,7 +48,7 @@ const GroupItem = ({ group }) => {
           <img src='/images/logo.png' alt='대체 이미지' />
         )}
         {group.ActiveCategories?.length ? (
-          <div>
+          <div className='group-category'>
             {group.ActiveCategories.map((category) => (
               <span key={category.id}>{category.DetailCategory.name}</span>
             ))}
@@ -46,8 +56,8 @@ const GroupItem = ({ group }) => {
         ) : (
           <></>
         )}
-        <div>{group.name}</div>
-        <div>{group.location?.split(' ').slice(0, 3).join(' ')}</div>
+        <div className='group-name'>{group.name}</div>
+        <div className='group-location'>{group.location?.split(' ').slice(0, 3).join(' ')}</div>
       </GroupItemWrapper>
     </>
   );

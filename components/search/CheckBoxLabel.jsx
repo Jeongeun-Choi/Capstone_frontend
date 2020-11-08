@@ -15,7 +15,7 @@ const Label = styled.label`
 
 const Input = styled.input`
   &:checked + label {
-    background-color: #aaabd3;
+    background-color: #6055CD;
     color: white;
   }
 `;
