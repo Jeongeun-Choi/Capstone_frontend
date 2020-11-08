@@ -31,6 +31,7 @@ const GroupContainer = styled.div`
     & .big-img {
       width: 100%;
       height: 30vh;
+      margin-top: 0.5rem;
     }
 
     & .group-content-header {
