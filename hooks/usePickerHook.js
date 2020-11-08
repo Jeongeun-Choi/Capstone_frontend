@@ -7,7 +7,7 @@ const usePickerHook = (initialValue = null) => {
     setValue(string);
   }, []);
 
-  return [value, handler];
+  return [value, handler, setValue];
 };
 
 export default usePickerHook;
