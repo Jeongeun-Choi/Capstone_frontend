@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
+import { message } from 'antd';
 
 const FieldsContainer = styled.div`
   width: 100%;
@@ -12,6 +13,7 @@ const FieldsContainer = styled.div`
     height: 35px;
     border-top: 1px solid #c4c4c4;
     border-bottom: 1px solid #c4c4c4;
+    padding-top: 0.3rem;
 
     & div {
       width: 50%;
@@ -31,6 +33,7 @@ const FieldsContainer = styled.div`
       display: flex;
       flex-direction: column;
       list-style: none;
+      padding-left: 1rem;
 
       & li {
         width: 90%;
@@ -46,6 +49,7 @@ const FieldsContainer = styled.div`
       display: flex;
       flex-direction: column;
       list-style: none;
+      padding-left: 1rem;
 
       & li {
         width: 90%;
@@ -72,8 +76,13 @@ const Fields = ({ tempFields, setTempFields }) => {
 
   const clickSubclass = useCallback(
     subclass => () => {
+      if (tempFields.length === 3) {
+        return message.error('최대 3개만 입력 됩니다.');
+      }
       const { id, name } = subclass;
       const field = { id, name, middleCategory };
+      const hasSameField = tempFields.some(field => field.id === id);
+      if (hasSameField) return;
       const newfields = [...tempFields, field];
       setTempFields(newfields);
     },

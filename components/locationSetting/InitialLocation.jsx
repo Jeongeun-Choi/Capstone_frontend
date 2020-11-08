@@ -6,7 +6,8 @@ import { useRouter } from 'next/router';
 import {
   loadJoingroupsRequestAction,
   loadApplyGroupsRequestAction,
-  loadRecruitsRequestAction
+  loadRecruitsRequestAction,
+  loadPreferGroupsRequestAction
 } from '../../reducers/user';
 import { loadCategorysRequestAction } from '../../reducers/category';
 
@@ -65,6 +66,7 @@ const InitialLocation = ({ setShowingModal }) => {
     dispatch(loadApplyGroupsRequestAction({ id: me.id }));
     dispatch(loadRecruitsRequestAction({ id: me.id }));
     dispatch(loadCategorysRequestAction());
+    dispatch(loadPreferGroupsRequestAction(me.id));
   }, []);
 
   const openSelection = useCallback(e => {

@@ -22,16 +22,23 @@ const SelectionForm = styled.form`
   width: 100%;
   height: 100%;
 
-  .section-header {
-    display: flex;
-    border: 1px solid red;
-  }
-
   .setting {
+    padding-bottom: 4rem;
     width: 90%;
-    height: 90px;
     margin-left: 5%;
-    border: 1px solid blue;
+    //border: 1px solid blue;
+
+    .section-header {
+    display: flex;
+    align-items: center;
+    //border: 1px solid red;
+    }
+
+    .section-main{
+      margin-top: 0.3rem;
+      font-size: 1rem;
+      font-weight: bold;
+    }
   }
 
   .choice-board {
@@ -108,6 +115,7 @@ const Selection = ({ setShowingModal }) => {
         <section className="setting">
           <div className="section-header">
             <div>활동 선호 지역 설정 ({locations.length}/3)</div>
+            &nbsp; 
             <RightOutlined onClick={showLocationModal} />
           </div>
           <div className="section-main">
@@ -118,7 +126,7 @@ const Selection = ({ setShowingModal }) => {
                 name={location.bname}
                 array={locations}
                 setArray={setLocations}
-                color="#CBA6C3"
+                color="#6055CD"
               />
             ))}
           </div>
@@ -127,6 +135,7 @@ const Selection = ({ setShowingModal }) => {
         <section className="setting">
           <div className="section-header">
             <div>관심 분야 설정 ({fields.length}/3)</div>
+            &nbsp; 
             <RightOutlined onClick={showFieldModal} />
           </div>
           <div className="section-main">
@@ -141,7 +150,7 @@ const Selection = ({ setShowingModal }) => {
                       name={subclass.name}
                       array={fields}
                       setArray={setFields}
-                      color="#CBA6C3"
+                      color="#6055CD"
                     />
                   ))}
                 </div>

@@ -45,11 +45,7 @@ const Category = ({ name }) => {
     <Link href="/search/[category]" as={`/search/${categoryNames[name]}`}>
       <CategoryBox>
         <img
-          src={
-            categoryNames[name] !== 'etc'
-              ? `/images/${categoryNames[name]}.jpg`
-              : `/images/logo.png`
-          }
+          src={`/images/${categoryNames[name]}.jpg`}
           alt={`${categoryNames[name]}`}
         />
         <div className="img_text">{name}</div>

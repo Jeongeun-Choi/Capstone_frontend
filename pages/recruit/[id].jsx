@@ -82,6 +82,7 @@ const PostHeader = styled(ModalHeader)`
     width: 50%;
     overflow:hidden;
     text-overflow: ellipsis;
+    text-align: center;
   }
   & .anticon-exclamation-circle {
     position: absolute;
