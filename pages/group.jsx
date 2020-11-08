@@ -8,7 +8,8 @@ import Header from '../components/main/Header';
 import {
   loadJoingroupsRequestAction,
   loadApplyGroupsRequestAction,
-  loadMyInfoRequestAction
+  loadMyInfoRequestAction,
+  loadPreferGroupsRequestAction
 } from '../reducers/user';
 
 // #6055CD
@@ -50,8 +51,9 @@ const group = () => {
 
   useEffect(() => {
     if (me.id) {
-      loadJoingroupsRequestAction(me.id);
-      loadApplyGroupsRequestAction(me.id);
+      dispatch(loadJoingroupsRequestAction(me.id));
+      dispatch(loadApplyGroupsRequestAction(me.id));
+      dispatch(loadPreferGroupsRequestAction(me.id));
     }
   }, []);
 
