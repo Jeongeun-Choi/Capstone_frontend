@@ -64,7 +64,7 @@ const Group = ({ id, groupName, position = null, type, data = null }) => {
     if (type === 'group') {
       return router.push(`/group/${id}`);
     }
-    return router.push(`/recruit/${id}`);
+    setIsShowing(prev => !prev);
   }, []);
 
   return (
@@ -97,13 +97,9 @@ const Group = ({ id, groupName, position = null, type, data = null }) => {
           )}
         </section>
       </MyGroup>
-      {/* {type === 'group'
-        ? isShowing && (
-            <GroupDetail setIsShowing={setIsShowing} groupId={groupId} />
-          )
-        : isShowing && (
-            <WritingPost id={groupId} setIsShowing={setIsShowing} type={type} />
-          )} */}
+      {isShowing && (
+        <WritingPost id={id} setIsShowing={setIsShowing} type={type} />
+      )}
     </>
   );
 };
