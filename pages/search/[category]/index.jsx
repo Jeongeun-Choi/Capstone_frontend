@@ -72,7 +72,7 @@ const index = () => {
 
   return (
     <SearchContainer>
-      <Header type="white" title="모임 검색" />
+      <Header type="white" backButton="true" title="모임 검색" />
       <SearchInput />
       <Select defaultValue="group" size="small" onChange={changeSelect}>
         <Option value="group">모임</Option>

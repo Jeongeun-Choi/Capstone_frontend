@@ -40,7 +40,7 @@ const Home = () => {
       <HomeContainer ref={containerRef}>
         {me.id && (
           <RecommendText>
-            "<strong>{me.name}</strong>에게 추천하는 모임을 확인해보세요!"
+            "<b>{me.name}</b>에게 추천하는 모임을 확인해보세요!"
           </RecommendText>
         )}
         {groupsLoading && (

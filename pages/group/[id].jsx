@@ -37,11 +37,11 @@ const GroupContainer = styled.div`
 
     & .group-content-header {
       width: 100%;
+      height: 6%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin: 0.5rem 0 0.5rem 0;
-      //border: 1px solid skyblue;
       background: #f6f6f6;
 
       & .group-basic-info {
@@ -52,31 +52,30 @@ const GroupContainer = styled.div`
         & .group-basic-category {
           font-size: 0.8rem;
           color: black;
+          //border: 1px solid green;
         }
-
-        & > div {
-          width: 90%;
-        }
+  
         & .group-basic-name {
           font-size: 1rem;
-          color: #120f0f;
+          color: black;
+          //border: 1px solid blue;
         }
       }
-      & .like {
-        display: flex;
-        width: 30px;
-        height: 30px;
-        border-radius: 15px;
-        background-color: #f6f6f6;
-        //border: 1px solid orange;
-        margin-right: 1rem;
+        & .like {
+          display: flex;
+          width: 30px;
+          height: 30px;
+          border-radius: 15px;
+          background-color: #f6f6f6;
+          //border: 1px solid orange;
+          margin-right: 1rem;
 
-        & .anticon-heart {
-          margin: auto;
-          font-size: 16px;
-          color: #eb5757;
+          & .anticon-heart {
+            margin: auto;
+            font-size: 16px;
+            color: #eb5757;
+          }
         }
-      }
     }
 
     & .group-content-item {
@@ -148,8 +147,9 @@ const Plus = styled.button`
   border-radius: 25px;
   border: 1px solid #353866;
   background-color: #353866;
+
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 1.5rem; 
   font-weight: bold;
   z-index: 3;
 `;
@@ -207,21 +207,20 @@ const GroupDetail = () => {
   return (
     <>
       <GroupContainer>
-        <Header
-          title={name}
-          subtitle={
-            ActiveCategories?.length && ActiveCategories[0]?.DetailCategory.name
-          }
+        <Header title={name} subTitle={ActiveCategories?.length && ActiveCategories[0]?.DetailCategory.name} backButton={true} type="white" />
+          {/* title={name}
+          subtitle={ActiveCategories && ActiveCategories[0].DetailCategory.name}
           backButton={true}
-          type="purple"
-          declareButton={true}
-        />
+          type="white"
+          declareButton={true} */}
+         
         <section className="group-content">
           <img
             className="big-img"
             src={GroupImages && GroupImages[0].URL}
             alt={GroupImages && GroupImages[0].description}
           />
+
           <div className="group-content-header">
             <div className="group-basic-info">
               <div className="group-basic-category">
@@ -229,26 +228,34 @@ const GroupDetail = () => {
                   ActiveCategories[0]?.DetailCategory?.name}
               </div>
               <div className="group-basic-name">
-                {selectedGroup?.name} | {location?.split(' ')[2]}
+                <b>{selectedGroup?.name} | {location?.split(' ')[2]}</b>
               </div>
             </div>
+            <div className="like" onClick={clickHeart}>
+              {filledHeart ? <HeartFilled /> : <HeartOutlined />}
+            </div>
           </div>
-          <div className="like" onClick={clickHeart}>
-            {filledHeart ? <HeartFilled /> : <HeartOutlined />}
-          </div>
+          
           <div className="group-content-item">
             <div className="subtitle">✦ 모임소개</div>
             <div className="team-info-textarea">{groupIntro}</div>
           </div>
+
           <div className="group-content-item">
             <div className="subtitle">✦ 필요한 스킬</div>
-            <div>
               {Skills &&
                 Skills.reduce((total, skill) => {
                   return total + `${skill.name} `;
                 }, '')}
-            </div>
           </div>
+
+          {/* <div className="group-content-item">
+              {Skills &&
+                Skills.reduce((total, skill) => {
+                  return total + `${skill.name} `;
+                }, '')}
+        </div> */}
+          
           <div className="group-content-item">
             <div className="subtitle">✦ 활동 요일</div>
             <div>
@@ -287,7 +294,7 @@ const GroupDetail = () => {
                 {ActiveCategories?.length &&
                   ActiveCategories[0]?.DetailCategory?.name}
               </div>
-              <div>{selectedGroup?.name}</div>
+              <div><b>{selectedGroup?.name}</b></div>
               <div>since 2019</div>
             </div>
           </div>
@@ -301,6 +308,7 @@ const GroupDetail = () => {
             <div className="subtitle">✦ 모임 Q&amp;A</div>
             <div>QnA 컴포넌트 ~,~</div>
           </div>
+        
         </section>
         <Plus type="button" onClick={clickPlusButton}>
           <PlusOutlined />
