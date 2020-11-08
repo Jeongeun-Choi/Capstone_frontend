@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
+import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
-import { Modal } from 'antd';
+import { Modal, message } from 'antd';
 import ProvedComponent from './ProvedComponent';
 import MakingGroup from './MakingGroup';
 import { useSelector } from 'react-redux';
@@ -31,9 +32,9 @@ const EmptyGroupsContainer = styled.main`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid #6055CD;
+    border: 1px solid #6055cd;
     border-radius: 18px;
-    background-color: #6055CD;
+    background-color: #6055cd;
     color: white;
     font-family: 'Nanum Gothic', sans-serif;
     font-weight: regular;
@@ -42,7 +43,7 @@ const EmptyGroupsContainer = styled.main`
 
 const EmptyGroups = ({ pageTab }) => {
   const { me } = useSelector(state => state.user);
-
+  const router = useRouter();
   const [pText, aText] = content[pageTab];
   const [isAlertModal, setIsAlertModal] = useState(false);
   const [isProvedModal, setIsProvedModal] = useState(false);
@@ -58,7 +59,11 @@ const EmptyGroups = ({ pageTab }) => {
   }, [me]);
 
   const openAlertModal = useCallback(() => {
-    setIsAlertModal(prev => !prev);
+    if (pageTab === '나의 모임') {
+      return setIsAlertModal(prev => !prev);
+    }
+    message.info('모임 검색 창으로 이동합니다.');
+    router.push('/search');
   }, []);
 
   return (
@@ -77,7 +82,7 @@ const EmptyGroups = ({ pageTab }) => {
           <button onClick={openAlertModal}>{aText}</button>
         )}
       </EmptyGroupsContainer>
-      <Modal visible={isAlertModal} onOk={openScreen} onClose={openAlertModal}>
+      <Modal visible={isAlertModal} onOk={openScreen} onCancel={openAlertModal}>
         <h4>모임 개설</h4>
         <div>새로운 모임을 개설하시겠습니까?</div>
       </Modal>
