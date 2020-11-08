@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import GroupItem from './GroupItem';
 
 const GroupListWrapper = styled.ul`
-  font-family: 'Nanum Gothic', sans-serif;
   display: grid;
   grid-template-columns: 30% 30% 30%;
+  padding: 2rem 0;
   row-gap: 1.5rem;
   column-gap: 1.5rem;
   width: 100%;

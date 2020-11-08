@@ -8,15 +8,19 @@ import { categoryUrlNames } from '../../utils/categoryNames';
 
 const ItemBox = styled.div`
   ${basicBoxStyle}
-  max-height: 180px;
-  max-width: 500px;
-  margin-right: 15px;
-  margin-bottom: 20px;
-  border: none;
+  width: 100%;
+  height: 40vh;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: opacity 0.5s;
+  //border: 1px solid blue;
 
+  &:hover {
+    opacity: 0.8;
+  }
   & img {
     width: 100%;
-    height: 100%;
+    height: 70%;
   }
 
   & .box-info {
@@ -55,14 +59,11 @@ const Item = ({ type, name, id, location, category, image = null }) => {
           src={(image && image.URL) || '/images/teamimg.jpg'}
           alt={(image && image.description) || '기본 그룹 사진'}
         />
-        <div className="box-info">
-          <div className="box-info-category">{categoryUrlNames[category]}</div>
-          <div className="box-info-name">{name}</div>
-          <div className="box-info-location">
-            {location
-              ?.split(' ')
-              .slice(0, 3)
-              .join(' ')}
+        <div className='box-info'>
+          <div className='box-info-category'>{categoryUrlNames[category]}</div>
+          <div className='box-info-name'>{name}</div>
+          <div className='box-info-location'>
+            {location?.split(' ').slice(0, 3).join(' ')}
           </div>
         </div>
       </ItemBox>

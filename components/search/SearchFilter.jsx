@@ -42,7 +42,7 @@ const FilterForm = styled.form`
       //border: 1px solid blue;
     }
 
-    & .div_content{
+    & .div_content {
       //border: 1px solid purple;
       margin: 0.3rem;
     }
@@ -54,7 +54,7 @@ const Button = styled.button`
   height: 8vh;
   margin-top: auto;
   color: white;
-  background-color: #6055CD;
+  background-color: #6055cd;
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
@@ -70,14 +70,15 @@ const marks = {
   10: '10명 이상',
 };
 
-const SearchFilter = ({ toggleFilter }) => {
-  const dispatch = useDispatch();
-
-  const [sortBase, setSortBase] = useState('default');
-  const [peopleNumber, setPeopleNumber] = useState(0);
-  const [activeDay, setActiveDay] = useState([]);
-  const [activeLocation, setActiveLocation] = useState([]);
-
+const SearchFilter = ({
+  toggleFilter,
+  sortBase,
+  setSortBase,
+  peopleNumber,
+  setPeopleNumber,
+  setActiveDay,
+  setActiveLocation,
+}) => {
   const onChange = useCallback((value) => {
     setPeopleNumber(value);
   }, []);
@@ -86,21 +87,10 @@ const SearchFilter = ({ toggleFilter }) => {
     setSortBase(e.target.value);
   };
 
-  const onSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      dispatch(
-        loadFilteredGroupsRequestAction({
-          sortBase,
-          peopleNumber,
-          activeDay,
-          activeLocation,
-        })
-      );
-      toggleFilter();
-    },
-    [sortBase, peopleNumber, activeDay, activeLocation]
-  );
+  const onSubmit = useCallback((e) => {
+    e.preventDefault();
+    toggleFilter();
+  }, []);
 
   return (
     <Modal>

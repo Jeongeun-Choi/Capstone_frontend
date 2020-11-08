@@ -59,13 +59,13 @@ const PreferCategory = ({ myInfo }) => {
     <>
       <CategoryContainer>
         <div className='category_explain'>
-          등록된 관심분야의 인기모임을 놓치지 않도록<br></br>
-          홈 화면에서 보여드릴게요.
+          등록된 관심분야의 인기모임을 놓치지 않도록<br></br>홈 화면에서
+          보여드릴게요.
           <button className='category_button' onClick={changeStatus}>
             <SettingOutlined />
           </button>
         </div>
-        {myInfo?.PreferCategories?.length && (
+        {myInfo?.PreferCategories?.length ? (
           <ul className='category_list'>
             {myInfo.PreferCategories?.map(({ DetailCategory }, index) => (
               <li key={DetailCategory.id} className='category_item'>
@@ -77,6 +77,8 @@ const PreferCategory = ({ myInfo }) => {
               </li>
             ))}
           </ul>
+        ) : (
+          ''
         )}
       </CategoryContainer>
       {isModify && (

@@ -12,12 +12,16 @@ import {
   UPDATE_POST_REQUEST,
   deletePostSuccessAction,
   DELETE_POST_REQUEST,
-  deletePostFailureAction
+  deletePostFailureAction,
 } from '../reducers/post';
 
 function loadPostsAPI(data) {
-  const { categoryId } = data;
-  return customAxios.get(`/recruits?categoryid=${categoryId}`);
+  const { categoryId, recruitName } = data;
+  const query =
+    categoryId && recruitName
+      ? `?categoryId=${categoryId}&recruitName=${recruitName}`
+      : `?categoryId=${categoryId}`;
+  return customAxios.get(`/recruits${query}`);
 }
 
 function* loadPosts(action) {
@@ -90,6 +94,6 @@ export default function* postSaga() {
     fork(watchLoadPosts),
     fork(watchAddPost),
     fork(watchUpdatePost),
-    fork(watchDeletePost)
+    fork(watchDeletePost),
   ]);
 }

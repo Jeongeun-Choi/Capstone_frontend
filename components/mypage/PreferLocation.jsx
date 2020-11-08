@@ -77,13 +77,13 @@ const PreferLocation = ({ myInfo }) => {
     <>
       <LocationContainer>
         <div className='location_explain'>
-          등록된 활동 지역의 새로운 모임을 놓치지 않도록<br></br> 
-          홈 화면에서 보여드릴게요.
+          등록된 활동 지역의 새로운 모임을 놓치지 않도록<br></br>홈 화면에서
+          보여드릴게요.
           <button className='location_modify_button' onClick={changeStatus}>
             <SettingOutlined />
           </button>
         </div>
-        {myInfo?.PreferLocations?.length && (
+        {myInfo?.PreferLocations?.length ? (
           <ul className='location_list'>
             {myInfo.PreferLocations?.map((location, index) => {
               const [state, city, dong] = location.address.split(' ');
@@ -100,6 +100,8 @@ const PreferLocation = ({ myInfo }) => {
               );
             })}
           </ul>
+        ) : (
+          ''
         )}
       </LocationContainer>
       {isModify && (

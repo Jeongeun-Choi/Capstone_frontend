@@ -6,7 +6,6 @@ import { categoryNames } from '../../utils/categoryNames';
 
 const CategoryBox = styled.li`
   ${basicBoxStyle}
-  max-height: 90px;
   max-width: 500px;
   position: relative;
   text-align: center;
@@ -21,6 +20,11 @@ const CategoryBox = styled.li`
   align-items: center;
   justify-content: space-around;
   font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 
   & img {
     width: 100%;
@@ -42,7 +46,7 @@ const CategoryBox = styled.li`
 
 const Category = ({ name }) => {
   return (
-    <Link href="/search/[category]" as={`/search/${categoryNames[name]}`}>
+    <Link href='/search/[category]' as={`/search/${categoryNames[name]}`}>
       <CategoryBox>
         <img
           src={
@@ -52,7 +56,7 @@ const Category = ({ name }) => {
           }
           alt={`${categoryNames[name]}`}
         />
-        <div className="img_text">{name}</div>
+        <div className='img_text'>{name}</div>
       </CategoryBox>
     </Link>
   );

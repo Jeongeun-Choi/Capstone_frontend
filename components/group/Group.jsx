@@ -18,7 +18,6 @@ const MyGroup = styled.li`
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.8rem;
-  cursor: pointer;
 
   @media screen and (min-width: 540px) {
     height: 12vh;
@@ -34,6 +33,10 @@ const MyGroup = styled.li`
     & img {
       width: 100%;
       height: 100%;
+    }
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
     }
   }
   & .group-info {
@@ -61,10 +64,29 @@ const MyGroup = styled.li`
     }
 
     & .group-application {
-      width: 10%;
+      width: 25%;
       display: flex;
       flex-direction: column;
-      font-size: 0.7rem;
+      align-items: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+
+      &:hover {
+        color: grey;
+      }
+      & div {
+        margin-top: 0.2rem;
+        font-size: 0.5rem;
+      }
+
+      @media screen and (min-width: 780px) {
+        width: 15%;
+        font-size: 1.5rem;
+
+        & div {
+          font-size: 0.8rem;
+        }
+      }
     }
   }
 `;
@@ -77,28 +99,35 @@ const Group = ({
   data = null,
   location,
   categoryName,
+  toggleApply,
 }) => {
-  const [isShowing, setIsShowing] = useState(false);
   const router = useRouter();
+
+  const [isShowing, setIsShowing] = useState(false);
+
   const moveDetailInfo = useCallback(async () => {
     if (type === 'group') {
       return router.push(`/group/${id}`);
     }
-    setIsShowing(prev => !prev);
+    setIsShowing((prev) => !prev);
   }, []);
+
+  const onClickApply = () => {
+    toggleApply(data);
+  };
 
   return (
     <>
-      <MyGroup onClick={moveDetailInfo}>
-        <section className='group-image'>
+      <MyGroup>
+        <section className='group-image' onClick={moveDetailInfo}>
           <img
             src={
-              data && data.Group.GroupImages?.length
+              data && data.Group?.GroupImages?.length
                 ? data.Group.GroupImages[0].URL
                 : '/images/teamimg.jpg'
             }
             alt={
-              data && data.Group.GroupImages?.length
+              data && data.Group?.GroupImages?.length
                 ? data.Group.GroupImages[0].description
                 : '기본 이미지'
             }
@@ -108,14 +137,14 @@ const Group = ({
           <div>
             <div>{categoryName}</div>
             <div className='group-info-name'>{groupName}</div>
-            <div>{location}</div>
+            <div>{location && location.split(' ').slice(0, 3).join(' ')}</div>
           </div>
 
           {position && (
             <div className='group-info-position'>{positions[position]}</div>
           )}
-          {type !== 'group' && (
-            <div className="group-application">
+          {type === 'group' && !position && (
+            <div className='group-application' onClick={onClickApply}>
               <ContainerFilled />
               <div>지원서 열람</div>
             </div>
