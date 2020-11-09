@@ -72,7 +72,7 @@ const Groups = ({ groups, type }) => {
             : groups?.map(group => (
                 <Group
                   key={group?.Group ? group.Group.id : group.id}
-                  id={group?.Group ? group.Group.id : group.id}
+                  id={group?.id}
                   groupName={group?.Group ? group.Group.name : group.title}
                   data={group}
                   type={type}

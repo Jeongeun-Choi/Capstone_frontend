@@ -80,14 +80,14 @@ const FieldSetting = ({
   setShowingFieldModal,
   fields,
   setFields,
-  onSubmit
+  onSubmit,
 }) => {
   const [fieldsObj, setFieldsObj] = useState({});
   const [tempFields, setTempFields] = useState(fields);
 
   useEffect(() => {
     const newObj = {};
-    tempFields.forEach(field =>
+    tempFields.forEach((field) =>
       newObj[field.middleCategory]
         ? newObj[field.middleCategory].push({ id: field.id, name: field.name })
         : (newObj[field.middleCategory] = [{ id: field.id, name: field.name }])
@@ -96,12 +96,12 @@ const FieldSetting = ({
   }, [tempFields]);
 
   const closeFieldModal = useCallback(() => {
-    setShowingFieldModal(prev => !prev);
+    setShowingFieldModal((prev) => !prev);
     setTempFields(fields);
   }, []);
 
   const submitResult = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       if (tempFields.length === 0) {
         return alert('한 개 이상의 관심 분야를 선택해야합니다.');
@@ -110,7 +110,7 @@ const FieldSetting = ({
       setFields && setFields(tempFields);
       onSubmit && onSubmit(tempFields);
       setTempFields([]);
-      setShowingFieldModal(prev => !prev);
+      setShowingFieldModal((prev) => !prev);
     },
     [tempFields]
   );
@@ -124,16 +124,18 @@ const FieldSetting = ({
         </ModalHeader>
         <Fields tempFields={tempFields} setTempFields={setTempFields} />
         <ModalFooter>
-          <section className="choice">
+          <section className='choice'>
             <div>선택한 분야</div>
-            {Object.keys(fieldsObj).map(middleCategory => (
-              <div key={middleCategory} className="choice-board">
-                <div className="choice-middleCategory">{middleCategory} / 중분류</div>
-                <div className="choice-board-list">
-                  {fieldsObj[middleCategory].map(subclass => (
+            {Object.keys(fieldsObj).map((middleCategory) => (
+              <div key={middleCategory} className='choice-board'>
+                <div className='choice-middleCategory'>
+                  {middleCategory} / 대분류
+                </div>
+                <div className='choice-board-list'>
+                  {fieldsObj[middleCategory].map((subclass) => (
                     <Item
                       key={subclass.name}
-                      type="field"
+                      type='field'
                       name={subclass.name}
                       array={tempFields}
                       setArray={setTempFields}
@@ -143,14 +145,14 @@ const FieldSetting = ({
               </div>
             ))}
           </section>
-          <section className="footer-buttons">
+          <section className='footer-buttons'>
             <div>
-              <button className="reset">
+              <button className='reset'>
                 <ReloadOutlined />
                 &nbsp; 초기화
               </button>
               {/* TODO: onSubmit함수, action 보내기 */}
-              <button className="submit" type="button" onClick={submitResult}>
+              <button className='submit' type='button' onClick={submitResult}>
                 적용하기
               </button>
             </div>

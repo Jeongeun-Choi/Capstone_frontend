@@ -4,7 +4,7 @@ import {
   Modal,
   ModalHeader,
   modalFooter,
-  basicStyle
+  basicStyle,
 } from '../../public/style';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
@@ -17,7 +17,7 @@ import usePickerHook from '../../hooks/usePickerHook';
 import Upload from '../uploadImg/Upload';
 import {
   addGroupRequestAction,
-  updateGroupRequestAction
+  updateGroupRequestAction,
 } from '../../reducers/group';
 import useCheckResult from '../../hooks/useCheckResult';
 
@@ -30,10 +30,10 @@ const days = {
   목: 'thu',
   금: 'fri',
   토: 'sat',
-  일: 'sun'
+  일: 'sun',
 };
 
-const formatter = value => {
+const formatter = (value) => {
   return `${value}명`;
 };
 
@@ -116,11 +116,11 @@ const MakingGroup = ({
   setCloseModal,
   groupId = null,
   modify = false,
-  data = null
+  data = null,
 }) => {
   const format = 'HH:mm';
-  const { categories } = useSelector(state => state.category);
-  const { me } = useSelector(state => state.user);
+  const { categories } = useSelector((state) => state.category);
+  const { me } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const [category, setCategory] = useState(
@@ -128,7 +128,7 @@ const MakingGroup = ({
       ? [
           data &&
             data?.ActiveCategories?.length &&
-            data.ActiveCategories[0].DetailCategory.id
+            data.ActiveCategories[0].DetailCategory.id,
         ]
       : []
   );
@@ -177,43 +177,43 @@ const MakingGroup = ({
   );
 
   const changeSlider = useCallback(
-    value => {
+    (value) => {
       setMaxMember(value);
     },
     [maxMember]
   );
 
-  const changeSkills = useCallback(e => {
+  const changeSkills = useCallback((e) => {
     setSkills(e.target.value);
   }, []);
 
   const changeMiddleCategory = useCallback(
-    value => {
+    (value) => {
       setMiddleCategory(value);
-      !showDetailCategory && setShowDetailCategory(prev => !prev);
+      !showDetailCategory && setShowDetailCategory((prev) => !prev);
     },
     [middleCategory, showDetailCategory]
   );
 
   const changeDetailCategory = useCallback(
-    value => {
+    (value) => {
       setCategory([value]);
     },
     [detailCategory]
   );
 
   const changeDayState = useCallback(
-    e => {
+    (e) => {
       const { target } = e;
       const className = 'team-active-day-content-item-active';
       const targetText = target.innerText;
 
       if (target.classList.contains(className)) {
         target.classList.remove(className);
-        const index = activeDays.findIndex(day => day === targetText);
+        const index = activeDays.findIndex((day) => day === targetText);
         setActiveDays([
           ...activeDays.slice(0, index),
-          ...activeDays.slice(index + 1, activeDays.length)
+          ...activeDays.slice(index + 1, activeDays.length),
         ]);
       } else {
         target.classList.add(className);
@@ -224,7 +224,7 @@ const MakingGroup = ({
   );
 
   const submitResult = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
 
       if (
@@ -235,7 +235,7 @@ const MakingGroup = ({
         !activeDays.length ||
         !startTime.trim() ||
         !endTime.trim() ||
-        !location.length
+        !groupLocation.length
       ) {
         return message.error('필수사항을 입력하세요.');
       }
@@ -250,12 +250,12 @@ const MakingGroup = ({
         startTime,
         endTime,
         groupImages,
-        memberId: me.id
+        memberId: me.id,
       };
 
       try {
         dispatch(addGroupRequestAction(data));
-        setCloseModal(prev => !prev);
+        setCloseModal((prev) => !prev);
       } catch (err) {
         console.log(err);
       }
@@ -270,12 +270,12 @@ const MakingGroup = ({
       groupLocation,
       skills,
       maxMember,
-      groupImages
+      groupImages,
     ]
   );
 
   const modifyGroup = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       if (
         !groupName.trim() ||
@@ -285,7 +285,7 @@ const MakingGroup = ({
         !activeDays.length ||
         !startTime.trim() ||
         !endTime.trim() ||
-        !location.length
+        !groupLocation.length
       ) {
         return message.error('필수사항을 입력하세요.');
       }
@@ -301,11 +301,11 @@ const MakingGroup = ({
         startTime,
         endTime,
         groupImages,
-        memberId: me.id
+        memberId: me.id,
       };
       try {
         dispatch(updateGroupRequestAction(body));
-        setCloseModal(prev => !prev);
+        setCloseModal((prev) => !prev);
       } catch (err) {
         console.log(err);
       }
@@ -320,20 +320,20 @@ const MakingGroup = ({
       groupLocation,
       skills,
       maxMember,
-      groupImages
+      groupImages,
     ]
   );
 
   const closeModal = useCallback(() => {
-    setCloseModal(prev => !prev);
+    setCloseModal((prev) => !prev);
   }, []);
 
   useEffect(() => {
     if (modify) {
       const activeDayArray =
-        data && data.ActiveTimes.map(time => time.activeDay);
+        data && data.ActiveTimes.map((time) => time.activeDay);
       const skillsString =
-        data && data.Skills.map(skill => skill.name).join(', ');
+        data && data.Skills.map((skill) => skill.name).join(', ');
       setActiveDays(activeDayArray);
       setSkills(skillsString);
     }
@@ -342,21 +342,21 @@ const MakingGroup = ({
   return (
     <>
       <Modal zIndex={3}>
-        <MakingGroupContainer encType="multipart/form-data">
+        <MakingGroupContainer encType='multipart/form-data'>
           <MakingGroupHeader>
             <h3>{modify ? '모임 수정' : '모임 개설'}</h3>
             <LeftOutlined onClick={closeModal} />
           </MakingGroupHeader>
-          <main className="team-content">
-            <div className="team-item">
-              <div className="category-title">
-                <div className="subtitle">카테고리</div>
+          <main className='team-content'>
+            <div className='team-item'>
+              <div className='category-title'>
+                <div className='subtitle'>카테고리</div>
                 <Select
                   defaultValue={(modify && middleCategory) || '선택하세요.'}
                   onChange={changeMiddleCategory}
                   style={{ width: 200 }}
                 >
-                  {Object.keys(categories).map(category => (
+                  {Object.keys(categories).map((category) => (
                     <Option key={category} value={category}>
                       {category}
                     </Option>
@@ -369,7 +369,7 @@ const MakingGroup = ({
                     style={{ width: 100 }}
                   >
                     {middleCategory &&
-                      categories[middleCategory].map(category => (
+                      categories[middleCategory].map((category) => (
                         <Option key={category.id} value={category.id}>
                           {category.name}
                         </Option>
@@ -378,36 +378,36 @@ const MakingGroup = ({
                 )}
               </div>
             </div>
-            <div className="team-item">
-              <div className="subtitle">모임명</div>
+            <div className='team-item'>
+              <div className='subtitle'>모임명</div>
               <input
                 onChange={changeGroupName}
-                className="team-input"
-                placeholder="모임명"
+                className='team-input'
+                placeholder='모임명'
                 value={groupName}
               />
             </div>
-            <div className="team-item">
-              <div className="subtitle">모임소개</div>
+            <div className='team-item'>
+              <div className='subtitle'>모임소개</div>
               <textarea
-                className="team-info-textarea"
+                className='team-info-textarea'
                 onChange={changeIntro}
-                rows="5"
-                cols="33"
+                rows='5'
+                cols='33'
                 value={intro}
-                placeholder="그룹 소개를 적어주세요."
+                placeholder='그룹 소개를 적어주세요.'
               ></textarea>
             </div>
-            <div className="team-item">
-              <div className="subtitle">활동 요일</div>
-              <div className="team-active-day-content">
-                {Object.keys(days).map(day => {
+            <div className='team-item'>
+              <div className='subtitle'>활동 요일</div>
+              <div className='team-active-day-content'>
+                {Object.keys(days).map((day) => {
                   if (modify && activeDays.includes(day)) {
                     return (
                       <div
                         key={day}
                         id={day}
-                        className="team-active-day-content-item team-active-day-content-item-active"
+                        className='team-active-day-content-item team-active-day-content-item-active'
                         onClick={changeDayState}
                       >
                         {day}
@@ -418,7 +418,7 @@ const MakingGroup = ({
                       <div
                         key={day}
                         id={day}
-                        className="team-active-day-content-item"
+                        className='team-active-day-content-item'
                         onClick={changeDayState}
                       >
                         {day}
@@ -428,9 +428,9 @@ const MakingGroup = ({
                 })}
               </div>
             </div>
-            <div className="team-item">
-              <div className="subtitle">활동 시간</div>
-              <div className="team-active-time-content">
+            <div className='team-item'>
+              <div className='subtitle'>활동 시간</div>
+              <div className='team-active-time-content'>
                 <TimePicker
                   defaultValue={modify && moment(startTime, format)}
                   format={format}
@@ -443,8 +443,8 @@ const MakingGroup = ({
                 />
               </div>
             </div>
-            <div className="team-item">
-              <div className="subtitle">최대 인원</div>
+            <div className='team-item'>
+              <div className='subtitle'>최대 인원</div>
               <Slider
                 defaultValue={maxMember}
                 max={10}
@@ -452,19 +452,19 @@ const MakingGroup = ({
                 onChange={changeSlider}
               />
             </div>
-            <div className="team-item">
-              <div className="subtitle">활동을 위해 필요한 스킬</div>
+            <div className='team-item'>
+              <div className='subtitle'>활동을 위해 필요한 스킬</div>
               <input
-                className="team-input"
-                placeholder=",로 구분하여 적으세요."
+                className='team-input'
+                placeholder=',로 구분하여 적으세요.'
                 onChange={changeSkills}
                 value={skills}
               />
             </div>
-            <div className="team-item">
-              <div className="team-location-title">
-                <div className="subtitle">모임 지역</div>
-                {location.length && <div>{groupLocation}</div>}
+            <div className='team-item'>
+              <div className='team-location-title'>
+                <div className='subtitle'>모임 지역</div>
+                {groupLocation.length ? <div>{groupLocation}</div> : ''}
               </div>
               <FindingAddress
                 locations={groupLocation}
@@ -472,17 +472,17 @@ const MakingGroup = ({
               />
             </div>
             {groupLocation && <KakaoMap location={groupLocation} />}
-            <div className="team-item">
-              <div className="subtitle">이미지 추가</div>
+            <div className='team-item'>
+              <div className='subtitle'>이미지 추가</div>
               <Upload images={groupImages} setImages={setGroupImages} />
             </div>
           </main>
           {modify ? (
-            <MakingGroupFooter type="submit" onClick={modifyGroup}>
+            <MakingGroupFooter type='submit' onClick={modifyGroup}>
               수정 완료
             </MakingGroupFooter>
           ) : (
-            <MakingGroupFooter type="submit" onClick={submitResult}>
+            <MakingGroupFooter type='submit' onClick={submitResult}>
               모임 개설하기
             </MakingGroupFooter>
           )}
