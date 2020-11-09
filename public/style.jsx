@@ -25,7 +25,7 @@ export const basicBoxStyle = css`
   height: 100%;
   min-height: 90px;
   min-width: 130px;
-  border: 1px solid #a2a2a2;
+  //border: 1px solid #a2a2a2;
 `;
 
 export const basicTeamStyle = css`

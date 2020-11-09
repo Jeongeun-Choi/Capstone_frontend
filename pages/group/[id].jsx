@@ -144,9 +144,9 @@ const Plus = styled.button`
   width: 50px;
   height: 50px;
   border-radius: 25px;
-  border: 1px solid #353866;
-  background-color: #353866;
-
+  border: 1px solid #6055CD;
+  background-color: #6055CD;
+  box-shadow: 3px 3px 3px grey; 
   color: #ffffff;
   font-size: 1.5rem;
   font-weight: bold;
