@@ -133,15 +133,17 @@ const MakingGroup = ({
       : []
   );
   const [groupName, changeGroupName] = useInputChangeHook(
-    modify ? data && name : ''
+    modify ? data && data.name : ''
   );
   const [intro, changeIntro] = useInputChangeHook(
-    modify ? data && groupIntro : ''
+    modify ? data && data.groupIntro : ''
   );
   const [groupLocation, setGroupLocation] = useState(
-    modify ? data && location : ''
+    modify ? data && data.location : ''
   );
-  const [maxMember, setMaxMember] = useState(modify ? data && memberCount : 0);
+  const [maxMember, setMaxMember] = useState(
+    modify ? data && data.memberCount : 0
+  );
   const [activeDays, setActiveDays] = useState([]);
   const [startTime, changeStartTime] = usePickerHook(
     modify
@@ -155,7 +157,7 @@ const MakingGroup = ({
   );
   const [skills, setSkills] = useState('');
   const [groupImages, setGroupImages] = useState(
-    modify ? data && GroupImages : []
+    modify ? data && data?.GroupImages?.length && data.GroupImages : []
   );
   const [middleCategory, setMiddleCategory] = useState(
     modify
@@ -305,8 +307,10 @@ const MakingGroup = ({
 
   useEffect(() => {
     if (modify) {
-      const activeDayArray = ActiveTimes.map(time => time.activeDay);
-      const skillsString = Skills.map(skill => skill.name).join(', ');
+      const activeDayArray =
+        data && data.ActiveTimes.map(time => time.activeDay);
+      const skillsString =
+        data && data.Skills.map(skill => skill.name).join(', ');
       setActiveDays(activeDayArray);
       setSkills(skillsString);
     }
