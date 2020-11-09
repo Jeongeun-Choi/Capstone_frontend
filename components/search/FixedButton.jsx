@@ -8,7 +8,8 @@ const FixedButtonContainer = styled.div`
   height: 3.5rem;
   border-radius: 50%;
   color: white;
-  background: #353866;
+  background: #6055CD;
+  box-shadow: 3px 3px 3px grey; 
   right: 1rem;
   bottom: 60px;
   text-align: center;

@@ -20,6 +20,7 @@ const { Search } = Input;
 const SearchInput = styled(Search)`
   ${basicStyle}
   width: 90%;
+  margin-top: 1rem;
 `;
 
 const SearchContainer = styled.div`
