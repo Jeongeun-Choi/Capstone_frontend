@@ -32,8 +32,11 @@ const PostList = ({ category, posts }) => {
             name={post.title}
             id={post.id}
             category={category}
-            location={post.JoinGroup.Group.location}
-            image={post.JoinGroup.Group.GroupImages[0]}
+            location={post?.JoinGroup?.Group?.location}
+            image={
+              post?.JoinGroup?.Group?.GroupImages?.length &&
+              post?.JoinGroup?.Group?.GroupImages[0]
+            }
           />
         ))
       ) : (

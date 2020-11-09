@@ -9,12 +9,12 @@ import {
   modalFooter,
   ModalHeader,
   basicStyle,
-  Modal
+  Modal,
 } from '../../public/style';
 import usePickerHook from '../../hooks/usePickerHook';
 import {
   addPostRequestAction,
-  updatePostRequestAction
+  updatePostRequestAction,
 } from '../../reducers/post';
 import customAxios from '../../utils/baseAxios';
 
@@ -87,7 +87,6 @@ const WritingPost = ({ setIsShowing, id, type }) => {
   const [time, changeTime, setTime] = usePickerHook('');
   const [expectMemberCount, setExpectMemberCount] = useState(0);
 
-  console.log(date, time);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -103,26 +102,26 @@ const WritingPost = ({ setIsShowing, id, type }) => {
     setTime(getTime);
   };
 
-  const formatter = value => {
+  const formatter = (value) => {
     return `${value}명`;
   };
 
-  const changeSlider = useCallback(value => {
+  const changeSlider = useCallback((value) => {
     setExpectMemberCount(value);
   }, []);
 
   const closeModal = useCallback(() => {
-    setIsShowing(prev => !prev);
+    setIsShowing((prev) => !prev);
   }, []);
 
   const submitResult = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       const body = {
         title,
         contents,
         deadline: `${date} ${time}:00`,
-        expectMemberCount
+        expectMemberCount,
       };
       try {
         if (modify) {
@@ -132,7 +131,7 @@ const WritingPost = ({ setIsShowing, id, type }) => {
           body.groupMemberId = id;
           dispatch(addPostRequestAction(body));
         }
-        setIsShowing(prev => !prev);
+        setIsShowing((prev) => !prev);
       } catch (err) {
         console.log(err);
       }
@@ -148,30 +147,30 @@ const WritingPost = ({ setIsShowing, id, type }) => {
           <LeftOutlined onClick={closeModal} />
         </WritingPostHeader>
         <WritingPostContainer>
-          <main className="post-content">
-            <div className="post-item">
-              <label htmlFor="title">✦ 제목</label>
+          <main className='post-content'>
+            <div className='post-item'>
+              <label htmlFor='title'>✦ 제목</label>
               <input
-                id="title"
+                id='title'
                 value={recruit ? recruit.title : title}
-                className="post-input"
+                className='post-input'
                 onChange={changeTitle}
-                placeholder="제목을 입력해주세요."
+                placeholder='제목을 입력해주세요.'
               />
             </div>
-            <div className="post-item">
-              <label htmlFor="content">✦ 내용</label>
+            <div className='post-item'>
+              <label htmlFor='content'>✦ 내용</label>
               <textarea
-                id="content"
+                id='content'
                 required
                 value={recruit ? recruit.contents : contents}
                 onChange={changeContents}
-                placeholder="모집글에 대한 내용을 입력해주세요."
+                placeholder='모집글에 대한 내용을 입력해주세요.'
               ></textarea>
             </div>
-            <div className="post-item">
-              <div className="subtitle">✦ 마감 시간</div>
-              <div className="post-active-time-content">
+            <div className='post-item'>
+              <div className='subtitle'>✦ 마감 시간</div>
+              <div className='post-active-time-content'>
                 <DatePicker
                   defaultValue={recruit && moment(date, 'YYYY-MM-DD')}
                   onChange={changeDate}
@@ -183,8 +182,8 @@ const WritingPost = ({ setIsShowing, id, type }) => {
                 />
               </div>
             </div>
-            <div className="post-item">
-              <div className="subtitle">✦ 예상 인원</div>
+            <div className='post-item'>
+              <div className='subtitle'>✦ 예상 인원</div>
               <Slider
                 defaultValue={
                   recruit ? recruit.expectMemberCount : expectMemberCount
@@ -195,7 +194,7 @@ const WritingPost = ({ setIsShowing, id, type }) => {
               />
             </div>
           </main>
-          <WritingPostFooter type="submit" onClick={submitResult}>
+          <WritingPostFooter type='submit' onClick={submitResult}>
             {modify ? '모집글 수정하기' : '모집글 작성하기'}
           </WritingPostFooter>
         </WritingPostContainer>

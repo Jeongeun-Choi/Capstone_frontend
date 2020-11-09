@@ -39,12 +39,12 @@ const Groups = ({ groups, type }) => {
 
   const [openWritingModal, setOpenWritingModal] = useState(false);
   const clickWriting = () => {
-    setOpenWritingModal(prev => !prev);
+    setOpenWritingModal((prev) => !prev);
   };
 
   const toggleApply = (data = {}) => {
     setSelectedApply(data);
-    setIsShowingApply(prev => !prev);
+    setIsShowingApply((prev) => !prev);
   };
 
   return (
@@ -52,7 +52,7 @@ const Groups = ({ groups, type }) => {
       <GroupsContainer>
         <ul>
           {type === 'group'
-            ? groups?.map(group => (
+            ? groups?.map((group) => (
                 <Group
                   key={group.id}
                   id={group.Group?.id}
@@ -69,10 +69,10 @@ const Groups = ({ groups, type }) => {
                   type={type}
                 />
               ))
-            : groups?.map(group => (
+            : groups?.map((group) => (
                 <Group
                   key={group?.Group ? group.Group.id : group.id}
-                  id={group?.Group ? group.Group.id : group.id}
+                  id={group?.id}
                   groupName={group?.Group ? group.Group.name : group.title}
                   data={group}
                   type={type}
@@ -82,7 +82,7 @@ const Groups = ({ groups, type }) => {
         {type === 'group' && isShowingApply && (
           <ApplyModal selectedApply={selectedApply} toggleApply={toggleApply} />
         )}
-        <Writing type="button" onClick={clickWriting}>
+        <Writing type='button' onClick={clickWriting}>
           <EditOutlined />
         </Writing>
       </GroupsContainer>
