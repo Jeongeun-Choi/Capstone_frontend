@@ -56,14 +56,6 @@ const SearchMain = () => {
 
   const onPressInput = () => {
     if (isGroup) {
-      console.log(
-        sortBase,
-        peopleNumber,
-        activeDay,
-        activeLocation,
-        inputValue,
-        categoryName
-      );
       dispatch(
         loadFilteredGroupsRequestAction({
           sortBase: sortBase === 'default' ? '' : sortBase,
@@ -75,9 +67,12 @@ const SearchMain = () => {
         })
       );
     } else {
-      const categoryId = category?.filter(
-        (item) => item.type === categoryUrlNames[categoryName]
-      )[0].id;
+      const categoryId =
+        category?.length > 0
+          ? category.filter(
+              (item) => item.type === categoryUrlNames[categoryName]
+            )[0].id
+          : '';
       dispatch(loadPostsRequestAction({ categoryId, recruitName: inputValue }));
     }
 
@@ -103,9 +98,12 @@ const SearchMain = () => {
       return;
     }
 
-    const categoryId = category?.filter(
-      (item) => item.type === categoryUrlNames[categoryName]
-    )[0].id;
+    const categoryId =
+      category?.length > 0
+        ? category.filter(
+            (item) => item.type === categoryUrlNames[categoryName]
+          )[0].id
+        : '';
     dispatch(loadPostsRequestAction({ categoryId, recruitName: inputValue }));
   }, [isGroup]);
 
