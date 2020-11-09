@@ -7,7 +7,7 @@ import FieldSetting from './FieldSetting';
 import Item from './Item';
 import {
   addLocationRequestAction,
-  addCategoryRequestAction
+  addCategoryRequestAction,
 } from '../../reducers/user';
 
 import styled from '@emotion/styled';
@@ -29,12 +29,12 @@ const SelectionForm = styled.form`
     //border: 1px solid blue;
 
     .section-header {
-    display: flex;
-    align-items: center;
-    //border: 1px solid red;
+      display: flex;
+      align-items: center;
+      //border: 1px solid red;
     }
 
-    .section-main{
+    .section-main {
       margin-top: 0.3rem;
       font-size: 1rem;
       font-weight: bold;
@@ -60,7 +60,7 @@ const Footer = styled.button`
 
 const Selection = ({ setShowingModal }) => {
   const dispatch = useDispatch();
-  const { me } = useSelector(state => state.user);
+  const { me } = useSelector((state) => state.user);
   const [locations, setLocations] = useState([]);
   const [fields, setFields] = useState([]);
   const [fieldsObj, setFieldsObj] = useState({});
@@ -70,7 +70,7 @@ const Selection = ({ setShowingModal }) => {
 
   useEffect(() => {
     const newObj = {};
-    fields.forEach(field =>
+    fields.forEach((field) =>
       newObj[field.middleCategory]
         ? newObj[field.middleCategory].push({ id: field.id, name: field.name })
         : (newObj[field.middleCategory] = [{ id: field.id, name: field.name }])
@@ -79,15 +79,15 @@ const Selection = ({ setShowingModal }) => {
   }, [fields]);
 
   const showLocationModal = useCallback(() => {
-    setShowingLocationModal(prev => !prev);
+    setShowingLocationModal((prev) => !prev);
   }, []);
 
   const showFieldModal = useCallback(() => {
-    setShowingFieldModal(prev => !prev);
+    setShowingFieldModal((prev) => !prev);
   }, []);
 
   const submitResult = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       const memberId = me.id;
       try {
@@ -102,7 +102,7 @@ const Selection = ({ setShowingModal }) => {
   );
 
   const closeModal = useCallback(() => {
-    setShowingModal(prev => !prev);
+    setShowingModal((prev) => !prev);
   }, []);
 
   return (
@@ -112,45 +112,45 @@ const Selection = ({ setShowingModal }) => {
           <LeftOutlined onClick={closeModal} />
           <h3>지역 및 관심분야 설정</h3>
         </ModalHeader>
-        <section className="setting">
-          <div className="section-header">
+        <section className='setting'>
+          <div className='section-header'>
             <div>활동 선호 지역 설정 ({locations.length}/3)</div>
-            &nbsp; 
+            &nbsp;
             <RightOutlined onClick={showLocationModal} />
           </div>
-          <div className="section-main">
-            {locations.map(location => (
+          <div className='section-main'>
+            {locations.map((location) => (
               <Item
                 key={location.bname}
-                type="location"
+                type='location'
                 name={location.bname}
                 array={locations}
                 setArray={setLocations}
-                color="#6055CD"
+                color='#6055CD'
               />
             ))}
           </div>
         </section>
         <Divider />
-        <section className="setting">
-          <div className="section-header">
+        <section className='setting'>
+          <div className='section-header'>
             <div>관심 분야 설정 ({fields.length}/3)</div>
-            &nbsp; 
+            &nbsp;
             <RightOutlined onClick={showFieldModal} />
           </div>
-          <div className="section-main">
-            {Object.keys(fieldsObj).map(middleCategory => (
-              <div key={middleCategory} className="choice-board">
-                <div>{middleCategory} / 중분류</div>
-                <div className="choice-board-list">
-                  {fieldsObj[middleCategory].map(subclass => (
+          <div className='section-main'>
+            {Object.keys(fieldsObj).map((middleCategory) => (
+              <div key={middleCategory} className='choice-board'>
+                <div>{middleCategory} / 대분류</div>
+                <div className='choice-board-list'>
+                  {fieldsObj[middleCategory].map((subclass) => (
                     <Item
                       key={subclass.name}
-                      type="field"
+                      type='field'
                       name={subclass.name}
                       array={fields}
                       setArray={setFields}
-                      color="#6055CD"
+                      color='#6055CD'
                     />
                   ))}
                 </div>

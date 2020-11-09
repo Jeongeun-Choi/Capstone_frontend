@@ -62,12 +62,12 @@ const FieldsContainer = styled.div`
 `;
 
 const Fields = ({ tempFields, setTempFields }) => {
-  const { categories } = useSelector(state => state.category);
+  const { categories } = useSelector((state) => state.category);
   const [middleCategory, setMiddleCategory] = useState('');
   const [showingSubclass, setShowingSubclass] = useState(false);
 
   const clickMiddleCategory = useCallback(
-    categoryName => () => {
+    (categoryName) => () => {
       setMiddleCategory(categoryName);
       setShowingSubclass(true);
     },
@@ -75,13 +75,13 @@ const Fields = ({ tempFields, setTempFields }) => {
   );
 
   const clickSubclass = useCallback(
-    subclass => () => {
+    (subclass) => () => {
       if (tempFields.length === 3) {
         return message.error('최대 3개만 입력 됩니다.');
       }
       const { id, name } = subclass;
       const field = { id, name, middleCategory };
-      const hasSameField = tempFields.some(field => field.id === id);
+      const hasSameField = tempFields.some((field) => field.id === id);
       if (hasSameField) return;
       const newfields = [...tempFields, field];
       setTempFields(newfields);
@@ -91,21 +91,21 @@ const Fields = ({ tempFields, setTempFields }) => {
 
   return (
     <FieldsContainer>
-      <div className="field-title">
-        <div>중분류</div>
+      <div className='field-title'>
+        <div>대분류</div>
         <div>소분류</div>
       </div>
-      <div className="field-main">
-        <ul className="field-middle-category">
-          {Object.keys(categories).map(categoryName => (
+      <div className='field-main'>
+        <ul className='field-middle-category'>
+          {Object.keys(categories).map((categoryName) => (
             <li key={categoryName} onClick={clickMiddleCategory(categoryName)}>
               {categoryName}
             </li>
           ))}
         </ul>
         {showingSubclass && (
-          <ul className="field-subclass">
-            {categories[middleCategory].map(subclass => (
+          <ul className='field-subclass'>
+            {categories[middleCategory].map((subclass) => (
               <li key={subclass.name} onClick={clickSubclass(subclass)}>
                 {subclass.name}
               </li>
