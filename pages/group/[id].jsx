@@ -170,7 +170,6 @@ const GroupDetail = () => {
     location
   } = selectedGroup;
 
-  console.log(selectedGroup);
   const [filledHeart, setFilledHeart] = useState(false);
   const [isShowingSetting, setIsShowingSetting] = useState(false);
   const [modify, setModify] = useState(false);
@@ -225,7 +224,6 @@ const GroupDetail = () => {
       ? filterGroups.every(group => group.position === 'L')
       : false;
 
-    console.log(isMine);
     if (isMine) {
       setShowPlusButton(true);
     }
@@ -338,7 +336,7 @@ const GroupDetail = () => {
               <div>since 2019</div>
             </div>
           </div>
-          <Divider />
+          {/* <Divider />
           <div className="group-content-item">
             <div className="subtitle">✦ 모임 리뷰</div>
             <div>리뷰 컴포넌트 ~,~</div>
@@ -347,7 +345,7 @@ const GroupDetail = () => {
           <div className="group-content-item">
             <div className="subtitle">✦ 모임 Q&amp;A</div>
             <div>QnA 컴포넌트 ~,~</div>
-          </div>
+          </div> */}
         </section>
         {showPlusButton && (
           <Plus type="button" onClick={clickPlusButton}>

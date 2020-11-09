@@ -464,7 +464,7 @@ const MakingGroup = ({
             <div className='team-item'>
               <div className='team-location-title'>
                 <div className='subtitle'>모임 지역</div>
-                {location.length && <div>{groupLocation}</div>}
+                {groupLocation.length ? <div>{groupLocation}</div> : ''}
               </div>
               <FindingAddress
                 locations={groupLocation}

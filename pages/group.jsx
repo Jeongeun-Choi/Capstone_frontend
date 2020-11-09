@@ -45,6 +45,8 @@ const group = () => {
   const applyGroups = '내가 지원한 모임';
   const myGroups = '나의 모임';
   const { me } = useSelector(state => state.user);
+  const { posts } = useSelector(state => state.post);
+  const { groups } = useSelector(state => state.group);
 
   useEffect(() => {
     dispatch(loadMyInfoRequestAction());
@@ -56,7 +58,7 @@ const group = () => {
       dispatch(loadApplyGroupsRequestAction({ id: me.id }));
       dispatch(loadPreferGroupsRequestAction(me.id));
     }
-  }, []);
+  }, [posts, groups, me]);
 
   return (
     <GroupContainer>
