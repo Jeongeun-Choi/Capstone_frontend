@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { Slider, Select, TimePicker } from 'antd';
+import { Slider, Select, TimePicker, message } from 'antd';
 import {
   Modal,
   ModalHeader,
@@ -227,6 +227,18 @@ const MakingGroup = ({
     e => {
       e.preventDefault();
 
+      if (
+        !groupName.trim() ||
+        !category.length ||
+        !intro.trim() ||
+        !skills.trim() ||
+        !activeDays.length ||
+        !startTime.trim() ||
+        !endTime.trim() ||
+        !location.length
+      ) {
+        return message.error('필수사항을 입력하세요.');
+      }
       const data = {
         category,
         groupName,
@@ -265,7 +277,18 @@ const MakingGroup = ({
   const modifyGroup = useCallback(
     e => {
       e.preventDefault();
-
+      if (
+        !groupName.trim() ||
+        !category.length ||
+        !intro.trim() ||
+        !skills.trim() ||
+        !activeDays.length ||
+        !startTime.trim() ||
+        !endTime.trim() ||
+        !location.length
+      ) {
+        return message.error('필수사항을 입력하세요.');
+      }
       const body = {
         groupId,
         detailCategoryIds: category,
