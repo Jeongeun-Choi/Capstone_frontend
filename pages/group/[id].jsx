@@ -158,6 +158,7 @@ const GroupDetail = () => {
   const { id } = router.query;
   const { me } = useSelector(state => state.user);
   const [selectedGroup, setSelectedGroup] = useState({});
+  const [showPlusButton, setShowPlusButton] = useState(false);
 
   const {
     name,
@@ -207,10 +208,28 @@ const GroupDetail = () => {
     if (!me.id) return;
     const { recruitingGroups, recruitedGroups } = me.PreferGroups;
     const isPrefer =
-      recruitingGroups.some(group => group.id === parseInt(id, 10)) ||
-      recruitedGroups.some(group => group.id === parseInt(id, 10));
+      (recruitingGroups &&
+        recruitingGroups.some(group => group.id === parseInt(id, 10))) ||
+      (recruitedGroups &&
+        recruitedGroups.some(group => group.id === parseInt(id, 10)));
     isPrefer && setFilledHeart(true);
   }, [me]);
+
+  useEffect(() => {
+    if (!me) {
+      setShowPlusButton(false);
+    }
+    const filterGroups = me.JoinGroups.filter(group => group.id === parseInt(id));
+
+    const isMine = filterGroups.length
+      ? filterGroups.every(group => group.position === 'L')
+      : false;
+
+    console.log(isMine);
+    if (isMine) {
+      setShowPlusButton(true);
+    }
+  }, [id, me.JoinGroups, showPlusButton]);
 
   return (
     <>
@@ -255,7 +274,9 @@ const GroupDetail = () => {
 
           <div className="group-content-item">
             <div className="subtitle">✦ 모임소개</div>
-            <div className="team-info-textarea">{groupIntro}</div>
+            <div className="team-info-textarea">
+              {selectedGroup && groupIntro}
+            </div>
           </div>
 
           <div className="group-content-item">
@@ -328,9 +349,11 @@ const GroupDetail = () => {
             <div>QnA 컴포넌트 ~,~</div>
           </div>
         </section>
-        <Plus type="button" onClick={clickPlusButton}>
-          <PlusOutlined />
-        </Plus>
+        {showPlusButton && (
+          <Plus type="button" onClick={clickPlusButton}>
+            <PlusOutlined />
+          </Plus>
+        )}
       </GroupContainer>
       {isShowingSetting && (
         <Setting

@@ -144,7 +144,7 @@ const WritingPost = ({ setIsShowing, id, type }) => {
     <>
       <Modal>
         <WritingPostHeader>
-          <h3>모집글 작성</h3>
+          <h3>{modify ? '모집글 수정' : '모집글 작성'}</h3>
           <LeftOutlined onClick={closeModal} />
         </WritingPostHeader>
         <WritingPostContainer>

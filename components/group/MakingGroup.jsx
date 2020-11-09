@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { Slider, Select, TimePicker } from 'antd';
+import { Slider, Select, TimePicker, message } from 'antd';
 import {
   Modal,
   ModalHeader,
@@ -126,35 +126,43 @@ const MakingGroup = ({
   const [category, setCategory] = useState(
     modify
       ? [
-          data?.ActiveCategories?.length &&
-            ActiveCategories[0].DetailCategory.id
+          data &&
+            data?.ActiveCategories?.length &&
+            data.ActiveCategories[0].DetailCategory.id
         ]
       : []
   );
   const [groupName, changeGroupName] = useInputChangeHook(
-    modify ? data && name : ''
+    modify ? data && data.name : ''
   );
   const [intro, changeIntro] = useInputChangeHook(
-    modify ? data && groupIntro : ''
+    modify ? data && data.groupIntro : ''
   );
   const [groupLocation, setGroupLocation] = useState(
-    modify ? data && location : ''
+    modify ? data && data.location : ''
   );
-  const [maxMember, setMaxMember] = useState(modify ? data && memberCount : 0);
+  const [maxMember, setMaxMember] = useState(
+    modify ? data && data.memberCount : 0
+  );
   const [activeDays, setActiveDays] = useState([]);
   const [startTime, changeStartTime] = usePickerHook(
-    modify ? data?.ActiveTimes?.length && data.ActiveTimes[0].startTime : ''
+    modify
+      ? data && data?.ActiveTimes?.length && data.ActiveTimes[0].startTime
+      : ''
   );
   const [endTime, changeEndTime] = usePickerHook(
-    modify ? data?.ActiveTimes?.length && data.ActiveTimes[0].endTime : ''
+    modify
+      ? data && data?.ActiveTimes?.length && data.ActiveTimes[0].endTime
+      : ''
   );
   const [skills, setSkills] = useState('');
   const [groupImages, setGroupImages] = useState(
-    modify ? data && GroupImages : []
+    modify ? data && data?.GroupImages?.length && data.GroupImages : []
   );
   const [middleCategory, setMiddleCategory] = useState(
     modify
-      ? data?.ActiveCategories?.length &&
+      ? data &&
+          data?.ActiveCategories?.length &&
           data.ActiveCategories[0]?.DetailCategory.Category.type
       : ''
   );
@@ -219,6 +227,18 @@ const MakingGroup = ({
     e => {
       e.preventDefault();
 
+      if (
+        !groupName.trim() ||
+        !category.length ||
+        !intro.trim() ||
+        !skills.trim() ||
+        !activeDays.length ||
+        !startTime.trim() ||
+        !endTime.trim() ||
+        !location.length
+      ) {
+        return message.error('필수사항을 입력하세요.');
+      }
       const data = {
         category,
         groupName,
@@ -257,7 +277,18 @@ const MakingGroup = ({
   const modifyGroup = useCallback(
     e => {
       e.preventDefault();
-
+      if (
+        !groupName.trim() ||
+        !category.length ||
+        !intro.trim() ||
+        !skills.trim() ||
+        !activeDays.length ||
+        !startTime.trim() ||
+        !endTime.trim() ||
+        !location.length
+      ) {
+        return message.error('필수사항을 입력하세요.');
+      }
       const body = {
         groupId,
         detailCategoryIds: category,
@@ -299,8 +330,10 @@ const MakingGroup = ({
 
   useEffect(() => {
     if (modify) {
-      const activeDayArray = ActiveTimes.map(time => time.activeDay);
-      const skillsString = Skills.map(skill => skill.name).join(', ');
+      const activeDayArray =
+        data && data.ActiveTimes.map(time => time.activeDay);
+      const skillsString =
+        data && data.Skills.map(skill => skill.name).join(', ');
       setActiveDays(activeDayArray);
       setSkills(skillsString);
     }
