@@ -9,6 +9,7 @@ import KakaoMap from '../../components/map/KakaoMap';
 import { Divider, message } from 'antd';
 import Setting from '../../components/group/groupSetting/Setting';
 import MakingGroup from '../../components/group/MakingGroup';
+import Review from '../../components/review/Review';
 
 const GroupContainer = styled.div`
   width: 100%;
@@ -144,9 +145,9 @@ const Plus = styled.button`
   width: 50px;
   height: 50px;
   border-radius: 25px;
-  border: 1px solid #6055CD;
-  background-color: #6055CD;
-  box-shadow: 3px 3px 3px grey; 
+  border: 1px solid #6055cd;
+  background-color: #6055cd;
+  box-shadow: 3px 3px 3px grey;
   color: #ffffff;
   font-size: 1.5rem;
   font-weight: bold;
@@ -218,7 +219,9 @@ const GroupDetail = () => {
     if (!me) {
       setShowPlusButton(false);
     }
-    const filterGroups = me.JoinGroups.filter(group => group.id === parseInt(id));
+    const filterGroups = me.JoinGroups.filter(
+      group => group.id === parseInt(id)
+    );
 
     const isMine = filterGroups.length
       ? filterGroups.every(group => group.position === 'L')
@@ -240,12 +243,6 @@ const GroupDetail = () => {
           backButton={true}
           type="white"
         />
-        {/* title={name}
-          subtitle={ActiveCategories && ActiveCategories[0].DetailCategory.name}
-          backButton={true}
-          type="white"
-          declareButton={true} */}
-
         <section className="group-content">
           <img
             className="big-img"
@@ -284,14 +281,6 @@ const GroupDetail = () => {
                 return total + `${skill.name} `;
               }, '')}
           </div>
-
-          {/* <div className="group-content-item">
-              {Skills &&
-                Skills.reduce((total, skill) => {
-                  return total + `${skill.name} `;
-                }, '')}
-        </div> */}
-
           <div className="group-content-item">
             <div className="subtitle">✦ 활동 요일</div>
             <div>
@@ -336,16 +325,16 @@ const GroupDetail = () => {
               <div>since 2019</div>
             </div>
           </div>
-          {/* <Divider />
+          <Divider />
           <div className="group-content-item">
             <div className="subtitle">✦ 모임 리뷰</div>
-            <div>리뷰 컴포넌트 ~,~</div>
+            <Review />
           </div>
           <Divider />
           <div className="group-content-item">
             <div className="subtitle">✦ 모임 Q&amp;A</div>
             <div>QnA 컴포넌트 ~,~</div>
-          </div> */}
+          </div>
         </section>
         {showPlusButton && (
           <Plus type="button" onClick={clickPlusButton}>
