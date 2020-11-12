@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 const GroupItemWrapper = styled.li`
   width: 100%;
-  height: 40vh;
+  height: 35vh;
   margin-top: 1rem;
   cursor: pointer;
   transition: opacity 0.5s;
@@ -15,16 +15,20 @@ const GroupItemWrapper = styled.li`
   }
   & img {
     width: 100%;
-    height: 70%;
+    height: 55%;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
   }
 
   .group-category, .group-location {
     font-size: 0.8rem;
+    padding-left: 0.5rem;
   }
 
   .group-name {
     font-size: 1rem;
     font-weight: bold;
+    padding-left: 0.5rem;
   }
 
 `;
