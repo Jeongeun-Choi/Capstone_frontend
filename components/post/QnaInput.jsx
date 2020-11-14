@@ -3,6 +3,7 @@ import useInputChangeHook from '../../hooks/useInputChangeHook';
 import styled from '@emotion/styled';
 import customAxios from '../../utils/baseAxios';
 import { useSelector } from 'react-redux';
+import useCheckResult from '../../hooks/useCheckResult';
 
 const QnaInputWrapper = styled.div`
   display: flex;
@@ -60,11 +61,17 @@ const QnaInputWrapper = styled.div`
 
 const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
   const { me } = useSelector((state) => state.user);
-  const [title, changeTitle] = useInputChangeHook('');
-  const [contents, changeContents] = useInputChangeHook('');
-
+  const [title, changeTitle, setTitle] = useInputChangeHook('');
+  const [contents, changeContents, setContents] = useInputChangeHook('');
+  const [toogle, Screen] = useCheckResult({
+    title: 'Q&A',
+    content: 'Q&A 작성 완료 되었습니다.',
+  });
   const createQna = async (isSecret) => {
     if (!me.id) return alert('로그인 후에 이용 가능합니다.');
+
+    if (!title.trim() || !contents.trim())
+      return alert('제목과 내용을 채워주세요.');
 
     const response = await customAxios.post('/qna', {
       title,
@@ -89,6 +96,10 @@ const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
             qna.id === topQnaId ? { ...qna, Reply: response.data.qna } : qna
           )
         );
+
+    setTitle('');
+    setContents('');
+    toogle();
   };
 
   return (
@@ -101,6 +112,7 @@ const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
               ? '문의 제목을 입력해주세요.'
               : '답변 제목을 입력해주세요'
           }
+          value={title}
           onChange={changeTitle}
         />
         <input
@@ -110,6 +122,7 @@ const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
               ? '문의 내용을 입력해주세요.'
               : '답변 내용을 입력해주세요.'
           }
+          value={contents}
           onChange={changeContents}
         />
       </div>
@@ -126,6 +139,7 @@ const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
           등록 하기
         </button>
       </div>
+      <Screen />
     </QnaInputWrapper>
   );
 };
