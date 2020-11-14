@@ -11,6 +11,7 @@ import {
   CheckOutlined,
 } from '@ant-design/icons';
 import styled from '@emotion/styled';
+import useCheckResult from '../../hooks/useCheckResult';
 
 const MyInfoContainer = styled.section`
   display: flex;
@@ -53,7 +54,7 @@ const MyInfoContainer = styled.section`
     padding: 0.5rem;
     border: none;
     border-radius: 5px;
-    background: #6055CD;
+    background: #6055cd;
     color: white;
     cursor: pointer;
 
@@ -79,7 +80,7 @@ const MyInfoContainer = styled.section`
       width: 4rem;
       height: 2rem;
       background: white;
-      color: #6055CD;
+      color: #6055cd;
       font-weight: bold;
       border: none;
       border-radius: 5px;
@@ -104,6 +105,10 @@ const MyInfo = ({ myInfo }) => {
   );
   const [imageUrl, setImageUrl] = useState(myInfo.profileImg);
   const imageRef = useRef(null);
+  const [toggleScreen, Screen] = useCheckResult({
+    title: '유저 정보 수정',
+    content: '정보 수정 완료 되었습니다.',
+  });
 
   const dispatch = useDispatch();
 
@@ -124,6 +129,7 @@ const MyInfo = ({ myInfo }) => {
       })
     );
     changeStatus();
+    toggleScreen();
   };
 
   const deleteImage = () => {
@@ -161,7 +167,9 @@ const MyInfo = ({ myInfo }) => {
 
       <ul>
         <li>
-          <div className='info_column'>이름&nbsp; {isModify && <LockOutlined />}</div>
+          <div className='info_column'>
+            이름&nbsp; {isModify && <LockOutlined />}
+          </div>
           <div className='info_content'>{myInfo.name}</div>
         </li>
         <li>
@@ -172,7 +180,9 @@ const MyInfo = ({ myInfo }) => {
         </li>
 
         <li>
-          <div className='info_column'>성별&nbsp; {isModify && <LockOutlined />}</div>
+          <div className='info_column'>
+            성별&nbsp; {isModify && <LockOutlined />}
+          </div>
           <div className='info_content'>{myInfo.gender ? '여자' : '남자'}</div>
         </li>
         <li>
@@ -193,10 +203,11 @@ const MyInfo = ({ myInfo }) => {
         </li>
         {isModify && (
           <li className='modify_image'>
-            <div className='info_column'>프로필 이미지
-            <button onClick={onClickImageUpload}>
-                  <UploadOutlined />
-            </button>
+            <div className='info_column'>
+              프로필 이미지
+              <button onClick={onClickImageUpload}>
+                <UploadOutlined />
+              </button>
             </div>
             <div className='image_wrapper'>
               <div className='image_border'>
@@ -227,6 +238,7 @@ const MyInfo = ({ myInfo }) => {
           <CheckOutlined />
         </button>
       )}
+      <Screen />
     </MyInfoContainer>
   );
 };
