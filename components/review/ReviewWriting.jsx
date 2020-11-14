@@ -146,29 +146,38 @@ const ReviewWriting = ({ id, type, setCloseModal }) => {
     setShowWriting(prev => !prev);
   }, []);
 
-  const onSubmitReview = useCallback(async e => {
-    e.preventDefault();
+  const onSubmitReview = useCallback(
+    async e => {
+      e.preventDefault();
 
-    if (!title.trim() || !contents.trim()) {
-      return message.error('모두 다 채워주세요.');
-    }
-    const data = { evaluatorId: me.id, title, score, contents, type: 'G' };
+      if (!title.trim() || !contents.trim()) {
+        return message.error('모두 다 채워주세요.');
+      }
+      const data = { evaluatorId: me.id, title, score, contents, type: 'G' };
 
-    if (type === 'person') {
-      data.evaluateeId = id;
-      data.evaluatedGroupId = null;
-    } else {
-      data.evaluatedGroupId = parseInt(id);
-      data.evaluateeId = null;
-    }
-    try {
-      await customAxios.post(`/evaluation`, data);
-      setReviews([...reviews, data]);
-      setShowWriting(prev => !prev);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+
+      if (type === 'person') {
+        data.evaluateeId = id;
+        data.evaluatedGroupId = null;
+      } else {
+        data.evaluatedGroupId = parseInt(id);
+        data.evaluateeId = null;
+      }
+      try {
+        await customAxios.post(`/evaluation`, data);
+        data.createdAt = `${year}-${month}-${day}`;
+        setReviews([...reviews, data]);
+        setShowWriting(prev => !prev);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [title, contents, score, me, reviews]
+  );
 
   const getReviews = async () => {
     const { data } = await customAxios.get(
@@ -181,7 +190,6 @@ const ReviewWriting = ({ id, type, setCloseModal }) => {
     getReviews();
   }, [id]);
 
-  console.log(reviews);
   return (
     <Modal zIndex={3}>
       <ReviewWritingContainer>

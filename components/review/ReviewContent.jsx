@@ -55,7 +55,7 @@ const ReviewContent = ({ review }) => {
         </div>
         <div className="review_content_header_left">
           <div>{review.createdAt.split(' ')[0]}</div>
-          <div>{review.name}</div>
+          <div>{review?.name}</div>
         </div>
       </section>
       <section className="review_content_main">{review.contents}</section>
