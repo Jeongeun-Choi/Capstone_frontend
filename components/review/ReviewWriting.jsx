@@ -152,16 +152,19 @@ const ReviewWriting = ({ id, type, setCloseModal }) => {
     if (!title.trim() || !contents.trim()) {
       return message.error('모두 다 채워주세요.');
     }
-    const data = { evaluatorId: me.id, title, score, contents };
+    const data = { evaluatorId: me.id, title, score, contents, type: 'G' };
 
     if (type === 'person') {
       data.evaluateeId = id;
+      data.evaluatedGroupId = null;
     } else {
-      data.evaluatedGroupId = id;
+      data.evaluatedGroupId = parseInt(id);
+      data.evaluateeId = null;
     }
     try {
       await customAxios.post(`/evaluation`, data);
       setReviews([...reviews, data]);
+      setShowWriting(prev => !prev);
     } catch (error) {
       console.log(error);
     }
@@ -178,6 +181,7 @@ const ReviewWriting = ({ id, type, setCloseModal }) => {
     getReviews();
   }, [id]);
 
+  console.log(reviews);
   return (
     <Modal zIndex={3}>
       <ReviewWritingContainer>
@@ -195,6 +199,7 @@ const ReviewWriting = ({ id, type, setCloseModal }) => {
                   <input
                     id="review-title"
                     placeholder="리뷰 제목"
+                    value={title}
                     onChange={onChangeTitle}
                   />
                 </div>
@@ -203,6 +208,7 @@ const ReviewWriting = ({ id, type, setCloseModal }) => {
                   <Rate
                     allowHalf
                     defaultValue={score}
+                    value={score}
                     onChange={onChangeScore}
                   />
                 </div>
@@ -210,6 +216,7 @@ const ReviewWriting = ({ id, type, setCloseModal }) => {
                   <label htmlFor="review-content">내용</label>
                   <textarea
                     placeholder="리뷰 내용"
+                    value={contents}
                     onChange={onChangeContents}
                   ></textarea>
                 </div>
