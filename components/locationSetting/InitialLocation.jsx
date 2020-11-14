@@ -7,7 +7,8 @@ import {
   loadJoingroupsRequestAction,
   loadApplyGroupsRequestAction,
   loadRecruitsRequestAction,
-  loadPreferGroupsRequestAction
+  loadPreferGroupsRequestAction,
+  loadMyInfoRequestAction,
 } from '../../reducers/user';
 import { loadCategorysRequestAction } from '../../reducers/category';
 
@@ -57,24 +58,27 @@ const SkipButton = styled.button`
 `;
 
 const InitialLocation = ({ setShowingModal }) => {
-  const { me } = useSelector(state => state.user);
+  const { me } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(loadJoingroupsRequestAction({ id: me.id }));
-    dispatch(loadApplyGroupsRequestAction({ id: me.id }));
-    dispatch(loadRecruitsRequestAction({ id: me.id }));
+    dispatch(loadMyInfoRequestAction());
     dispatch(loadCategorysRequestAction());
-    dispatch(loadPreferGroupsRequestAction(me.id));
   }, []);
 
-  const openSelection = useCallback(e => {
+  useEffect(() => {
+    if (me.PreferLocations?.length && me.PreferCategories?.length) {
+      router.push('/');
+    }
+  }, [me]);
+
+  const openSelection = useCallback((e) => {
     e.preventDefault();
-    setShowingModal(prev => !prev);
+    setShowingModal((prev) => !prev);
   }, []);
 
-  const closeSelection = useCallback(e => {
+  const closeSelection = useCallback((e) => {
     e.preventDefault();
     router.push('/');
   }, []);
@@ -83,7 +87,7 @@ const InitialLocation = ({ setShowingModal }) => {
     <>
       <Modal>
         <InitialLocationContainer>
-          <img src={`/images/logo.png`} alt="로고 이미지" />
+          <img src={`/images/logo.png`} alt='로고 이미지' />
           <h2>
             모두의 모임을
             <br />더 쉽게 이용하는 방법

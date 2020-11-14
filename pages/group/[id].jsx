@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Header from '../../components/main/Header';
@@ -9,6 +9,7 @@ import KakaoMap from '../../components/map/KakaoMap';
 import { Divider, message } from 'antd';
 import Setting from '../../components/group/groupSetting/Setting';
 import MakingGroup from '../../components/group/MakingGroup';
+import Qna from '../../components/post/Qna';
 
 const GroupContainer = styled.div`
   width: 100%;
@@ -144,9 +145,9 @@ const Plus = styled.button`
   width: 50px;
   height: 50px;
   border-radius: 25px;
-  border: 1px solid #6055CD;
-  background-color: #6055CD;
-  box-shadow: 3px 3px 3px grey; 
+  border: 1px solid #6055cd;
+  background-color: #6055cd;
+  box-shadow: 3px 3px 3px grey;
   color: #ffffff;
   font-size: 1.5rem;
   font-weight: bold;
@@ -156,9 +157,13 @@ const Plus = styled.button`
 const GroupDetail = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { me } = useSelector(state => state.user);
+  const { me } = useSelector((state) => state.user);
   const [selectedGroup, setSelectedGroup] = useState({});
   const [showPlusButton, setShowPlusButton] = useState(false);
+  const isMyGroup = useMemo(() => {
+    if (!me?.id || !selectedGroup?.JoinGroups?.length) return false;
+    return me.id === selectedGroup.JoinGroups[0].memberId;
+  }, [me, selectedGroup]);
 
   const {
     name,
@@ -167,7 +172,7 @@ const GroupDetail = () => {
     ActiveTimes,
     Skills,
     groupIntro,
-    location
+    location,
   } = selectedGroup;
 
   const [filledHeart, setFilledHeart] = useState(false);
@@ -183,11 +188,11 @@ const GroupDetail = () => {
     } else {
       await customAxios.delete(`/prefer-group?memberId=${me.id}&groupId=${id}`);
     }
-    setFilledHeart(prev => !prev);
+    setFilledHeart((prev) => !prev);
   }, [filledHeart]);
 
   const clickPlusButton = useCallback(() => {
-    setIsShowingSetting(prev => !prev);
+    setIsShowingSetting((prev) => !prev);
   }, []);
 
   const getGroupData = async () => {
@@ -208,9 +213,9 @@ const GroupDetail = () => {
     const { recruitingGroups, recruitedGroups } = me.PreferGroups;
     const isPrefer =
       (recruitingGroups &&
-        recruitingGroups.some(group => group.id === parseInt(id, 10))) ||
+        recruitingGroups.some((group) => group.id === parseInt(id, 10))) ||
       (recruitedGroups &&
-        recruitedGroups.some(group => group.id === parseInt(id, 10)));
+        recruitedGroups.some((group) => group.id === parseInt(id, 10)));
     isPrefer && setFilledHeart(true);
   }, [me]);
 
@@ -218,10 +223,12 @@ const GroupDetail = () => {
     if (!me) {
       setShowPlusButton(false);
     }
-    const filterGroups = me.JoinGroups.filter(group => group.id === parseInt(id));
+    const filterGroups = me.JoinGroups.filter(
+      (group) => group.id === parseInt(id)
+    );
 
     const isMine = filterGroups.length
-      ? filterGroups.every(group => group.position === 'L')
+      ? filterGroups.every((group) => group.position === 'L')
       : false;
 
     if (isMine) {
@@ -235,10 +242,12 @@ const GroupDetail = () => {
         <Header
           title={name}
           subTitle={
-            ActiveCategories?.length && ActiveCategories[0]?.DetailCategory.name
+            ActiveCategories?.length
+              ? ActiveCategories[0]?.DetailCategory.name
+              : ''
           }
           backButton={true}
-          type="white"
+          type='white'
         />
         {/* title={name}
           subtitle={ActiveCategories && ActiveCategories[0].DetailCategory.name}
@@ -246,39 +255,40 @@ const GroupDetail = () => {
           type="white"
           declareButton={true} */}
 
-        <section className="group-content">
+        <section className='group-content'>
           <img
-            className="big-img"
+            className='big-img'
             src={GroupImages?.length && GroupImages[0].URL}
             alt={GroupImages?.length && GroupImages[0].description}
           />
 
-          <div className="group-content-header">
-            <div className="group-basic-info">
-              <div className="group-basic-category">
-                {ActiveCategories?.length &&
-                  ActiveCategories[0]?.DetailCategory?.name}
+          <div className='group-content-header'>
+            <div className='group-basic-info'>
+              <div className='group-basic-category'>
+                {ActiveCategories?.length
+                  ? ActiveCategories[0]?.DetailCategory?.name
+                  : ''}
               </div>
-              <div className="group-basic-name">
+              <div className='group-basic-name'>
                 <b>
                   {selectedGroup?.name} | {location?.split(' ')[2]}
                 </b>
               </div>
             </div>
-            <div className="like" onClick={clickHeart}>
+            <div className='like' onClick={clickHeart}>
               {filledHeart ? <HeartFilled /> : <HeartOutlined />}
             </div>
           </div>
 
-          <div className="group-content-item">
-            <div className="subtitle">✦ 모임소개</div>
-            <div className="team-info-textarea">
+          <div className='group-content-item'>
+            <div className='subtitle'>✦ 모임소개</div>
+            <div className='team-info-textarea'>
               {selectedGroup && groupIntro}
             </div>
           </div>
 
-          <div className="group-content-item">
-            <div className="subtitle">✦ 필요한 스킬</div>
+          <div className='group-content-item'>
+            <div className='subtitle'>✦ 필요한 스킬</div>
             {Skills &&
               Skills.reduce((total, skill) => {
                 return total + `${skill.name} `;
@@ -292,40 +302,40 @@ const GroupDetail = () => {
                 }, '')}
         </div> */}
 
-          <div className="group-content-item">
-            <div className="subtitle">✦ 활동 요일</div>
+          <div className='group-content-item'>
+            <div className='subtitle'>✦ 활동 요일</div>
             <div>
               {ActiveTimes?.reduce((acc, time) => {
                 return acc + `${time.activeDay}, `;
               }, '')}
             </div>
           </div>
-          <div className="group-content-item">
-            <div className="subtitle">✦ 활동 시간</div>
-            <div className="group-content-item-time">
-              <div className="group-content-item-time-div">
+          <div className='group-content-item'>
+            <div className='subtitle'>✦ 활동 시간</div>
+            <div className='group-content-item-time'>
+              <div className='group-content-item-time-div'>
                 <div>시작 시간</div>
                 <div>{ActiveTimes?.length && ActiveTimes[0].startTime}</div>
               </div>
-              <div className="group-content-item-time-div">
+              <div className='group-content-item-time-div'>
                 <div>종료 시간</div>
                 <div>{ActiveTimes?.length && ActiveTimes[0].endTime}</div>
               </div>
             </div>
           </div>
 
-          <div className="group-location">
-            <div className="subtitle">✦ 모임 지역</div>
+          <div className='group-location'>
+            <div className='subtitle'>✦ 모임 지역</div>
             <div>{location}</div>
           </div>
           {location && <KakaoMap location={location} />}
-          <div className="team-page">
+          <div className='team-page'>
             <img
-              className="small-img"
+              className='small-img'
               src={GroupImages?.length && GroupImages[0].URL}
               alt={GroupImages?.length && GroupImages[0].description}
             />
-            <div className="team-page-info">
+            <div className='team-page-info'>
               <div>
                 {ActiveCategories?.length &&
                   ActiveCategories[0]?.DetailCategory?.name}
@@ -336,19 +346,19 @@ const GroupDetail = () => {
               <div>since 2019</div>
             </div>
           </div>
-          {/* <Divider />
-          <div className="group-content-item">
-            <div className="subtitle">✦ 모임 리뷰</div>
+          <Divider />
+          <div className='group-content-item'>
+            <div className='subtitle'>✦ 모임 리뷰</div>
             <div>리뷰 컴포넌트 ~,~</div>
           </div>
           <Divider />
-          <div className="group-content-item">
-            <div className="subtitle">✦ 모임 Q&amp;A</div>
-            <div>QnA 컴포넌트 ~,~</div>
-          </div> */}
+          <div className='group-content-item'>
+            <div className='subtitle'>✦ 모임 Q&amp;A</div>
+            <Qna groupId={id} isMyGroup={isMyGroup} />
+          </div>
         </section>
         {showPlusButton && (
-          <Plus type="button" onClick={clickPlusButton}>
+          <Plus type='button' onClick={clickPlusButton}>
             <PlusOutlined />
           </Plus>
         )}
