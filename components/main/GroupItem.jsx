@@ -18,7 +18,8 @@ const GroupItemWrapper = styled.li`
     height: 70%;
   }
 
-  .group-category, .group-location {
+  .group-category,
+  .group-location {
     font-size: 0.8rem;
   }
 
@@ -26,11 +27,11 @@ const GroupItemWrapper = styled.li`
     font-size: 1rem;
     font-weight: bold;
   }
-
 `;
 
 const GroupItem = ({ group }) => {
   const router = useRouter();
+  const categoryName = router.query.category;
 
   const moveDetailInfo = useCallback(async () => {
     router.push(`/group/${group.id}`);
@@ -45,19 +46,24 @@ const GroupItem = ({ group }) => {
             alt={group.GroupImages[0].description}
           ></img>
         ) : (
-          <img src='/images/logo.png' alt='대체 이미지' />
+          <img src={`/images/basic_${categoryName}.png`} alt="대체 이미지" />
         )}
         {group.ActiveCategories?.length ? (
-          <div className='group-category'>
-            {group.ActiveCategories.map((category) => (
+          <div className="group-category">
+            {group.ActiveCategories.map(category => (
               <span key={category.id}>{category.DetailCategory.name}</span>
             ))}
           </div>
         ) : (
           <></>
         )}
-        <div className='group-name'>{group.name}</div>
-        <div className='group-location'>{group.location?.split(' ').slice(0, 3).join(' ')}</div>
+        <div className="group-name">{group.name}</div>
+        <div className="group-location">
+          {group.location
+            ?.split(' ')
+            .slice(0, 3)
+            .join(' ')}
+        </div>
       </GroupItemWrapper>
     </>
   );
