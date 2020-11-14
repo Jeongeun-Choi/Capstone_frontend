@@ -4,13 +4,14 @@ import {
   Modal,
   ModalHeader,
   basicStyle,
-  modalFooter
+  modalFooter,
 } from '../../public/style';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { LeftOutlined } from '@ant-design/icons';
 import { Radio, message } from 'antd';
 import customAxios from '../../utils/baseAxios';
+import useCheckResult from '../../hooks/useCheckResult';
 
 const Container = styled.div`
   width: 100%;
@@ -22,13 +23,13 @@ const Container = styled.div`
 
   & .join-content-detail {
     width: 100%;
-    
-    & .detail-q{
+
+    & .detail-q {
       margin-top: 0.5rem;
       //border: 1px solid blue;
     }
 
-    & .detail-a{
+    & .detail-a {
       //border: 1px solid green;
     }
   }
@@ -39,7 +40,7 @@ const Container = styled.div`
     & .subtitle {
       font-weight: bold;
       font-size: 1rem;
-     // border: 1px solid red;
+      // border: 1px solid red;
       margin-top: 1.5rem;
     }
 
@@ -55,11 +56,10 @@ const Container = styled.div`
       border-bottom: 1px solid #000000;
     }
 
-    & input[type="radio"]{
+    & input[type='radio'] {
       margin-top: 0.5rem;
       width: 12px;
       height: 12px;
-
     }
 
     & .radio-wrapper {
@@ -101,33 +101,38 @@ const ContainerFooter = styled.button`
 `;
 
 const JoinGroup = ({ category, groupName, groupId }) => {
-  const { me } = useSelector(state => state.user);
+  const { me } = useSelector((state) => state.user);
   const router = useRouter();
   const year = new Date().getFullYear();
   const [gender, setGender] = useState('');
   const [portfolio, setPortfolio] = useState(null);
   const [activityPeriod, setActivityPeriod] = useState('3MonthOver');
 
-  const onChangeGender = useCallback(e => {
+  const [toggleScreen, Screen] = useCheckResult({
+    title: '가입 지원',
+    content: '가입 지원 되었습니다.',
+    pushUrl: '/group',
+  });
+  const onChangeGender = useCallback((e) => {
     setGender(e.target.value);
   }, []);
 
-  const onChangePeriod = useCallback(e => {
+  const onChangePeriod = useCallback((e) => {
     setActivityPeriod(e.target.value);
   }, []);
 
-  const submitResult = useCallback(async e => {
+  const submitResult = useCallback(async (e) => {
     e.preventDefault();
     const data = {
       memberId: me.id,
       groupId,
       activityPeriod,
-      portfolio
+      portfolio,
     };
 
     try {
       await customAxios.post(`/apply-group`, data);
-      router.push('/group');
+      toggleScreen();
     } catch (err) {
       console.log(err);
       message.error('이미 지원한 모임입니다.');
@@ -136,56 +141,82 @@ const JoinGroup = ({ category, groupName, groupId }) => {
   }, []);
 
   return (
-    <Modal zIndex="3">
+    <Modal zIndex='3'>
       <Container>
         <ContainerHeader>
           <LeftOutlined />
-          <div className="post-info">
-            <div className="user-name">{me.name}님의 모임 참여 신청</div>
-            <div className="group-info">
+          <div className='post-info'>
+            <div className='user-name'>{me.name}님의 모임 참여 신청</div>
+            <div className='group-info'>
               {groupName} | {category}
             </div>
           </div>
         </ContainerHeader>
-        <main className="join-content">
-          <section className="basic-info">
-            <div className="subtitle">기본 정보</div>
-            <div className="join-content-detail">
-              <div className="join-content-detail-element">
-                <div className="detail-q">✦ 이름</div>
-                <div className="detail-a">{me.name}</div>
-                <div className="detail-q">✦ 나이</div>
-                <div className="detail-a">{me.birthday&&year - Number(me.birthday.split('-')[0]) + 1}</div>
-                <div className="detail-q">✦ 성별</div>
-                <input type="text" className="detail-a" value={me.gender?"여성":"남성"} readonly />
-                <div className="detail-q">✦ 이메일</div>
-                <div className="detail-a">{me.email}</div>
-                <div className="detail-q">✦ 연락처</div>
-                <div className="detail-a">{me.telephone}</div>
+        <main className='join-content'>
+          <section className='basic-info'>
+            <div className='subtitle'>기본 정보</div>
+            <div className='join-content-detail'>
+              <div className='join-content-detail-element'>
+                <div className='detail-q'>✦ 이름</div>
+                <div className='detail-a'>{me.name}</div>
+                <div className='detail-q'>✦ 나이</div>
+                <div className='detail-a'>
+                  {me.birthday && year - Number(me.birthday.split('-')[0]) + 1}
+                </div>
+                <div className='detail-q'>✦ 성별</div>
+                <input
+                  type='text'
+                  className='detail-a'
+                  value={me.gender ? '여성' : '남성'}
+                  readonly
+                />
+                <div className='detail-q'>✦ 이메일</div>
+                <div className='detail-a'>{me.email}</div>
+                <div className='detail-q'>✦ 연락처</div>
+                <div className='detail-a'>{me.telephone}</div>
               </div>
             </div>
-            <div className="additional-info">
-              <div className="subtitle">추가 정보</div>
-              <div className="join-content-detail">
-                <div className="detail-q">✦ 예상 활동 기간</div> 
-                  <div className="radio-wrapper">
-                    <input id="3MonthUnder" type="radio" name="actMonth" value="3MonthUnder" /> <label htmlFor="3MonthUnder">3개월 미만 </label>
-                  </div>                     
-                  <div className="radio-wrapper">
-                    <input id="3MonthOver" type="radio" name="actMonth" value="3MonthOver" /> <label htmlFor="3MonthOver">3개월 이상 </label>
-                  </div>  
-                  <div className="radio-wrapper">
-                    <input id="6MonthOver" type="radio" name="actMonth" value="6MonthOver" /> <label htmlFor="6MonthOver">6개월 이상 </label>
-                  </div>  
-                <div className="detail-q">✦ 요청사항</div>
+            <div className='additional-info'>
+              <div className='subtitle'>추가 정보</div>
+              <div className='join-content-detail'>
+                <div className='detail-q'>✦ 예상 활동 기간</div>
+                <div className='radio-wrapper'>
+                  <input
+                    id='3MonthUnder'
+                    type='radio'
+                    name='actMonth'
+                    value='3MonthUnder'
+                  />{' '}
+                  <label htmlFor='3MonthUnder'>3개월 미만 </label>
+                </div>
+                <div className='radio-wrapper'>
+                  <input
+                    id='3MonthOver'
+                    type='radio'
+                    name='actMonth'
+                    value='3MonthOver'
+                  />{' '}
+                  <label htmlFor='3MonthOver'>3개월 이상 </label>
+                </div>
+                <div className='radio-wrapper'>
+                  <input
+                    id='6MonthOver'
+                    type='radio'
+                    name='actMonth'
+                    value='6MonthOver'
+                  />{' '}
+                  <label htmlFor='6MonthOver'>6개월 이상 </label>
+                </div>
+                <div className='detail-q'>✦ 요청사항</div>
 
-                <input placeholder="요청사항을 입력해 보세요" />
+                <input placeholder='요청사항을 입력해 보세요' />
               </div>
             </div>
           </section>
         </main>
         <ContainerFooter onClick={submitResult}>제출하기</ContainerFooter>
       </Container>
+      <Screen />
     </Modal>
   );
 };
