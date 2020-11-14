@@ -94,6 +94,7 @@ const GroupContainer = styled.div`
       font-size: 15px;
       margin-right: 10px;
     }
+    
     & .team-page {
       display: flex;
       width: 90%;

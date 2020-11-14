@@ -29,6 +29,10 @@ const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .search_select{
+    margin-top: 0.7rem;
+  }
 `;
 
 const SearchMain = () => {
@@ -128,10 +132,13 @@ const SearchMain = () => {
         onSearch={onPressInput}
       />
 
-      <Select defaultValue='group' size='small' onChange={changeSelect}>
-        <Option value='group'>모임</Option>
-        <Option value='recruit'>모집글</Option>
-      </Select>
+      <div className="search_select">
+        <Select defaultValue='group' size='small' onChange={changeSelect}>
+          <Option value='group'>모임</Option>
+          <Option value='recruit'>모집글</Option>
+        </Select>
+      </div>
+    
       {isGroup
         ? groups && <GroupList groups={groups} />
         : posts && <PostList category={categoryName} posts={posts} />}

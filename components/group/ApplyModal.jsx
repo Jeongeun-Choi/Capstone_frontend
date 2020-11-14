@@ -101,54 +101,69 @@ const ContainerHeader = styled(ModalHeader)`
   }
 `;
 
-const ApplyModal = ({ selectedApply, toggleApply }) => {
-  const { me } = useSelector((state) => state.user);
+const ApplyModal = ({ selectedApply, toggleApply, type = null }) => {
+  const { me } = useSelector(state => state.user);
   const year = new Date().getFullYear();
-  const { activityPeriod, applyDate, portfolio, Group } = selectedApply;
-  const { name: groupName } = Group;
-  const category = Group.AcitiveCategories?.length
+  const {
+    activityPeriod,
+    applyDate,
+    portfolio,
+    Group,
+    userInfo
+  } = selectedApply;
+
+  // const { name: groupName } = Group;
+  const category = Group?.AcitiveCategories?.length
     ? Group.AcitiveCategories[0].DetailCategory.name
     : '';
+
+  const name = type ? userInfo.name : me.name;
+  const birthday = type ? userInfo.birthday : me.birthday;
+  const gender = type ? userInfo.gender : me.gender;
+  const email = type ? userInfo.email : me.email;
+  const telephone = type ? userInfo.telephone : me.telephone;
 
   return (
     <Modal>
       <Container>
         <ContainerHeader>
           <LeftOutlined onClick={() => toggleApply()} />
-          <div className='post-info'>
-            <div className='user-name'>{me.name}님의 모임 참여 신청</div>
-            <div className='group-info'>
-              {groupName} {category && `| ${category}`}
-            </div>
+          <div className="post-info">
+            <div className="user-name">{name}님의 모임 참여 신청</div>
+            {!type && (
+              <div className="group-info">
+                {Group?.name} {category && `| ${category}`}
+              </div>
+            )}
           </div>
         </ContainerHeader>
-        <main className='join-content'>
-          <section className='basic-info'>
-            <div className='subtitle'>기본 정보</div>
-            <div className='join-content-detail'>
-              <section className='join-content-detail-element'>
-                <div className='column-name'>이름</div>
-                <div>{me.name}</div>
-                <div className='column-name'>나이</div>
+        <main className="join-content">
+          <section className="basic-info">
+            <div className="subtitle">기본 정보</div>
+            <div className="join-content-detail">
+              <section className="join-content-detail-element">
+                <div className="column-name">이름</div>
+                <div>{name}</div>
+                <div className="column-name">나이</div>
                 <div>
-                  {me.birthday && year - Number(me.birthday.split('-')[0]) + 1}
+                  {birthday && year - Number(birthday.split('-')[0]) + 1}
                 </div>
-                <div className='column-name'>성별</div>
-                <div>{me.gender ? 'W' : 'M'}</div>
-                <div className='column-name'>이메일</div>
-                <div>{me.email}</div>
-                <div className='column-name'>연락처</div>
-                <div>{me.telephone}</div>
+                <div className="column-name">성별</div>
+                <div>{gender ? 'W' : 'M'}</div>
+                <div className="column-name">이메일</div>
+                <div>{email}</div>
+                <div className="column-name">연락처</div>
+                <div>{telephone}</div>
               </section>
             </div>
 
-            <section className='additional-info'>
-              <div className='subtitle'>추가 정보</div>
-              <div className='join-content-detail'>
-                <div className='column-name'>예상 활동 기간</div>
+            <section className="additional-info">
+              <div className="subtitle">추가 정보</div>
+              <div className="join-content-detail">
+                <div className="column-name">예상 활동 기간</div>
                 <div>{activityPeriod}</div>
                 <div>
-                  <div className='column-name'>포트폴리오</div>
+                  <div className="column-name">포트폴리오</div>
                   {portfolio}
                 </div>
               </div>

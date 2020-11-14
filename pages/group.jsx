@@ -48,9 +48,9 @@ const group = () => {
   const { posts } = useSelector(state => state.post);
   const { groups } = useSelector(state => state.group);
 
-  useEffect(() => {
-    dispatch(loadMyInfoRequestAction());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(loadMyInfoRequestAction());
+  // }, []);
 
   useEffect(() => {
     if (me.id) {
@@ -58,7 +58,7 @@ const group = () => {
       dispatch(loadApplyGroupsRequestAction({ id: me.id }));
       dispatch(loadPreferGroupsRequestAction(me.id));
     }
-  }, [posts, groups, me]);
+  }, [posts, groups]);
 
   return (
     <GroupContainer>

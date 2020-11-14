@@ -1,5 +1,5 @@
 export const categoryUrlNames = {
-  programing: '프로그래밍',
+  programming: '프로그래밍',
   game: '게임',
   sports: '스포츠',
   contest: '공모전',
@@ -9,7 +9,7 @@ export const categoryUrlNames = {
 };
 
 export const categoryNames = {
-  프로그래밍: 'programing',
+  프로그래밍: 'programming',
   게임: 'game',
   스포츠: 'sports',
   공모전: 'contest',

@@ -1,11 +1,14 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import { Modal } from '../../../public/style';
 import styled from '@emotion/styled';
 import {
   LeftOutlined,
   TeamOutlined,
   ContainerFilled,
-  SettingFilled
+  SettingFilled,
+  EditOutlined
 } from '@ant-design/icons';
 import MakingGroup from '../MakingGroup';
 
@@ -44,7 +47,21 @@ const SettingModal = styled(Modal)`
   }
 `;
 
-const Setting = ({ setModify, setIsShowingSetting }) => {
+const Setting = ({ setModify, setIsShowingSetting, setShowReview }) => {
+  const router = useRouter();
+  const groupId = router.query.id;
+  const { me } = useSelector(state => state.user);
+  const [isL, setIsL] = useState(false);
+
+  const openReview = useCallback(() => {
+    setIsShowingSetting(prev => !prev);
+    setShowReview(prev => !prev);
+  }, []);
+
+  const goApplication = useCallback(() => {
+    return router.push(`/group/application/${groupId}`);
+  }, []);
+
   const closeModal = useCallback(() => {
     setIsShowingSetting(prev => !prev);
   }, []);
@@ -54,6 +71,20 @@ const Setting = ({ setModify, setIsShowingSetting }) => {
     setIsShowingSetting(prev => !prev);
   }, []);
 
+  useEffect(() => {
+    const filterGroups = me.JoinGroups.filter(
+      group => group.Group.id === parseInt(groupId)
+    );
+
+    const isMine = filterGroups.length
+      ? filterGroups.every(group => group.position === 'L')
+      : false;
+
+    if (isMine) {
+      setIsL(true);
+    }
+  }, []);
+
   return (
     <>
       <SettingModal zIndex={3}>
@@ -61,18 +92,33 @@ const Setting = ({ setModify, setIsShowingSetting }) => {
           <LeftOutlined onClick={closeModal} />
         </header>
         <section className="setting-content">
-          <div className="setting-content-item" onClick={openModifyModal}>
-            <div className="setting-content-item-icon">
-              <SettingFilled />
+          {isL && (
+            <div className="setting-content-item" onClick={openModifyModal}>
+              <div className="setting-content-item-icon">
+                <SettingFilled />
+              </div>
+              <div>정보 수정</div>
             </div>
-            <div>정보 수정</div>
-          </div>
-          <div className="setting-content-item">
-            <div className="setting-content-item-icon">
-              <ContainerFilled />
-            </div>
-            <div>지원서 관리</div>
-          </div>
+          )}
+          {isL ? (
+            <>
+              <div className="setting-content-item" onClick={goApplication}>
+                <div className="setting-content-item-icon">
+                  <ContainerFilled />
+                </div>
+                <div>지원서 관리</div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="setting-content-item" onClick={openReview}>
+                <div className="setting-content-item-icon">
+                  <EditOutlined />
+                </div>
+                <div>모임 평가</div>
+              </div>
+            </>
+          )}
           <div className="setting-content-item">
             <div className="setting-content-item-icon">
               <TeamOutlined />
