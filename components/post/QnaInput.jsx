@@ -65,7 +65,10 @@ const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
   const [contents, changeContents, setContents] = useInputChangeHook('');
   const [toogle, Screen] = useCheckResult({
     title: 'Q&A',
-    content: 'Q&A 작성 완료 되었습니다.',
+    content:
+      type === 'q'
+        ? '질문 등록이 완료 되었습니다.'
+        : '답변 등록이 완료 되었습니다.',
   });
   const createQna = async (isSecret) => {
     if (!me.id) return alert('로그인 후에 이용 가능합니다.');

@@ -7,7 +7,7 @@ const createSecretName = (name) => {
   }, '');
 };
 
-const QnaWrapper = ({ qna }) => {
+const QnaWrapper = ({ qna, isSecret }) => {
   return (
     <>
       <div className='qna_header'>
@@ -15,7 +15,7 @@ const QnaWrapper = ({ qna }) => {
         {qna.Member && <span>{createSecretName(qna.Member.name)}</span>}
       </div>
       <div className='qna_contents'>
-        {qna.isSecret ? '비밀 글입니다' : qna.contents}
+        {isSecret ? '비밀 글입니다' : qna.contents}
       </div>
     </>
   );
