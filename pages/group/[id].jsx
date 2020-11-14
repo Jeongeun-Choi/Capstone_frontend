@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import Header from '../../components/main/Header';
@@ -11,6 +11,7 @@ import Setting from '../../components/group/groupSetting/Setting';
 import MakingGroup from '../../components/group/MakingGroup';
 import Review from '../../components/review/Review';
 import ReviewWriting from '../../components/review/ReviewWriting';
+import Qna from '../../components/post/Qna';
 
 const GroupContainer = styled.div`
   width: 100%;
@@ -161,6 +162,10 @@ const GroupDetail = () => {
   const { me } = useSelector(state => state.user);
   const [selectedGroup, setSelectedGroup] = useState({});
   const [showPlusButton, setShowPlusButton] = useState(false);
+  const isMyGroup = useMemo(() => {
+    if (!me?.id || !selectedGroup?.JoinGroups?.length) return false;
+    return me.id === selectedGroup.JoinGroups[0].memberId;
+  }, [me, selectedGroup]);
 
   const {
     name,
@@ -234,7 +239,9 @@ const GroupDetail = () => {
         <Header
           title={name}
           subTitle={
-            ActiveCategories?.length && ActiveCategories[0]?.DetailCategory.name
+            ActiveCategories?.length
+              ? ActiveCategories[0]?.DetailCategory.name
+              : ''
           }
           backButton={true}
           type="white"
@@ -249,8 +256,9 @@ const GroupDetail = () => {
           <div className="group-content-header">
             <div className="group-basic-info">
               <div className="group-basic-category">
-                {ActiveCategories?.length &&
-                  ActiveCategories[0]?.DetailCategory?.name}
+                {ActiveCategories?.length
+                  ? ActiveCategories[0]?.DetailCategory?.name
+                  : ''}
               </div>
               <div className="group-basic-name">
                 <b>
@@ -329,7 +337,7 @@ const GroupDetail = () => {
           <Divider />
           <div className="group-content-item">
             <div className="subtitle">✦ 모임 Q&amp;A</div>
-            <div>QnA 컴포넌트 ~,~</div>
+            <Qna groupId={id} isMyGroup={isMyGroup} />
           </div>
         </section>
         {showPlusButton && (
