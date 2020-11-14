@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 const QnaInputWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border: 1px solid grey;
   border-radius: 5px;
   padding: 0.5rem;
@@ -14,7 +15,7 @@ const QnaInputWrapper = styled.div`
   & .qna_inputs {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 65%;
     & input {
       width: 100%;
       height: 1.5rem;
