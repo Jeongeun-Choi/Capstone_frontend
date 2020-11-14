@@ -42,7 +42,7 @@ const QnaInputWrapper = styled.div`
       width: 3rem;
       height: 3rem;
       line-height: 1.3rem;
-      border: 1px solid black;
+      border: 1px solid #868686;
       border-radius: 5px;
       margin-left: 0.2rem;
       font-size: 0.6rem;
@@ -65,7 +65,10 @@ const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
   const [contents, changeContents, setContents] = useInputChangeHook('');
   const [toogle, Screen] = useCheckResult({
     title: 'Q&A',
-    content: 'Q&A 작성 완료 되었습니다.',
+    content:
+      type === 'q'
+        ? '질문 등록이 완료 되었습니다.'
+        : '답변 등록이 완료 되었습니다.',
   });
   const createQna = async (isSecret) => {
     if (!me.id) return alert('로그인 후에 이용 가능합니다.');

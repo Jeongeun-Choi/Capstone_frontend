@@ -16,25 +16,41 @@ const ApplicationBox = styled.div`
   line-height: 3rem;
   display: flex;
   background-color: #f6f6f6;
+  margin-top: 1rem;
   padding: 0 1rem;
 
+  & .user-name{
+    font-size: 0.8em;
+    width: 4rem;
+    padding-left: 0.5rem;
+  }
+
+  & .user-email{
+    font-size: 0.8em;
+    width: 8rem;
+  }
+
+  & .application-select{
+      font-size: 0.5rem;
+    }
+
   & .group-application {
-    width: 30%;
     display: flex;
+    width: 20%;
+    height: 40%;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    font-size: 0.7rem;
+    font-size: 1rem;
     cursor: pointer;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-top: 1rem;
 
     &:hover {
       color: grey;
     }
-    & div {
-      margin-top: 0.2rem;
-      font-size: 0.5rem;
-    }
-
+  
     @media screen and (min-width: 780px) {
       width: 15%;
       font-size: 1.5rem;
@@ -46,6 +62,9 @@ const ApplicationBox = styled.div`
       & .read-application {
       }
     }
+  }
+  & .application-select{
+    width: 3rem;
   }
 `;
 
@@ -115,19 +134,16 @@ const Application = ({
 
   return (
     <ApplicationBox>
-      <div>{name}</div>
-      <div>{email}</div>
-      <div className='group-application' onClick={openApply}>
-        <ContainerFilled />
-        <div>지원서 열람</div>
-      </div>
-      <div className='group-application' onClick={approve}>
-        <CheckOutlined />
-        <div>승인</div>
-      </div>
-      <div className='group-application' onClick={reject}>
-        <CloseOutlined />
-        <div>거절</div>
+      <div className="user-name">{name}</div>
+      <div className="user-email">{email}</div>
+        <div className="group-application" onClick={openApply}>
+          <ContainerFilled />
+        </div>
+        <div className="group-application" onClick={approve}>
+          <CheckOutlined />
+        </div>
+        <div className="group-application" onClick={reject}>
+          <CloseOutlined />
       </div>
       <AprroveScreen />
       <RejcetScreen />
