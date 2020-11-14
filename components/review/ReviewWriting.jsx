@@ -9,26 +9,9 @@ import useInputChangeHook from '../../hooks/useInputChangeHook';
 import customAxios from '../../utils/baseAxios';
 
 const ReviewWritingHeader = styled(ModalHeader)`
-  line-height: 25px;
+  line-height: 10vh;
   color: black;
   background-color: white;
-
-  & .post-info {
-    height: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    & .team-category {
-      font-size: 14px;
-    }
-
-    & .team-name {
-      font-size: 16px;
-      font-weight: bold;
-    }
-  }
 `;
 
 const ReviewWritingContainer = styled.form`
@@ -115,9 +98,11 @@ const ReviewWritingContainer = styled.form`
             height: 2rem;
             border: none;
             border-radius: 5px;
-            background-color: #6055cd;
+            //background-color: #6055cd;
+            background-color: #868686;
             color: #ffffff;
             margin-right: 1rem;
+            margin-top: 1rem;
           }
         }
       }
