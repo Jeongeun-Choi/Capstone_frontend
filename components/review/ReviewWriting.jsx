@@ -128,7 +128,7 @@ const ReviewWritingContainer = styled.form`
 const ReviewWriting = ({ id, type, setCloseModal }) => {
   const [showWriting, setShowWriting] = useState(false);
   const [title, onChangeTitle] = useInputChangeHook('');
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(5);
   const [contents, onChangeContents] = useInputChangeHook('');
   const [reviews, setReviews] = useState([]);
   const { me } = useSelector(state => state.user);
@@ -149,7 +149,7 @@ const ReviewWriting = ({ id, type, setCloseModal }) => {
   const onSubmitReview = useCallback(async e => {
     e.preventDefault();
 
-    if (!title.trim() || !score.trim() || !contents.trim()) {
+    if (!title.trim() || !contents.trim()) {
       return message.error('모두 다 채워주세요.');
     }
     const data = { evaluatorId: me.id, title, score, contents };
@@ -200,7 +200,11 @@ const ReviewWriting = ({ id, type, setCloseModal }) => {
                 </div>
                 <div className="review-input-div">
                   <label htmlFor="review-rate">평점</label>
-                  <Rate allowHalf defaultValue={5} onChange={onChangeScore} />
+                  <Rate
+                    allowHalf
+                    defaultValue={score}
+                    onChange={onChangeScore}
+                  />
                 </div>
                 <div className="review-input-div">
                   <label htmlFor="review-content">내용</label>
