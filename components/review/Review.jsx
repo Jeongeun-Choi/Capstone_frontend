@@ -30,6 +30,7 @@ const ReviewContainer = styled.div`
 
 const reviews = [
   {
+    id: 1,
     title: '좋은 사람들과 주말을 즐겁게!',
     contents: '이 모임은 친근해서 좋아요! 기회가 된다면 다시 들어가고싶네요!',
     score: 4,
@@ -39,6 +40,7 @@ const reviews = [
     createdAt: '2020-10-20'
   },
   {
+    id: 2,
     title: '원하던 바로 그 모임ㅎㅎ',
     contents:
       '주말에 취미생활을 하면서 알차게 보내고 싶어서 가입했는데, 취미 생활 이상으로 배워가는 것도 많고 큰 즐거움을 느끼고 있습니다.',
@@ -66,7 +68,9 @@ const Review = () => {
         <div className="header_left">전체 리뷰 보기</div>
       </header>
       {reviews?.length
-        ? reviews.map(review => <ReviewContent review={review} />)
+        ? reviews.map(review => (
+            <ReviewContent key={review.id} review={review} />
+          ))
         : ''}
     </ReviewContainer>
   );

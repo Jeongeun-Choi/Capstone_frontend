@@ -58,14 +58,17 @@ const Item = ({ type, name, id, location, category, image = null }) => {
     <>
       <ItemBox onClick={clickItem}>
         <img
-          src={(image && image.URL) || '/images/teamimg.jpg'}
+          src={(image && image.URL) || `/images/basic_${category}.png`}
           alt={(image && image.description) || '기본 그룹 사진'}
         />
-        <div className='box-info'>
-          <div className='box-info-category'>{categoryUrlNames[category]}</div>
-          <div className='box-info-name'>{name}</div>
-          <div className='box-info-location'>
-            {location?.split(' ').slice(0, 3).join(' ')}
+        <div className="box-info">
+          <div className="box-info-category">{categoryUrlNames[category]}</div>
+          <div className="box-info-name">{name}</div>
+          <div className="box-info-location">
+            {location
+              ?.split(' ')
+              .slice(0, 3)
+              .join(' ')}
           </div>
         </div>
       </ItemBox>
