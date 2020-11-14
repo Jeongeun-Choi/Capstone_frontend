@@ -73,7 +73,7 @@ const Setting = ({ setModify, setIsShowingSetting, setShowReview }) => {
 
   useEffect(() => {
     const filterGroups = me.JoinGroups.filter(
-      group => group.id === parseInt(groupId)
+      group => group.Group.id === parseInt(groupId)
     );
 
     const isMine = filterGroups.length

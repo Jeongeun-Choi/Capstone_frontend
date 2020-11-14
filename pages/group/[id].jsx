@@ -181,6 +181,7 @@ const GroupDetail = () => {
   const [isShowingSetting, setIsShowingSetting] = useState(false);
   const [modify, setModify] = useState(false);
   const [showReview, setShowReview] = useState(false);
+  const [reviews, setReviews] = useState([]);
 
   const clickHeart = useCallback(async () => {
     if (!me.id) {
@@ -206,6 +207,17 @@ const GroupDetail = () => {
       console.log(error);
     }
   };
+
+  const getReviews = async () => {
+    const { data } = await customAxios.get(
+      `/evaluation?evaluatedGroupId=${id}`
+    );
+    setReviews(data.evaluates);
+  };
+
+  useEffect(() => {
+    getReviews();
+  }, [id]);
 
   useEffect(() => {
     getGroupData();
@@ -332,7 +344,7 @@ const GroupDetail = () => {
           <Divider />
           <div className="group-content-item">
             <div className="subtitle">✦ 모임 리뷰</div>
-            <Review />
+            <Review reviews={reviews} />
           </div>
           <Divider />
           <div className="group-content-item">

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Review from './Review';
 import styled from '@emotion/styled';
@@ -128,9 +128,18 @@ const ReviewWritingContainer = styled.form`
 const ReviewWriting = ({ id, type, setCloseModal }) => {
   const [showWriting, setShowWriting] = useState(false);
   const [title, onChangeTitle] = useInputChangeHook('');
-  const [score, onChangeScore] = useInputChangeHook(0);
+  const [score, setScore] = useState(0);
   const [contents, onChangeContents] = useInputChangeHook('');
+  const [reviews, setReviews] = useState([]);
   const { me } = useSelector(state => state.user);
+
+  const onClose = useCallback(() => {
+    setCloseModal(prev => !prev);
+  }, []);
+
+  const onChangeScore = useCallback(value => {
+    setScore(value);
+  }, []);
 
   const onToggle = useCallback(e => {
     e.preventDefault();
@@ -152,30 +161,32 @@ const ReviewWriting = ({ id, type, setCloseModal }) => {
     }
     try {
       await customAxios.post(`/evaluation`, data);
-      setCloseModal(prev => !prev);
+      setReviews([...reviews, data]);
     } catch (error) {
       console.log(error);
     }
   }, []);
 
+  const getReviews = async () => {
+    const { data } = await customAxios.get(
+      `/evaluation?evaluatedGroupId=${id}`
+    );
+    setReviews(data.evaluates);
+  };
+
+  useEffect(() => {
+    getReviews();
+  }, [id]);
+
   return (
     <Modal zIndex={3}>
       <ReviewWritingContainer>
         <ReviewWritingHeader>
-          <LeftOutlined />
-          <div className="post-info">
-            <div className="team-category">
-              카테고리
-              {/* {data.ActiveCategories[0].DetailCategory.name} */}
-            </div>
-            <div className="team-name">
-              모임명 | 시군구
-              {/* {data.name} | {data.location.split(' ')[2]} */}
-            </div>
-          </div>
+          <LeftOutlined onClick={onClose} />
+          <h3>모임 평가</h3>
         </ReviewWritingHeader>
         <main>
-          <Review />
+          <Review groupId={id} reviews={reviews} />
           <section className="writing">
             {showWriting ? (
               <div className="writing-input">
