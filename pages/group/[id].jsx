@@ -10,6 +10,7 @@ import { Divider, message } from 'antd';
 import Setting from '../../components/group/groupSetting/Setting';
 import MakingGroup from '../../components/group/MakingGroup';
 import Review from '../../components/review/Review';
+import ReviewWriting from '../../components/review/ReviewWriting';
 
 const GroupContainer = styled.div`
   width: 100%;
@@ -174,6 +175,7 @@ const GroupDetail = () => {
   const [filledHeart, setFilledHeart] = useState(false);
   const [isShowingSetting, setIsShowingSetting] = useState(false);
   const [modify, setModify] = useState(false);
+  const [showReview, setShowReview] = useState(false);
 
   const clickHeart = useCallback(async () => {
     if (!me.id) {
@@ -220,16 +222,10 @@ const GroupDetail = () => {
       setShowPlusButton(false);
     }
     const filterGroups = me.JoinGroups.filter(
-      group => group.id === parseInt(id)
+      group => group.Group.id === parseInt(id)
     );
-
-    const isMine = filterGroups.length
-      ? filterGroups.every(group => group.position === 'L')
-      : false;
-
-    if (isMine) {
-      setShowPlusButton(true);
-    }
+    const isMine = filterGroups.length ? true : false;
+    setShowPlusButton(isMine);
   }, [id, me.JoinGroups, showPlusButton]);
 
   return (
@@ -346,6 +342,7 @@ const GroupDetail = () => {
         <Setting
           setIsShowingSetting={setIsShowingSetting}
           setModify={setModify}
+          setShowReview={setShowReview}
         />
       )}
       {modify && (
@@ -355,6 +352,9 @@ const GroupDetail = () => {
           setCloseModal={setModify}
           data={selectedGroup}
         />
+      )}
+      {showReview && (
+        <ReviewWriting id={id} type="group" setCloseModal={setShowReview} />
       )}
     </>
   );

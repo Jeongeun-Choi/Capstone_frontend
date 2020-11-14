@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import Review from './Review';
 import styled from '@emotion/styled';
 import { Modal, ModalHeader } from '../../public/style';
 import { LeftOutlined } from '@ant-design/icons';
+import { Rate, message } from 'antd';
+import useInputChangeHook from '../../hooks/useInputChangeHook';
+import customAxios from '../../utils/baseAxios';
 
 const ReviewWritingHeader = styled(ModalHeader)`
   line-height: 25px;
@@ -38,19 +42,124 @@ const ReviewWritingContainer = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0.6rem;
+
     & .writing {
       width: 100%;
-      height: 12rem;
+      height: 15rem;
       background-color: #f6f6f6;
       border-radius: 3px;
       margin-top: 0.5rem;
+
+      & .writing-text-only {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 15rem;
+        & .writing-first {
+          font-size: 0.6rem;
+        }
+
+        & .writing-second {
+          font-size: 0.9rem;
+          font-weight: bold;
+        }
+      }
+
+      & .writing-input {
+        width: 100%;
+        height: 15rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & .review-input-div {
+          width: 95%;
+          display: flex;
+          flex-direction: column;
+          margin-top: 0.5rem;
+
+          & label {
+            font-weight: bold;
+            font-size: 0.8rem;
+          }
+
+          & input {
+            background-color: rgba(255, 255, 255, 0);
+            border: none;
+            height: 1.5rem;
+          }
+
+          & textarea {
+            width: 100%;
+            resize: none;
+            background-color: rgba(255, 255, 255, 0);
+            border: none;
+          }
+          & .ant-rate {
+            margin-top: -0.3rem;
+            & .ant-rate-star {
+              font-size: 0.9rem;
+            }
+          }
+        }
+
+        & .review-input-buttons {
+          width: 95%;
+          display: flex;
+
+          & button {
+            width: 20%;
+            height: 2rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #6055cd;
+            color: #ffffff;
+            margin-right: 1rem;
+          }
+        }
+      }
     }
   }
 `;
 
-const ReviewWriting = () => {
+const ReviewWriting = ({ id, type, setCloseModal }) => {
+  const [showWriting, setShowWriting] = useState(false);
+  const [title, onChangeTitle] = useInputChangeHook('');
+  const [score, onChangeScore] = useInputChangeHook(0);
+  const [contents, onChangeContents] = useInputChangeHook('');
+  const { me } = useSelector(state => state.user);
+
+  const onToggle = useCallback(e => {
+    e.preventDefault();
+    setShowWriting(prev => !prev);
+  }, []);
+
+  const onSubmitReview = useCallback(async e => {
+    e.preventDefault();
+
+    if (!title.trim() || !score.trim() || !contents.trim()) {
+      return message.error('모두 다 채워주세요.');
+    }
+    const data = { evaluatorId: me.id, title, score, contents };
+
+    if (type === 'person') {
+      data.evaluateeId = id;
+    } else {
+      data.evaluatedGroupId = id;
+    }
+    try {
+      await customAxios.post(`/evaluation`, data);
+      setCloseModal(prev => !prev);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   return (
-    <Modal>
+    <Modal zIndex={3}>
       <ReviewWritingContainer>
         <ReviewWritingHeader>
           <LeftOutlined />
@@ -67,7 +176,44 @@ const ReviewWriting = () => {
         </ReviewWritingHeader>
         <main>
           <Review />
-          <section className="writing"></section>
+          <section className="writing">
+            {showWriting ? (
+              <div className="writing-input">
+                <div className="review-input-div">
+                  <label htmlFor="review-title">제목</label>
+                  <input
+                    id="review-title"
+                    placeholder="리뷰 제목"
+                    onChange={onChangeTitle}
+                  />
+                </div>
+                <div className="review-input-div">
+                  <label htmlFor="review-rate">평점</label>
+                  <Rate allowHalf defaultValue={5} onChange={onChangeScore} />
+                </div>
+                <div className="review-input-div">
+                  <label htmlFor="review-content">내용</label>
+                  <textarea
+                    placeholder="리뷰 내용"
+                    onChange={onChangeContents}
+                  ></textarea>
+                </div>
+                <div className="review-input-buttons">
+                  <button onClick={onSubmitReview}>등록</button>
+                  <button type="button" onClick={onToggle}>
+                    취소
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="writing-text-only" onClick={onToggle}>
+                <div className="writing-first">
+                  “아직 이 모임에 대한 리뷰를 작성하지 않았어요.”
+                </div>
+                <div className="writing-second">클릭하여 리뷰작성하기</div>
+              </div>
+            )}
+          </section>
         </main>
       </ReviewWritingContainer>
     </Modal>
