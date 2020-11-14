@@ -42,7 +42,7 @@ const QnaInputWrapper = styled.div`
       width: 3rem;
       height: 3rem;
       line-height: 1.3rem;
-      border: 1px solid black;
+      border: 1px solid #868686;
       border-radius: 5px;
       margin-left: 0.2rem;
       font-size: 0.6rem;
