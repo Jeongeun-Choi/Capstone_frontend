@@ -9,7 +9,7 @@ import { categoryUrlNames } from '../../utils/categoryNames';
 const ItemBox = styled.div`
   ${basicBoxStyle}
   width: 100%;
-  height: 40vh;
+  height: 35vh;
   margin-top: 1rem;
   cursor: pointer;
   transition: opacity 0.5s;
@@ -20,23 +20,25 @@ const ItemBox = styled.div`
   }
   & img {
     width: 100%;
-    height: 70%;
+    height: 55%;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
   }
 
   & .box-info {
     display: flex;
     flex-direction: column;
 
-    & .box-info-category {
-      font-size: 0.9rem;
+    & .box-info-category,
+    .box-info-location {
+      font-size: 0.8rem;
+      padding-left: 0.5rem;
     }
 
     & .box-info-name {
       font-size: 1rem;
-    }
-
-    & .box-info-location {
-      font-size: 0.8rem;
+      font-weight: bold;
+      padding-left: 0.5rem;
     }
   }
 `;
