@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import QnaWrapper from './QnaWrapper';
 import QnaInput from './QnaInput';
+import { useSelector } from 'react-redux';
 
 const QnaItemWrapper = styled.li`
   display: flex;
@@ -46,6 +47,7 @@ const QnaBox = styled.div`
 `;
 const QnaItem = ({ groupId, setQnas, qna, isMyGroup }) => {
   const [replyStatus, setReplyStatus] = useState(false);
+  const { me } = useSelector((state) => state.user);
 
   const onToggle = () => {
     setReplyStatus((prev) => !prev);
@@ -53,11 +55,17 @@ const QnaItem = ({ groupId, setQnas, qna, isMyGroup }) => {
   return (
     <QnaItemWrapper key={qna.id}>
       <QnaBox type='q'>
-        <QnaWrapper qna={qna} />
+        <QnaWrapper
+          qna={qna}
+          isSecret={me.id === qna.Member.id ? false : qna.isSecret}
+        />
       </QnaBox>
       {qna?.Reply?.id ? (
         <QnaBox type='r'>
-          <QnaWrapper qna={qna.Reply} />
+          <QnaWrapper
+            qna={qna.Reply}
+            isSecret={me.id === qna.Member.id ? false : qna.isSecret}
+          />
         </QnaBox>
       ) : (
         <>

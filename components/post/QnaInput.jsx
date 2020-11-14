@@ -3,10 +3,12 @@ import useInputChangeHook from '../../hooks/useInputChangeHook';
 import styled from '@emotion/styled';
 import customAxios from '../../utils/baseAxios';
 import { useSelector } from 'react-redux';
+import useCheckResult from '../../hooks/useCheckResult';
 
 const QnaInputWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border: 1px solid grey;
   border-radius: 5px;
   padding: 0.5rem;
@@ -14,7 +16,7 @@ const QnaInputWrapper = styled.div`
   & .qna_inputs {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 65%;
     & input {
       width: 100%;
       height: 1.5rem;
@@ -59,11 +61,20 @@ const QnaInputWrapper = styled.div`
 
 const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
   const { me } = useSelector((state) => state.user);
-  const [title, changeTitle] = useInputChangeHook('');
-  const [contents, changeContents] = useInputChangeHook('');
-
+  const [title, changeTitle, setTitle] = useInputChangeHook('');
+  const [contents, changeContents, setContents] = useInputChangeHook('');
+  const [toogle, Screen] = useCheckResult({
+    title: 'Q&A',
+    content:
+      type === 'q'
+        ? '질문 등록이 완료 되었습니다.'
+        : '답변 등록이 완료 되었습니다.',
+  });
   const createQna = async (isSecret) => {
     if (!me.id) return alert('로그인 후에 이용 가능합니다.');
+
+    if (!title.trim() || !contents.trim())
+      return alert('제목과 내용을 채워주세요.');
 
     const response = await customAxios.post('/qna', {
       title,
@@ -88,6 +99,10 @@ const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
             qna.id === topQnaId ? { ...qna, Reply: response.data.qna } : qna
           )
         );
+
+    setTitle('');
+    setContents('');
+    toogle();
   };
 
   return (
@@ -100,6 +115,7 @@ const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
               ? '문의 제목을 입력해주세요.'
               : '답변 제목을 입력해주세요'
           }
+          value={title}
           onChange={changeTitle}
         />
         <input
@@ -109,6 +125,7 @@ const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
               ? '문의 내용을 입력해주세요.'
               : '답변 내용을 입력해주세요.'
           }
+          value={contents}
           onChange={changeContents}
         />
       </div>
@@ -125,6 +142,7 @@ const QnaInput = ({ groupId, setQnas, type, topQnaId }) => {
           등록 하기
         </button>
       </div>
+      <Screen />
     </QnaInputWrapper>
   );
 };

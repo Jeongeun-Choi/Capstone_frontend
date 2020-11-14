@@ -13,7 +13,7 @@ const Screen = styled.div`
   justify-content: center;
   align-items: center;
   background: rgba(125, 125, 125, 0.7);
-
+  z-index: 5;
   & .button_container {
     width: 40%;
     min-width: 350px;

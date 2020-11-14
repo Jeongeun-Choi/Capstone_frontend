@@ -5,8 +5,9 @@ import customAxios from '../../utils/baseAxios';
 import {
   ContainerFilled,
   CheckOutlined,
-  CloseOutlined
+  CloseOutlined,
 } from '@ant-design/icons';
+import useCheckResult from '../../hooks/useCheckResult';
 
 const ApplicationBox = styled.div`
   width: 95%;
@@ -71,13 +72,21 @@ const Application = ({
   application,
   toggleApply,
   setApplications,
-  applications
+  applications,
 }) => {
   const { Member } = application;
   const { id, email, name } = Member;
   const [userInfo, setUserInfo] = useState({});
-  const { me } = useSelector(state => state.user);
+  const { me } = useSelector((state) => state.user);
 
+  const [toggleApprove, AprroveScreen] = useCheckResult({
+    title: '가입 확인',
+    content: '가입이 승인 되었습니다.',
+  });
+  const [toggleReject, RejcetScreen] = useCheckResult({
+    title: '가입',
+    content: '가입이 거절되었습니다.',
+  });
   const openApply = () => {
     toggleApply(application, userInfo);
   };
@@ -87,8 +96,9 @@ const Application = ({
     try {
       await customAxios.post(`/join-group`, data);
       const newArray = applications.filter(
-        application => application.id !== application.id
+        (application) => application.id !== application.id
       );
+      toggleApprove();
       setApplications(newArray);
     } catch (error) {
       console.log(error);
@@ -99,13 +109,14 @@ const Application = ({
     const data = {
       memberId: me.id,
       groupId: application.groupId,
-      applyId: application.id
+      applyId: application.id,
     };
     try {
       await customAxios.patch(`/apply-group`, data);
       const newArray = applications.filter(
-        application => application.id !== application.id
+        (application) => application.id !== application.id
       );
+      toggleReject();
       setApplications(newArray);
     } catch (error) {
       console.log(error);
@@ -133,7 +144,9 @@ const Application = ({
         </div>
         <div className="group-application" onClick={reject}>
           <CloseOutlined />
-        </div>
+      </div>
+      <AprroveScreen />
+      <RejcetScreen />
     </ApplicationBox>
   );
 };
