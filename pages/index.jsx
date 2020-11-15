@@ -11,7 +11,6 @@ const index = () => {
 
   useEffect(() => {
     dispatch(loadCategorysRequestAction());
-    if (!me.id) dispatch(loadMyInfoRequestAction());
   }, []);
 
   return (
