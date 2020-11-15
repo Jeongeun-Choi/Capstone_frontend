@@ -1,17 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import styled from '@emotion/styled';
-import {
-  BasicInput,
-  ShortInput,
-  Button,
-  Modal,
-  ModalHeader
-} from '../public/style';
+import { BasicInput, ShortInput, Button, ModalHeader } from '../public/style';
 import { Switch } from 'antd';
 import { useRouter } from 'next/router';
 import { LeftOutlined } from '@ant-design/icons';
 import useInputChangeHook from '../hooks/useInputChangeHook';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signupRequestAction } from '../reducers/user';
 
 const SignupContainer = styled.main`
@@ -91,6 +85,7 @@ const SignupForm = styled.form`
 `;
 
 const signup = () => {
+  const { me } = useSelector(state => state.user);
   const [email, onChangeEmail] = useInputChangeHook('');
   const [password, onChangePassword] = useInputChangeHook('');
   const [passwordCheck, onChangePasswordCheck] = useInputChangeHook('');
@@ -132,6 +127,12 @@ const signup = () => {
   const closeModal = useCallback(() => {
     router.push('/login');
   }, []);
+
+  useEffect(() => {
+    if (me && me.id) {
+      router.push('/');
+    }
+  }, [me && me.id]);
 
   return (
     <SignupContainer>

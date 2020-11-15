@@ -37,7 +37,7 @@ const AppLayout = ({ children }) => {
     }
 
     if (
-      !me.id &&
+      !(me && me.id) &&
       pathName !== 'signup' &&
       pathName !== 'login' &&
       pathName !== 'setting'
