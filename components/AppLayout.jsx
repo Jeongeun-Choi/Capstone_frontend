@@ -45,7 +45,7 @@ const AppLayout = ({ children }) => {
       message.error('로그인이 필요합니다.');
       router.push('/login');
     }
-  }, [me]);
+  }, [me && me.id]);
 
   return (
     <AppContainer ref={mounted}>
