@@ -1,7 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { CloseOutlined } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginRequestAction } from '../reducers/user';
 import { message } from 'antd';
 import useInputChangeHook from '../hooks/useInputChangeHook';
@@ -115,6 +114,7 @@ const LoginContainer = styled.div`
 const login = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { me } = useSelector(state => state.user);
   const [email, onChangeEmail] = useInputChangeHook('');
   const [password, onChangePassword] = useInputChangeHook('');
 
@@ -126,13 +126,16 @@ const login = () => {
       }
       try {
         dispatch(loginRequestAction({ email, password }));
-        router.push('/setting-info');
       } catch (error) {
         console.error(error);
       }
     },
     [email, password]
   );
+
+  useEffect(() => {
+    me.id && router.push('/setting-info');
+  }, [me]);
 
   return (
     <LoginContainer>
