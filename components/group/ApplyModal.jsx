@@ -9,16 +9,18 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 
   & .join-content {
     height: 100%;
-    margin-top: 3rem;
-    padding: 0 1rem;
+    margin-top: 1.5rem;
+    padding: 0 1.8rem;
   }
 
   & .join-content-detail {
     width: 85%;
-    padding: 0 1rem;
+    width: 100%;
+    padding: 0 0.7rem;
   }
   & .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
     background: #6055cd;
@@ -49,15 +51,22 @@ const Container = styled.div`
   }
 
   & .subtitle {
+    //border: 1px solid orange;
     font-weight: bold;
     font-size: 1.1rem;
     margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    padding-left: 0.3rem;
   }
 
-  & .column-name {
+  & .content-detail-q {
     font-size: 1rem;
-    font-weight: 500;
-    margin-top: 0.2rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+  }
+
+  & .content-detail-a {
+    padding-left: 0.5rem;
   }
 
   & .basic-info {
@@ -92,11 +101,7 @@ const ContainerHeader = styled(ModalHeader)`
     align-items: center;
 
     & .user-name {
-      font-size: 12px;
-    }
-    & .group-info {
-      font-weight: bold;
-      font-size: 15px;
+      font-size: 1rem;
     }
   }
 `;
@@ -142,29 +147,30 @@ const ApplyModal = ({ selectedApply, toggleApply, type = null }) => {
             <div className="subtitle">기본 정보</div>
             <div className="join-content-detail">
               <section className="join-content-detail-element">
-                <div className="column-name">이름</div>
-                <div>{name}</div>
-                <div className="column-name">나이</div>
-                <div>
+                <div className="content-detail-q">✦ 이름</div>
+                <div className="content-detail-a">{name}</div>
+                <div className="content-detail-q">✦ 나이</div>
+                <div className="content-detail-a">
                   {birthday && year - Number(birthday.split('-')[0]) + 1}
                 </div>
-                <div className="column-name">성별</div>
-                <div>{gender ? 'W' : 'M'}</div>
-                <div className="column-name">이메일</div>
-                <div>{email}</div>
-                <div className="column-name">연락처</div>
-                <div>{telephone}</div>
+                <div className="content-detail-q">✦ 성별</div>
+                <div className="content-detail-a">{gender ? 'W' : 'M'}</div>
+                <div className="content-detail-q">✦ 이메일</div>
+                <div className="content-detail-a">{email}</div>
+                <div className="content-detail-q">✦ 연락처</div>
+                <div className="content-detail-a">{telephone}</div>
               </section>
             </div>
 
             <section className="additional-info">
               <div className="subtitle">추가 정보</div>
               <div className="join-content-detail">
-                <div className="column-name">예상 활동 기간</div>
-                <div>{activityPeriod}</div>
+                <div className="content-detail-q">✦ 예상 활동 기간</div>
+                <div className="content-detail-a">{activityPeriod}</div>
                 <div>
-                  <div className="column-name">요구사항</div>
-                  {portfolio}
+                  <div className="content-detail-q">✦ 요구사항</div>
+                  <div className="content-detail-a">{portfolio}</div>
+
                 </div>
               </div>
             </section>
