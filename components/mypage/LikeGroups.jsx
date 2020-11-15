@@ -8,11 +8,12 @@ import useCheckResult from '../../hooks/useCheckResult';
 const GroupContainer = styled.section`
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   & .liked-group-division{
     text-align: center;
     font-size: 1rem;
-    margin-top: 0.5rem;
+    margin: auto 0;
   }
 `;
 
