@@ -1,4 +1,3 @@
 /node_modules
 /.next
-/api/index.js
-/config
+next.config.js

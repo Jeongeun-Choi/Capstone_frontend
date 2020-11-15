@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Geocode from 'react-geocode';
-import { GEOCODE_API } from '../../api';
 
 const KakaoMap = ({ location }) => {
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
 
   useEffect(() => {
-    Geocode.setApiKey(GEOCODE_API);
+    Geocode.setApiKey(process.env.GEOCODE_API);
     Geocode.setLanguage('kr');
 
     Geocode.fromAddress(location).then(
