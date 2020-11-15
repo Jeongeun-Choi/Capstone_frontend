@@ -220,7 +220,7 @@ const GroupDetail = () => {
   useEffect(() => {
     dispatch(loadPreferGroupsRequestAction(me.id));
     getReviews();
-  }, [id, me.id]);
+  }, [id, me.id, reviews]);
 
   useEffect(() => {
     getGroupData();
