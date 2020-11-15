@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Footer from './main/Footer';
 import styled from '@emotion/styled';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,21 +22,28 @@ const haveSecondPathes = ['group', 'recruit', 'setting'];
 const AppLayout = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const mounted = useRef(null);
   const { me } = useSelector(state => state.user);
   const [, pathName, secondPath] = router.pathname.split('/');
-  useEffect(() => {
-    !me.id &&
-      pathName !== 'signup' &&
-      pathName !== 'login' &&
-      router.push('/login') &&
-      message.error('로그인이 필요합니다.');
-  }, []);
+
   useEffect(() => {
     dispatch(loadMyInfoRequestAction());
   }, []);
 
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+
+    if (mounted.current && pathName !== 'signup' && pathName !== 'login') {
+      message.error('로그인이 필요합니다.');
+      router.push('/login');
+    }
+  }, [me.id]);
+
   return (
-    <AppContainer>
+    <AppContainer ref={mounted}>
       {children}
       {!notNeedFooterPages.includes(pathName) &&
         !(haveSecondPathes.includes(pathName) && secondPath) && (
