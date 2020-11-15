@@ -4,7 +4,7 @@ import {
   Modal,
   ModalHeader,
   basicStyle,
-  modalFooter,
+  modalFooter
 } from '../../public/style';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
@@ -12,6 +12,7 @@ import { LeftOutlined } from '@ant-design/icons';
 import { Radio, message } from 'antd';
 import customAxios from '../../utils/baseAxios';
 import useCheckResult from '../../hooks/useCheckResult';
+import useInputChangeHook from '../../hooks/useInputChangeHook';
 
 const Container = styled.div`
   width: 100%;
@@ -100,116 +101,129 @@ const ContainerFooter = styled.button`
   margin-top: auto;
 `;
 
-const JoinGroup = ({ category, groupName, groupId }) => {
-  const { me } = useSelector((state) => state.user);
+const JoinGroup = ({ category, groupName, groupId, setShowingJoinModal }) => {
+  const { me } = useSelector(state => state.user);
   const router = useRouter();
   const year = new Date().getFullYear();
   const [gender, setGender] = useState('');
-  const [portfolio, setPortfolio] = useState(null);
+  const [portfolio, onChangePortfolio] = useInputChangeHook('');
   const [activityPeriod, setActivityPeriod] = useState('3MonthOver');
 
   const [toggleScreen, Screen] = useCheckResult({
     title: '가입 지원',
     content: '가입 지원 되었습니다.',
-    pushUrl: '/group',
+    pushUrl: '/group'
   });
-  const onChangeGender = useCallback((e) => {
+  const closeModal = useCallback(() => {
+    setShowingJoinModal(prev => !prev);
+  }, []);
+  const onChangeGender = useCallback(e => {
     setGender(e.target.value);
   }, []);
 
-  const onChangePeriod = useCallback((e) => {
+  const onChangePeriod = useCallback(e => {
     setActivityPeriod(e.target.value);
   }, []);
 
-  const submitResult = useCallback(async (e) => {
-    e.preventDefault();
-    const data = {
-      memberId: me.id,
-      groupId,
-      activityPeriod,
-      portfolio,
-    };
+  const submitResult = useCallback(
+    async e => {
+      e.preventDefault();
+      const data = {
+        memberId: me.id,
+        groupId,
+        activityPeriod,
+        portfolio
+      };
 
-    try {
-      await customAxios.post(`/apply-group`, data);
-      toggleScreen();
-    } catch (err) {
-      console.log(err);
-      message.error('이미 지원한 모임입니다.');
-      // router.push('/');
-    }
-  }, []);
+      try {
+        await customAxios.post(`/apply-group`, data);
+        toggleScreen();
+      } catch (err) {
+        console.log(err);
+        message.error('이미 지원한 모임입니다.');
+        // router.push('/');
+      }
+    },
+    [portfolio, groupId, me.id, activityPeriod]
+  );
 
   return (
-    <Modal zIndex='3'>
+    <Modal zIndex="3">
       <Container>
         <ContainerHeader>
-          <LeftOutlined />
-          <div className='post-info'>
-            <div className='user-name'>{me.name}님의 모임 참여 신청</div>
-            <div className='group-info'>
+          <LeftOutlined onClick={closeModal} />
+          <div className="post-info">
+            <div className="user-name">{me.name}님의 모임 참여 신청</div>
+            <div className="group-info">
               {groupName} | {category}
             </div>
           </div>
         </ContainerHeader>
-        <main className='join-content'>
-          <section className='basic-info'>
-            <div className='subtitle'>기본 정보</div>
-            <div className='join-content-detail'>
-              <div className='join-content-detail-element'>
-                <div className='detail-q'>✦ 이름</div>
-                <div className='detail-a'>{me.name}</div>
-                <div className='detail-q'>✦ 나이</div>
-                <div className='detail-a'>
+        <main className="join-content">
+          <section className="basic-info">
+            <div className="subtitle">기본 정보</div>
+            <div className="join-content-detail">
+              <div className="join-content-detail-element">
+                <div className="detail-q">✦ 이름</div>
+                <div className="detail-a">{me.name}</div>
+                <div className="detail-q">✦ 나이</div>
+                <div className="detail-a">
                   {me.birthday && year - Number(me.birthday.split('-')[0]) + 1}
                 </div>
-                <div className='detail-q'>✦ 성별</div>
-                <input
-                  type='text'
-                  className='detail-a'
+                <div className="detail-q">✦ 성별</div>
+                <div className="detail-a">{me.gender ? '여성' : '남성'}</div>
+                {/* <input
+                  type="text"
+                  className="detail-a"
                   value={me.gender ? '여성' : '남성'}
                   readonly
-                />
-                <div className='detail-q'>✦ 이메일</div>
-                <div className='detail-a'>{me.email}</div>
-                <div className='detail-q'>✦ 연락처</div>
-                <div className='detail-a'>{me.telephone}</div>
+                /> */}
+                <div className="detail-q">✦ 이메일</div>
+                <div className="detail-a">{me.email}</div>
+                <div className="detail-q">✦ 연락처</div>
+                <div className="detail-a">{me.telephone}</div>
               </div>
             </div>
-            <div className='additional-info'>
-              <div className='subtitle'>추가 정보</div>
-              <div className='join-content-detail'>
-                <div className='detail-q'>✦ 예상 활동 기간</div>
-                <div className='radio-wrapper'>
+            <div className="additional-info">
+              <div className="subtitle">추가 정보</div>
+              <div className="join-content-detail">
+                <div className="detail-q">✦ 예상 활동 기간</div>
+                <div className="radio-wrapper">
                   <input
-                    id='3MonthUnder'
-                    type='radio'
-                    name='actMonth'
-                    value='3MonthUnder'
+                    id="3MonthUnder"
+                    type="radio"
+                    name="actMonth"
+                    value="3MonthUnder"
+                    onChange={onChangePeriod}
                   />{' '}
-                  <label htmlFor='3MonthUnder'>3개월 미만 </label>
+                  <label htmlFor="3MonthUnder">3개월 미만 </label>
                 </div>
-                <div className='radio-wrapper'>
+                <div className="radio-wrapper">
                   <input
-                    id='3MonthOver'
-                    type='radio'
-                    name='actMonth'
-                    value='3MonthOver'
+                    id="3MonthOver"
+                    type="radio"
+                    name="actMonth"
+                    value="3MonthOver"
+                    onChange={onChangePeriod}
                   />{' '}
-                  <label htmlFor='3MonthOver'>3개월 이상 </label>
+                  <label htmlFor="3MonthOver">3개월 이상 </label>
                 </div>
-                <div className='radio-wrapper'>
+                <div className="radio-wrapper">
                   <input
-                    id='6MonthOver'
-                    type='radio'
-                    name='actMonth'
-                    value='6MonthOver'
+                    id="6MonthOver"
+                    type="radio"
+                    name="actMonth"
+                    value="6MonthOver"
+                    onChange={onChangePeriod}
                   />{' '}
-                  <label htmlFor='6MonthOver'>6개월 이상 </label>
+                  <label htmlFor="6MonthOver">6개월 이상 </label>
                 </div>
-                <div className='detail-q'>✦ 요청사항</div>
-
-                <input placeholder='요청사항을 입력해 보세요' />
+                <div className="detail-q">✦ 요청사항</div>
+                <input
+                  value={portfolio}
+                  onChange={onChangePortfolio}
+                  placeholder="요청사항을 입력해 보세요"
+                />
               </div>
             </div>
           </section>
