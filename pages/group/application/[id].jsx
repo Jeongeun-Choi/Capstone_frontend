@@ -40,7 +40,7 @@ const GroupApplication = () => {
   return (
     <>
       <GroupApplicationContainer>
-        <Header type="white" title="지원서 관리" />
+        <Header type="white" title="지원서 관리" backButton={true} />
         {applications.map(application => (
           <div className="application">
             <Application

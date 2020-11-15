@@ -20,10 +20,16 @@ const HomeContainer = styled.section`
 `;
 
 const RecommendText = styled.section`
-  padding: 2rem 0;
+  padding: 3rem 0 2rem 0;
   margin: 0 auto;
+  text-align: center;
 `;
 
+const NoRecommandation = styled.section`
+  padding: 3rem 0;
+  margin: 0 auto;
+  text-align: center;
+`
 const Home = () => {
   const dispatch = useDispatch();
   const { groups, groupsLoading } = useSelector((state) => state.group);
@@ -72,13 +78,19 @@ const Home = () => {
     <HomeContainer ref={containerRef}>
       {me.id && (
         <RecommendText>
-          "<b>{me.name}</b>님에게 추천하는 모임을 확인해보세요!"
+          선호 지역 및 카테고리를 기반으로<br />
+          <b>{me.name}</b>님에게 추천하는 모임을 확인해보세요! 😎
         </RecommendText>
       )}
       {groupsLoading && (
         <LoadingOutlined style={{ fontSize: '3rem', margin: 'auto' }} />
       )}
-      <GroupList groups={filteredGroups} />
+      {filteredGroups.length ? <GroupList groups={filteredGroups} /> : 
+        <NoRecommandation>
+          선호 지역 및 카테고리를 기반으로<br />
+          <b>{me.name}</b>님에게 추천할 수 있는 모임이 없습니다.😅<br />
+          다른 지역 또는 카테고리를 선택해보세요.
+        </NoRecommandation>}
     </HomeContainer>
   );
 };

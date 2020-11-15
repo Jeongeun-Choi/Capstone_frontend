@@ -140,10 +140,10 @@ const Application = ({
           <ContainerFilled />
         </div>
         <div className="group-application" onClick={approve}>
-          <CheckOutlined />
+          <CheckOutlined style={{color:"#6055CD"}}/>
         </div>
         <div className="group-application" onClick={reject}>
-          <CloseOutlined />
+          <CloseOutlined style={{color:"#ff6868"}}/>
       </div>
       <AprroveScreen />
       <RejcetScreen />

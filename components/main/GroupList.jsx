@@ -5,7 +5,7 @@ import GroupItem from './GroupItem';
 const GroupListWrapper = styled.ul`
   display: grid;
   grid-template-columns: 30% 30% 30%;
-  padding: 2rem 0;
+  padding: 1rem 0;
   row-gap: 0.5rem;
   column-gap: 1.5rem;
   width: 100%;
