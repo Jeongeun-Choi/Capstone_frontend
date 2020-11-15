@@ -36,7 +36,7 @@ const AppLayout = ({ children }) => {
       return;
     }
 
-    if (mounted.current && pathName !== 'signup' && pathName !== 'login') {
+    if (!me.id && pathName !== 'signup' && pathName !== 'login') {
       message.error('로그인이 필요합니다.');
       router.push('/login');
     }
