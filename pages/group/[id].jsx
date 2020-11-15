@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import Header from '../../components/main/Header';
 import customAxios from '../../utils/baseAxios';
@@ -12,6 +12,7 @@ import MakingGroup from '../../components/group/MakingGroup';
 import Review from '../../components/review/Review';
 import ReviewWriting from '../../components/review/ReviewWriting';
 import Qna from '../../components/post/Qna';
+import { loadPreferGroupsRequestAction } from '../../reducers/user';
 
 const GroupContainer = styled.div`
   width: 100%;
@@ -159,6 +160,7 @@ const Plus = styled.button`
 const GroupDetail = () => {
   const router = useRouter();
   const { id } = router.query;
+  const dispatch = useDispatch();
   const { me } = useSelector(state => state.user);
   const [selectedGroup, setSelectedGroup] = useState({});
   const [showPlusButton, setShowPlusButton] = useState(false);
@@ -216,8 +218,9 @@ const GroupDetail = () => {
   };
 
   useEffect(() => {
+    dispatch(loadPreferGroupsRequestAction(me.id));
     getReviews();
-  }, [id]);
+  }, [id, me.id]);
 
   useEffect(() => {
     getGroupData();
@@ -225,13 +228,17 @@ const GroupDetail = () => {
 
   useEffect(() => {
     if (!me.id) return;
-    const { recruitingGroups, recruitedGroups } = me.PreferGroups;
-    const isPrefer =
-      (recruitingGroups &&
-        recruitingGroups.some(group => group.id === parseInt(id, 10))) ||
-      (recruitedGroups &&
-        recruitedGroups.some(group => group.id === parseInt(id, 10)));
-    isPrefer && setFilledHeart(true);
+    if (me.PreferGroups) {
+      const { recruitingGroups, recruitedGroups } = me.PreferGroups;
+      const isPrefer =
+        (recruitingGroups?.length
+          ? recruitingGroups.some(group => group.id === parseInt(id, 10))
+          : false) ||
+        (recruitedGroups?.length
+          ? recruitedGroups.some(group => group.id === parseInt(id, 10))
+          : false);
+      isPrefer && setFilledHeart(true);
+    }
   }, [me]);
 
   useEffect(() => {
