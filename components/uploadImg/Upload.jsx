@@ -57,7 +57,7 @@ const Upload = ({ images, setImages }) => {
         //   headers: { Authorization: `Bearer ${getCookie()}` }
         // });
         await customAxios.post('/pic/delete', imageFormData);
-        setImages(images.filter(image => image != url));
+        setImages(images.filter(image => image.URL != url));
       } catch (e) {
         console.error(e);
       }
