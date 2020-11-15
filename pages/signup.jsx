@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { BasicInput, ShortInput, Button, ModalHeader } from '../public/style';
 import { Switch } from 'antd';
