@@ -5,7 +5,7 @@ import customAxios from '../../utils/baseAxios';
 import {
   ContainerFilled,
   CheckOutlined,
-  CloseOutlined,
+  CloseOutlined
 } from '@ant-design/icons';
 import useCheckResult from '../../hooks/useCheckResult';
 
@@ -19,38 +19,35 @@ const ApplicationBox = styled.div`
   margin-top: 1rem;
   padding: 0 1rem;
 
-  & .user-name{
+  & .user-name {
     font-size: 0.8em;
-    width: 4rem;
+    width: 4.5rem;
     padding-left: 0.5rem;
   }
 
-  & .user-email{
+  & .user-email {
     font-size: 0.8em;
     width: 8rem;
   }
 
-  & .application-select{
-      font-size: 0.5rem;
-    }
+  & .application-select {
+    font-size: 0.5rem;
+  }
 
   & .group-application {
     display: flex;
-    width: 20%;
-    height: 40%;
-    flex-direction: column;
+    width: 30%;
+    height: 3rem;
+    justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
     cursor: pointer;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    margin-top: 1rem;
 
     &:hover {
       color: grey;
     }
-  
+
     @media screen and (min-width: 780px) {
       width: 15%;
       font-size: 1.5rem;
@@ -63,7 +60,7 @@ const ApplicationBox = styled.div`
       }
     }
   }
-  & .application-select{
+  & .application-select {
     width: 3rem;
   }
 `;
@@ -72,20 +69,20 @@ const Application = ({
   application,
   toggleApply,
   setApplications,
-  applications,
+  applications
 }) => {
-  const { Member } = application;
+  const { Member, approvalCheck } = application;
   const { id, email, name } = Member;
   const [userInfo, setUserInfo] = useState({});
-  const { me } = useSelector((state) => state.user);
+  const { me } = useSelector(state => state.user);
 
   const [toggleApprove, AprroveScreen] = useCheckResult({
     title: '가입 확인',
-    content: '가입이 승인 되었습니다.',
+    content: '가입이 승인 되었습니다.'
   });
   const [toggleReject, RejcetScreen] = useCheckResult({
     title: '가입',
-    content: '가입이 거절되었습니다.',
+    content: '가입이 거절되었습니다.'
   });
   const openApply = () => {
     toggleApply(application, userInfo);
@@ -95,8 +92,10 @@ const Application = ({
     const data = { memberId: me.id, applyId: application.id };
     try {
       await customAxios.post(`/join-group`, data);
-      const newArray = applications.filter(
-        (application) => application.id !== application.id
+      const newArray = applications.map(userApplication =>
+        userApplication.id === application.id
+          ? { ...userApplication, approvalCheck: true }
+          : userApplication
       );
       toggleApprove();
       setApplications(newArray);
@@ -109,12 +108,14 @@ const Application = ({
     const data = {
       memberId: me.id,
       groupId: application.groupId,
-      applyId: application.id,
+      applyId: application.id
     };
     try {
       await customAxios.patch(`/apply-group`, data);
-      const newArray = applications.filter(
-        (application) => application.id !== application.id
+      const newArray = applications.map(userApplication =>
+        userApplication.id === application.id
+          ? { ...userApplication, approvalCheck: false }
+          : userApplication
       );
       toggleReject();
       setApplications(newArray);
@@ -136,15 +137,24 @@ const Application = ({
     <ApplicationBox>
       <div className="user-name">{name}</div>
       <div className="user-email">{email}</div>
-        <div className="group-application" onClick={openApply}>
-          <ContainerFilled />
-        </div>
-        <div className="group-application" onClick={approve}>
-          <CheckOutlined style={{color:"#6055CD"}}/>
-        </div>
-        <div className="group-application" onClick={reject}>
-          <CloseOutlined style={{color:"#ff6868"}}/>
+
+      <div className="group-application" onClick={openApply}>
+        <ContainerFilled />
       </div>
+      {approvalCheck ? (
+        <div className="group-application">승인 완료</div>
+      ) : approvalCheck === null ? (
+        <>
+          <div className="group-application" onClick={approve}>
+            <CheckOutlined style={{color:"#6055CD"}}/>
+          </div>
+          <div className="group-application" onClick={reject}>
+            <CloseOutlined style={{color:"#ff6868"}}/>
+          </div>
+        </>
+      ) : (
+        <div className="group-application">승인 거부</div>
+      )}
       <AprroveScreen />
       <RejcetScreen />
     </ApplicationBox>

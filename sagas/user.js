@@ -45,8 +45,9 @@ import {
   withdrawFailureAction,
   loadRecruitsSuccessAction,
   loadRecruitsFailureAction,
-  LOAD_RECRUITS_REQUEST,
+  LOAD_RECRUITS_REQUEST
 } from '../reducers/user';
+import { message } from 'antd';
 
 function loadRecruitsAPI(data) {
   const { id } = data;
@@ -106,6 +107,7 @@ function* logIn(action) {
     const response = yield call(logInAPI, action.data);
     yield put(loginSuccessAction(response.data));
   } catch (err) {
+    message.error('이메일이나 비밀번호가 틀렸습니다.');
     yield put(loginFailureAction(err));
   }
 }
@@ -228,7 +230,7 @@ function* watchDeleteLocation() {
 function addCategoryAPI(data) {
   const { memberId, categories } = data;
 
-  const categoryIds = categories.map((category) => category.id);
+  const categoryIds = categories.map(category => category.id);
   const requestData = { memberId, categoryIds };
 
   return customAxios.put('/member/category', requestData);
@@ -328,6 +330,6 @@ export default function* userSaga() {
     fork(watchLoadMyInfo),
     fork(watchUpdateMyInfo),
     fork(watchLoadPreferGroups),
-    fork(watchUpdatePreferLocation),
+    fork(watchUpdatePreferLocation)
   ]);
 }

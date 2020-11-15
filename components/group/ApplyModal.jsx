@@ -170,6 +170,7 @@ const ApplyModal = ({ selectedApply, toggleApply, type = null }) => {
                 <div>
                   <div className="content-detail-q">✦ 요구사항</div>
                   <div className="content-detail-a">{portfolio}</div>
+
                 </div>
               </div>
             </section>

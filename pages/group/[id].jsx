@@ -161,7 +161,7 @@ const GroupDetail = () => {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch();
-  const { me } = useSelector((state) => state.user);
+  const { me } = useSelector(state => state.user);
   const [selectedGroup, setSelectedGroup] = useState({});
   const [showPlusButton, setShowPlusButton] = useState(false);
   const isMyGroup = useMemo(() => {
@@ -176,7 +176,7 @@ const GroupDetail = () => {
     ActiveTimes,
     Skills,
     groupIntro,
-    location,
+    location
   } = selectedGroup;
 
   const [filledHeart, setFilledHeart] = useState(false);
@@ -194,11 +194,11 @@ const GroupDetail = () => {
     } else {
       await customAxios.delete(`/prefer-group?memberId=${me.id}&groupId=${id}`);
     }
-    setFilledHeart((prev) => !prev);
+    setFilledHeart(prev => !prev);
   }, [filledHeart]);
 
   const clickPlusButton = useCallback(() => {
-    setIsShowingSetting((prev) => !prev);
+    setIsShowingSetting(prev => !prev);
   }, []);
 
   const getGroupData = async () => {
@@ -232,10 +232,10 @@ const GroupDetail = () => {
       const { recruitingGroups, recruitedGroups } = me.PreferGroups;
       const isPrefer =
         (recruitingGroups?.length
-          ? recruitingGroups.some((group) => group.id === parseInt(id, 10))
+          ? recruitingGroups.some(group => group.id === parseInt(id, 10))
           : false) ||
         (recruitedGroups?.length
-          ? recruitedGroups.some((group) => group.id === parseInt(id, 10))
+          ? recruitedGroups.some(group => group.id === parseInt(id, 10))
           : false);
       isPrefer && setFilledHeart(true);
     }
@@ -245,10 +245,10 @@ const GroupDetail = () => {
     if (!me) {
       setShowPlusButton(false);
     }
-    const filterGroups = me?.JoinGroups.filter(
-      (group) => group.Group.id === parseInt(id)
+    const filterGroups = me?.JoinGroups?.filter(
+      group => group.Group.id === parseInt(id)
     );
-    const isMine = filterGroups.length ? true : false;
+    const isMine = filterGroups?.length ? true : false;
     setShowPlusButton(isMine);
   }, [id, me.JoinGroups, showPlusButton]);
 
@@ -263,81 +263,91 @@ const GroupDetail = () => {
               : ''
           }
           backButton={true}
-          type='white'
+          type="white"
         />
-        <section className='group-content'>
+        <section className="group-content">
           <img
-            className='big-img'
-            src={GroupImages?.length && GroupImages[0].URL}
-            alt={GroupImages?.length && GroupImages[0].description}
+            className="big-img"
+            src={
+              GroupImages?.length ? GroupImages[0].URL : `/images/basicImg.png`
+            }
+            alt={
+              GroupImages?.length ? GroupImages[0].description : `기본 이미지`
+            }
           />
 
-          <div className='group-content-header'>
-            <div className='group-basic-info'>
-              <div className='group-basic-category'>
+          <div className="group-content-header">
+            <div className="group-basic-info">
+              <div className="group-basic-category">
                 {ActiveCategories?.length
                   ? ActiveCategories[0]?.DetailCategory?.name
                   : ''}
               </div>
-              <div className='group-basic-name'>
+              <div className="group-basic-name">
                 <b>
                   {selectedGroup?.name} | {location?.split(' ')[2]}
                 </b>
               </div>
             </div>
-            <div className='like' onClick={clickHeart}>
+            <div className="like" onClick={clickHeart}>
               {filledHeart ? <HeartFilled /> : <HeartOutlined />}
             </div>
           </div>
 
-          <div className='group-content-item'>
-            <div className='subtitle'>✦ 모임소개</div>
-            <div className='team-info-textarea'>
+          <div className="group-content-item">
+            <div className="subtitle">✦ 모임소개</div>
+            <div className="team-info-textarea">
               {selectedGroup && groupIntro}
             </div>
           </div>
 
-          <div className='group-content-item'>
-            <div className='subtitle'>✦ 필요한 스킬</div>
+          <div className="group-content-item">
+            <div className="subtitle">✦ 필요한 스킬</div>
             {Skills &&
               Skills.reduce((total, skill) => {
                 return total + `${skill.name} `;
               }, '')}
           </div>
-          <div className='group-content-item'>
-            <div className='subtitle'>✦ 활동 요일</div>
+          <div className="group-content-item">
+            <div className="subtitle">✦ 활동 요일</div>
             <div>
               {ActiveTimes?.reduce((acc, time) => {
                 return acc + `${time.activeDay}, `;
               }, '')}
             </div>
           </div>
-          <div className='group-content-item'>
-            <div className='subtitle'>✦ 활동 시간</div>
-            <div className='group-content-item-time'>
-              <div className='group-content-item-time-div'>
+          <div className="group-content-item">
+            <div className="subtitle">✦ 활동 시간</div>
+            <div className="group-content-item-time">
+              <div className="group-content-item-time-div">
                 <div>시작 시간</div>
                 <div>{ActiveTimes?.length && ActiveTimes[0].startTime}</div>
               </div>
-              <div className='group-content-item-time-div'>
+              <div className="group-content-item-time-div">
                 <div>종료 시간</div>
                 <div>{ActiveTimes?.length && ActiveTimes[0].endTime}</div>
               </div>
             </div>
           </div>
 
-          <div className='group-location'>
-            <div className='subtitle'>✦ 모임 지역</div>
+          <div className="group-location">
+            <div className="subtitle">✦ 모임 지역</div>
             <div>{location}</div>
           </div>
           {location && <KakaoMap location={location} />}
-          <div className='team-page'>
+          <div className="team-page">
             <img
-              className='small-img'
-              src={GroupImages?.length && GroupImages[0].URL}
-              alt={GroupImages?.length && GroupImages[0].description}
+              className="small-img"
+              src={
+                GroupImages?.length
+                  ? GroupImages[0].URL
+                  : `/images/basicImg.png`
+              }
+              alt={
+                GroupImages?.length ? GroupImages[0].description : '기본 이미지'
+              }
             />
-            <div className='team-page-info'>
+            <div className="team-page-info">
               <div>
                 {ActiveCategories?.length &&
                   ActiveCategories[0]?.DetailCategory?.name}
@@ -349,18 +359,18 @@ const GroupDetail = () => {
             </div>
           </div>
           <Divider />
-          <div className='group-content-item'>
-            <div className='subtitle'>✦ 모임 리뷰</div>
+          <div className="group-content-item">
+            <div className="subtitle">✦ 모임 리뷰</div>
             <Review reviews={reviews} />
           </div>
           <Divider />
-          <div className='group-content-item'>
-            <div className='subtitle'>✦ 모임 Q&amp;A</div>
+          <div className="group-content-item">
+            <div className="subtitle">✦ 모임 Q&amp;A</div>
             <Qna groupId={id} isMyGroup={isMyGroup} />
           </div>
         </section>
         {showPlusButton && (
-          <Plus type='button' onClick={clickPlusButton}>
+          <Plus type="button" onClick={clickPlusButton}>
             <PlusOutlined />
           </Plus>
         )}
@@ -381,7 +391,7 @@ const GroupDetail = () => {
         />
       )}
       {showReview && (
-        <ReviewWriting id={id} type='group' setCloseModal={setShowReview} />
+        <ReviewWriting id={id} type="group" setCloseModal={setShowReview} />
       )}
     </>
   );

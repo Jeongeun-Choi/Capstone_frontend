@@ -50,7 +50,7 @@ const GroupItem = ({ group }) => {
             alt={group.GroupImages[0].description}
           ></img>
         ) : (
-          <img src={`/images/basic_${categoryName}.png`} alt="대체 이미지" />
+          <img src={`/images/basicImg.png`} alt="대체 이미지" />
         )}
         {group.ActiveCategories?.length ? (
           <div className="group-category">
