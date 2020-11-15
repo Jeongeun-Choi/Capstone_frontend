@@ -163,7 +163,7 @@ const ApplyModal = ({ selectedApply, toggleApply, type = null }) => {
                 <div className="column-name">예상 활동 기간</div>
                 <div>{activityPeriod}</div>
                 <div>
-                  <div className="column-name">포트폴리오</div>
+                  <div className="column-name">요구사항</div>
                   {portfolio}
                 </div>
               </div>

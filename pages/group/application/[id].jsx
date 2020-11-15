@@ -12,6 +12,7 @@ const GroupApplicationContainer = styled.div`
   & .application {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
@@ -41,8 +42,8 @@ const GroupApplication = () => {
     <>
       <GroupApplicationContainer>
         <Header type="white" title="지원서 관리" />
-        {applications.map(application => (
-          <div className="application">
+        <div className="application">
+          {applications.map(application => (
             <Application
               key={application.id}
               application={application}
@@ -50,8 +51,8 @@ const GroupApplication = () => {
               setApplications={setApplications}
               applications={applications}
             />
-          </div>
-        ))}
+          ))}
+        </div>
       </GroupApplicationContainer>
       {showApplication && (
         <ApplyModal
