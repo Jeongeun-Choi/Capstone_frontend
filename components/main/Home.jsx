@@ -3,14 +3,13 @@ import React, {
   useEffect,
   useState,
   useRef,
-  useMemo
+  useMemo,
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
 import { loadGroupsRequestAction } from '../../reducers/group';
 import GroupList from './GroupList';
 import styled from '@emotion/styled';
-import { loadMyInfoRequestAction } from '../../reducers/user';
 
 const HomeContainer = styled.section`
   width: 100%;
@@ -32,8 +31,8 @@ const NoRecommandation = styled.section`
 `;
 const Home = () => {
   const dispatch = useDispatch();
-  const { groups, groupsLoading } = useSelector(state => state.group);
-  const { me } = useSelector(state => state.user);
+  const { groups, groupsLoading } = useSelector((state) => state.group);
+  const { me } = useSelector((state) => state.user);
   const containerRef = useRef(null);
   const filteredGroups = useMemo(() => {
     if (
@@ -45,7 +44,7 @@ const Home = () => {
     )
       return groups;
 
-    return groups.filter(group => {
+    return groups.filter((group) => {
       // me.PreferLocations 의 address , me.PreferCategories 배열의 DetailCategory의 id
       if (group?.ActiveCategories?.length) {
         const result = group.ActiveCategories.some(({ detilCategoryId }) =>
@@ -59,14 +58,8 @@ const Home = () => {
       if (group.location && me.PreferLocations.length) {
         const result = me.PreferLocations.some(
           ({ address }) =>
-            address
-              .split(' ')
-              .slice(0, 2)
-              .join(' ') ===
-            group.location
-              .split(' ')
-              .slice(0, 2)
-              .join(' ')
+            address.split(' ').slice(0, 2).join(' ') ===
+            group.location.split(' ').slice(0, 2).join(' ')
         );
         if (result) return true;
       }

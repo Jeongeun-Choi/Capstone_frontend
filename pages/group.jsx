@@ -8,8 +8,7 @@ import Header from '../components/main/Header';
 import {
   loadJoingroupsRequestAction,
   loadApplyGroupsRequestAction,
-  loadMyInfoRequestAction,
-  loadPreferGroupsRequestAction
+  loadPreferGroupsRequestAction,
 } from '../reducers/user';
 
 // #6055CD
@@ -44,13 +43,9 @@ const group = () => {
   const { TabPane } = Tabs;
   const applyGroups = '내가 지원한 모임';
   const myGroups = '나의 모임';
-  const { me } = useSelector(state => state.user);
-  const { posts } = useSelector(state => state.post);
-  const { groups } = useSelector(state => state.group);
-
-  // useEffect(() => {
-  //   dispatch(loadMyInfoRequestAction());
-  // }, []);
+  const { me } = useSelector((state) => state.user);
+  const { posts } = useSelector((state) => state.post);
+  const { groups } = useSelector((state) => state.group);
 
   useEffect(() => {
     if (me.id) {
@@ -62,18 +57,18 @@ const group = () => {
 
   return (
     <GroupContainer>
-      <Header type="white" title="모임" />
-      <Tabs defaultActiveKey="1">
-        <TabPane tab={applyGroups} key="1">
+      <Header type='white' title='모임' />
+      <Tabs defaultActiveKey='1'>
+        <TabPane tab={applyGroups} key='1'>
           {me?.ApplyGroups?.length !== 0 ? (
-            <Groups groups={me.ApplyGroups} type="group" />
+            <Groups groups={me.ApplyGroups} type='group' />
           ) : (
             <EmptyGroups pageTab={applyGroups} />
           )}
         </TabPane>
-        <TabPane tab={myGroups} key="2">
+        <TabPane tab={myGroups} key='2'>
           {me?.JoinGroups?.length !== 0 ? (
-            <Groups groups={me.JoinGroups} type="group" />
+            <Groups groups={me.JoinGroups} type='group' />
           ) : (
             <EmptyGroups pageTab={myGroups} />
           )}

@@ -23,7 +23,7 @@ const AppLayout = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const mounted = useRef(null);
-  const { me } = useSelector(state => state.user);
+  const { me } = useSelector((state) => state.user);
   const [, pathName, secondPath] = router.pathname.split('/');
 
   useEffect(() => {
@@ -45,10 +45,14 @@ const AppLayout = ({ children }) => {
       message.error('로그인이 필요합니다.');
       router.push('/login');
     }
+
+    return () => {
+      mounted.current = false;
+    };
   }, [me && me.id]);
 
   return (
-    <AppContainer ref={mounted}>
+    <AppContainer>
       {children}
       {!notNeedFooterPages.includes(pathName) &&
         !(haveSecondPathes.includes(pathName) && secondPath) && (

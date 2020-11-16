@@ -1,15 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { basicStyle, Modal } from '../../public/style';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
-import {
-  loadJoingroupsRequestAction,
-  loadApplyGroupsRequestAction,
-  loadRecruitsRequestAction,
-  loadPreferGroupsRequestAction,
-  loadMyInfoRequestAction,
-} from '../../reducers/user';
 import { loadCategorysRequestAction } from '../../reducers/category';
 
 const InitialLocationContainer = styled.div`
@@ -63,7 +56,6 @@ const InitialLocation = ({ setShowingModal }) => {
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(loadMyInfoRequestAction());
     dispatch(loadCategorysRequestAction());
   }, []);
 
