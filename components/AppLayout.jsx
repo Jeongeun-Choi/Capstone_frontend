@@ -27,8 +27,10 @@ const AppLayout = ({ children }) => {
   const [, pathName, secondPath] = router.pathname.split('/');
 
   useEffect(() => {
-    dispatch(loadMyInfoRequestAction());
-  }, []);
+    if (!me || !me.PreferCategories || !me.PreferLocations) {
+      dispatch(loadMyInfoRequestAction());
+    }
+  }, [pathName, me]);
 
   useEffect(() => {
     if (!mounted.current) {
@@ -49,7 +51,7 @@ const AppLayout = ({ children }) => {
     return () => {
       mounted.current = false;
     };
-  }, [me && me.id, logInError]);
+  }, [me && me.id, logInError, pathName]);
 
   return (
     <AppContainer>
