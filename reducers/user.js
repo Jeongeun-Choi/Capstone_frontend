@@ -320,6 +320,7 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case LOAD_MY_INFO_REQUEST: {
+        draft.logInError = null;
         break;
       }
       case LOAD_MY_INFO_SUCCESS: {
@@ -327,6 +328,7 @@ const reducer = (state = initialState, action) => {
         break;
       }
       case LOAD_MY_INFO_FAILURE: {
+        draft.logInError = action.error;
         break;
       }
       case UPDATE_MY_INFO_REQUEST: {

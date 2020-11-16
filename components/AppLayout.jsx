@@ -23,7 +23,7 @@ const AppLayout = ({ children }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const mounted = useRef(null);
-  const { me } = useSelector((state) => state.user);
+  const { me, logInError } = useSelector((state) => state.user);
   const [, pathName, secondPath] = router.pathname.split('/');
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const AppLayout = ({ children }) => {
     return () => {
       mounted.current = false;
     };
-  }, [me && me.id]);
+  }, [me && me.id, logInError]);
 
   return (
     <AppContainer>
