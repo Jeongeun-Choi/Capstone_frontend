@@ -119,7 +119,7 @@ const SearchFilter = ({
           </section>
           <FilterDay setActiveDay={setActiveDay} />
           <FilterLocation setActiveLocation={setActiveLocation} />
-          <Button>검 색</Button>
+          <Button>설 정</Button>
         </section>
       </FilterForm>
     </Modal>
