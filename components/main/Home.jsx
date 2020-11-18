@@ -47,11 +47,12 @@ const Home = () => {
     return groups.filter((group) => {
       // me.PreferLocations 의 address , me.PreferCategories 배열의 DetailCategory의 id
       if (group?.ActiveCategories?.length) {
-        const result = group.ActiveCategories.some(({ detilCategoryId }) =>
+        const result = group.ActiveCategories.some(({ detailCategoryId }) =>
           me.PreferCategories.some(
-            ({ DetailCategory }) => DetailCategory.id === detilCategoryId
+            ({ DetailCategory }) => DetailCategory.id === detailCategoryId
           )
         );
+
         if (result) return true;
       }
 
