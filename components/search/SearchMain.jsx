@@ -30,7 +30,7 @@ const SearchContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
-  .search_select{
+  .search_select {
     margin-top: 0.7rem;
   }
 `;
@@ -124,7 +124,7 @@ const SearchMain = () => {
   );
   return (
     <SearchContainer ref={containerRef}>
-      <Header type='white' backButton='true' title='모임 검색' />
+      <Header type='white' backButton='true' title='검색' />
       <SearchInput
         value={inputValue}
         onChange={onChangeInputValue}
@@ -132,13 +132,13 @@ const SearchMain = () => {
         onSearch={onPressInput}
       />
 
-      <div className="search_select">
+      <div className='search_select'>
         <Select defaultValue='group' size='small' onChange={changeSelect}>
           <Option value='group'>모임</Option>
           <Option value='recruit'>모집글</Option>
         </Select>
       </div>
-    
+
       {isGroup
         ? groups && <GroupList groups={groups} />
         : posts && <PostList category={categoryName} posts={posts} />}
