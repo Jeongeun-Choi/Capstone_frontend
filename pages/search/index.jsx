@@ -49,7 +49,7 @@ const search = () => {
 
   return (
     <SearchContainer>
-      <Header type='white' title='모임 검색' />
+      <Header type='white' title='검색' />
       <SearchInput />
       <div className='information'>
         "모임명을 <b>입력</b>하거나, 아래의 <b>카테고리를 선택</b>하여 모임을
