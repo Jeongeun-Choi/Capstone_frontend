@@ -176,7 +176,8 @@ const GroupDetail = () => {
     ActiveTimes,
     Skills,
     groupIntro,
-    location
+    location,
+    createdAt
   } = selectedGroup;
 
   const [filledHeart, setFilledHeart] = useState(false);
@@ -355,7 +356,7 @@ const GroupDetail = () => {
               <div>
                 <b>{selectedGroup?.name}</b>
               </div>
-              <div>since 2019</div>
+              <div>since {createdAt?.split(' ')[0].split('-')[0]}</div>
             </div>
           </div>
           <Divider />

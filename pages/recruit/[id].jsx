@@ -185,7 +185,7 @@ const PostDetail = () => {
               <div>
                 <b>{JoinGroup?.Group && JoinGroup.Group.name}</b>
               </div>
-              <div>since 2019</div>
+              <div>since {JoinGroup?.Group.createdAt.split(' ')[0].split('-')[0]}</div>
             </div>
           </div>
         </main>
