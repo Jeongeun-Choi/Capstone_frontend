@@ -13,9 +13,8 @@
 
 - 2020/10/01 ~ 2020/11/20
 
-### 🏆프로젝트 주소
+### [🏆프로젝트 주소](https://capstone-frontend.vercel.app)
 
-[Frontend](https://capstone-frontend.vercel.app)
 
 ### 📕프로젝트 소개
 
