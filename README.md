@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/redux--saga-v1.1.3-89D96D"/>
 </p>
 
-### 개발 기간
+### 🗓개발 기간
 
 - 2020/10/01 ~ 2020/11/20
 
@@ -43,3 +43,16 @@
 
 [시연 동영상](https://www.youtube.com/watch?v=LJOgSqOo3C8&t=1s)
 
+### :octocat:Git
+
+- Branch 
+  - master: 전체 기능을 가진 브랜치
+  - 팀원 각각의 브랜치
+    - mun
+    - jeong
+    - kyung
+    
+### [Back-end](https://github.com/geonwoomun/Capstone_backend) 
+
+
+ 
